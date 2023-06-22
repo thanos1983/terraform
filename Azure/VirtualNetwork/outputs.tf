@@ -21,12 +21,3 @@ output "address_space" {
 output "guid" {
   value = azurerm_virtual_network.virtual_network.guid
 }
-
-output "subnet" {
-  value = azurerm_virtual_network.virtual_network.subnet
-}
-
-output "tenant_id" {
-  description = "The ID of this subnet."
-  value = zipmap( values(azurerm_virtual_network.virtual_network.subnet)[*].name, values(azurerm_virtual_network.virtual_network.subnet)[*].id )
-}

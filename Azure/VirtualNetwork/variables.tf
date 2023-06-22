@@ -10,7 +10,7 @@ variable "resources_group_name" {
 
 variable "address_space" {
   description = "The address space that is used the virtual network. You can supply more than one address space."
-  type        = string
+  type        = list(string)
 }
 
 variable "location" {
@@ -52,17 +52,7 @@ variable "flow_timeout_in_minutes" {
     condition     = var.flow_timeout_in_minutes >= 4 && var.flow_timeout_in_minutes <= 30
     error_message = "Accepted values: 4-30."
   }
-  default = 1
-}
-
-variable "subnet_block" {
-  description = "Can be specified multiple times to define multiple subnets."
-  type        = map(object({
-    name           = string
-    address_prefix = string
-    security_group = optional(string)
-  }))
-  default = null
+  default = 4
 }
 
 variable "timeouts_block" {

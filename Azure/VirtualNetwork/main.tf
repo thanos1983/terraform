@@ -6,7 +6,7 @@ resource "azurerm_virtual_network" "virtual_network" {
   bgp_community       = var.bgp_community
 
   dynamic "ddos_protection_plan" {
-    for_each = var.ddos_protection_plan_block
+    for_each = var.ddos_protection_plan_block[*]
     content {
       id     = ddos_protection_plan.value.id
       enable = ddos_protection_plan.value.enable
@@ -16,15 +16,6 @@ resource "azurerm_virtual_network" "virtual_network" {
   dns_servers             = var.dns_server
   edge_zone               = var.edge_zone
   flow_timeout_in_minutes = var.flow_timeout_in_minutes
-
-  dynamic "subnet" {
-    for_each = var.subnet_block
-    content {
-      name           = subnet.value.name
-      address_prefix = subnet.value.address_prefix
-      security_group = subnet.value.security_group
-    }
-  }
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
