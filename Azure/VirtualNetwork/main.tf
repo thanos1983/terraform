@@ -27,5 +27,13 @@ resource "azurerm_virtual_network" "virtual_network" {
     }
   }
 
-  tags   = var.tags
+  tags = var.tags
+}
+
+module "subnet" {
+  source               = "../VirtualNetworkSubNet"
+  name                 = var.subnet_name
+  address_prefixes     = var.subnet_address_prefixes
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
+  resource_group_name  = azurerm_virtual_network.virtual_network.resource_group_name
 }

@@ -70,3 +70,13 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)
 }
+
+variable "subnet_name" {
+  description = "The name of the subnet."
+  type        = string
+}
+
+variable "subnet_address_prefixes" {
+  description = "The address prefixes to use for the subnet."
+  type        = list(string)
+}
