@@ -50,7 +50,7 @@ resource "azurerm_mssql_server" "mssql_server" {
 
 module "kv_access_policy_mssql_server" {
   source             = "../KeyVaultAccessPolicy"
-  count              = var.access_policy_kv == false ? 0 : 1
+  count              = var.key_vault_id == null ? 1 : 0
   key_vault_id       = var.key_vault_id
   object_id          = data.azuread_service_principal.mssql_server.object_id
   tenant_id          = var.tenant_id
@@ -63,7 +63,7 @@ module "kv_access_policy_mssql_server" {
 
 module "kv_secret_administrator_login_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = var.access_policy_kv == false ? 0 : 1
+  count        = var.key_vault_id == null ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "administrator-login"
   value        = var.administrator_login
@@ -75,7 +75,7 @@ module "kv_secret_administrator_login_mssql_server" {
 
 module "kv_secret_administrator_login_password_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = var.access_policy_kv == false ? 0 : 1
+  count        = var.key_vault_id == null ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "administrator-login-password"
   value        = coalesce(var.administrator_login_password, module.password[0].result)

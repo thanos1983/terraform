@@ -1,10 +1,22 @@
+output "administrator_username" {
+  sensitive   = true
+  description = "The Administrator Username Windows Virtual Machine."
+  value       = azurerm_windows_virtual_machine.windows_virtual_machine.admin_username
+}
+
+output "administrator_password" {
+  sensitive   = true
+  description = "The Administrator Password Windows Virtual Machine."
+  value       = azurerm_windows_virtual_machine.windows_virtual_machine.admin_password
+}
+
 output "id" {
   description = "The ID of the Windows Virtual Machine."
   value       = azurerm_windows_virtual_machine.windows_virtual_machine.id
 }
 
 output "name" {
-  description = "The Primary Private IP Address assigned to this Virtual Machine."
+  description = "The Name assigned to this Virtual Machine."
   value       = azurerm_windows_virtual_machine.windows_virtual_machine.name
 }
 

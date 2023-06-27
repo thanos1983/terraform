@@ -1,88 +1,18 @@
-variable "admin_password" {
-  description = "The Password which should be used for the local-administrator on this Virtual Machine."
-  type        = string
-  default     = null
-}
-
 variable "admin_username" {
   description = "The username of the local administrator used for the Virtual Machine."
   type        = string
   default     = "adminuser"
 }
 
-variable "length" {
-  description = "The length of the string desired. The minimum value for length is 1."
-  type        = number
-  default     = 25
-}
-
-variable "lower" {
-  description = "Include lowercase alphabet characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.lower)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "min_lower" {
-  description = "Minimum number of lowercase alphabet characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_numeric" {
-  description = "Minimum number of numeric characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_special" {
-  description = "Minimum number of special characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_upper" {
-  description = "Minimum number of uppercase alphabet characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "numeric" {
-  description = "Include numeric characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.numeric)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "special" {
-  description = "Include special characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.special)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "upper" {
-  description = "Include uppercase alphabet characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.upper)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
 variable "location" {
   description = "The Azure location where the Windows Virtual Machine should exist."
   type        = string
+}
+
+variable "license_type" {
+  description = "Specifies the BYOL Type for this Virtual Machine."
+  type        = string
+  default     = null
 }
 
 variable "name" {
@@ -93,39 +23,6 @@ variable "name" {
 variable "network_interface_ids" {
   description = "A list of Network Interface IDs which should be attached to this Virtual Machine."
   type        = list(string)
-}
-
-variable "caching" {
-  description = "The Type of Caching which should be used for the Internal OS Disk."
-  type        = string
-  validation {
-    condition = contains([
-      "None", "ReadOnly", "ReadWrite"
-    ], title(var.caching))
-    error_message = "Kind of account must be \"None\", \"ReadOnly\" or \"ReadWrite\"."
-  }
-  default = "ReadWrite"
-}
-
-variable "storage_account_type" {
-  description = "The Type of Storage Account which should back this the Internal OS Disk."
-  type        = string
-  validation {
-    condition = contains([
-      "Standard_LRS", "StandardSSD_LRS", "Premium_LRS"
-    ], title(var.storage_account_type))
-    error_message = "Storage account type can only be \"Standard_LRS\", \"StandardSSD_LRS\", \"Premium_LRS\", \"StandardSSD_ZRS\" or \"Premium_ZRS\"."
-  }
-  default = "Premium_LRS"
-}
-
-variable "diff_disk_settings_block" {
-  description = "A diff_disk_settings block as defined above. "
-  type        = object({
-    option    = string
-    placement = optional(string)
-  })
-  default = null
 }
 
 variable "resource_group_name" {
@@ -154,11 +51,17 @@ variable "additional_capabilities_block" {
   default = null
 }
 
-variable "additional_unattend_content_block" {
-  description = "One or more additional_unattend_content blocks as defined below."
+variable "admin_password" {
+  description = "The Password which should be used for the local-administrator on this Virtual Machine."
+  type        = string
+  default     = null
+}
+
+variable "admin_ssh_key_block" {
+  description = ""
   type        = list(object({
-    content = string
-    setting = string
+    public_key = string
+    username   = string
   }))
   default = []
 }
@@ -219,22 +122,20 @@ variable "dedicated_host_group_id" {
   default     = null
 }
 
+variable "disable_password_authentication" {
+  description = "Should Password Authentication be disabled on this Virtual Machine?"
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.disable_password_authentication)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = false
+}
+
 variable "edge_zone" {
   description = "Specifies the Edge Zone within the Azure Region where this Windows Virtual Machine should exist."
   type        = string
   default     = null
-}
-
-variable "enable_automatic_updates" {
-  description = "Specifies if Automatic Updates are Enabled for the Windows Virtual Machine."
-  type        = bool
-  validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.enable_automatic_updates)))
-    error_message = "Possible values can only be \"true\" or \"false\"."
-  }
-  default = true
 }
 
 variable "encryption_at_host_enabled" {
@@ -266,18 +167,6 @@ variable "gallery_application_block" {
   default = []
 }
 
-variable "hotpatching_enabled" {
-  description = " Should the VM be patched without requiring a reboot? Possible values are true or false."
-  type        = bool
-  validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.hotpatching_enabled)))
-    error_message = "Possible values can only be \"true\" or \"false\"."
-  }
-  default = false
-}
-
 variable "identity_block" {
   description = "An identity block."
   type        = object({
@@ -285,24 +174,6 @@ variable "identity_block" {
     identity_ids = optional(list(number))
   })
   default = null
-}
-
-variable "license_type" {
-  description = "Specifies the type of on-premise license (also known as Azure Hybrid Use Benefit) which should be used for this Virtual Machine."
-  type        = string
-  validation {
-    condition = contains([
-      "None", "Windows_Client", "Windows_Server"
-    ], title(var.license_type))
-    error_message = "Possible values can only be \"None\", \"Windows_Client\" or \"Windows_Server\"."
-  }
-  default = "None"
-}
-
-variable "max_bid_price" {
-  description = "The maximum price you're willing to pay for this Virtual Machine, in US Dollars; which must be greater than the current spot price."
-  type        = string
-  default     = "-1"
 }
 
 variable "patch_assessment_mode" {
@@ -322,11 +193,17 @@ variable "patch_mode" {
   type        = string
   validation {
     condition = contains([
-      "Manual", "AutomaticByOS", "AutomaticByPlatform"
+      "AutomaticByPlatform", "ImageDefault"
     ], title(var.patch_mode))
-    error_message = "Possible values can only be \"Manual\", \"AutomaticByPlatform\" or \"AutomaticByOS\"."
+    error_message = "Possible values can only be \"AutomaticByPlatform\" or \"ImageDefault\"."
   }
-  default = "AutomaticByOS"
+  default = "AutomaticByPlatform"
+}
+
+variable "max_bid_price" {
+  description = "The maximum price you're willing to pay for this Virtual Machine, in US Dollars; which must be greater than the current spot price."
+  type        = string
+  default     = "-1"
 }
 
 variable "plan_block" {
@@ -405,6 +282,198 @@ variable "source_image_id" {
   default     = null
 }
 
+variable "source_image_reference_block" {
+  description = ""
+  type        = object({
+    publisher = string
+    offer     = string
+    sku       = string
+    version   = string
+  })
+  default = null
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  type        = map(any)
+  default     = null
+}
+
+variable "termination_notification_block" {
+  description = "A termination_notification block."
+  type        = object({
+    enabled = string
+    timeout = optional(number)
+  })
+  default = null
+}
+
+variable "user_data" {
+  description = "The Base64-Encoded User Data which should be used for this Virtual Machine."
+  type        = string
+  default     = null
+}
+
+variable "vtpm_enabled" {
+  description = "Specifies if vTPM (virtual Trusted Platform Module) and Trusted Launch is enabled for the Virtual Machine."
+  type        = string
+  default     = null
+}
+
+variable "virtual_machine_scale_set_id" {
+  description = "Specifies the Orchestrated Virtual Machine Scale Set that this Virtual Machine should be created within."
+  type        = string
+  default     = null
+}
+
+variable "zone" {
+  description = "Specifies the Availability Zone in which this Windows Virtual Machine should be located."
+  type        = string
+  default     = "1"
+}
+
+variable "disk_encryption_set_id" {
+  description = "The ID of the Disk Encryption Set which should be used to Encrypt this OS Disk."
+  type        = string
+  default     = null
+}
+
+variable "length" {
+  description = "The length of the string desired. The minimum value for length is 1."
+  type        = number
+  default     = 25
+}
+
+variable "lower" {
+  description = "Include lowercase alphabet characters in the result."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.lower)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "min_lower" {
+  description = "Minimum number of lowercase alphabet characters in the result."
+  type        = number
+  default     = 2
+}
+
+variable "min_numeric" {
+  description = "Minimum number of numeric characters in the result."
+  type        = number
+  default     = 2
+}
+
+variable "min_special" {
+  description = "Minimum number of special characters in the result."
+  type        = number
+  default     = 2
+}
+
+variable "min_upper" {
+  description = "Minimum number of uppercase alphabet characters in the result."
+  type        = number
+  default     = 2
+}
+
+variable "numeric" {
+  description = "Include numeric characters in the result."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.numeric)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "special" {
+  description = "Include special characters in the result."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.special)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "upper" {
+  description = "Include uppercase alphabet characters in the result."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.upper)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "caching" {
+  description = "The Type of Caching which should be used for the Internal OS Disk."
+  type        = string
+  validation {
+    condition = contains([
+      "None", "ReadOnly", "ReadWrite"
+    ], title(var.caching))
+    error_message = "Kind of account must be \"None\", \"ReadOnly\" or \"ReadWrite\"."
+  }
+  default = "ReadWrite"
+}
+
+variable "storage_account_type" {
+  description = "The Type of Storage Account which should back this the Internal OS Disk."
+  type        = string
+  validation {
+    condition = contains([
+      "Standard_LRS", "StandardSSD_LRS", "Premium_LRS"
+    ], title(var.storage_account_type))
+    error_message = "Storage account type can only be \"Standard_LRS\", \"StandardSSD_LRS\", \"Premium_LRS\", \"StandardSSD_ZRS\" or \"Premium_ZRS\"."
+  }
+  default = "Premium_LRS"
+}
+
+variable "diff_disk_settings_block" {
+  description = "A diff_disk_settings block as defined above. "
+  type        = object({
+    option    = string
+    placement = optional(string)
+  })
+  default = null
+}
+
+variable "additional_unattend_content_block" {
+  description = "One or more additional_unattend_content blocks as defined below."
+  type        = list(object({
+    content = string
+    setting = string
+  }))
+  default = []
+}
+
+variable "enable_automatic_updates" {
+  description = "Specifies if Automatic Updates are Enabled for the Windows Virtual Machine."
+  type        = bool
+  validation {
+    condition = contains([
+      "true", "false"
+    ], lower(tostring(var.enable_automatic_updates)))
+    error_message = "Possible values can only be \"true\" or \"false\"."
+  }
+  default = true
+}
+
+variable "hotpatching_enabled" {
+  description = " Should the VM be patched without requiring a reboot? Possible values are true or false."
+  type        = bool
+  validation {
+    condition = contains([
+      "true", "false"
+    ], lower(tostring(var.hotpatching_enabled)))
+    error_message = "Possible values can only be \"true\" or \"false\"."
+  }
+  default = false
+}
+
 variable "publisher" {
   description = "Specifies the publisher of the image used to create the virtual machines."
   type        = string
@@ -429,43 +498,10 @@ variable "image_reference_version" {
   default     = "latest"
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the resource."
-  type        = map(any)
-  default     = null
-}
-
-variable "termination_notification_block" {
-  description = "A termination_notification block."
-  type        = object({
-    enabled = string
-    timeout = optional(number)
-  })
-  default = null
-}
-
 variable "timezone" {
   description = "Specifies the Time Zone which should be used by the Virtual Machine."
   type        = string
   default     = "Romance Standard Time"
-}
-
-variable "user_data" {
-  description = "The Base64-Encoded User Data which should be used for this Virtual Machine."
-  type        = string
-  default     = null
-}
-
-variable "virtual_machine_scale_set_id" {
-  description = "Specifies the Orchestrated Virtual Machine Scale Set that this Virtual Machine should be created within."
-  type        = string
-  default     = null
-}
-
-variable "vtpm_enabled" {
-  description = "Specifies if vTPM (virtual Trusted Platform Module) and Trusted Launch is enabled for the Virtual Machine."
-  type        = string
-  default     = null
 }
 
 variable "winrm_listener_block" {
@@ -475,12 +511,6 @@ variable "winrm_listener_block" {
     certificate_url = optional(string)
   }))
   default = []
-}
-
-variable "zone" {
-  description = "Specifies the Availability Zone in which this Windows Virtual Machine should be located."
-  type        = string
-  default     = "1"
 }
 
 variable "timeouts_block" {

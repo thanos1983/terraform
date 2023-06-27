@@ -80,3 +80,25 @@ variable "subnet_address_prefixes" {
   description = "The address prefixes to use for the subnet."
   type        = list(string)
 }
+
+variable "private_endpoint_network_policies_enabled" {
+  description = "Enable or Disable network policies for the private endpoint on the subnet."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.private_endpoint_network_policies_enabled)))
+    error_message = "Possible values can be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "service_endpoints" {
+  description = "The list of Service endpoints to associate with the subnet."
+  type        = list(string)
+  default     = []
+}
+
+variable "service_endpoint_policy_ids" {
+  description = "The list of IDs of Service Endpoint Policies to associate with the subnet."
+  type        = list(string)
+  default     = null
+}

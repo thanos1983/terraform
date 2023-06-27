@@ -1,9 +1,9 @@
-# Azure Windows Virtual Machine
+# Azure Linux Virtual Machine
 
 ## Sample of use:
 
 ```bash
-module "windows_virtual_machine_<project>" {
+module "linux_virtual_machine_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
   name = "my_linux_virtual_machine"
   .
@@ -34,4 +34,4 @@ module "windows_virtual_machine_<project>" {
 - name
 ```
 
-###### More information can be found on the official document [azurerm_windows_virtual_machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_virtual_machine)
+###### More information can be found on the official document [azurerm_linux_virtual_machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine)

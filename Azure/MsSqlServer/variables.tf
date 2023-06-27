@@ -96,6 +96,7 @@ variable "mssql_server_version" {
 variable "administrator_login" {
   description = "The administrator login name for the new server."
   type        = string
+  default     = null
 }
 
 variable "administrator_login_password" {
@@ -179,11 +180,11 @@ variable "tags" {
   default     = null
 }
 
-variable "access_policy_kv" {
-  description = "Create access policy for MSSQL Server if the user desires."
-  type        = bool
-  default     = true
-}
+#variable "access_policy_kv" {
+#  description = "Create access policy for MSSQL Server if the user desires."
+#  type        = bool
+#  default     = true
+#}
 
 variable "kv_name" {
   description = "Key Vault if the user desires to create access policy for the DB."
@@ -208,12 +209,13 @@ variable "secret_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
   }
-  default = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
+  default = ["Get"]
 }
 
 variable "tenant_id" {
   description = "The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault."
   type        = string
+  default     = null
 }
 
 variable "object_id" {
@@ -225,6 +227,7 @@ variable "object_id" {
 variable "key_vault_id" {
   description = "The key vault ID for the vault."
   type        = string
+  default     = null
 }
 
 variable "firewallRulesMap" {

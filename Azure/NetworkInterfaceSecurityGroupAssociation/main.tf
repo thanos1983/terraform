@@ -1,8 +1,6 @@
-resource "azurerm_network_security_group" "network_security_group" {
-  name                = var.name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  tags                = var.tags
+resource "azurerm_network_interface_security_group_association" "network_interface_security_group_association" {
+  network_interface_id      = var.network_interface_id
+  network_security_group_id = var.network_security_group_id
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

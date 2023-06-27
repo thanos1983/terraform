@@ -1,7 +1,9 @@
 output "id" {
-  value = azurerm_network_security_group.network_security_group.id
+  description = "Specifies the ID of the network security group."
+  value       = azurerm_network_security_group.network_security_group.id
 }
 
 output "name" {
-  value = azurerm_network_security_group.network_security_group.name
+  description = "Specifies the name of the network security group."
+  value       = azurerm_network_security_group.network_security_group.name
 }

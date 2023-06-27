@@ -1,4 +1,4 @@
-variable "storage_account_name" {
+variable "name" {
   description = "Specifies the name of the storage account. Only lowercase Alphanumeric characters allowed."
   type        = string
   default     = null
