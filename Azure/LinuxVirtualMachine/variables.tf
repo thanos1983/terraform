@@ -554,7 +554,10 @@ variable "certificate_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Delete\", \"DeleteIssuers\", \"Get\", \"GetIssuers\", \"Import\", \"List\", \"ListIssuers\", \"ManageContacts\", \"ManageIssuers\", \"Purge\", \"Recover\", \"Restore\", \"SetIssuers\", \"Update\"."
   }
-  default = ["List"]
+  default = [
+    "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers",
+    "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
+  ]
 }
 
 variable "key_permissions" {
@@ -564,13 +567,16 @@ variable "key_permissions" {
     condition = alltrue([
       for key_permission in var.key_permissions : contains([
         "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore",
-        "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "ManageContacts", "ManageIssuers",
-        "SetIssuers", "GetRotationPolicy", "SetRotationPolicy"
+        "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy",
+        "SetRotationPolicy"
       ], key_permission)
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Decrypt\", \"Delete\", \"Encrypt\", \"Get\", \"Import\", \"List\", \"Purge\", \"Recover\", \"Restore\", \"Sign\", \"UnwrapKey\", \"Update\", \"Verify\", \"WrapKey\", \"Release\", \"Rotate\", \"GetRotationPolicy\" and \"SetRotationPolicy\"."
   }
-  default = ["List"]
+  default = [
+    "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore",
+    "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
+  ]
 }
 
 variable "secret_permissions" {
@@ -599,7 +605,10 @@ variable "storage_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"DeleteSAS\", \"Get\", \"GetSAS\", \"List\", \"ListSAS\", \"Purge\", \"Recover\", \"RegenerateKey\", \"Restore\", \"Set\", \"SetSAS\", \"Update\"."
   }
-  default = ["List"]
+  default = [
+    "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey",
+    "Restore", "Set", "SetSAS", "Update"
+  ]
 }
 
 variable "administrator_username" {

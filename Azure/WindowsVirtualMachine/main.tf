@@ -191,7 +191,6 @@ module "kv_secret_admin_username" {
   name         = "win-vm-adm-username"
   value        = var.administrator_username
   depends_on   = [
-    azurerm_windows_virtual_machine.windows_virtual_machine,
     module.kv_access_policy
   ]
 }
@@ -203,7 +202,6 @@ module "kv_secret_admin_password" {
   name         = "win-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
   depends_on   = [
-    azurerm_windows_virtual_machine.windows_virtual_machine,
     module.kv_access_policy
   ]
 }
