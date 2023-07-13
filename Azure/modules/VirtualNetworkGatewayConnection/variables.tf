@@ -160,11 +160,11 @@ variable "ipsec_policy_block" {
 
 variable "traffic_selector_policy_block" {
   description = "One or more traffic_selector_policy blocks."
-  type        = list(object({
+  type        = map(object({
     local_address_cidrs  = list(string)
     remote_address_cidrs = list(string)
   }))
-  default = []
+  default = {}
 }
 
 variable "tags" {
