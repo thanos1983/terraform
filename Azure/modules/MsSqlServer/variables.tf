@@ -180,12 +180,6 @@ variable "tags" {
   default     = null
 }
 
-#variable "access_policy_kv" {
-#  description = "Create access policy for MSSQL Server if the user desires."
-#  type        = bool
-#  default     = true
-#}
-
 variable "kv_name" {
   description = "Key Vault if the user desires to create access policy for the DB."
   type        = string

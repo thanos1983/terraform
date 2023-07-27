@@ -1,19 +1,16 @@
 variable "name" {
   description = "Specifies the name of the storage account. Only lowercase Alphanumeric characters allowed."
   type        = string
-  default     = null
 }
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the storage account."
   type        = string
-  default     = null
 }
 
 variable "location" {
   description = "Specifies the supported Azure location where the resource exists."
   type        = string
-  default     = null
 }
 
 variable "account_kind" {
