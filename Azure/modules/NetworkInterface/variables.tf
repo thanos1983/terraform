@@ -30,7 +30,7 @@ variable "location" {
 
 variable "dns_servers" {
   description = "A list of IP Addresses defining the DNS Servers which should be used for this Network Interface."
-  type        = list(string)
+  type        = tuple(string)
   default     = null
 }
 
