@@ -15,13 +15,13 @@ variable "virtual_network_name" {
 
 variable "address_prefixes" {
   description = "The address prefixes to use for the subnet."
-  type        = list
+  type        = list(any)
 }
 
 variable "delegation_block" {
   description = "One or more delegation blocks."
-  type        = list(object({
-    name               = string
+  type = list(object({
+    name = string
     service_delegation = object({
       name    = string
       actions = list(string)
@@ -54,7 +54,7 @@ variable "service_endpoint_policy_ids" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

@@ -3,23 +3,19 @@ variable "name" {
   type        = string
 }
 
-variable "resource_group_name" {
-  description = "The name of the Resource Group where this Public IP should exist."
+variable "private_dns_resolver_id" {
+  description = "Specifies the ID of the Private DNS Resolver Outbound Endpoint. "
   type        = string
 }
 
-variable "soa_record_block" {
-  description = "An soa_record block."
-  type        = object({
-    email        = string
-    expire_time  = optional(number, 2419200)
-    minimum_ttl  = optional(number, 10)
-    refresh_time = optional(number, 3600)
-    retry_time   = optional(number, 300)
-    ttl          = optional(number, 3600)
-    tags         = optional(map(any))
-  })
-  default = null
+variable "location" {
+  description = "Specifies the Azure Region where the Private DNS Resolver should exist."
+  type        = string
+}
+
+variable "subnet_id" {
+  description = "The ID of the Subnet that is linked to the Private DNS Resolver Outbound Endpoint."
+  type        = string
 }
 
 variable "tags" {
@@ -30,7 +26,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

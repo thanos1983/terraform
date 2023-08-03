@@ -3,29 +3,19 @@ variable "name" {
   type        = string
 }
 
-variable "private_dns_zone_name" {
-  description = "The name of the Private DNS zone (without a terminating dot)."
-  type        = string
-}
-
 variable "resource_group_name" {
   description = "The name of the Resource Group where this Public IP should exist."
   type        = string
 }
 
-variable "virtual_network_id" {
-  description = "The ID of the Virtual Network that should be linked to the DNS Zone."
+variable "location" {
+  description = "Specifies the Azure Region where the Private DNS Resolver should exist."
   type        = string
 }
 
-variable "registration_enabled" {
-  description = "Is auto-registration of virtual machine records in the virtual network in the Private DNS zone enabled?"
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.registration_enabled)))
-    error_message = "Parameter must be \"true\" or \"false\"."
-  }
-  default = false
+variable "virtual_network_id" {
+  description = "The ID of the Virtual Network that is linked to the Private DNS Resolver."
+  type        = string
 }
 
 variable "tags" {
@@ -36,7 +26,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)
