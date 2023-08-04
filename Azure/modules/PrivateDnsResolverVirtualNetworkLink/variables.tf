@@ -3,23 +3,18 @@ variable "name" {
   type        = string
 }
 
-variable "private_dns_resolver_id" {
-  description = "Specifies the ID of the Private DNS Resolver Outbound Endpoint."
+variable "dns_forwarding_ruleset_id" {
+  description = "Specifies the ID of the Private DNS Resolver DNS Forwarding Ruleset."
   type        = string
 }
 
-variable "location" {
-  description = "Specifies the Azure Region where the Private DNS Resolver should exist."
+variable "virtual_network_id" {
+  description = "The ID of the Virtual Network that is linked to the Private DNS Resolver Virtual Network Link."
   type        = string
 }
 
-variable "subnet_id" {
-  description = "The ID of the Subnet that is linked to the Private DNS Resolver Outbound Endpoint."
-  type        = string
-}
-
-variable "tags" {
-  description = "A mapping of tags to assign to the resource."
+variable "metadata" {
+  description = "Metadata attached to the Private DNS Resolver Virtual Network Link."
   type        = map(any)
   default     = null
 }

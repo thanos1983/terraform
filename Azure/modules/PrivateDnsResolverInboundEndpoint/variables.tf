@@ -4,17 +4,20 @@ variable "name" {
 }
 
 variable "private_dns_resolver_id" {
-  description = "Specifies the ID of the Private DNS Resolver Outbound Endpoint."
+  description = "Specifies the ID of the Private DNS Resolver Inbound Endpoint."
   type        = string
+}
+
+variable "ip_configurations_block" {
+  description = "IP configurations block"
+  type = list(object({
+    private_ip_allocation_method = optional(string)
+    subnet_id                    = string
+  }))
 }
 
 variable "location" {
   description = "Specifies the Azure Region where the Private DNS Resolver should exist."
-  type        = string
-}
-
-variable "subnet_id" {
-  description = "The ID of the Subnet that is linked to the Private DNS Resolver Outbound Endpoint."
   type        = string
 }
 

@@ -15,7 +15,7 @@ variable "domain_name" {
 
 variable "target_dns_servers_block" {
   description = "Can be specified multiple times to define multiple target DNS servers."
-  type = list(object({
+  type = map(object({
     ip_address = string
     port       = optional(number)
   }))

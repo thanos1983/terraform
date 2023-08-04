@@ -10,9 +10,9 @@ resource "azurerm_private_dns_resolver_forwarding_rule" "private_dns_resolver_fo
       port       = target_dns_servers.value.port
     }
   }
-  
-  enabled            = var.enabled
-  metadata           = var.metadata
+
+  enabled  = var.enabled
+  metadata = var.metadata
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
