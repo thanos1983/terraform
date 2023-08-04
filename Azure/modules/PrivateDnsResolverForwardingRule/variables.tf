@@ -13,12 +13,24 @@ variable "domain_name" {
   type        = string
 }
 
+variable "ip_address" {
+  description = "DNS server IP address."
+  type        = string
+}
+
+variable "port" {
+  description = "DNS server port."
+  type        = number
+  default     = 53
+}
+
 variable "target_dns_servers_block" {
-  description = "Can be specified multiple times to define multiple target DNS servers."
-  type = map(object({
+  description = "DNS primary server IP and port address."
+  type = object({
     ip_address = string
     port       = optional(number)
-  }))
+  })
+  default = null
 }
 
 variable "enabled" {
