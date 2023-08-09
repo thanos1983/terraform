@@ -22,3 +22,8 @@ output "address_prefixes" {
   description = "The address prefixes for the subnet."
   value       = azurerm_subnet.subnet.virtual_network_name
 }
+
+output "ids_map" {
+  description = "The subnet names mapped to IDs."
+  value       = zipmap(azurerm_subnet.subnet[*].name, azurerm_subnet.subnet[*].id)
+}
