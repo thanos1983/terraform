@@ -18,7 +18,8 @@ resource "azurerm_network_interface" "network_interface" {
     }
   }
 
-  tags = var.tags
+  internal_dns_name_label = var.internal_dns_name_label
+  tags                    = var.tags
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
