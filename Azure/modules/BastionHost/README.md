@@ -1,11 +1,11 @@
-# Azure Bastien Host
+# Azure Bastion Host
 
 ## Sample of use:
 
 ```bash
-module "bastien_host_<project>" {
+module "bastion_host_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_bastien_host"
+  name = "my_bastion_host"
   .
   .
   .
@@ -16,7 +16,7 @@ module "bastien_host_<project>" {
 
 ```bash
 - name - (Required)
-- resources_group_name - (Required)
+- resource_group_name - (Required)
 - location - (Required)
 - copy_paste_enabled - (Optional)
 - file_copy_enabled - (Optional)
