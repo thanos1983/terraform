@@ -221,7 +221,7 @@ module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
   count        = var.key_vault_id == null ? 0 : 1
   key_vault_id = var.key_vault_id
-  name         = "linux-vm-adm-username"
+  name         = "linux-${var.name}-vm-adm-username"
   value        = var.administrator_username
   depends_on   = [
     azurerm_linux_virtual_machine.linux_virtual_machine,
@@ -233,7 +233,7 @@ module "kv_secret_admin_password" {
   source       = "../KeyVaultSecret"
   count        = var.key_vault_id == null ? 0 : 1
   key_vault_id = var.key_vault_id
-  name         = "linux-vm-adm-password"
+  name         = "linux-${var.name}-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
   depends_on   = [
     azurerm_linux_virtual_machine.linux_virtual_machine,
