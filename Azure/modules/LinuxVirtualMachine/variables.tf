@@ -542,6 +542,12 @@ variable "object_id" {
   default     = null
 }
 
+variable "application_id" {
+  description = "The client id of the Azure user."
+  type        = string
+  default     = null
+}
+
 variable "certificate_permissions" {
   description = "List of certificate permissions."
   type        = set(string)
@@ -675,4 +681,28 @@ variable "type_handler_version" {
   description = "Specifies the version of the extension to use, available versions can be found using the Azure CLI."
   type        = string
   default     = "1.0"
+}
+
+variable "kv_access_policy" {
+  description = "Enable access policy for the specific KV."
+  type        = bool
+  default     = null
+}
+
+variable "kv_role_assignment" {
+  description = "Enable RBAC for the specific KV."
+  type        = bool
+  default     = null
+}
+
+variable "kv_role_definition_name" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_id" {
+  description = "Specifies the role id of the user will get with the secret(s) in the vault. Usually used for custom roles"
+  type        = string
+  default     = null
 }

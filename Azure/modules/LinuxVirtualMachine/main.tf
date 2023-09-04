@@ -204,15 +204,28 @@ module "aaDSSHLoginForLinux" {
 
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
-  count                   = var.key_vault_id == null ? 0 : 1
+  count                   = var.kv_access_policy == null ? 0 : 1
   key_vault_id            = var.key_vault_id
   object_id               = var.object_id
   tenant_id               = var.tenant_id
+  application_id          = var.application_id
   certificate_permissions = var.certificate_permissions
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
   depends_on              = [
+    azurerm_linux_virtual_machine.linux_virtual_machine
+  ]
+}
+
+module "kv_role_assignment" {
+  source               = "../RoleAssignment"
+  count                = var.kv_role_assignment == null ? 0 : 1
+  scope                = var.key_vault_id
+  principal_id         = var.object_id
+  role_definition_name = var.kv_role_definition_name
+  role_definition_id   = var.role_definition_id
+  depends_on = [
     azurerm_linux_virtual_machine.linux_virtual_machine
   ]
 }
