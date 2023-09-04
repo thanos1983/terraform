@@ -185,22 +185,35 @@ module "AADLoginForWindows" {
   auto_upgrade_minor_version = var.auto_upgrade_minor_version
   type_handler_version       = var.type_handler_version
   virtual_machine_id         = azurerm_windows_virtual_machine.windows_virtual_machine.id
-  depends_on                 = [
+  depends_on = [
     azurerm_windows_virtual_machine.windows_virtual_machine
   ]
 }
 
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
-  count                   = var.key_vault_id == null ? 0 : 1
+  count                   = var.kv_access_policy == null ? 0 : 1
   key_vault_id            = var.key_vault_id
   object_id               = var.object_id
   tenant_id               = var.tenant_id
+  application_id          = var.application_id
   certificate_permissions = var.certificate_permissions
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
-  depends_on              = [
+  depends_on = [
+    azurerm_windows_virtual_machine.windows_virtual_machine
+  ]
+}
+
+module "kv_role_assignment" {
+  source               = "../RoleAssignment"
+  count                = var.kv_role_assignment == null ? 0 : 1
+  scope                = var.key_vault_id
+  principal_id         = var.object_id
+  role_definition_name = var.kv_role_definition_name
+  role_definition_id   = var.role_definition_id
+  depends_on = [
     azurerm_windows_virtual_machine.windows_virtual_machine
   ]
 }
@@ -211,8 +224,9 @@ module "kv_secret_admin_username" {
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-username"
   value        = var.administrator_username
-  depends_on   = [
-    module.kv_access_policy
+  depends_on = [
+    module.kv_access_policy,
+    module.kv_role_assignment
   ]
 }
 
@@ -222,7 +236,8 @@ module "kv_secret_admin_password" {
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
-  depends_on   = [
-    module.kv_access_policy
+  depends_on = [
+    module.kv_access_policy,
+    module.kv_role_assignment
   ]
 }

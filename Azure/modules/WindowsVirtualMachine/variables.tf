@@ -121,7 +121,7 @@ variable "storage_account_type" {
 
 variable "diff_disk_settings_block" {
   description = "A diff_disk_settings block as defined above. "
-  type        = object({
+  type = object({
     option    = string
     placement = optional(string)
   })
@@ -191,7 +191,7 @@ variable "size" {
 
 variable "additional_capabilities_block" {
   description = "A additional_capabilities block."
-  type        = object({
+  type = object({
     ultra_ssd_enabled = optional(bool)
   })
   default = null
@@ -199,7 +199,7 @@ variable "additional_capabilities_block" {
 
 variable "additional_unattend_content_block" {
   description = "One or more additional_unattend_content blocks as defined below."
-  type        = list(object({
+  type = list(object({
     content = string
     setting = string
   }))
@@ -226,7 +226,7 @@ variable "availability_set_id" {
 
 variable "boot_diagnostics_block" {
   description = "A boot_diagnostics block as defined below."
-  type        = object({
+  type = object({
     storage_account_uri = optional(string)
   })
   default = null
@@ -299,7 +299,7 @@ variable "extensions_time_budget" {
 
 variable "gallery_application_block" {
   description = "One or more gallery_application blocks."
-  type        = list(object({
+  type = list(object({
     version_id             = string
     configuration_blob_uri = optional(string)
     order                  = optional(number)
@@ -322,7 +322,7 @@ variable "hotpatching_enabled" {
 
 variable "identity_block" {
   description = "An identity block."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -373,7 +373,7 @@ variable "patch_mode" {
 
 variable "plan_block" {
   description = "A plan block."
-  type        = object({
+  type = object({
     name      = string
     product   = string
     publisher = string
@@ -419,7 +419,7 @@ variable "proximity_placement_group_id" {
 
 variable "secret_block" {
   description = "A secret block."
-  type        = object({
+  type = object({
     certificate = object({
       store = string
       url   = string
@@ -479,7 +479,7 @@ variable "tags" {
 
 variable "termination_notification_block" {
   description = "A termination_notification block."
-  type        = object({
+  type = object({
     enabled = string
     timeout = optional(number)
   })
@@ -512,7 +512,7 @@ variable "vtpm_enabled" {
 
 variable "winrm_listener_block" {
   description = "One or more winrm_listener blocks."
-  type        = list(object({
+  type = list(object({
     protocol        = string
     certificate_url = optional(string)
   }))
@@ -527,7 +527,7 @@ variable "zone" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)
@@ -550,6 +550,12 @@ variable "tenant_id" {
 
 variable "object_id" {
   description = "The object id of the Azure KV of this VM."
+  type        = string
+  default     = null
+}
+
+variable "application_id" {
+  description = "The client id of the Azure user."
   type        = string
   default     = null
 }
@@ -687,4 +693,28 @@ variable "type_handler_version" {
   description = "Specifies the version of the extension to use, available versions can be found using the Azure CLI."
   type        = string
   default     = "1.0"
+}
+
+variable "kv_access_policy" {
+  description = "Enable access policy for the specific KV."
+  type        = bool
+  default     = null
+}
+
+variable "kv_role_assignment" {
+  description = "Enable RBAC for the specific KV."
+  type        = bool
+  default     = null
+}
+
+variable "kv_role_definition_name" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_id" {
+  description = "Specifies the role id of the user will get with the secret(s) in the vault. Usually used for custom roles"
+  type        = string
+  default     = null
 }

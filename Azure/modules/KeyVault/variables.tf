@@ -75,7 +75,7 @@ variable "enable_rbac_authorization" {
 
 variable "network_acls_block" {
   description = "Network ACL block."
-  type        = map(object({
+  type = map(object({
     bypass                     = string
     default_action             = string
     ip_rules                   = optional(set(string))
@@ -123,7 +123,7 @@ variable "soft_delete_retention_days" {
 
 variable "contact_block" {
   description = "Contact block."
-  type        = object({
+  type = object({
     email = string
     name  = optional(string)
     phone = optional(string)
@@ -195,4 +195,28 @@ variable "storage_permissions" {
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"DeleteSAS\", \"Get\", \"GetSAS\", \"List\", \"ListSAS\", \"Purge\", \"Recover\", \"RegenerateKey\", \"Restore\", \"Set\", \"SetSAS\", \"Update\"."
   }
   default = ["Get"]
+}
+
+variable "kv_access_policy" {
+  description = "Enable access policy for the specific KV."
+  type        = bool
+  default     = false
+}
+
+variable "kv_role_assignment" {
+  description = "Enable RBAC for the specific KV."
+  type        = bool
+  default     = true
+}
+
+variable "role_definition_name" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_id" {
+  description = "Specifies the role id the user will get with the secret(s) in the vault. Usually for custom roles"
+  type        = string
+  default     = null
 }

@@ -38,6 +38,7 @@ resource "azurerm_key_vault" "key_vault" {
 
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
+  count                   = var.kv_access_policy == null ? 0 : 1
   key_vault_id            = azurerm_key_vault.key_vault.id
   object_id               = var.object_id
   tenant_id               = var.tenant_id
@@ -45,4 +46,13 @@ module "kv_access_policy" {
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
+}
+
+module "kv_role_assignment" {
+  source               = "../RoleAssignment"
+  count                = var.kv_role_assignment == null ? 0 : 1
+  scope                = azurerm_key_vault.key_vault.id
+  principal_id         = var.object_id
+  role_definition_id   = var.role_definition_id
+  role_definition_name = var.role_definition_name
 }
