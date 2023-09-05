@@ -197,7 +197,7 @@ module "aaDSSHLoginForLinux" {
   auto_upgrade_minor_version = var.auto_upgrade_minor_version
   type_handler_version       = var.type_handler_version
   virtual_machine_id         = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  depends_on                 = [
+  depends_on = [
     azurerm_linux_virtual_machine.linux_virtual_machine
   ]
 }
@@ -213,9 +213,18 @@ module "kv_access_policy" {
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
-  depends_on              = [
+  depends_on = [
     azurerm_linux_virtual_machine.linux_virtual_machine
   ]
+}
+
+# Create RBAC permissions for KV
+module "kv_role_assignment" {
+  source               = "../RoleAssignment"
+  count                = var.kv_role_definition_names == null ? 0 : length(var.kv_role_definition_names)
+  role_definition_name = var.kv_role_definition_names[count.index]
+  scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
+  principal_id         = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
 }
 
 module "kv_secret_admin_username" {
@@ -224,8 +233,9 @@ module "kv_secret_admin_username" {
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-username"
   value        = var.administrator_username
-  depends_on   = [
+  depends_on = [
     azurerm_linux_virtual_machine.linux_virtual_machine,
+    module.kv_role_assignment,
     module.kv_access_policy
   ]
 }
@@ -236,8 +246,9 @@ module "kv_secret_admin_password" {
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
-  depends_on   = [
+  depends_on = [
     azurerm_linux_virtual_machine.linux_virtual_machine,
+    module.kv_role_assignment,
     module.kv_access_policy
   ]
 }

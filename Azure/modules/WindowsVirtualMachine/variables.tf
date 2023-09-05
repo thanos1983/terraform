@@ -700,3 +700,9 @@ variable "kv_access_policy" {
   type        = bool
   default     = null
 }
+
+variable "kv_role_definition_names" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = list(string)
+  default     = null
+}
