@@ -694,9 +694,3 @@ variable "kv_role_definition_names" {
   type        = list(string)
   default     = null
 }
-
-variable "role_definition_id" {
-  description = "Specifies the role id of the user will get with the secret(s) in the vault. Usually used for custom roles"
-  type        = string
-  default     = null
-}

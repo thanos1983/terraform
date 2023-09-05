@@ -542,18 +542,6 @@ variable "key_vault_id" {
   default     = null
 }
 
-variable "tenant_id" {
-  description = "The tenant id of the Azure KV of this VM."
-  type        = string
-  default     = null
-}
-
-variable "object_id" {
-  description = "The object id of the Azure KV of this VM."
-  type        = string
-  default     = null
-}
-
 variable "application_id" {
   description = "The client id of the Azure user."
   type        = string

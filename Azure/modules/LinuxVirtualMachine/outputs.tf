@@ -25,6 +25,20 @@ output "identity" {
   value       = azurerm_linux_virtual_machine.linux_virtual_machine.identity
 }
 
+output "principal_id" {
+  description = "The Principal ID associated with this Managed Service Identity."
+  value       = flatten([
+    for identity in azurerm_linux_virtual_machine.linux_virtual_machine[*].identity : identity[*].principal_id
+  ])
+}
+
+output "tenant_id" {
+  description = "The Tenant ID associated with this Managed Service Identity."
+  value       = flatten([
+    for identity in azurerm_linux_virtual_machine.linux_virtual_machine[*].identity : identity[*].tenant_id
+  ])
+}
+
 output "private_ip_address" {
   description = "The Primary Private IP Address assigned to this Virtual Machine."
   value       = azurerm_linux_virtual_machine.linux_virtual_machine.private_ip_address

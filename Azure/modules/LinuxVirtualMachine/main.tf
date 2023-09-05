@@ -206,16 +206,13 @@ module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
   count                   = var.kv_access_policy == null ? 0 : 1
   key_vault_id            = var.key_vault_id
-  object_id               = var.object_id
-  tenant_id               = var.tenant_id
   application_id          = var.application_id
-  certificate_permissions = var.certificate_permissions
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
-  depends_on = [
-    azurerm_linux_virtual_machine.linux_virtual_machine
-  ]
+  certificate_permissions = var.certificate_permissions
+  object_id               = azurerm_linux_virtual_machine.linux_virtual_machine.id
+  tenant_id               = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
 }
 
 # Create RBAC permissions for KV
