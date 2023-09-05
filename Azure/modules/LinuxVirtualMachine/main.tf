@@ -218,18 +218,6 @@ module "kv_access_policy" {
   ]
 }
 
-module "kv_role_assignment" {
-  source               = "../RoleAssignment"
-  count                = var.kv_role_assignment == null ? 0 : 1
-  scope                = var.key_vault_id
-  principal_id         = var.object_id
-  role_definition_name = var.kv_role_definition_name
-  role_definition_id   = var.role_definition_id
-  depends_on = [
-    azurerm_linux_virtual_machine.linux_virtual_machine
-  ]
-}
-
 module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
   count        = var.key_vault_id == null ? 0 : 1

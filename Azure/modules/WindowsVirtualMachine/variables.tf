@@ -700,21 +700,3 @@ variable "kv_access_policy" {
   type        = bool
   default     = null
 }
-
-variable "kv_role_assignment" {
-  description = "Enable RBAC for the specific KV."
-  type        = bool
-  default     = null
-}
-
-variable "kv_role_definition_name" {
-  description = "Specifies the role the user will get with the secret(s) in the vault."
-  type        = string
-  default     = null
-}
-
-variable "role_definition_id" {
-  description = "Specifies the role id of the user will get with the secret(s) in the vault. Usually used for custom roles"
-  type        = string
-  default     = null
-}

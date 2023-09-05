@@ -206,18 +206,6 @@ module "kv_access_policy" {
   ]
 }
 
-module "kv_role_assignment" {
-  source               = "../RoleAssignment"
-  count                = var.kv_role_assignment == null ? 0 : 1
-  scope                = var.key_vault_id
-  principal_id         = var.object_id
-  role_definition_name = var.kv_role_definition_name
-  role_definition_id   = var.role_definition_id
-  depends_on = [
-    azurerm_windows_virtual_machine.windows_virtual_machine
-  ]
-}
-
 module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
   count        = var.key_vault_id == null ? 0 : 1
@@ -225,8 +213,7 @@ module "kv_secret_admin_username" {
   name         = "win-${var.name}-vm-adm-username"
   value        = var.administrator_username
   depends_on = [
-    module.kv_access_policy,
-    module.kv_role_assignment
+    module.kv_access_policy
   ]
 }
 
@@ -237,7 +224,6 @@ module "kv_secret_admin_password" {
   name         = "win-${var.name}-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
   depends_on = [
-    module.kv_access_policy,
-    module.kv_role_assignment
+    module.kv_access_policy
   ]
 }
