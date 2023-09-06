@@ -190,6 +190,7 @@ module "AADLoginForWindows" {
   ]
 }
 
+# Assign Access Policies if enabled
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
   count                   = var.kv_access_policy == null ? 0 : 1
@@ -199,8 +200,8 @@ module "kv_access_policy" {
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
-  object_id               = azurerm_windows_virtual_machine.windows_virtual_machine.id
   tenant_id               = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].tenant_id
+  object_id               = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].principal_id
 }
 
 # Create RBAC permissions for KV based on name(s)

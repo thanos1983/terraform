@@ -149,7 +149,7 @@ variable "certificate_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Delete\", \"DeleteIssuers\", \"Get\", \"GetIssuers\", \"Import\", \"List\", \"ListIssuers\", \"ManageContacts\", \"ManageIssuers\", \"Purge\", \"Recover\", \"Restore\", \"SetIssuers\", \"Update\"."
   }
-  default = ["Get"]
+  default = ["List"]
 }
 
 variable "key_permissions" {
@@ -165,7 +165,7 @@ variable "key_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Decrypt\", \"Delete\", \"Encrypt\", \"Get\", \"Import\", \"List\", \"Purge\", \"Recover\", \"Restore\", \"Sign\", \"UnwrapKey\", \"Update\", \"Verify\", \"WrapKey\", \"Release\", \"Rotate\", \"GetRotationPolicy\" and \"SetRotationPolicy\"."
   }
-  default = ["Get"]
+  default = ["List"]
 }
 
 variable "secret_permissions" {
@@ -179,7 +179,7 @@ variable "secret_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
   }
-  default = ["Get"]
+  default = ["List"]
 }
 
 variable "storage_permissions" {
@@ -194,7 +194,7 @@ variable "storage_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"DeleteSAS\", \"Get\", \"GetSAS\", \"List\", \"ListSAS\", \"Purge\", \"Recover\", \"RegenerateKey\", \"Restore\", \"Set\", \"SetSAS\", \"Update\"."
   }
-  default = ["Get"]
+  default = ["List"]
 }
 
 variable "kv_access_policy" {
@@ -203,20 +203,32 @@ variable "kv_access_policy" {
   default     = false
 }
 
-variable "kv_role_assignment" {
+variable "role_assignment_name" {
   description = "Enable RBAC for the specific KV."
-  type        = bool
-  default     = true
+  type        = string
+  default     = null
 }
 
-variable "role_definition_name" {
+variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
   type        = string
   default     = null
 }
 
-variable "role_definition_id" {
+variable "role_definition_ids" {
   description = "Specifies the role id the user will get with the secret(s) in the vault. Usually for custom roles"
+  type        = string
+  default     = null
+}
+
+variable "principal_id" {
+  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
+  type        = string
+  default     = null
+}
+
+variable "application_id" {
+  description = "The object ID of an Application in Azure Active Directory."
   type        = string
   default     = null
 }

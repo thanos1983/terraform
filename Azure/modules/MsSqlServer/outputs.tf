@@ -8,6 +8,25 @@ output "name" {
   value       = azurerm_mssql_server.mssql_server.name
 }
 
+output "identity" {
+  description = "An identity block as defined below."
+  value       = azurerm_mssql_server.mssql_server.identity
+}
+
+output "principal_id" {
+  description = "The Principal ID associated with this Managed Service Identity."
+  value = flatten([
+    for identity in azurerm_mssql_server.mssql_server[*].identity : identity[*].principal_id
+  ])
+}
+
+output "tenant_id" {
+  description = "The Tenant ID associated with this Managed Service Identity."
+  value = flatten([
+    for identity in azurerm_mssql_server.mssql_server[*].identity : identity[*].tenant_id
+  ])
+}
+
 output "resource_group_name" {
   description = "The resource group name of the Microsoft SQL Server."
   value       = azurerm_mssql_server.mssql_server.resource_group_name

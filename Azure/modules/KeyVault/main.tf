@@ -36,23 +36,36 @@ resource "azurerm_key_vault" "key_vault" {
   tags = var.tags
 }
 
+# Assign Access Policies if enabled
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
   count                   = var.kv_access_policy == null ? 0 : 1
-  key_vault_id            = azurerm_key_vault.key_vault.id
   object_id               = var.object_id
   tenant_id               = var.tenant_id
-  certificate_permissions = var.certificate_permissions
+  application_id          = var.application_id
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
+  certificate_permissions = var.certificate_permissions
+  key_vault_id            = azurerm_key_vault.key_vault.id
 }
 
-module "kv_role_assignment" {
+# Create RBAC permissions for KV based on name(s)
+module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
-  count                = var.kv_role_assignment == null ? 0 : 1
+  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  principal_id         = var.principal_id
+  name                 = var.role_assignment_name
   scope                = azurerm_key_vault.key_vault.id
-  principal_id         = var.object_id
-  role_definition_id   = var.role_definition_id
-  role_definition_name = var.role_definition_name
+  role_definition_name = var.role_definition_names[count.index]
+}
+
+# Create RBAC permissions for KV based on id(s)
+module "kv_role_assignment_ids" {
+  source               = "../RoleAssignment"
+  count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  principal_id         = var.principal_id
+  name                 = var.role_assignment_name
+  scope                = azurerm_key_vault.key_vault.id
+  role_definition_name = var.role_definition_ids[count.index]
 }

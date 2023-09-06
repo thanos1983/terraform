@@ -206,12 +206,6 @@ variable "secret_permissions" {
   default = ["Get"]
 }
 
-variable "tenant_id" {
-  description = "The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault."
-  type        = string
-  default     = null
-}
-
 variable "object_id" {
   description = "The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault."
   type        = string
@@ -230,4 +224,22 @@ variable "firewallRulesMap" {
     end_ip_address   = string
   }))
   default = null
+}
+
+variable "kv_role_assignment_name" {
+  description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
+  type        = string
+  default     = null
+}
+
+variable "kv_role_definition_ids" {
+  description = "The Scoped-ID(s) of the Role Definition."
+  type        = list(string)
+  default     = null
+}
+
+variable "kv_role_definition_names" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = list(string)
+  default     = null
 }
