@@ -560,10 +560,7 @@ variable "certificate_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Delete\", \"DeleteIssuers\", \"Get\", \"GetIssuers\", \"Import\", \"List\", \"ListIssuers\", \"ManageContacts\", \"ManageIssuers\", \"Purge\", \"Recover\", \"Restore\", \"SetIssuers\", \"Update\"."
   }
-  default = [
-    "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers",
-    "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
-  ]
+  default = ["List"]
 }
 
 variable "key_permissions" {
@@ -579,10 +576,7 @@ variable "key_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Decrypt\", \"Delete\", \"Encrypt\", \"Get\", \"Import\", \"List\", \"Purge\", \"Recover\", \"Restore\", \"Sign\", \"UnwrapKey\", \"Update\", \"Verify\", \"WrapKey\", \"Release\", \"Rotate\", \"GetRotationPolicy\" and \"SetRotationPolicy\"."
   }
-  default = [
-    "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore",
-    "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
-  ]
+  default = ["List"]
 }
 
 variable "secret_permissions" {
@@ -596,7 +590,7 @@ variable "secret_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
   }
-  default = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
+  default = ["List"]
 }
 
 variable "storage_permissions" {
@@ -611,10 +605,7 @@ variable "storage_permissions" {
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"DeleteSAS\", \"Get\", \"GetSAS\", \"List\", \"ListSAS\", \"Purge\", \"Recover\", \"RegenerateKey\", \"Restore\", \"Set\", \"SetSAS\", \"Update\"."
   }
-  default = [
-    "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey",
-    "Restore", "Set", "SetSAS", "Update"
-  ]
+  default = ["List"]
 }
 
 variable "administrator_username" {

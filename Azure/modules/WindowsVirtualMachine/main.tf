@@ -196,10 +196,10 @@ module "kv_access_policy" {
   count                   = var.kv_access_policy == null ? 0 : 1
   key_vault_id            = var.key_vault_id
   application_id          = var.application_id
-  certificate_permissions = var.certificate_permissions
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
   storage_permissions     = var.storage_permissions
+  certificate_permissions = var.certificate_permissions
   tenant_id               = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].tenant_id
   object_id               = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].principal_id
 }
