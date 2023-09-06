@@ -203,11 +203,22 @@ module "kv_access_policy" {
   tenant_id               = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].tenant_id
 }
 
-# Create RBAC permissions for KV
-module "kv_role_assignment" {
+# Create RBAC permissions for KV based on name(s)
+module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.kv_role_definition_names == null ? 0 : length(var.kv_role_definition_names)
+  name                 = var.kv_role_assignment_name
   role_definition_name = var.kv_role_definition_names[count.index]
+  scope                = azurerm_windows_virtual_machine.windows_virtual_machine.id
+  principal_id         = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].principal_id
+}
+
+# Create RBAC permissions for KV based on id(s)
+module "kv_role_assignment_ids" {
+  source               = "../RoleAssignment"
+  count                = var.kv_role_definition_ids == null ? 0 : length(var.kv_role_definition_ids)
+  name                 = var.kv_role_assignment_name
+  role_definition_name = var.kv_role_definition_ids[count.index]
   scope                = azurerm_windows_virtual_machine.windows_virtual_machine.id
   principal_id         = azurerm_windows_virtual_machine.windows_virtual_machine.identity[0].principal_id
 }
@@ -220,7 +231,8 @@ module "kv_secret_admin_username" {
   value        = var.administrator_username
   depends_on = [
     module.kv_access_policy,
-    module.kv_role_assignment
+    module.kv_role_assignment_ids,
+    module.kv_role_assignment_names
   ]
 }
 
@@ -232,6 +244,7 @@ module "kv_secret_admin_password" {
   value        = coalesce(var.administrator_password, module.password[0].result)
   depends_on = [
     module.kv_access_policy,
-    module.kv_role_assignment
+    module.kv_role_assignment_ids,
+    module.kv_role_assignment_names
   ]
 }

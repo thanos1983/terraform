@@ -694,3 +694,15 @@ variable "kv_role_definition_names" {
   type        = list(string)
   default     = null
 }
+
+variable "kv_role_assignment_name" {
+  description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
+  type        = string
+  default     = null
+}
+
+variable "kv_role_definition_ids" {
+  description = "The Scoped-ID(s) of the Role Definition."
+  type        = list(string)
+  default     = null
+}

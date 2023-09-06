@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Specifies the name of this User Assigned Identity."
+  description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
   type        = string
   default     = null
 }
