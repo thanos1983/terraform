@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "resource_group_name" {
-  description = "Specifies the supported Azure location where the resource exists. "
+  description = "Specifies the supported Azure location where the resource exists."
   type        = string
 }
 
@@ -107,6 +107,7 @@ variable "reservation_capacity_in_gb_per_day" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)
+  default     = {}
 }
 
 variable "timeouts_block" {

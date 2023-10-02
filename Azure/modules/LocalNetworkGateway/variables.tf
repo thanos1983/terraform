@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "resource_group_name" {
-  description = "Specifies the supported Azure location where the resource exists. "
+  description = "Specifies the supported Azure location where the resource exists."
   type        = string
 }
 
