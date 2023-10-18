@@ -5,7 +5,7 @@
 ```bash
 module "windows_virtual_machine_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_linux_virtual_machine"
+  name = "my_windows_virtual_machine"
   .
   .
   .

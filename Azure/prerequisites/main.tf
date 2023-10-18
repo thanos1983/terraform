@@ -13,6 +13,7 @@ module "da_projektet_tf_sa" {
   public_network_access_enabled   = var.public_network_access_enabled
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   tags                            = var.tags
+  name                            = ""
 }
 
 module "da_projektet_tf_co" {
