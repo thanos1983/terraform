@@ -1,4 +1,4 @@
-variable "ip_configuration_block" {
+variable "ip_configuration_blocks" {
   description = "IP configuration block(s)."
   type = list(object({
     name                                               = string
@@ -13,6 +13,11 @@ variable "ip_configuration_block" {
   default = null
 }
 
+variable "location" {
+  description = "The location where the Network Interface should exist."
+  type        = string
+}
+
 variable "name" {
   description = "The name of the Network Interface."
   type        = string
@@ -23,9 +28,16 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "location" {
-  description = "The location where the Network Interface should exist."
+variable "auxiliary_mode" {
+  description = "Specifies the auxiliary mode used to enable network high-performance feature on Network Virtual Appliances (NVAs)."
   type        = string
+  default     = null
+}
+
+variable "auxiliary_sku" {
+  description = "Specifies the SKU used for the network high-performance feature on Network Virtual Appliances (NVAs)."
+  type        = string
+  default     = null
 }
 
 variable "dns_servers" {

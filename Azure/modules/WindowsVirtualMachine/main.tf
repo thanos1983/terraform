@@ -49,7 +49,7 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   }
 
   dynamic "additional_unattend_content" {
-    for_each = var.additional_unattend_content_block[*]
+    for_each = var.additional_unattend_content_blocks
     content {
       content = additional_unattend_content.value.content
       setting = additional_unattend_content.value.setting
@@ -78,7 +78,7 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   extensions_time_budget        = var.extensions_time_budget
 
   dynamic "gallery_application" {
-    for_each = var.gallery_application_block[*]
+    for_each = var.gallery_application_blocks
     content {
       version_id             = gallery_application.value.version_id
       configuration_blob_uri = gallery_application.value.configuration_blob_uri
@@ -156,7 +156,7 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   vtpm_enabled                 = var.vtpm_enabled
 
   dynamic "winrm_listener" {
-    for_each = var.winrm_listener_block
+    for_each = var.winrm_listener_blocks
     content {
       protocol        = winrm_listener.value.protocol
       certificate_url = winrm_listener.value.certificate_url

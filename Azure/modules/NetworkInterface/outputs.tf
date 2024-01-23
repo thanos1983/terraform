@@ -8,6 +8,11 @@ output "name" {
   value       = azurerm_network_interface.network_interface.name
 }
 
+output "applied_dns_servers" {
+  description = "If the Virtual Machine using this Network Interface is part of an Availability Set, then this list will have the union of all DNS servers from all Network Interfaces that are part of the Availability Set."
+  value       = azurerm_network_interface.network_interface.applied_dns_servers
+}
+
 output "internal_domain_name_suffix" {
   description = "Even if internal_dns_name_label is not specified, a DNS entry is created for the primary NIC of the VM."
   value       = azurerm_network_interface.network_interface.internal_domain_name_suffix

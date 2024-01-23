@@ -2,10 +2,12 @@ resource "azurerm_network_interface" "network_interface" {
   name                = var.name
   location            = var.location
   resource_group_name = var.resource_group_name
+  auxiliary_mode      = var.auxiliary_mode
+  auxiliary_sku       = var.auxiliary_sku
   dns_servers         = var.dns_servers
 
   dynamic "ip_configuration" {
-    for_each = var.ip_configuration_block
+    for_each = var.ip_configuration_blocks
     content {
       name                                               = ip_configuration.value.name
       primary                                            = ip_configuration.value.primary
@@ -18,8 +20,11 @@ resource "azurerm_network_interface" "network_interface" {
     }
   }
 
-  internal_dns_name_label = var.internal_dns_name_label
-  tags                    = var.tags
+  edge_zone                     = var.edge_zone
+  enable_ip_forwarding          = var.enable_ip_forwarding
+  enable_accelerated_networking = var.enable_accelerated_networking
+  internal_dns_name_label       = var.internal_dns_name_label
+  tags                          = var.tags
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

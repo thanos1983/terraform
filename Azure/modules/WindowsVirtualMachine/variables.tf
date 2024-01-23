@@ -197,7 +197,7 @@ variable "additional_capabilities_block" {
   default = null
 }
 
-variable "additional_unattend_content_block" {
+variable "additional_unattend_content_blocks" {
   description = "One or more additional_unattend_content blocks as defined below."
   type = list(object({
     content = string
@@ -297,7 +297,7 @@ variable "extensions_time_budget" {
   default     = "PT1H30M"
 }
 
-variable "gallery_application_block" {
+variable "gallery_application_blocks" {
   description = "One or more gallery_application blocks."
   type = list(object({
     version_id             = string
@@ -510,7 +510,7 @@ variable "vtpm_enabled" {
   default     = null
 }
 
-variable "winrm_listener_block" {
+variable "winrm_listener_blocks" {
   description = "One or more winrm_listener blocks."
   type = list(object({
     protocol        = string
