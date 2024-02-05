@@ -16,7 +16,7 @@ resource "azurerm_container_registry" "container_registry" {
   }
 
   dynamic "network_rule_set" {
-    for_each = var.network_rule_set[*]
+    for_each = var.network_rule_set_block[*]
     content {
       default_action = network_rule_set.value.default_action
       dynamic "ip_rule" {
