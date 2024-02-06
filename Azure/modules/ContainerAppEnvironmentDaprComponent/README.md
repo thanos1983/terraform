@@ -1,11 +1,11 @@
-# Manages a Container App Environment Certificate
+# Manages a Container App Environment Storage.
 
 ## Sample of use:
 
 ```bash
-module "container_app_environment_certificate_<project>" {
+module "container_app_environment_storage_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_container_app_environment_certificate"
+  name = "my_container_app_environment_storage"
   .
   .
   .
@@ -17,8 +17,10 @@ module "container_app_environment_certificate_<project>" {
 ```bash
 - name (Required)
 - container_app_environment_id (Required)
-- certificate_blob_base64 (Required)
-- certificate_password (Required)
+- account_name (Required)
+- access_key (Required)
+- share_name (Required)
+- access_mode (Required)
 - tags - (Optional)
 ```
 
@@ -27,11 +29,6 @@ module "container_app_environment_certificate_<project>" {
 ```bash
 - id
 - name
-- expiration_date
-- issue_date
-- issuer
-- subject_name
-- thumbprint
 ```
 
-###### More information can be found on the official document [azurerm_container_app_environment_certificate](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app_environment_certificate)
+###### More information can be found on the official document [azurerm_container_app_environment_storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app_environment_storage)

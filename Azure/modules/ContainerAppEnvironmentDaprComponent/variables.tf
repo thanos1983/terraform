@@ -4,7 +4,7 @@ variable "container_app_environment_id" {
 }
 
 variable "name" {
-  description = " The name for this Dapr component. Changing this forces a new resource to be created."
+  description = "The name for this Dapr component. Changing this forces a new resource to be created."
   type        = string
 }
 
