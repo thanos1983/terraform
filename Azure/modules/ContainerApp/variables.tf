@@ -178,7 +178,7 @@ variable "ingress_block" {
       certificate_binding_type = optional(bool)
       certificate_id           = string
       name                     = string
-    }), [])
+    }))
     fqdn                           = string
     external_enabled               = optional(bool)
     ip_security_restriction_blocks = list(object({
@@ -186,7 +186,7 @@ variable "ingress_block" {
       description      = optional(string)
       ip_address_range = string
       name             = string
-    }), [])
+    }))
     target_port           = number
     exposed_port          = optional(number)
     traffic_weight_blocks = optional(list(object({
