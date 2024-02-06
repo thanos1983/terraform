@@ -47,7 +47,7 @@ variable "template_block" {
     container = list(object({
       args    = optional(list(string))
       command = optional(list(string))
-      cpu     = optional(string)
+      cpu     = string
       env     = optional(list(object({
         name        = string
         secret_name = optional(string)
@@ -148,7 +148,6 @@ variable "template_block" {
       storage_type = optional(string)
     })), [])
   })
-  default = null
 }
 
 variable "dapr_block" {

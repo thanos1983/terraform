@@ -1,4 +1,4 @@
-# Azure Application Insights
+# Manages a Container App
 
 ## Sample of use:
 

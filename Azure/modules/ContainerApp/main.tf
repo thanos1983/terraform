@@ -3,17 +3,24 @@ resource "azurerm_container_app" "container_app" {
   name                         = var.name
   resource_group_name          = var.resource_group_name
   revision_mode                = var.revision_mode
+
   dynamic "template" {
     for_each = var.template_block
     content {
-      container = template.value.container
       dynamic "init_container" {
         for_each = template.value.init_container
         content {
-          args              = init_container.value.args
-          command           = init_container.value.command
-          cpu               = init_container.value.cpu
-          env               = init_container.value.env
+          args    = init_container.value.args
+          command = init_container.value.command
+          cpu     = init_container.value.cpu
+          dynamic "env" {
+            for_each = init_container.value.env
+            content {
+              name        = env.value.name
+              secret_name = env.value.secret_name
+              value       = env.value.value
+            }
+          }
           ephemeral_storage = init_container.value.ephemeral_storage
           image             = init_container.value.image
           memory            = init_container.value.memory
@@ -30,10 +37,17 @@ resource "azurerm_container_app" "container_app" {
       dynamic "container" {
         for_each = template.value.container
         content {
-          args              = container.value.args
-          command           = container.value.command
-          cpu               = container.value.cpu
-          env               = container.value.env
+          args    = container.value.args
+          command = container.value.command
+          cpu     = container.value.cpu
+          dynamic "env" {
+            for_each = container.value.env
+            content {
+              name        = env.value.name
+              secret_name = env.value.secret_name
+              value       = env.value.value
+            }
+          }
           ephemeral_storage = container.value.ephemeral_storage
           image             = container.value.image
           dynamic "liveness_probe" {
@@ -145,12 +159,12 @@ resource "azurerm_container_app" "container_app" {
         content {
           concurrent_requests = http_scale_rule.value.concurrent_requests
           name                = http_scale_rule.value.name
-        }
-        dynamic "authentication" {
-          for_each = http_scale_rule.value.authentication
-          content {
-            secret_name       = authentication.value.secret_name
-            trigger_parameter = authentication.value.trigger_parameter
+          dynamic "authentication" {
+            for_each = http_scale_rule.value.authentication
+            content {
+              secret_name       = authentication.value.secret_name
+              trigger_parameter = authentication.value.trigger_parameter
+            }
           }
         }
       }
