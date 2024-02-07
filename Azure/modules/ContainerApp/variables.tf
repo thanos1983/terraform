@@ -26,38 +26,38 @@ variable "revision_mode" {
 variable "template_block" {
   description = "A template block as detailed below."
   type        = object({
-    init_container = optional(object({
-      args    = optional(list(string))
-      command = optional(list(string))
-      cpu     = optional(string)
-      env     = optional(list(object({
+    init_container_block = optional(object({
+      args       = optional(list(string))
+      command    = optional(list(string))
+      cpu        = optional(string)
+      env_blocks = optional(list(object({
         name        = string
         secret_name = optional(string)
         value       = optional(string)
       })), [])
-      ephemeral_storage = optional(number)
-      image             = string
-      memory            = string
-      name              = string
-      volume_mounts     = optional(object({
+      ephemeral_storage   = optional(number)
+      image               = string
+      memory              = string
+      name                = string
+      volume_mounts_block = optional(object({
         name = string
         path = string
       }), null)
     }), null)
-    container = list(object({
-      args    = optional(list(string))
-      command = optional(list(string))
-      cpu     = string
-      env     = optional(list(object({
+    container_blocks = list(object({
+      args       = optional(list(string))
+      command    = optional(list(string))
+      cpu        = string
+      env_blocks = optional(list(object({
         name        = string
         secret_name = optional(string)
         value       = optional(string)
       })), [])
-      ephemeral_storage = optional(number)
-      image             = string
-      liveness_probe    = optional(object({
+      ephemeral_storage    = optional(number)
+      image                = string
+      liveness_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
-        header                  = optional(object({
+        header_block            = optional(object({
           name  = string
           value = string
         }), null)
@@ -70,11 +70,11 @@ variable "template_block" {
         timeout                          = optional(number)
         transport                        = string
       }), null)
-      memory          = string
-      name            = string
-      readiness_probe = optional(object({
+      memory                = string
+      name                  = string
+      readiness_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
-        header                  = optional(object({
+        header_block            = optional(object({
           name  = string
           value = string
         }), null)
@@ -86,9 +86,9 @@ variable "template_block" {
         timeout                 = optional(number)
         transport               = string
       }), null)
-      startup_probe = optional(object({
+      startup_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
-        header                  = optional(object({
+        header_block            = optional(object({
           name  = string
           value = string
         }), null)
@@ -100,49 +100,49 @@ variable "template_block" {
         timeout                          = optional(number)
         transport                        = string
       }), null)
-      volume_mounts = optional(object({
+      volume_mounts_block = optional(object({
         name = string
         path = string
       }), null)
     }))
-    max_replicas           = optional(number)
-    min_replicas           = optional(number)
-    azure_queue_scale_rule = optional(list(object({
-      name           = string
-      queue_name     = string
-      queue_length   = string
-      authentication = list(object({
+    max_replicas                  = optional(number)
+    min_replicas                  = optional(number)
+    azure_queue_scale_rule_blocks = optional(list(object({
+      name                  = string
+      queue_name            = string
+      queue_length          = string
+      authentication_blocks = list(object({
         secret_name       = string
         trigger_parameter = string
       }))
-    })))
-    custom_scale_rule = optional(list(object({
-      name             = string
-      custom_rule_type = string
-      metadata         = map(any)
-      authentication   = optional(list(object({
+    })), [])
+    custom_scale_rule_blocks = optional(list(object({
+      name                  = string
+      custom_rule_type      = string
+      metadata              = map(any)
+      authentication_blocks = optional(list(object({
         secret_name       = string
         trigger_parameter = string
       })), [])
-    })))
-    http_scale_rule = optional(list(object({
-      name                = string
-      concurrent_requests = number
-      authentication      = optional(list(object({
+    })), [])
+    http_scale_rule_blocks = optional(list(object({
+      name                  = string
+      concurrent_requests   = number
+      authentication_blocks = optional(list(object({
         secret_name       = string
         trigger_parameter = string
       })), [])
-    })))
-    tcp_scale_rule = optional(list(object({
-      name                = string
-      concurrent_requests = number
-      authentication      = optional(list(object({
+    })), [])
+    tcp_scale_rule_blocks = optional(list(object({
+      name                  = string
+      concurrent_requests   = number
+      authentication_blocks = optional(list(object({
         secret_name       = string
         trigger_parameter = string
       })), [])
-    })))
+    })), [])
     revision_suffix = optional(string)
-    volume          = optional(list(object({
+    volume_blocks   = optional(list(object({
       name         = string
       storage_name = optional(string)
       storage_type = optional(string)

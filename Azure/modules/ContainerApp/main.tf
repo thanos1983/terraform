@@ -5,10 +5,10 @@ resource "azurerm_container_app" "container_app" {
   revision_mode                = var.revision_mode
 
   dynamic "template" {
-    for_each = var.template_block
+    for_each = var.template_block[*]
     content {
       dynamic "init_container" {
-        for_each = template.value.init_container
+        for_each = template.value.init_container_block[*]
         content {
           args    = init_container.value.args
           command = init_container.value.command
@@ -26,7 +26,7 @@ resource "azurerm_container_app" "container_app" {
           memory            = init_container.value.memory
           name              = init_container.value.name
           dynamic "volume_mounts" {
-            for_each = init_container.value.volume_mounts
+            for_each = init_container.value.volume_mounts_block[*]
             content {
               name = volume_mounts.value.name
               path = volume_mounts.value.path
@@ -35,13 +35,13 @@ resource "azurerm_container_app" "container_app" {
         }
       }
       dynamic "container" {
-        for_each = template.value.container
+        for_each = template.value.container_blocks
         content {
           args    = container.value.args
           command = container.value.command
           cpu     = container.value.cpu
           dynamic "env" {
-            for_each = container.value.env
+            for_each = container.value.env_blocks
             content {
               name        = env.value.name
               secret_name = env.value.secret_name
@@ -51,11 +51,11 @@ resource "azurerm_container_app" "container_app" {
           ephemeral_storage = container.value.ephemeral_storage
           image             = container.value.image
           dynamic "liveness_probe" {
-            for_each = container.value.liveness_probe
+            for_each = container.value.liveness_probe_block[*]
             content {
               failure_count_threshold = liveness_probe.value.failure_count_threshold
               dynamic "header" {
-                for_each = liveness_probe.value.header
+                for_each = liveness_probe.value.header[*]
                 content {
                   name  = header.value.name
                   value = header.value.value
@@ -74,11 +74,11 @@ resource "azurerm_container_app" "container_app" {
           memory = container.value.memory
           name   = container.value.name
           dynamic "readiness_probe" {
-            for_each = container.value.readiness_probe
+            for_each = container.value.readiness_probe_block[*]
             content {
               failure_count_threshold = readiness_probe.value.failure_count_threshold
               dynamic "header" {
-                for_each = readiness_probe.value.header
+                for_each = readiness_probe.value.header[*]
                 content {
                   name  = header.value.name
                   value = header.value.value
@@ -94,11 +94,11 @@ resource "azurerm_container_app" "container_app" {
             }
           }
           dynamic "startup_probe" {
-            for_each = container.value.startup_probe
+            for_each = container.value.startup_probe_block[*]
             content {
               failure_count_threshold = startup_probe.value.failure_count_threshold
               dynamic "header" {
-                for_each = startup_probe.value.header
+                for_each = startup_probe.value.header[*]
                 content {
                   name  = header.value.name
                   value = header.value.value
@@ -114,7 +114,7 @@ resource "azurerm_container_app" "container_app" {
             }
           }
           dynamic "volume_mounts" {
-            for_each = container.value.volume_mounts
+            for_each = container.value.volume_mounts_block[*]
             content {
               name = volume_mounts.value.name
               path = volume_mounts.value.path
@@ -125,7 +125,7 @@ resource "azurerm_container_app" "container_app" {
       max_replicas = template.value.max_replicas
       min_replicas = template.value.min_replicas
       dynamic "azure_queue_scale_rule" {
-        for_each = template.value.azure_queue_scale_rule
+        for_each = template.value.azure_queue_scale_rule_blocks
         content {
           name         = azure_queue_scale_rule.value.name
           queue_name   = azure_queue_scale_rule.value.queue_name
@@ -140,7 +140,7 @@ resource "azurerm_container_app" "container_app" {
         }
       }
       dynamic "custom_scale_rule" {
-        for_each = template.value.custom_scale_rule
+        for_each = template.value.custom_scale_rule_blocks
         content {
           name             = custom_scale_rule.value.name
           custom_rule_type = custom_scale_rule.value.custom_rule_type
@@ -155,7 +155,7 @@ resource "azurerm_container_app" "container_app" {
         }
       }
       dynamic "http_scale_rule" {
-        for_each = template.value.http_scale_rule
+        for_each = template.value.http_scale_rule_blocks
         content {
           concurrent_requests = http_scale_rule.value.concurrent_requests
           name                = http_scale_rule.value.name
@@ -169,7 +169,7 @@ resource "azurerm_container_app" "container_app" {
         }
       }
       dynamic "tcp_scale_rule" {
-        for_each = template.value.tcp_scale_rule
+        for_each = template.value.tcp_scale_rule_blocks
         content {
           concurrent_requests = tcp_scale_rule.value.concurrent_requests
           name                = tcp_scale_rule.value.name
@@ -184,7 +184,7 @@ resource "azurerm_container_app" "container_app" {
       }
       revision_suffix = template.value.revision_suffix
       dynamic "volume" {
-        for_each = template.value.volume
+        for_each = template.value.volume_blocks
         content {
           name         = volume.value.name
           storage_name = volume.value.storage_name
