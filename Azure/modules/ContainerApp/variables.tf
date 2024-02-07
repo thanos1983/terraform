@@ -35,7 +35,7 @@ variable "template_block" {
         secret_name = optional(string)
         value       = optional(string)
       })), [])
-      ephemeral_storage   = optional(number)
+      ephemeral_storage   = optional(string)
       image               = string
       memory              = string
       name                = string
@@ -53,7 +53,7 @@ variable "template_block" {
         secret_name = optional(string)
         value       = optional(string)
       })), [])
-      ephemeral_storage    = optional(number)
+      ephemeral_storage    = optional(string)
       image                = string
       liveness_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
@@ -173,27 +173,28 @@ variable "ingress_block" {
   description = "An ingress block as detailed below."
   type        = object({
     allow_insecure_connections = optional(bool)
-    custom_domain_blocks       = list(object({
-      certificate_binding_type = optional(bool)
+    custom_domain_blocks       = optional(list(object({
+      certificate_binding_type = optional(string)
       certificate_id           = string
       name                     = string
-    }))
-    fqdn                           = string
-    external_enabled               = optional(bool)
-    ip_security_restriction_blocks = list(object({
+    })), [])
+    fqdn                           = optional(string)
+    external_enabled               = optional(bool, false)
+    ip_security_restriction_blocks = optional(list(object({
       action           = string
       description      = optional(string)
       ip_address_range = string
       name             = string
-    }))
+    })), [])
     target_port           = number
     exposed_port          = optional(number)
-    traffic_weight_blocks = optional(list(object({
+    traffic_weight_blocks = list(object({
       label           = optional(string)
       latest_revision = optional(bool)
       revision_suffix = optional(string)
       percentage      = number
-    })), [])
+    }))
+    transport = optional(string)
   })
   default = null
 }

@@ -55,7 +55,7 @@ resource "azurerm_container_app" "container_app" {
             content {
               failure_count_threshold = liveness_probe.value.failure_count_threshold
               dynamic "header" {
-                for_each = liveness_probe.value.header[*]
+                for_each = liveness_probe.value.header_block[*]
                 content {
                   name  = header.value.name
                   value = header.value.value
@@ -78,7 +78,7 @@ resource "azurerm_container_app" "container_app" {
             content {
               failure_count_threshold = readiness_probe.value.failure_count_threshold
               dynamic "header" {
-                for_each = readiness_probe.value.header[*]
+                for_each = readiness_probe.value.header_block[*]
                 content {
                   name  = header.value.name
                   value = header.value.value
@@ -98,7 +98,7 @@ resource "azurerm_container_app" "container_app" {
             content {
               failure_count_threshold = startup_probe.value.failure_count_threshold
               dynamic "header" {
-                for_each = startup_probe.value.header[*]
+                for_each = startup_probe.value.header_block[*]
                 content {
                   name  = header.value.name
                   value = header.value.value
