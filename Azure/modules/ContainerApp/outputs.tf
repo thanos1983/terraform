@@ -32,3 +32,7 @@ output "outbound_ip_addresses" {
   description = "A list of the Public IP Addresses which the Container App uses for outbound network access."
   value       = azurerm_container_app.container_app.outbound_ip_addresses
 }
+
+output "principal_id" {
+  value = azurerm_container_app.container_app.identity.0.principal_id
+}

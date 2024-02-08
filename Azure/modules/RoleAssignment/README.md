@@ -1,4 +1,4 @@
-# Azure Storage Account
+# Assigns a given Principal (User or Group) to a given Role
 
 ## Sample of use:
 

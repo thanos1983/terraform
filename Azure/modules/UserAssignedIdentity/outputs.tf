@@ -4,7 +4,7 @@ output "id" {
 }
 
 output "name" {
-  description = "The name of the User Assigned Identity."
+  description = "The Role Assignment name."
   value       = azurerm_user_assigned_identity.user_assigned_identity.name
 }
 

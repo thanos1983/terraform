@@ -15,7 +15,6 @@ resource "azurerm_role_assignment" "role_assignment" {
     content {
       create = timeouts.value.create
       read   = timeouts.value.read
-      update = timeouts.value.update
       delete = timeouts.value.delete
     }
   }

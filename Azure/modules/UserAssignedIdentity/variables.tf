@@ -8,7 +8,7 @@ variable "location" {
   type        = string
 }
 
-variable "resource_group" {
+variable "resource_group_name" {
   description = "Specifies the name of the Resource Group within which this User Assigned Identity should exist."
   type        = string
 }

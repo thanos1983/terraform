@@ -1,4 +1,4 @@
-# Azure Storage Account
+# Manages a User Assigned Identity
 
 ## Sample of use:
 
@@ -17,7 +17,7 @@ module "user_assigned_identity_<project>" {
 ```bash
 - name - (Required)
 - location (Required)
-- resource_group_name (Required)
+- resourc_group_name (Required)
 - tags (Optional)
 ```
 
@@ -25,6 +25,7 @@ module "user_assigned_identity_<project>" {
 
 ```bash
 - id
+- name
 - client_id
 - principal_id
 - tenant_id
