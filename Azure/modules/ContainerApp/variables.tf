@@ -27,8 +27,8 @@ variable "template_block" {
   description = "A template block as detailed below."
   type        = object({
     init_container_block = optional(object({
-      args       = optional(list(string))
-      command    = optional(list(string))
+      args       = optional(list(string), [])
+      command    = optional(list(string), [])
       cpu        = optional(string)
       env_blocks = optional(list(object({
         name        = string
@@ -45,8 +45,8 @@ variable "template_block" {
       }), null)
     }), null)
     container_blocks = list(object({
-      args       = optional(list(string))
-      command    = optional(list(string))
+      args       = optional(list(string), [])
+      command    = optional(list(string), [])
       cpu        = string
       env_blocks = optional(list(object({
         name        = string
@@ -164,7 +164,7 @@ variable "identity_block" {
   description = "An identity block as detailed below."
   type        = object({
     type         = string
-    identity_ids = optional(list(string))
+    identity_ids = optional(list(string), [])
   })
   default = null
 }
@@ -200,14 +200,14 @@ variable "ingress_block" {
 }
 
 variable "registry_block" {
-  description = "A registry block as detailed below."
-  type        = object({
+  description = "A list registry block as detailed below."
+  type        = list(object({
     server               = string
     identity             = optional(string)
     password_secret_name = optional(string)
     username             = optional(string)
-  })
-  default = null
+  }))
+  default = []
 }
 
 variable "secret_blocks" {

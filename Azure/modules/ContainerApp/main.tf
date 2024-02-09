@@ -250,7 +250,7 @@ resource "azurerm_container_app" "container_app" {
   }
 
   dynamic "registry" {
-    for_each = var.registry_block[*]
+    for_each = var.registry_block
     content {
       server               = registry.value.server
       identity             = registry.value.identity
