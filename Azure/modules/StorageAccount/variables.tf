@@ -118,7 +118,7 @@ variable "public_network_access_enabled" {
     condition     = contains(["true", "false"], lower(tostring(var.public_network_access_enabled)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
-  default = false
+  default = true
 }
 
 variable "default_to_oauth_authentication" {
