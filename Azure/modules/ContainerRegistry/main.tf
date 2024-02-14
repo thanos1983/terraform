@@ -83,7 +83,7 @@ resource "azurerm_container_registry" "container_registry" {
 }
 
 # Create RBAC permissions for ACR based on name(s)
-module "kv_role_assignment_names" {
+module "acr_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
   principal_id         = var.principal_id
@@ -93,11 +93,11 @@ module "kv_role_assignment_names" {
 }
 
 # Create RBAC permissions for ACR based on id(s)
-module "kv_role_assignment_ids" {
-  source               = "../RoleAssignment"
-  count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
-  principal_id         = var.principal_id
-  name                 = var.role_assignment_name
-  scope                = azurerm_container_registry.container_registry.id
-  role_definition_name = var.role_definition_ids[count.index]
+module "acr_role_assignment_ids" {
+  source             = "../RoleAssignment"
+  count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  principal_id       = var.principal_id
+  name               = var.role_assignment_name
+  scope              = azurerm_container_registry.container_registry.id
+  role_definition_id = var.role_definition_ids[count.index]
 }

@@ -179,19 +179,19 @@ variable "timeouts_block" {
 }
 
 variable "role_assignment_name" {
-  description = "Enable RBAC for the specific KV."
+  description = "A unique UUID/GUID for this Role Assignment."
   type        = string
   default     = null
 }
 
 variable "role_definition_names" {
-  description = "Specifies the role the user will get with the secret(s) in the vault."
+  description = "Specifies the role the user will be assigned to the ACR."
   type        = list(string)
   default     = []
 }
 
 variable "role_definition_ids" {
-  description = "Specifies the role id the user will get with the secret(s) in the vault. Usually for custom roles"
+  description = "Specifies the role id the user will be assigned to the ACR."
   type        = list(string)
   default     = []
 }
