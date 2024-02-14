@@ -177,3 +177,27 @@ variable "timeouts_block" {
   })
   default = null
 }
+
+variable "role_assignment_name" {
+  description = "Enable RBAC for the specific KV."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_names" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_ids" {
+  description = "Specifies the role id the user will get with the secret(s) in the vault. Usually for custom roles"
+  type        = string
+  default     = null
+}
+
+variable "principal_id" {
+  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
+  type        = string
+  default     = null
+}
