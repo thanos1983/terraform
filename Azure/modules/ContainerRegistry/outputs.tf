@@ -24,13 +24,3 @@ output "admin_password" {
   value       = azurerm_container_registry.container_registry.admin_password
   sensitive   = true
 }
-
-output "principal_id" {
-  description = "The Principal ID associated with this Managed Service Identity."
-  value       = azurerm_container_registry.container_registry.identity.0.principal_id
-}
-
-output "tenant_id" {
-  description = "The Tenant ID associated with this Managed Service Identity."
-  value       = azurerm_container_registry.container_registry.identity.0.tenant_id
-}
