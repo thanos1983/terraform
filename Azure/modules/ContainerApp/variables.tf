@@ -4,7 +4,7 @@ variable "container_app_environment_id" {
 }
 
 variable "name" {
-  description = "Specifies the name of the Public IP."
+  description = "The name for this Container App."
   type        = string
 }
 
