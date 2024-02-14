@@ -31,6 +31,7 @@ variable "tenant_id" {
 variable "object_id" {
   description = "The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault."
   type        = string
+  default     = null
 }
 
 variable "enabled_for_deployment" {
@@ -75,7 +76,7 @@ variable "enable_rbac_authorization" {
 
 variable "network_acls_block" {
   description = "Network ACL block."
-  type = map(object({
+  type        = map(object({
     bypass                     = string
     default_action             = string
     ip_rules                   = optional(set(string))
@@ -123,7 +124,7 @@ variable "soft_delete_retention_days" {
 
 variable "contact_block" {
   description = "Contact block."
-  type = object({
+  type        = object({
     email = string
     name  = optional(string)
     phone = optional(string)
@@ -200,7 +201,11 @@ variable "storage_permissions" {
 variable "kv_access_policy" {
   description = "Enable access policy for the specific KV."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.kv_access_policy)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "role_assignment_name" {

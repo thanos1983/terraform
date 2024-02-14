@@ -39,7 +39,7 @@ resource "azurerm_key_vault" "key_vault" {
 # Assign Access Policies if enabled
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
-  count                   = var.kv_access_policy == null ? 0 : 1
+  count                   = var.kv_access_policy == false ? 0 : 1
   object_id               = var.object_id
   tenant_id               = var.tenant_id
   application_id          = var.application_id
