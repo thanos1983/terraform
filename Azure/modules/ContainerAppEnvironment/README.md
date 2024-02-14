@@ -15,16 +15,16 @@ module "azurerm_container_app_environment_<project>" {
 ### Variables:
 
 ```bash
-- name - (Required)
-- resource_group_name - (Required)
-- location - (Required)
+- name (Required)
+- resource_group_name (Required)
+- location (Required)
 - dapr_application_insights_connection_string (optional)
 - infrastructure_subnet_id (optional)
 - internal_load_balancer_enabled (optional)
 - zone_redundancy_enabled (optional)
 - log_analytics_workspace_id (optional)
 - workload_profile_block (optional)
-- tags - (Optional)
+- tags (Optional)
 ```
 
 ### Output:

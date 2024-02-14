@@ -26,7 +26,7 @@ module "azurerm_container_app_<project>" {
 - registry_block (Optional)
 - secret_block (Optional)
 - workload_profile_name (Optional)
-- tags - (Optional)
+- tags (Optional)
 ```
 
 ### Output:

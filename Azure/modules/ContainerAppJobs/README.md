@@ -15,18 +15,18 @@ module "azapi_container_app_job_<project>" {
 ### Variables:
 
 ```bash
-container_app_environment_id (Required) 
-name (Required)
-parent_id (Required)
-tags (Optional)
-identity_block (Optional)
+- container_app_environment_id (Required) 
+- name (Required)
+- parent_id (Required)
+- identity_block (Optional)
+- tags (Optional)
 ```
 
 ### Output:
 
 ```bash
-id
-name
+- id
+- name
 ```
 
 ### Provider azure/azapi
