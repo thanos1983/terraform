@@ -15,7 +15,7 @@ module "azure_kv_access_policy_<project>" {
 ### Variables:
 
 ```bash
-- key_vault_id (Required)
+- name (Required)
 - tenant_id (Required)
 - object_id (Required)
 - application_id (Optional)
