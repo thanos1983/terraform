@@ -128,7 +128,7 @@ variable "default_to_oauth_authentication" {
     condition     = contains(["true", "false"], lower(tostring(var.default_to_oauth_authentication)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
-  default = true # to change to false
+  default = false
 }
 
 variable "is_hns_enabled" {
