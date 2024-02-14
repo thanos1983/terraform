@@ -211,8 +211,8 @@ variable "role_assignment_name" {
 
 variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
-  type        = string
-  default     = null
+  type        = list(string)
+  default     = []
 }
 
 variable "role_definition_ids" {
@@ -223,8 +223,8 @@ variable "role_definition_ids" {
 
 variable "principal_id" {
   description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
-  type        = list(string)
-  default     = []
+  type        = string
+  default     = null
 }
 
 variable "application_id" {

@@ -178,16 +178,16 @@ variable "timeouts_block" {
   default = null
 }
 
-variable "role_assignment_names" {
+variable "role_assignment_name" {
   description = "A unique UUID/GUID for this Role Assignment."
-  type        = list(string)
+  type        = string
   default     = null
 }
 
 variable "role_definition_names" {
   description = "Specifies the role the user will be assigned to the ACR."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "role_definition_ids" {

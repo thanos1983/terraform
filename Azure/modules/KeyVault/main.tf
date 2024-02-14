@@ -62,10 +62,10 @@ module "kv_role_assignment_names" {
 
 # Create RBAC permissions for KV based on id(s)
 module "kv_role_assignment_ids" {
-  source               = "../RoleAssignment"
-  count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
-  principal_id         = var.principal_id
-  name                 = var.role_assignment_name
-  scope                = azurerm_key_vault.key_vault.id
-  role_definition_name = var.role_definition_ids[count.index]
+  source             = "../RoleAssignment"
+  count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  principal_id       = var.principal_id
+  name               = var.role_assignment_name
+  scope              = azurerm_key_vault.key_vault.id
+  role_definition_id = var.role_definition_ids[count.index]
 }
