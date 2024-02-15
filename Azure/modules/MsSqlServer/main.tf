@@ -50,13 +50,13 @@ resource "azurerm_mssql_server" "mssql_server" {
 
 module "kv_access_policy_mssql_server" {
   source             = "../KeyVaultAccessPolicy"
-  count              = var.key_vault_id == null ? 1 : 0
+  count              = (var.role_definition_names == null || var.role_definition_ids == null) ? 1 : 0
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.mssql_server.object_id
   application_id     = data.azuread_service_principal.mssql_server.application_id
   tenant_id          = data.azuread_service_principal.mssql_server.application_tenant_id
-  depends_on = [
+  depends_on         = [
     azurerm_mssql_server.mssql_server
   ]
 }
@@ -68,7 +68,7 @@ module "kv_role_assignment_names" {
   name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
   role_definition_name = var.role_definition_names[count.index]
-  principal_id         = azurerm_mssql_server.mssql_server.identity[0].principal_id
+  principal_id         = azurerm_mssql_server.mssql_server.identity.0.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -78,29 +78,29 @@ module "kv_role_assignment_ids" {
   name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
   role_definition_name = var.role_definition_ids[count.index]
-  principal_id         = azurerm_mssql_server.mssql_server.identity[0].principal_id
+  principal_id         = azurerm_mssql_server.mssql_server.identity.0.principal_id
 }
 
 module "kv_secret_administrator_login_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 1 : 0
+  count        = var.key_vault_id == null ? 0 : 1
   key_vault_id = var.key_vault_id
   value        = var.administrator_login
   name         = "mssql-administrator-login"
-  depends_on = [
-    module.kv_role_assignment_names,
+  depends_on   = [
+    azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
     module.kv_access_policy_mssql_server
   ]
 }
 
 module "kv_secret_administrator_login_password_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 1 : 0
+  count        = var.key_vault_id == null ? 0 : 1
   key_vault_id = var.key_vault_id
   name         = "mssql-administrator-login-password"
   value        = coalesce(var.administrator_login_password, module.password[0].result)
-  depends_on = [
-    module.kv_role_assignment_names,
+  depends_on   = [
+    azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
     module.kv_access_policy_mssql_server
   ]
 }

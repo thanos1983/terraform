@@ -82,14 +82,24 @@ resource "azurerm_container_registry" "container_registry" {
   }
 }
 
+module "kv_access_policy_mssql_server" {
+  source             = "../KeyVaultAccessPolicy"
+  count              = (var.role_definition_names == null || var.role_definition_ids == null) ? 1 : 0
+  key_vault_id       = var.key_vault_id
+  secret_permissions = var.secret_permissions
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  application_id     = azurerm_container_registry.container_registry.id
+  object_id          = var.principal_id == null ? data.azurerm_client_config.current.object_id : var.principal_id
+}
+
 # Create RBAC permissions for ACR based on name(s)
 module "acr_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
   principal_id         = var.principal_id
   name                 = var.role_assignment_name
-  scope                = azurerm_container_registry.container_registry.id
   role_definition_name = var.role_definition_names[count.index]
+  scope                = azurerm_container_registry.container_registry.id
 }
 
 # Create RBAC permissions for ACR based on id(s)
@@ -98,6 +108,28 @@ module "acr_role_assignment_ids" {
   count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
   principal_id       = var.principal_id
   name               = var.role_assignment_name
-  scope              = azurerm_container_registry.container_registry.id
   role_definition_id = var.role_definition_ids[count.index]
+  scope              = azurerm_container_registry.container_registry.id
+}
+
+module "acr_administrator_username" {
+  source       = "../KeyVaultSecret"
+  count        = var.key_vault_id == null ? 0 : 1
+  key_vault_id = var.key_vault_id
+  name         = "acr-admin-username"
+  value        = azurerm_container_registry.container_registry.admin_username
+  depends_on   = [
+    module.acr_role_assignment_ids, module.acr_role_assignment_names, module.kv_access_policy_mssql_server
+  ]
+}
+
+module "acr_administrator_password" {
+  source       = "../KeyVaultSecret"
+  count        = var.key_vault_id == null ? 0 : 1
+  key_vault_id = var.key_vault_id
+  value        = azurerm_container_registry.container_registry.admin_password
+  name         = "acr-admin-password"
+  depends_on   = [
+    module.acr_role_assignment_ids, module.acr_role_assignment_names, module.kv_access_policy_mssql_server
+  ]
 }

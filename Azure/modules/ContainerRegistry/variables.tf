@@ -18,7 +18,7 @@ variable "sku" {
   type        = string
   validation {
     condition     = contains(["Standard", "Premium"], title(var.sku))
-    error_message = "Possible values are Basic, Standard and Premium."
+    error_message = "Possible values are 'Standard' and 'Premium'."
   }
   default = "Standard"
 }
@@ -28,7 +28,7 @@ variable "admin_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.admin_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = false
 }
@@ -61,7 +61,7 @@ variable "public_network_access_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.public_network_access_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = true
 }
@@ -71,7 +71,7 @@ variable "quarantine_policy_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.quarantine_policy_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = false
 }
@@ -98,7 +98,7 @@ variable "zone_redundancy_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.zone_redundancy_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = false
 }
@@ -108,7 +108,7 @@ variable "export_policy_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.export_policy_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = true
 }
@@ -137,7 +137,7 @@ variable "anonymous_pull_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.anonymous_pull_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = false
 }
@@ -147,7 +147,7 @@ variable "data_endpoint_enabled" {
   type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.data_endpoint_enabled)))
-    error_message = "Possible values are Basic, true and false."
+    error_message = "Possible values are 'true' and 'false'."
   }
   default = false
 }
@@ -157,7 +157,7 @@ variable "network_rule_bypass_option" {
   type        = string
   validation {
     condition     = contains(["AzureServices", "None"], title(var.network_rule_bypass_option))
-    error_message = "Possible values are Basic, 'AzureServices' and 'None'."
+    error_message = "Possible values are 'AzureServices' and 'None'."
   }
   default = "None"
 }
@@ -187,17 +187,37 @@ variable "role_assignment_name" {
 variable "role_definition_names" {
   description = "Specifies the role the user will be assigned to the ACR."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "role_definition_ids" {
   description = "Specifies the role id the user will be assigned to the ACR."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "principal_id" {
   description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
   type        = string
   default     = null
+}
+
+variable "key_vault_id" {
+  description = "The key vault ID for the vault."
+  type        = string
+  default     = null
+}
+
+variable "secret_permissions" {
+  description = "List of secret permissions."
+  type        = list(string)
+  validation {
+    condition = alltrue([
+      for secret_permission in var.secret_permissions : contains([
+        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
+      ], secret_permission)
+    ])
+    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
+  }
+  default = ["Get"]
 }

@@ -194,7 +194,7 @@ variable "kv_rg_name" {
 
 variable "secret_permissions" {
   description = "List of secret permissions."
-  type        = set(string)
+  type        = list(string)
   validation {
     condition = alltrue([
       for secret_permission in var.secret_permissions : contains([
@@ -206,24 +206,18 @@ variable "secret_permissions" {
   default = ["Get"]
 }
 
-variable "object_id" {
-  description = "The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault."
-  type        = string
-  default     = null
-}
-
-variable "key_vault_id" {
-  description = "The key vault ID for the vault."
-  type        = string
-  default     = null
-}
-
 variable "firewallRulesMap" {
   type = map(object({
     start_ip_address = string
     end_ip_address   = string
   }))
   default = null
+}
+
+variable "key_vault_id" {
+  description = "The key vault ID for the vault."
+  type        = string
+  default     = null
 }
 
 variable "role_assignment_name" {
