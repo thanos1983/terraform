@@ -187,7 +187,7 @@ variable "role_assignment_name" {
 variable "role_definition_names" {
   description = "Specifies the role the user will be assigned to the ACR."
   type        = list(string)
-  default     = []
+  default     = null
 }
 
 variable "role_definition_ids" {

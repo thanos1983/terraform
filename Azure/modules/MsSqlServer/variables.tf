@@ -226,19 +226,19 @@ variable "firewallRulesMap" {
   default = null
 }
 
-variable "kv_role_assignment_name" {
+variable "role_assignment_name" {
   description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
   type        = string
   default     = null
 }
 
-variable "kv_role_definition_ids" {
+variable "role_definition_ids" {
   description = "The Scoped-ID(s) of the Role Definition."
   type        = list(string)
   default     = null
 }
 
-variable "kv_role_definition_names" {
+variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
   type        = list(string)
   default     = null

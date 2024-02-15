@@ -64,20 +64,20 @@ module "kv_access_policy_mssql_server" {
 # Create RBAC permissions for KV based on name(s)
 module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
-  count                = var.kv_role_definition_names == null ? 0 : length(var.kv_role_definition_names)
-  name                 = var.kv_role_assignment_name
+  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
-  role_definition_name = var.kv_role_definition_names[count.index]
+  role_definition_name = var.role_definition_names[count.index]
   principal_id         = azurerm_mssql_server.mssql_server.identity[0].principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
 module "kv_role_assignment_ids" {
   source               = "../RoleAssignment"
-  count                = var.kv_role_definition_ids == null ? 0 : length(var.kv_role_definition_ids)
-  name                 = var.kv_role_assignment_name
+  count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
-  role_definition_name = var.kv_role_definition_ids[count.index]
+  role_definition_name = var.role_definition_ids[count.index]
   principal_id         = azurerm_mssql_server.mssql_server.identity[0].principal_id
 }
 
@@ -88,7 +88,7 @@ module "kv_secret_administrator_login_mssql_server" {
   value        = var.administrator_login
   name         = "mssql-administrator-login"
   depends_on = [
-    kv_role_assignment_names,
+    module.kv_role_assignment_names,
     module.kv_access_policy_mssql_server
   ]
 }
@@ -100,7 +100,7 @@ module "kv_secret_administrator_login_password_mssql_server" {
   name         = "mssql-administrator-login-password"
   value        = coalesce(var.administrator_login_password, module.password[0].result)
   depends_on = [
-    kv_role_assignment_names,
+    module.kv_role_assignment_names,
     module.kv_access_policy_mssql_server
   ]
 }
