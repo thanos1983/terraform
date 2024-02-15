@@ -76,20 +76,13 @@ variable "enable_rbac_authorization" {
 
 variable "network_acls_block" {
   description = "Network ACL block."
-  type        = map(object({
+  type        = object({
     bypass                     = string
     default_action             = string
-    ip_rules                   = optional(set(string))
-    virtual_network_subnet_ids = optional(set(string))
-  }))
-  default = {
-    "default" = {
-      bypass                     = "AzureServices"
-      default_action             = "Allow"
-      ip_rules                   = null
-      virtual_network_subnet_ids = null
-    }
-  }
+    ip_rules                   = optional(list(string))
+    virtual_network_subnet_ids = optional(list(string))
+  })
+  default = null
 }
 
 variable "purge_protection_enabled" {
@@ -140,7 +133,7 @@ variable "tags" {
 
 variable "certificate_permissions" {
   description = "List of certificate permissions."
-  type        = set(string)
+  type        = list(string)
   validation {
     condition = alltrue([
       for certificate_permission in var.certificate_permissions : contains([
@@ -155,7 +148,7 @@ variable "certificate_permissions" {
 
 variable "key_permissions" {
   description = "List of certificate permissions."
-  type        = set(string)
+  type        = list(string)
   validation {
     condition = alltrue([
       for key_permission in var.key_permissions : contains([
@@ -171,7 +164,7 @@ variable "key_permissions" {
 
 variable "secret_permissions" {
   description = "List of secret permissions."
-  type        = set(string)
+  type        = list(string)
   validation {
     condition = alltrue([
       for secret_permission in var.secret_permissions : contains([
@@ -185,7 +178,7 @@ variable "secret_permissions" {
 
 variable "storage_permissions" {
   description = "List of storage permissions."
-  type        = set(string)
+  type        = list(string)
   validation {
     condition = alltrue([
       for storage_permission in var.storage_permissions : contains([

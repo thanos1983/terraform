@@ -11,7 +11,7 @@ resource "azurerm_key_vault" "key_vault" {
   enable_rbac_authorization       = var.enable_rbac_authorization
 
   dynamic "network_acls" {
-    for_each = var.network_acls_block
+    for_each = var.network_acls_block[*]
     content {
       bypass                     = network_acls.value.bypass
       default_action             = network_acls.value.default_action
