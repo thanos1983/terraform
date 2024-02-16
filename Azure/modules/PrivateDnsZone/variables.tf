@@ -38,3 +38,23 @@ variable "timeouts_block" {
   })
   default = null
 }
+
+variable "private_dns_a_record_name" {
+  description = "The name of the DNS A Record."
+  type        = string
+}
+
+variable "zone_name" {
+  description = "Specifies the Private DNS Zone where the resource exists."
+  type        = string
+}
+
+variable "ttl" {
+  description = "The Time To Live (TTL) of the DNS record in seconds."
+  type        = number
+}
+
+variable "records" {
+  description = "List of IPv4 Addresses."
+  type        = list(string)
+}

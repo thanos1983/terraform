@@ -27,3 +27,13 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
     }
   }
 }
+
+module "private_dns_a_record" {
+  source              = "../PrivateDnsARecord"
+  count               = var.records == null ? 1 : 0
+  name                = var.private_dns_a_record_name
+  records             = var.records
+  resource_group_name = var.resource_group_name
+  ttl                 = var.ttl
+  zone_name           = azurerm_private_dns_zone.private_dns_zone.name
+}
