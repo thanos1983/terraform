@@ -48,7 +48,7 @@ resource "azurerm_mssql_server" "mssql_server" {
   }
 }
 
-module "kv_access_policy_mssql_server" {
+module "kv_access_policy" {
   source             = "../KeyVaultAccessPolicy"
   count              = (var.role_definition_names == null || var.role_definition_ids == null) ? 1 : 0
   key_vault_id       = var.key_vault_id
@@ -89,7 +89,7 @@ module "kv_secret_administrator_login_mssql_server" {
   name         = "mssql-administrator-login"
   depends_on   = [
     azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
-    module.kv_access_policy_mssql_server
+    module.kv_access_policy
   ]
 }
 
@@ -101,7 +101,7 @@ module "kv_secret_administrator_login_password_mssql_server" {
   value        = coalesce(var.administrator_login_password, module.password[0].result)
   depends_on   = [
     azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
-    module.kv_access_policy_mssql_server
+    module.kv_access_policy
   ]
 }
 

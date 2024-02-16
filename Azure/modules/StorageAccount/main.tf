@@ -235,3 +235,44 @@ resource "azurerm_storage_account" "storage_account" {
   sftp_enabled       = var.sftp_enabled
   tags               = var.tags
 }
+
+module "kv_access_policy" {
+  source             = "../KeyVaultAccessPolicy"
+  count              = (var.role_definition_names == null || var.role_definition_ids == null) ? 1 : 0
+  key_vault_id       = var.key_vault_id
+  secret_permissions = var.secret_permissions
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  application_id     = azurerm_storage_account.storage_account.id
+  object_id          = var.principal_id == null ? data.azurerm_client_config.current.object_id : var.principal_id
+}
+
+# Create RBAC permissions for ACR based on name(s)
+module "st_role_assignment_names" {
+  source               = "../RoleAssignment"
+  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  principal_id         = var.principal_id
+  name                 = var.role_assignment_name
+  role_definition_name = var.role_definition_names[count.index]
+  scope                = azurerm_storage_account.storage_account.id
+}
+
+# Create RBAC permissions for ACR based on id(s)
+module "st_role_assignment_ids" {
+  source             = "../RoleAssignment"
+  count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  principal_id       = var.principal_id
+  name               = var.role_assignment_name
+  role_definition_id = var.role_definition_ids[count.index]
+  scope              = azurerm_storage_account.storage_account.id
+}
+
+module "st_primary_access_key" {
+  source       = "../KeyVaultSecret"
+  count        = var.key_vault_id == null ? 0 : 1
+  key_vault_id = var.key_vault_id
+  name         = "acr-admin-username"
+  value        = "DefaultEndpointsProtocol=https;AccountName=${azurerm_storage_account.storage_account.name};AccountKey=${azurerm_storage_account.storage_account.primary_access_key};EndpointSuffix=core.windows.net"
+  depends_on   = [
+    module.st_role_assignment_ids, module.st_role_assignment_names, module.kv_access_policy
+  ]
+}
