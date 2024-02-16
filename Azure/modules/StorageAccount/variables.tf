@@ -208,34 +208,34 @@ variable "blob_properties_block" {
 
 variable "queue_properties_block" {
   description = "Queue properties."
-  type        = map(object({
-    cors_rule_block = optional(map(object({
+  type        = object({
+    cors_rule_block = optional(object({
       allowed_headers    = set(string)
       allowed_methods    = set(string)
       allowed_origins    = set(string)
       exposed_headers    = set(string)
       max_age_in_seconds = number
-    })))
-    logging_block = optional(map(object({
+    }))
+    logging_block = optional(object({
       delete                = bool
       read                  = bool
       version               = string
       write                 = bool
       retention_policy_days = optional(number)
-    })))
-    minute_metrics_block = optional(map(object({
+    }))
+    minute_metrics_block = optional(object({
       enabled               = bool
       version               = string
       include_apis          = bool
       retention_policy_days = optional(number)
-    })))
-    hour_metrics_block = optional(map(object({
+    }))
+    hour_metrics_block = optional(object({
       enabled               = bool
       version               = string
       include_apis          = bool
       retention_policy_days = optional(number)
-    })))
-  }))
+    }))
+  })
   default = null
 }
 
@@ -253,40 +253,40 @@ variable "static_website_block" {
 
 variable "share_properties_block" {
   description = "Share Properties."
-  type        = map(object({
-    cors_rule_block = optional(map(object({
+  type        = object({
+    cors_rule_block = optional(object({
       allowed_headers    = set(string)
       allowed_methods    = set(string)
       allowed_origins    = set(string)
       exposed_headers    = set(string)
       max_age_in_seconds = number
-    })))
-    retention_policy_block = optional(map(object({
+    }))
+    retention_policy_block = optional(object({
       days = optional(number, 7)
-    })))
-    smb_block = optional(map(object({
+    }))
+    smb_block = optional(object({
       versions                        = optional(string)
       authentication_types            = optional(string)
       kerberos_ticket_encryption_type = optional(string)
       channel_encryption_type         = optional(string)
       multichannel_enabled            = optional(bool, false)
-    })))
-  }))
+    }))
+  })
   default = null
 }
 
 variable "network_rules_block" {
   description = "Networking rule(s)."
-  type        = map(object({
+  type        = object({
     default_action             = string
-    bypass                     = optional(set(string))
-    ip_rules                   = optional(set(string))
-    virtual_network_subnet_ids = optional(set(string))
-    private_link_access_block  = optional(map(object({
+    bypass                     = optional(list(string))
+    ip_rules                   = optional(list(string))
+    virtual_network_subnet_ids = optional(list(string))
+    private_link_access_blocks = optional(list(object({
       endpoint_resource_id = string
       endpoint_tenant_id   = optional(string)
-    })))
-  }))
+    })), [])
+  })
   default = null
 }
 
@@ -298,7 +298,7 @@ variable "large_file_share_enabled" {
 
 variable "azure_files_authentication_block" {
   description = "Azure files authentication."
-  type        = map(object({
+  type        = object({
     directory_type         = string
     active_directory_block = optional(object({
       storage_sid         = string
@@ -308,7 +308,7 @@ variable "azure_files_authentication_block" {
       forest_name         = string
       netbios_domain_name = string
     }))
-  }))
+  })
   default = null
 }
 
