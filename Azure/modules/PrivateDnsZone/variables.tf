@@ -42,16 +42,19 @@ variable "timeouts_block" {
 variable "private_dns_a_record_name" {
   description = "The name of the DNS A Record."
   type        = string
+  default     = null
 }
 
 variable "zone_name" {
   description = "Specifies the Private DNS Zone where the resource exists."
   type        = string
+  default     = null
 }
 
 variable "ttl" {
   description = "The Time To Live (TTL) of the DNS record in seconds."
   type        = number
+  default     = null
 }
 
 variable "records" {
