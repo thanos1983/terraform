@@ -57,4 +57,5 @@ variable "ttl" {
 variable "records" {
   description = "List of IPv4 Addresses."
   type        = list(string)
+  default     = null
 }
