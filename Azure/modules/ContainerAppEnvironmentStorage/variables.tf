@@ -1,5 +1,5 @@
 variable "name" {
-  description = "The name for this Container App Environment Storage."
+  description = "The name of the Container Apps Managed Environment."
   type        = string
 }
 
@@ -26,11 +26,6 @@ variable "share_name" {
 variable "access_mode" {
   description = "The access mode to connect this storage to the Container App."
   type        = string
-}
-
-variable "tags" {
-  description = "A mapping of tags to assign to the resource."
-  type        = map(any)
 }
 
 variable "timeouts_block" {

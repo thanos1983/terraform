@@ -3,7 +3,7 @@
 ## Sample of use:
 
 ```bash
-module "azurerm_storage_share_<project>" {
+module "storage_share_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
   name = "my_azurerm_storage_share"
   .

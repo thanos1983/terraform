@@ -5,7 +5,6 @@ resource "azurerm_container_app_environment_storage" "container_app_environment_
   account_name                 = var.account_name
   container_app_environment_id = var.container_app_environment_id
   share_name                   = var.share_name
-  tags                         = var.tags
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
