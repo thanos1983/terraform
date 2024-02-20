@@ -28,12 +28,23 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
   }
 }
 
+module "private_dns_zone_virtual_network_link" {
+  source                = "../PrivateDnsZoneVirtualNetworkLink"
+  count                 = var.virtual_network_link_name == null ? 0 : 1
+  tags                  = var.tags
+  virtual_network_id    = var.virtual_network_id
+  resource_group_name   = var.resource_group_name
+  registration_enabled  = var.registration_enabled
+  name                  = var.virtual_network_link_name
+  private_dns_zone_name = azurerm_private_dns_zone.private_dns_zone.name
+}
+
 module "private_dns_a_record" {
   source              = "../PrivateDnsARecord"
   count               = var.records == null ? 0 : 1
-  name                = var.private_dns_a_record_name
+  ttl                 = var.ttl
   records             = var.records
   resource_group_name = var.resource_group_name
-  ttl                 = var.ttl
+  name                = var.private_dns_a_record_name
   zone_name           = azurerm_private_dns_zone.private_dns_zone.name
 }

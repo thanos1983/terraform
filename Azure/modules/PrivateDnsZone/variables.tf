@@ -57,6 +57,28 @@ variable "ttl" {
   default     = null
 }
 
+variable "virtual_network_link_name" {
+  description = "The name of the Private DNS Zone Virtual Network Link."
+  type        = string
+  default     = null
+}
+
+variable "registration_enabled" {
+  description = "Is auto-registration of virtual machine records in the virtual network in the Private DNS zone enabled?"
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.registration_enabled)))
+    error_message = "Possible values can be 'true' or 'false'."
+  }
+  default = false
+}
+
+variable "virtual_network_id" {
+  description = "The ID of the Virtual Network that should be linked to the DNS Zone."
+  type        = string
+  default     = null
+}
+
 variable "records" {
   description = "List of IPv4 Addresses."
   type        = list(string)
