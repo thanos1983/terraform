@@ -3,9 +3,9 @@
 ## Sample of use:
 
 ```bash
-module "azurerm_container_app_<project>" {
+module "container_app_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_azurerm_container_app"
+  name = "my_container_app"
   .
   .
   .
@@ -15,7 +15,7 @@ module "azurerm_container_app_<project>" {
 ### Variables:
 
 ```bash
-- container_app_environment_id (Required) 
+- container_app_environment_id (Required)
 - name (Required)
 - resource_group_name (Required)
 - revision_mode (Required)
