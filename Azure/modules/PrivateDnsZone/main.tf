@@ -41,10 +41,11 @@ module "private_dns_zone_virtual_network_link" {
 
 module "private_dns_a_record" {
   source              = "../PrivateDnsARecord"
-  count               = var.records == null ? 0 : 1
-  ttl                 = var.ttl
-  records             = var.records
+  count               = var.private_dns_a_records == null ? 0 : length(var.private_dns_a_records)
+  tags                = var.tags
   resource_group_name = var.resource_group_name
-  name                = var.private_dns_a_record_name
+  ttl                 = var.private_dns_a_records[count.index].ttl
+  name                = var.private_dns_a_records[count.index].name
+  records             = var.private_dns_a_records[count.index].records
   zone_name           = azurerm_private_dns_zone.private_dns_zone.name
 }

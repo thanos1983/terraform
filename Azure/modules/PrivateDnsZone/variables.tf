@@ -39,10 +39,14 @@ variable "timeouts_block" {
   default = null
 }
 
-variable "private_dns_a_record_name" {
-  description = "The name of the DNS A Record."
-  type        = string
-  default     = null
+variable "private_dns_a_records" {
+  description = "The name(s) of the DNS A Record."
+  type        = list(object({
+    ttl     = number
+    name    = string
+    records = list(string)
+  }))
+  default = null
 }
 
 variable "zone_name" {
@@ -54,7 +58,7 @@ variable "zone_name" {
 variable "ttl" {
   description = "The Time To Live (TTL) of the DNS record in seconds."
   type        = number
-  default     = null
+  default     = 10
 }
 
 variable "virtual_network_link_name" {
@@ -76,11 +80,5 @@ variable "registration_enabled" {
 variable "virtual_network_id" {
   description = "The ID of the Virtual Network that should be linked to the DNS Zone."
   type        = string
-  default     = null
-}
-
-variable "records" {
-  description = "List of IPv4 Addresses."
-  type        = list(string)
   default     = null
 }
