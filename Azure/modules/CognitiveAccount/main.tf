@@ -8,7 +8,7 @@ resource "azurerm_cognitive_account" "cognitive_account" {
   dynamic_throttling_enabled = var.dynamic_throttling_enabled
 
   dynamic "customer_managed_key" {
-    for_each = var.customer_managed_key_block
+    for_each = var.customer_managed_key_block[*]
     content {
       key_vault_key_id   = customer_managed_key.value.key_vault_key_id
       identity_client_id = customer_managed_key.value.identity_client_id
@@ -18,7 +18,7 @@ resource "azurerm_cognitive_account" "cognitive_account" {
   fqdns = var.fqdns
 
   dynamic "identity" {
-    for_each = var.identity_block
+    for_each = var.identity_block[*]
     content {
       type         = identity.value.type
       identity_ids = identity.value.identity_ids
@@ -32,7 +32,7 @@ resource "azurerm_cognitive_account" "cognitive_account" {
   metrics_advisor_website_name    = var.metrics_advisor_website_name
 
   dynamic "network_acls" {
-    for_each = var.network_acls_block
+    for_each = var.network_acls_block[*]
     content {
       default_action = network_acls.value.default_action
       ip_rules       = network_acls.value.ip_rules
