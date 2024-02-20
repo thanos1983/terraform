@@ -108,8 +108,8 @@ module "cognitive_account_primary_access_key" {
   source       = "../KeyVaultSecret"
   count        = var.key_vault_id == null ? 0 : 1
   key_vault_id = var.key_vault_id
+  name         = "cognitive_account_primary_access_key"
   value        = azurerm_cognitive_account.cognitive_account.primary_access_key
-  name         = "${azurerm_cognitive_account.cognitive_account.name}_primary_access_key"
   depends_on   = [
     module.cognitive_account_role_assignment_ids, module.cognitive_account_role_assignment_names, module.kv_access_policy
   ]
