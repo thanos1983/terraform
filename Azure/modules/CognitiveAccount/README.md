@@ -44,11 +44,10 @@ module "cognitive_account_<project>" {
 ```bash
 - id
 - name
-- custom_domain_verification_id
-- latest_revision_fqdn
-- latest_revision_name
-- location
-- outbound_ip_addresses
+- endpoint
+- identity
+- primary_access_key
+- secondary_access_key
 ```
 
-###### More information can be found on the official document [azurerm_container_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app)
+###### More information can be found on the official document [cognitive_account](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_account)

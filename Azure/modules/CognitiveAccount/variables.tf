@@ -32,7 +32,11 @@ variable "custom_subdomain_name" {
 variable "dynamic_throttling_enabled" {
   description = "Whether to enable the dynamic throttling for this Cognitive Service Account."
   type        = string
-  default     = null
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.dynamic_throttling_enabled)))
+    error_message = "Parameter must be 'true' or 'false'."
+  }
+  default = false
 }
 
 variable "customer_managed_key_block" {
@@ -167,4 +171,48 @@ variable "timeouts_block" {
     delete = optional(number, 30)
   })
   default = null
+}
+
+variable "role_assignment_name" {
+  description = "A unique UUID/GUID for this Role Assignment."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_names" {
+  description = "Specifies the role the user will be assigned to the ACR."
+  type        = list(string)
+  default     = []
+}
+
+variable "role_definition_ids" {
+  description = "Specifies the role id the user will be assigned to the ACR."
+  type        = list(string)
+  default     = []
+}
+
+variable "principal_id" {
+  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
+  type        = string
+  default     = null
+}
+
+variable "key_vault_id" {
+  description = "The key vault ID for the vault."
+  type        = string
+  default     = null
+}
+
+variable "secret_permissions" {
+  description = "List of secret permissions."
+  type        = list(string)
+  validation {
+    condition = alltrue([
+      for secret_permission in var.secret_permissions : contains([
+        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
+      ], secret_permission)
+    ])
+    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
+  }
+  default = ["Get"]
 }
