@@ -1,4 +1,4 @@
-variable "storage_account_queue_name" {
+variable "name" {
   description = "The name of the Queue which should be created within the Storage Account."
   type        = string
 }

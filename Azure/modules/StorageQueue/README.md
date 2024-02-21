@@ -15,7 +15,7 @@ module "storage_queue_<project>" {
 ### Variables:
 
 ```bash
-- storage_account_queue_name - (Required)
+- name - (Required)
 - storage_account_name (Required)
 - metadata (Optional)
 ```
