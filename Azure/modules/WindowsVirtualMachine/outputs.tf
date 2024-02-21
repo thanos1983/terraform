@@ -21,7 +21,7 @@ output "name" {
 }
 
 output "identity" {
-  description = "An identity block."
+  description = "An identity block as defined below, which contains the Managed Service Identity information for this azure resource."
   value       = azurerm_windows_virtual_machine.windows_virtual_machine.identity
 }
 

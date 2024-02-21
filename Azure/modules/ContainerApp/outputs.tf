@@ -33,6 +33,26 @@ output "outbound_ip_addresses" {
   value       = azurerm_container_app.container_app.outbound_ip_addresses
 }
 
+output "identity" {
+  description = "An identity block as defined below, which contains the Managed Service Identity information for this azure resource."
+  value       = azurerm_container_app.container_app.identity
+}
+
 output "principal_id" {
-  value = azurerm_container_app.container_app.identity.0.principal_id
+  description = "The Principal ID associated with this Managed Service Identity."
+  value       = flatten([
+    for identity in azurerm_container_app.container_app[*].identity : identity[*].principal_id
+  ])
+}
+
+output "tenant_id" {
+  description = "The Tenant ID associated with this Managed Service Identity."
+  value       = flatten([
+    for identity in azurerm_container_app.container_app[*].identity : identity[*].tenant_id
+  ])
+}
+
+output "application_url" {
+  description = "Extract the Portal Url."
+  value       = azurerm_container_app.container_app.ingress[0].fqdn
 }
