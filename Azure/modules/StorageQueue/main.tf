@@ -1,5 +1,5 @@
 resource "azurerm_storage_queue" "storage_queue" {
-  name                  = var.storage_container_name
+  name                  = var.storage_account_queue_name
   storage_account_name  = var.storage_account_name
   metadata              = var.metadata
 
