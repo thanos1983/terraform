@@ -18,7 +18,7 @@ variable "revision_mode" {
   type        = string
   validation {
     condition     = contains(["Single", "Multiple"], title(var.revision_mode))
-    error_message = "Possible values are Single and Multiple."
+    error_message = "Possible values are 'Single' and 'Multiple'."
   }
   default = "Single"
 }
