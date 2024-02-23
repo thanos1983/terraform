@@ -1,11 +1,11 @@
-# Microsoft.App jobs
+# Microsoft.App containerApps/authConfigs
 
 ## Sample of use:
 
 ```bash
-module "azapi_container_app_job_<project>" {
+module "azapi_containerApps_authConfigs_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_azapi_container_app_job"
+  name = "my_azapi_containerApps_authConfigs"
   .
   .
   .
@@ -15,11 +15,20 @@ module "azapi_container_app_job_<project>" {
 ### Variables:
 
 ```bash
-- container_app_environment_id (Required) 
 - name (Required)
 - parent_id (Required)
-- identity_block (Optional)
-- tags (Optional)
+- globalValidation (Optional)
+- httpSettings (Optional) 
+- apple (Optional)
+- azureActiveDirectory (Optional)
+- azureStaticWebApps (Optional)
+- customOpenIdConnectProviders (Optional)
+- facebook (Optional)
+- gitHub (Optional)
+- google (Optional)
+- twitter (Optional)
+- login (Optional)
+- platform (Optional)
 ```
 
 ### Output:
@@ -63,4 +72,4 @@ provider "azurerm" {
 provider "azapi" {}
 ````
 
-###### More information can be found on the official document [containerApps/Microsoft.App jobs](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/jobs?pivots=deployment-language-terraform)
+###### More information can be found on the official document [Microsoft.App/containerApps/authConfigs](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/containerapps/authconfigs?pivots=deployment-language-terraform)

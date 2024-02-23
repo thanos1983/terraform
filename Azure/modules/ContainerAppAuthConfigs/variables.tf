@@ -8,68 +8,30 @@ variable "parent_id" {
   type        = string
 }
 
-variable "excludedPaths" {
-  description = "The paths for which unauthenticated flow would not be redirected to the login page."
-  type        = list(string)
-  default     = []
+variable "globalValidation" {
+  description = "The configuration settings that determines the validation flow of users using Service Authentication/Authorization."
+  type        = object({
+    excludedPaths               = list(string)
+    redirectToProvider          = string
+    unauthenticatedClientAction = string
+  })
+  default = null
 }
 
-variable "redirectToProvider" {
-  description = "The default authentication provider to use when multiple providers are configured."
-  type        = string
-  default     = null
-}
-
-variable "unauthenticatedClientAction" {
-  description = "The action to take when an unauthenticated client attempts to access the app."
-  type        = string
-  validation {
-    condition = contains([
-      "AllowAnonymous", "RedirectToLoginPage", "Return401", "Return403"
-    ], title(var.unauthenticatedClientAction))
-    error_message = "Possible values are 'AllowAnonymous', 'RedirectToLoginPage', 'Return401' and 'Return403'."
-  }
-  default = "Return403"
-}
-
-variable "convention" {
-  description = "The convention used to determine the url of the request made."
-  type        = string
-  validation {
-    condition = contains([
-      "Custom", "NoProxy", "Standard"
-    ], title(var.unauthenticatedClientAction))
-    error_message = "Possible values are 'Custom', 'NoProxy' and 'Standard'."
-  }
-  default = "Standard"
-}
-
-variable "customHostHeaderName" {
-  description = "The name of the header containing the host of the request."
-  type        = string
-  default     = null
-}
-
-variable "customProtoHeaderName" {
-  description = "The name of the header containing the scheme of the request."
-  type        = string
-  default     = null
-}
-
-variable "requireHttps" {
-  description = "false if the authentication/authorization responses not having the HTTPS scheme are permissible."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.requireHttps)))
-    error_message = "Possible values are 'true' and 'false'."
-  }
-  default = true
-}
-
-variable "apiPrefix" {
-  description = "The prefix that should precede all the authentication/authorization paths."
-  type        = string
-  default     = null
+variable "httpSettings" {
+  description = "The configuration settings of the HTTP requests for authentication and authorization requests made against ContainerApp Service Authentication/Authorization."
+  type        = object({
+    forwardProxy = object({
+      convention            = string
+      customHostHeaderName  = string
+      customProtoHeaderName = string
+    })
+    requireHttps = bool
+    routes       = object({
+      apiPrefix = string
+    })
+  })
+  default = null
 }
 
 variable "apple" {
@@ -83,6 +45,148 @@ variable "apple" {
       clientId                = string
       clientSecretSettingName = string
     })
+  })
+  default = null
+}
+
+variable "azureActiveDirectory" {
+  description = "The configuration settings of the Azure Active directory provider."
+  type        = object({
+    enabled           = bool
+    isAutoProvisioned = bool
+    login             = object({
+      disableWWWAuthenticate = bool
+      loginParameters        = list(string)
+    })
+    registration = object({
+      clientId                                      = string
+      clientSecretCertificateIssuer                 = string
+      clientSecretCertificateSubjectAlternativeName = string
+      clientSecretCertificateThumbprint             = string
+      clientSecretSettingName                       = string
+      openIdIssuer                                  = string
+    })
+    validation = object({
+      allowedAudiences           = list(string)
+      defaultAuthorizationPolicy = object({
+        allowedApplications = list(string)
+        allowedPrincipals   = object({
+          groups     = list(string)
+          identities = list(string)
+        })
+      })
+      jwtClaimChecks = object({
+        allowedClientApplications = list(string)
+        allowedGroups             = list(string)
+      })
+    })
+  })
+  default = null
+}
+
+variable "azureStaticWebApps" {
+  description = "The configuration settings of the Azure Static Web Apps provider."
+  type        = object({
+    enabled      = bool
+    registration = object({
+      clientId = string
+    })
+  })
+  default = null
+}
+
+variable "customOpenIdConnectProviders" {
+  description = "The map of the name of the alias of each custom Open ID Connect provider to the configuration settings of the custom Open ID Connect provider."
+  type        = map(any)
+  default     = null
+}
+
+variable "facebook" {
+  description = "The configuration settings of the Facebook provider."
+  type        = object({
+    enabled         = bool
+    graphApiVersion = string
+    login           = object({
+      scopes = list(string)
+    })
+    registration = object({
+      appId                = string
+      appSecretSettingName = string
+    })
+  })
+  default = null
+}
+
+variable "github" {
+  description = "The configuration settings of the GitHub provider."
+  type        = object({
+    enabled = bool
+    login   = object({
+      scopes = list(string)
+    })
+    registration = object({
+      clientId                = string
+      clientSecretSettingName = string
+    })
+  })
+  default = null
+}
+
+variable "google" {
+  description = "The configuration settings of the Google provider."
+  type        = object({
+    enabled = bool
+    login   = object({
+      scopes = list(string)
+    })
+    registration = object({
+      clientId                = string
+      clientSecretSettingName = string
+    })
+    validation = object({
+      allowedAudiences = list(string)
+    })
+  })
+  default = null
+}
+
+variable "twitter" {
+  description = "The configuration settings of the Twitter provider."
+  type        = object({
+    enabled      = bool
+    registration = object({
+      consumerKey               = string
+      consumerSecretSettingName = string
+    })
+  })
+  default = null
+}
+
+variable "login" {
+  description = "The configuration settings of the login flow of users using ContainerApp Service Authentication/Authorization."
+  type        = object({
+    allowedExternalRedirectUrls = list(string)
+    cookieExpiration            = object({
+      convention       = string
+      timeToExpiration = string
+    })
+    nonce = object({
+      nonceExpirationInterval = string
+      validateNonce           = bool
+    })
+    preserveUrlFragmentsForLogins = bool
+    routes                        = object({
+      logoutEndpoint = string
+    })
+  })
+  default = null
+}
+
+variable "platform" {
+  description = "The configuration settings of the platform of ContainerApp Service Authentication/Authorization."
+  type        = object({
+    enabled        = bool
+    runtimeVersion = string
   })
   default = null
 }
