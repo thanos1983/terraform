@@ -15,7 +15,11 @@ variable "globalValidation" {
     redirectToProvider          = string
     unauthenticatedClientAction = string
   })
-  default = null
+  default = {
+    excludedPaths               = []
+    redirectToProvider          = null
+    unauthenticatedClientAction = null
+  }
 }
 
 variable "httpSettings" {
@@ -31,7 +35,17 @@ variable "httpSettings" {
       apiPrefix = string
     })
   })
-  default = null
+  default = {
+    forwardProxy = {
+      convention            = null
+      customHostHeaderName  = null
+      customProtoHeaderName = null
+    }
+    requireHttps = true
+    routes       = {
+      apiPrefix = null
+    }
+  }
 }
 
 variable "apple" {
@@ -54,31 +68,31 @@ variable "azureActiveDirectory" {
   type        = object({
     enabled           = bool
     isAutoProvisioned = bool
-    login             = object({
+    login             = optional(object({
       disableWWWAuthenticate = bool
-      loginParameters        = list(string)
-    })
+      loginParameters        = optional(list(string))
+    }))
     registration = object({
       clientId                                      = string
-      clientSecretCertificateIssuer                 = string
-      clientSecretCertificateSubjectAlternativeName = string
-      clientSecretCertificateThumbprint             = string
-      clientSecretSettingName                       = string
+      clientSecretCertificateIssuer                 = optional(string)
+      clientSecretCertificateSubjectAlternativeName = optional(string)
+      clientSecretCertificateThumbprint             = optional(string)
+      clientSecretSettingName                       = optional(string)
       openIdIssuer                                  = string
     })
     validation = object({
       allowedAudiences           = list(string)
-      defaultAuthorizationPolicy = object({
-        allowedApplications = list(string)
-        allowedPrincipals   = object({
-          groups     = list(string)
-          identities = list(string)
-        })
-      })
-      jwtClaimChecks = object({
-        allowedClientApplications = list(string)
-        allowedGroups             = list(string)
-      })
+      defaultAuthorizationPolicy = optional(object({
+        allowedApplications = optional(list(string))
+        allowedPrincipals   = optional(object({
+          groups     = optional(list(string))
+          identities = optional(list(string))
+        }), null)
+      }))
+      jwtClaimChecks = optional(object({
+        allowedClientApplications = optional(list(string))
+        allowedGroups             = optional(list(string))
+      }), null)
     })
   })
   default = null
@@ -165,19 +179,19 @@ variable "twitter" {
 variable "login" {
   description = "The configuration settings of the login flow of users using ContainerApp Service Authentication/Authorization."
   type        = object({
-    allowedExternalRedirectUrls = list(string)
-    cookieExpiration            = object({
+    allowedExternalRedirectUrls = optional(list(string), [])
+    cookieExpiration            = optional(object({
       convention       = string
       timeToExpiration = string
-    })
-    nonce = object({
+    }), null)
+    nonce = optional(object({
       nonceExpirationInterval = string
       validateNonce           = bool
-    })
+    }), null)
     preserveUrlFragmentsForLogins = bool
-    routes                        = object({
+    routes                        = optional(object({
       logoutEndpoint = string
-    })
+    }), null)
   })
   default = null
 }
@@ -186,7 +200,9 @@ variable "platform" {
   description = "The configuration settings of the platform of ContainerApp Service Authentication/Authorization."
   type        = object({
     enabled        = bool
-    runtimeVersion = string
+    runtimeVersion = optional(string)
   })
-  default = null
+  default = {
+    enabled = true
+  }
 }
