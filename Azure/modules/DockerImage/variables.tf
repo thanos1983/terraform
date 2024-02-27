@@ -7,7 +7,7 @@ variable "build_block" {
   description = "Configuration to build an image."
   type        = object({
     context     = string
-    auth_config = optional(object({
+    auth_config = optional(list(object({
       host_name      = string
       auth           = optional(string)
       email          = optional(string)
@@ -16,7 +16,7 @@ variable "build_block" {
       registry_token = optional(string)
       server_address = optional(string)
       user_name      = optional(string)
-    }))
+    })), [])
     build_arg       = optional(map(string))
     build_args      = optional(map(string))
     build_id        = optional(string)
@@ -48,11 +48,11 @@ variable "build_block" {
     suppress_output = optional(bool)
     tag             = optional(list(string))
     target          = optional(string)
-    ulimit          = optional(object({
+    ulimit          = optional(list(object({
       hard = number
       name = string
       soft = number
-    }))
+    })), [])
     version = optional(string)
   })
   default = null

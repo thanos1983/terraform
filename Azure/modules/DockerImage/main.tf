@@ -1,4 +1,4 @@
-resource "docker_image" "build" {
+resource "docker_image" "image" {
   name = var.name
 
   dynamic "build" {

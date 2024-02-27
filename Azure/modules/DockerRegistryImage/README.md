@@ -1,11 +1,11 @@
-# Docker Image
+# Docker Registry Image
 
 ## Sample of use:
 
 ```bash
-module "docker_image_<project>" {
+module "docker_registry_image_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_docker_image"
+  name = "my_docker_registry_image"
   .
   .
   .
@@ -16,11 +16,8 @@ module "docker_image_<project>" {
 
 ```bash
 - name (Required)
-- build_block (Optional)
-- force_remove (Optional)
-- keep_locally (Optional)
-- platform (Optional)
-- pull_triggers (Optional)
+- insecure_skip_verify (Optional)
+- keep_remotely (Optional)
 - triggers (Optional)
 ```
 
@@ -29,8 +26,7 @@ module "docker_image_<project>" {
 ```bash
 - id
 - name
-- image_id
-- repo_digest
+- sha256_digest
 ```
 
 The user needs to add the provider block. Sample of configuration:
@@ -46,4 +42,4 @@ provider "docker" {
 }
 ```
 
-###### More information can be found on the official document [docker_image](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image)
+###### More information can be found on the official document [docker_registry_image](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/registry_image)
