@@ -1,4 +1,4 @@
-# Manages a Private Link Service.
+# Manages a Private Link Service
 
 ## Sample of use:
 
