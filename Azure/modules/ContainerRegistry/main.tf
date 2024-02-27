@@ -114,7 +114,7 @@ module "acr_role_assignment_ids" {
 
 module "acr_administrator_username" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "acr-admin-username"
   value        = azurerm_container_registry.container_registry.admin_username
