@@ -115,6 +115,7 @@ module "acr_role_assignment_ids" {
 module "acr_administrator_username" {
   source       = "../KeyVaultSecret"
   count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
+  tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "acr-admin-username"
   value        = azurerm_container_registry.container_registry.admin_username
@@ -126,9 +127,10 @@ module "acr_administrator_username" {
 module "acr_administrator_password" {
   source       = "../KeyVaultSecret"
   count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
+  tags         = var.tags
   key_vault_id = var.key_vault_id
-  value        = azurerm_container_registry.container_registry.admin_password
   name         = "acr-admin-password"
+  value        = azurerm_container_registry.container_registry.admin_password
   depends_on   = [
     module.acr_role_assignment_ids, module.acr_role_assignment_names, module.kv_access_policy
   ]

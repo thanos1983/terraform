@@ -227,6 +227,7 @@ module "kv_role_assignment_ids" {
 module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
   count        = (var.kv_role_definition_names == null || var.kv_role_definition_ids == null ) ? 1 : 0
+  tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-username"
   value        = var.administrator_username
@@ -238,6 +239,7 @@ module "kv_secret_admin_username" {
 module "kv_secret_admin_password" {
   source       = "../KeyVaultSecret"
   count        = (var.kv_role_definition_names == null || var.kv_role_definition_ids == null ) ? 1 : 0
+  tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
