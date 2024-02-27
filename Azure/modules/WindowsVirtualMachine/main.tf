@@ -185,7 +185,7 @@ module "AADLoginForWindows" {
   auto_upgrade_minor_version = var.auto_upgrade_minor_version
   type_handler_version       = var.type_handler_version
   virtual_machine_id         = azurerm_windows_virtual_machine.windows_virtual_machine.id
-  depends_on = [
+  depends_on                 = [
     azurerm_windows_virtual_machine.windows_virtual_machine
   ]
 }
@@ -226,26 +226,22 @@ module "kv_role_assignment_ids" {
 
 module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.kv_role_definition_names == null || var.kv_role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-username"
   value        = var.administrator_username
-  depends_on = [
-    module.kv_access_policy,
-    module.kv_role_assignment_ids,
-    module.kv_role_assignment_names
+  depends_on   = [
+    module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
 }
 
 module "kv_secret_admin_password" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.kv_role_definition_names == null || var.kv_role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-password"
   value        = coalesce(var.administrator_password, module.password[0].result)
-  depends_on = [
-    module.kv_access_policy,
-    module.kv_role_assignment_ids,
-    module.kv_role_assignment_names
+  depends_on   = [
+    module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
 }

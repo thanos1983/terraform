@@ -83,7 +83,7 @@ module "kv_role_assignment_ids" {
 
 module "kv_secret_administrator_login_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   value        = var.administrator_login
   name         = "mssql-administrator-login"
@@ -95,7 +95,7 @@ module "kv_secret_administrator_login_mssql_server" {
 
 module "kv_secret_administrator_login_password_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "mssql-administrator-login-password"
   value        = coalesce(var.administrator_login_password, module.password[0].result)

@@ -106,11 +106,12 @@ module "cognitive_account_role_assignment_ids" {
 # Store the Primary Access Key in KV
 module "cognitive_account_primary_access_key" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "cognitive-account-primary-access-key"
   value        = azurerm_cognitive_account.cognitive_account.primary_access_key
   depends_on   = [
-    module.cognitive_account_role_assignment_ids, module.cognitive_account_role_assignment_names, module.kv_access_policy
+    module.cognitive_account_role_assignment_ids, module.cognitive_account_role_assignment_names,
+    module.kv_access_policy
   ]
 }

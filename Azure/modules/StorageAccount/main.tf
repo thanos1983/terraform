@@ -268,7 +268,7 @@ module "st_role_assignment_ids" {
 
 module "st_primary_access_key" {
   source       = "../KeyVaultSecret"
-  count        = var.key_vault_id == null ? 0 : 1
+  count        = (var.role_definition_names == null || var.role_definition_ids == null ) ? 1 : 0
   key_vault_id = var.key_vault_id
   name         = "${azurerm_storage_account.storage_account.name}-primary-access-key"
   value        = "DefaultEndpointsProtocol=https;AccountName=${azurerm_storage_account.storage_account.name};AccountKey=${azurerm_storage_account.storage_account.primary_access_key};EndpointSuffix=core.windows.net"
