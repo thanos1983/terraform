@@ -95,3 +95,33 @@ variable "triggers" {
   type        = map(string)
   default     = null
 }
+
+variable "insecure_skip_verify" {
+  description = "If true, the verification of TLS certificates of the server/registry is disabled."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.insecure_skip_verify)))
+    error_message = "TLS verification variable must be 'true' or 'false'."
+  }
+  default = false
+}
+
+variable "keep_remotely" {
+  description = "If true, then the Docker image won't be deleted on destroy operation."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.keep_remotely)))
+    error_message = "Image in order not to be deleted must be 'true' or 'false'."
+  }
+  default = false
+}
+
+variable "push" {
+  description = "If true, then the Docker image will be pushed to the registry."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.push)))
+    error_message = "TLS verification variable must be 'true' or 'false'."
+  }
+  default = false
+}

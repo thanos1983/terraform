@@ -71,3 +71,12 @@ resource "docker_image" "image" {
   pull_triggers = var.pull_triggers
   triggers      = var.triggers
 }
+
+module "docker_registry_image" {
+  source               = "../DockerRegistryImage"
+  count                = var.push == false ? 0 : 1
+  name                 = docker_image.image.name
+  insecure_skip_verify = var.insecure_skip_verify
+  keep_remotely        = var.keep_remotely
+  triggers             = var.triggers
+}
