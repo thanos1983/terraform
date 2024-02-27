@@ -16,7 +16,7 @@ variable "build_block" {
       registry_token = optional(string)
       server_address = optional(string)
       user_name      = optional(string)
-    }), [])
+    }))
     build_arg       = optional(map(string))
     build_args      = optional(map(string))
     build_id        = optional(string)
@@ -52,7 +52,7 @@ variable "build_block" {
       hard = number
       name = string
       soft = number
-    }), [])
+    }))
     version = optional(string)
   })
   default = null

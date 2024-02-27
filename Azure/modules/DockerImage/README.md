@@ -37,7 +37,12 @@ The user needs to add the provider block. Sample of configuration:
 
 ```bash
 provider "docker" {
-  # Configuration options
+  # Configuration options sample
+  registry_auth {
+    address  = "127.0.0.1"
+    username = "example-username"
+    password = "example-password"
+  }
 }
 ```
 
