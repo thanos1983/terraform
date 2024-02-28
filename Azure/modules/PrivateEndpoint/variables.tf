@@ -35,14 +35,14 @@ variable "private_dns_zone_group_block" {
 
 variable "private_service_connection_block" {
   description = "A private_service_connection block as defined below."
-  type        = object({
+  type        = list(object({
     name                              = string
     is_manual_connection              = bool
     private_connection_resource_id    = optional(string)
     private_connection_resource_alias = optional(string)
     subresource_names                 = optional(list(string))
     request_message                   = optional(string)
-  })
+  }))
 }
 
 variable "ip_configuration_blocks" {

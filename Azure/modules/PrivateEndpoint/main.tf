@@ -14,7 +14,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   }
 
   dynamic "private_service_connection" {
-    for_each = var.private_service_connection_block[*]
+    for_each = var.private_service_connection_block
     content {
       name                              = private_service_connection.value.name
       is_manual_connection              = private_service_connection.value.is_manual_connection
