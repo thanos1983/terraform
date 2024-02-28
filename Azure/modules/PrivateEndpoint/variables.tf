@@ -18,6 +18,44 @@ variable "subnet_id" {
   type        = string
 }
 
+variable "custom_network_interface_name" {
+  description = "The custom name of the network interface attached to the private endpoint."
+  type        = string
+  default     = null
+}
+
+variable "private_dns_zone_group_block" {
+  description = "A private_dns_zone_group block as defined below."
+  type        = object({
+    name                 = string
+    private_dns_zone_ids = list(string)
+  })
+  default = null
+}
+
+variable "private_service_connection_block" {
+  description = "A private_service_connection block as defined below."
+  type        = object({
+    name                              = string
+    is_manual_connection              = bool
+    private_connection_resource_id    = optional(string)
+    private_connection_resource_alias = optional(string)
+    subresource_names                 = optional(list(string))
+    request_message                   = optional(string)
+  })
+}
+
+variable "ip_configuration_blocks" {
+  description = "One or more ip_configuration blocks as defined below."
+  type        = list(object({
+    name               = string
+    private_ip_address = string
+    subresource_name   = optional(string)
+    member_name        = optional(string)
+  }))
+  default = []
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)
