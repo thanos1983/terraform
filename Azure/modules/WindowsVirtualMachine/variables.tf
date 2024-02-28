@@ -548,37 +548,6 @@ variable "application_id" {
   default     = null
 }
 
-variable "certificate_permissions" {
-  description = "List of certificate permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for certificate_permission in var.certificate_permissions : contains([
-        "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers",
-        "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
-      ], certificate_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Delete\", \"DeleteIssuers\", \"Get\", \"GetIssuers\", \"Import\", \"List\", \"ListIssuers\", \"ManageContacts\", \"ManageIssuers\", \"Purge\", \"Recover\", \"Restore\", \"SetIssuers\", \"Update\"."
-  }
-  default = ["List"]
-}
-
-variable "key_permissions" {
-  description = "List of certificate permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for key_permission in var.key_permissions : contains([
-        "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore",
-        "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy",
-        "SetRotationPolicy"
-      ], key_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Decrypt\", \"Delete\", \"Encrypt\", \"Get\", \"Import\", \"List\", \"Purge\", \"Recover\", \"Restore\", \"Sign\", \"UnwrapKey\", \"Update\", \"Verify\", \"WrapKey\", \"Release\", \"Rotate\", \"GetRotationPolicy\" and \"SetRotationPolicy\"."
-  }
-  default = ["List"]
-}
-
 variable "secret_permissions" {
   description = "List of secret permissions."
   type        = set(string)
@@ -589,21 +558,6 @@ variable "secret_permissions" {
       ], secret_permission)
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
-  }
-  default = ["List"]
-}
-
-variable "storage_permissions" {
-  description = "List of storage permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for storage_permission in var.storage_permissions : contains([
-        "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey",
-        "Restore", "Set", "SetSAS", "Update"
-      ], storage_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"DeleteSAS\", \"Get\", \"GetSAS\", \"List\", \"ListSAS\", \"Purge\", \"Recover\", \"RegenerateKey\", \"Restore\", \"Set\", \"SetSAS\", \"Update\"."
   }
   default = ["List"]
 }
@@ -674,25 +628,19 @@ variable "type_handler_version" {
   default     = "1.0"
 }
 
-variable "kv_access_policy" {
-  description = "Enable access policy for the specific KV."
-  type        = bool
-  default     = null
-}
-
-variable "kv_role_assignment_name" {
+variable "role_assignment_name" {
   description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
   type        = string
   default     = null
 }
 
-variable "kv_role_definition_ids" {
+variable "role_definition_ids" {
   description = "The Scoped-ID(s) of the Role Definition."
   type        = list(string)
   default     = null
 }
 
-variable "kv_role_definition_names" {
+variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
   type        = list(string)
   default     = null

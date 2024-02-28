@@ -204,13 +204,10 @@ module "aaDSSHLoginForLinux" {
 
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
-  count                   = var.kv_access_policy == null ? 0 : 1
+  count                   = var.secret_permissions == null ? 0 : 1
   key_vault_id            = var.key_vault_id
   application_id          = var.application_id
-  key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
-  storage_permissions     = var.storage_permissions
-  certificate_permissions = var.certificate_permissions
   object_id               = azurerm_linux_virtual_machine.linux_virtual_machine.id
   tenant_id               = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
 }
@@ -218,9 +215,9 @@ module "kv_access_policy" {
 # Create RBAC permissions for KV based on name(s)
 module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
-  count                = var.kv_role_definition_names == null ? 0 : length(var.kv_role_definition_names)
-  name                 = var.kv_role_assignment_name
-  role_definition_name = var.kv_role_definition_names[count.index]
+  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  name                 = var.role_assignment_name
+  role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
   principal_id         = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
 }
@@ -228,16 +225,16 @@ module "kv_role_assignment_names" {
 # Create RBAC permissions for KV based on id(s)
 module "kv_role_assignment_ids" {
   source               = "../RoleAssignment"
-  count                = var.kv_role_definition_ids == null ? 0 : length(var.kv_role_definition_ids)
-  name                 = var.kv_role_assignment_name
-  role_definition_name = var.kv_role_definition_ids[count.index]
+  count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  name                 = var.role_assignment_name
+  role_definition_name = var.role_definition_ids[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
   principal_id         = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
 }
 
 module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
-  count        = (var.kv_role_definition_names == null || var.kv_role_definition_ids == null ) ? 1 : 0
+  count        = (var.role_definition_names == null || var.role_definition_ids == null || var.secret_permissions == null) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-username"
@@ -249,7 +246,7 @@ module "kv_secret_admin_username" {
 
 module "kv_secret_admin_password" {
   source       = "../KeyVaultSecret"
-  count        = (var.kv_role_definition_names == null || var.kv_role_definition_ids == null ) ? 1 : 0
+  count        = (var.role_definition_names == null || var.role_definition_ids == null || var.secret_permissions == null) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"

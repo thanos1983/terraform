@@ -45,7 +45,7 @@ variable "size" {
 
 variable "additional_capabilities_block" {
   description = "A additional_capabilities block."
-  type = object({
+  type        = object({
     ultra_ssd_enabled = optional(bool)
   })
   default = null
@@ -59,7 +59,7 @@ variable "admin_password" {
 
 variable "admin_ssh_key_block" {
   description = ""
-  type = list(object({
+  type        = list(object({
     public_key = string
     username   = string
   }))
@@ -86,7 +86,7 @@ variable "availability_set_id" {
 
 variable "boot_diagnostics_block" {
   description = "A boot_diagnostics block as defined below."
-  type = object({
+  type        = object({
     storage_account_uri = optional(string)
   })
   default = null
@@ -158,7 +158,7 @@ variable "extensions_time_budget" {
 
 variable "gallery_application_blocks" {
   description = "One or more gallery_application blocks."
-  type = list(object({
+  type        = list(object({
     version_id             = string
     configuration_blob_uri = optional(string)
     order                  = optional(number)
@@ -169,7 +169,7 @@ variable "gallery_application_blocks" {
 
 variable "identity_block" {
   description = "An identity block."
-  type = object({
+  type        = object({
     type         = string
     identity_ids = optional(list(number))
   })
@@ -208,7 +208,7 @@ variable "max_bid_price" {
 
 variable "plan_block" {
   description = "A plan block."
-  type = object({
+  type        = object({
     name      = string
     product   = string
     publisher = string
@@ -254,7 +254,7 @@ variable "proximity_placement_group_id" {
 
 variable "secret_block" {
   description = "A secret block."
-  type = object({
+  type        = object({
     certificate = object({
       store = string
       url   = string
@@ -284,7 +284,7 @@ variable "source_image_id" {
 
 variable "source_image_reference_block" {
   description = ""
-  type = object({
+  type        = object({
     publisher = string
     offer     = string
     sku       = string
@@ -301,7 +301,7 @@ variable "tags" {
 
 variable "termination_notification_block" {
   description = "A termination_notification block."
-  type = object({
+  type        = object({
     enabled = string
     timeout = optional(number)
   })
@@ -434,7 +434,7 @@ variable "storage_account_type" {
 
 variable "diff_disk_settings_block" {
   description = "A diff_disk_settings block as defined above. "
-  type = object({
+  type        = object({
     option    = string
     placement = optional(string)
   })
@@ -443,7 +443,7 @@ variable "diff_disk_settings_block" {
 
 variable "additional_unattend_content_blocks" {
   description = "One or more additional_unattend_content blocks as defined below."
-  type = list(object({
+  type        = list(object({
     content = string
     setting = string
   }))
@@ -506,7 +506,7 @@ variable "timezone" {
 
 variable "winrm_listener_blocks" {
   description = "One or more winrm_listener blocks."
-  type = list(object({
+  type        = list(object({
     protocol        = string
     certificate_url = optional(string)
   }))
@@ -515,7 +515,7 @@ variable "winrm_listener_blocks" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type = object({
+  type        = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)
@@ -548,73 +548,10 @@ variable "application_id" {
   default     = null
 }
 
-variable "certificate_permissions" {
-  description = "List of certificate permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for certificate_permission in var.certificate_permissions : contains([
-        "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers",
-        "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
-      ], certificate_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Delete\", \"DeleteIssuers\", \"Get\", \"GetIssuers\", \"Import\", \"List\", \"ListIssuers\", \"ManageContacts\", \"ManageIssuers\", \"Purge\", \"Recover\", \"Restore\", \"SetIssuers\", \"Update\"."
-  }
-  default = [
-    "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers",
-    "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
-  ]
-}
-
-variable "key_permissions" {
-  description = "List of certificate permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for key_permission in var.key_permissions : contains([
-        "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore",
-        "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy",
-        "SetRotationPolicy"
-      ], key_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Create\", \"Decrypt\", \"Delete\", \"Encrypt\", \"Get\", \"Import\", \"List\", \"Purge\", \"Recover\", \"Restore\", \"Sign\", \"UnwrapKey\", \"Update\", \"Verify\", \"WrapKey\", \"Release\", \"Rotate\", \"GetRotationPolicy\" and \"SetRotationPolicy\"."
-  }
-  default = [
-    "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore",
-    "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
-  ]
-}
-
 variable "secret_permissions" {
   description = "List of secret permissions."
   type        = set(string)
-  validation {
-    condition = alltrue([
-      for secret_permission in var.secret_permissions : contains([
-        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
-      ], secret_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
-  }
-  default = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
-}
-
-variable "storage_permissions" {
-  description = "List of storage permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for storage_permission in var.storage_permissions : contains([
-        "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey",
-        "Restore", "Set", "SetSAS", "Update"
-      ], storage_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"DeleteSAS\", \"Get\", \"GetSAS\", \"List\", \"ListSAS\", \"Purge\", \"Recover\", \"RegenerateKey\", \"Restore\", \"Set\", \"SetSAS\", \"Update\"."
-  }
-  default = [
-    "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey",
-    "Restore", "Set", "SetSAS", "Update"
-  ]
+  default     = null
 }
 
 variable "administrator_username" {
@@ -626,12 +563,6 @@ variable "administrator_username" {
 variable "administrator_password" {
   description = "The administrator login name for the new Windows VM."
   type        = string
-  default     = null
-}
-
-variable "add_access_policy" {
-  description = "If the technical user already exists in the vault we should not add the access policy."
-  type        = bool
   default     = null
 }
 
@@ -683,25 +614,19 @@ variable "type_handler_version" {
   default     = "1.0"
 }
 
-variable "kv_access_policy" {
-  description = "Enable access policy for the specific KV."
-  type        = bool
-  default     = null
-}
-
-variable "kv_role_definition_names" {
+variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
   type        = list(string)
   default     = null
 }
 
-variable "kv_role_assignment_name" {
+variable "role_assignment_name" {
   description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
   type        = string
   default     = null
 }
 
-variable "kv_role_definition_ids" {
+variable "role_definition_ids" {
   description = "The Scoped-ID(s) of the Role Definition."
   type        = list(string)
   default     = null
