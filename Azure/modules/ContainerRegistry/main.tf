@@ -84,11 +84,11 @@ resource "azurerm_container_registry" "container_registry" {
 
 module "kv_access_policy" {
   source             = "../KeyVaultAccessPolicy"
-  count              = var.secret_permissions != null ? 0 : 1
+  count              = var.secret_permissions != [] ? 0 : 1
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   tenant_id          = data.azurerm_client_config.current.tenant_id
-  application_id     = azurerm_container_registry.container_registry.id
+  application_id     = data.azurerm_client_config.current.object_id
   object_id          = var.principal_id == null ? data.azurerm_client_config.current.object_id : var.principal_id
 }
 
@@ -114,7 +114,7 @@ module "acr_role_assignment_ids" {
 
 module "acr_administrator_username" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != null) ? 0 : 1
+  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != []) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "acr-admin-username"
@@ -126,7 +126,7 @@ module "acr_administrator_username" {
 
 module "acr_administrator_password" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != null) ? 0 : 1
+  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != []) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "acr-admin-password"

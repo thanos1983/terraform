@@ -121,7 +121,7 @@ variable "storage_account_type" {
 
 variable "diff_disk_settings_block" {
   description = "A diff_disk_settings block as defined above. "
-  type = object({
+  type        = object({
     option    = string
     placement = optional(string)
   })
@@ -180,9 +180,9 @@ variable "size" {
   type        = string
   validation {
     condition = contains([
-      "Standard_F1", "Standard_F2", "Standard_F4", "Standard_F8", "Standard_F16",
-      "Standard_D1_v2", "Standard_D2_v2", "Standard_D3_v2", "Standard_D4_v2", "Standard_D5_v2",
-      "Standard_DS1_v2", "Standard_DS2_v2", "Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2"
+      "Standard_F1", "Standard_F2", "Standard_F4", "Standard_F8", "Standard_F16", "Standard_D1_v2", "Standard_D2_v2",
+      "Standard_D3_v2", "Standard_D4_v2", "Standard_D5_v2", "Standard_DS1_v2", "Standard_DS2_v2", "Standard_DS3_v2",
+      "Standard_DS4_v2", "Standard_DS5_v2"
     ], title(var.size))
     error_message = "SKU size values can only be \"Standard_F1\", \"Standard_F2\", \"Standard_F4\", \"Standard_F8\", \"Standard_F16\", \"Standard_D1_v2\", \"Standard_D2_v2\", \"Standard_D3_v2\", \"Standard_D4_v2\", \"Standard_D5_v2\", \"Standard_DS1_v2\", \"Standard_DS2_v2\", \"Standard_DS3_v2\", \"Standard_DS4_v2\" or \"Standard_DS5_v2\"."
   }
@@ -191,7 +191,7 @@ variable "size" {
 
 variable "additional_capabilities_block" {
   description = "A additional_capabilities block."
-  type = object({
+  type        = object({
     ultra_ssd_enabled = optional(bool)
   })
   default = null
@@ -199,7 +199,7 @@ variable "additional_capabilities_block" {
 
 variable "additional_unattend_content_blocks" {
   description = "One or more additional_unattend_content blocks as defined below."
-  type = list(object({
+  type        = list(object({
     content = string
     setting = string
   }))
@@ -226,7 +226,7 @@ variable "availability_set_id" {
 
 variable "boot_diagnostics_block" {
   description = "A boot_diagnostics block as defined below."
-  type = object({
+  type        = object({
     storage_account_uri = optional(string)
   })
   default = null
@@ -299,7 +299,7 @@ variable "extensions_time_budget" {
 
 variable "gallery_application_blocks" {
   description = "One or more gallery_application blocks."
-  type = list(object({
+  type        = list(object({
     version_id             = string
     configuration_blob_uri = optional(string)
     order                  = optional(number)
@@ -322,7 +322,7 @@ variable "hotpatching_enabled" {
 
 variable "identity_block" {
   description = "An identity block."
-  type = object({
+  type        = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -373,7 +373,7 @@ variable "patch_mode" {
 
 variable "plan_block" {
   description = "A plan block."
-  type = object({
+  type        = object({
     name      = string
     product   = string
     publisher = string
@@ -419,7 +419,7 @@ variable "proximity_placement_group_id" {
 
 variable "secret_block" {
   description = "A secret block."
-  type = object({
+  type        = object({
     certificate = object({
       store = string
       url   = string
@@ -479,7 +479,7 @@ variable "tags" {
 
 variable "termination_notification_block" {
   description = "A termination_notification block."
-  type = object({
+  type        = object({
     enabled = string
     timeout = optional(number)
   })
@@ -512,7 +512,7 @@ variable "vtpm_enabled" {
 
 variable "winrm_listener_blocks" {
   description = "One or more winrm_listener blocks."
-  type = list(object({
+  type        = list(object({
     protocol        = string
     certificate_url = optional(string)
   }))
@@ -527,7 +527,7 @@ variable "zone" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type = object({
+  type        = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)
@@ -550,16 +550,8 @@ variable "application_id" {
 
 variable "secret_permissions" {
   description = "List of secret permissions."
-  type        = set(string)
-  validation {
-    condition = alltrue([
-      for secret_permission in var.secret_permissions : contains([
-        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
-      ], secret_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
-  }
-  default = ["List"]
+  type        = list(string)
+  default     = []
 }
 
 variable "administrator_username" {

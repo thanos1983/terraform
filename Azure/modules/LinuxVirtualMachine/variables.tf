@@ -550,8 +550,8 @@ variable "application_id" {
 
 variable "secret_permissions" {
   description = "List of secret permissions."
-  type        = set(string)
-  default     = null
+  type        = list(string)
+  default     = []
 }
 
 variable "administrator_username" {

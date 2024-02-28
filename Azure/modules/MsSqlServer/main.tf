@@ -50,7 +50,7 @@ resource "azurerm_mssql_server" "mssql_server" {
 
 module "kv_access_policy" {
   source             = "../KeyVaultAccessPolicy"
-  count              = var.secret_permissions != null ? 0 : 1
+  count              = var.secret_permissions != [] ? 0 : 1
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.mssql_server.object_id
@@ -83,7 +83,7 @@ module "kv_role_assignment_ids" {
 
 module "kv_secret_administrator_login_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != null) ? 0 : 1
+  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != []) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   value        = var.administrator_login
@@ -96,7 +96,7 @@ module "kv_secret_administrator_login_mssql_server" {
 
 module "kv_secret_administrator_login_password_mssql_server" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != null) ? 0 : 1
+  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != []) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "mssql-administrator-login-password"

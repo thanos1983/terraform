@@ -211,5 +211,5 @@ variable "key_vault_id" {
 variable "secret_permissions" {
   description = "List of secret permissions."
   type        = list(string)
-  default     = null
+  default     = []
 }
