@@ -242,7 +242,7 @@ module "kv_access_policy" {
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   tenant_id          = data.azurerm_client_config.current.tenant_id
-  application_id     = azurerm_storage_account.storage_account.id
+  application_id     = data.azurerm_client_config.current.object_id
   object_id          = var.principal_id == null ? data.azurerm_client_config.current.object_id : var.principal_id
 }
 
