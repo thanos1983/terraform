@@ -206,13 +206,5 @@ variable "key_vault_id" {
 variable "secret_permissions" {
   description = "List of secret permissions."
   type        = list(string)
-  validation {
-    condition = alltrue([
-      for secret_permission in var.secret_permissions : contains([
-        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
-      ], secret_permission)
-    ])
-    error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
-  }
-  default = ["Get"]
+  default     = []
 }

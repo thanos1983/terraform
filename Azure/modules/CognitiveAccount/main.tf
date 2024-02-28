@@ -75,7 +75,7 @@ resource "azurerm_cognitive_account" "cognitive_account" {
 
 module "kv_access_policy" {
   source             = "../KeyVaultAccessPolicy"
-  count              = var.secret_permissions != null ? 0 : 1
+  count              = var.secret_permissions == [] ? 0 : 1
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   tenant_id          = data.azurerm_client_config.current.tenant_id
@@ -86,7 +86,7 @@ module "kv_access_policy" {
 # Create RBAC permissions for Cognitive Account based on name(s)
 module "cognitive_account_role_assignment_names" {
   source               = "../RoleAssignment"
-  count                = var.role_definition_names != null ? 0 : length(var.role_definition_names)
+  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
   principal_id         = var.principal_id
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
@@ -96,7 +96,7 @@ module "cognitive_account_role_assignment_names" {
 # Create RBAC permissions for Cognitive Account based on id(s)
 module "cognitive_account_role_assignment_ids" {
   source             = "../RoleAssignment"
-  count              = var.role_definition_ids != null ? 0 : length(var.role_definition_ids)
+  count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
   principal_id       = var.principal_id
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
@@ -106,7 +106,7 @@ module "cognitive_account_role_assignment_ids" {
 # Store the Primary Access Key in KV
 module "cognitive_account_primary_access_key" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names != null || var.role_definition_ids != null || var.secret_permissions != null) ? 0 : 1
+  count        = (var.role_definition_names == null || var.role_definition_ids == null || var.secret_permissions == []) ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "cognitive-account-primary-access-key"
