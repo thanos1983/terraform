@@ -566,16 +566,16 @@ variable "administrator_password" {
   default     = null
 }
 
-variable "aaDLoginForWindows" {
-  description = "Enable AADLoginForWindows Active Directory Login"
+variable "aaDSSHLoginForLinux" {
+  description = "Enable SSH login for Linux."
   type        = bool
   validation {
     condition = contains([
       "true", "false"
-    ], lower(tostring(var.aaDLoginForWindows)))
+    ], lower(tostring(var.aaDSSHLoginForLinux)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
-  default = true
+  default = false
 }
 
 variable "aaDSSHLoginForLinux_name" {
