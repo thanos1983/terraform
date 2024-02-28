@@ -19,7 +19,11 @@ module "private_endpoint_<project>" {
 - resources_group_name (Required)
 - location (Required)
 - subnet_id (Required)
-- tags - (Optional)
+- private_dns_zone_group_block (Optional)
+- private_service_connection_blocks (Optional)
+- ip_configuration_blocks (Optional)
+- tags (Optional)
+- timeouts_block (Optional)
 ```
 
 ### Output:

@@ -33,7 +33,7 @@ variable "private_dns_zone_group_block" {
   default = null
 }
 
-variable "private_service_connection_block" {
+variable "private_service_connection_blocks" {
   description = "A private_service_connection block as defined below."
   type        = list(object({
     name                              = string
