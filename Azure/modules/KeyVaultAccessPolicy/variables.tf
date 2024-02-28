@@ -56,7 +56,7 @@ variable "secret_permissions" {
   validation {
     condition = alltrue([
       for secret_permission in var.secret_permissions : contains([
-        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
+        "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set", null
       ], secret_permission)
     ])
     error_message = "Parameter cam be one or combination of \"Backup\", \"Delete\", \"Get\", \"List\", \"Purge\", \"Recover\", \"Restore\" and \"Set\"."
