@@ -1,27 +1,33 @@
 resource "azuread_service_principal" "service_principal" {
-  account_enabled              = ""
-  alternative_names            = ""
-  app_role_assignment_required = ""
-  application_id               = ""
-  description                  = ""
+  account_enabled              = var.account_enabled
+  alternative_names            = var.alternative_names
+  app_role_assignment_required = var.app_role_assignment_required
+  client_id                    = var.client_id
+  description                  = var.description
 
-  feature_tags {
-    custom_single_sign_on = ""
-    enterprise            = ""
-    gallery               = ""
-    hide                  = ""
+  dynamic "feature_tags" {
+    for_each = var.feature_tags_block
+    content {
+      custom_single_sign_on = feature_tags.value.custom_single_sign_on
+      enterprise            = feature_tags.value.enterprise
+      gallery               = feature_tags.value.gallery
+      hide                  = feature_tags.value.hide
+    }
   }
 
-  login_url                     = ""
-  notes                         = ""
-  notification_email_addresses  = ""
-  owners                        = ""
-  preferred_single_sign_on_mode = ""
+  login_url                     = var.login_url
+  notes                         = var.notes
+  notification_email_addresses  = var.notification_email_addresses
+  owners                        = var.owners
+  preferred_single_sign_on_mode = var.preferred_single_sign_on_mode
 
-  saml_single_sign_on {
-    relay_state = ""
+  dynamic "saml_single_sign_on" {
+    for_each = var.saml_single_sign_on_block
+    content {
+      relay_state = saml_single_sign_on.value.relay_state
+    }
   }
 
-  use_existing = ""
-  tags         = null
+  use_existing = var.use_existing
+  tags         = var.tags
 }

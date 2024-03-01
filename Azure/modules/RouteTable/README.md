@@ -3,9 +3,9 @@
 ## Sample of use:
 
 ```bash
-module "azurerm_route_table_<project>" {
-  source  = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_azurerm_route_table"
+module "route_table_<project>" {
+  source  = "git::https://example.com/<my_repo>.git"
+  name = "my_route_table"
   .
   .
   .
