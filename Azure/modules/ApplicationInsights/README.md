@@ -3,7 +3,7 @@
 ## Sample of use:
 
 ```bash
-module "bastion_host_<project>" {
+module "application_insights_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
   name = "my_application_insights"
   .
@@ -29,7 +29,7 @@ module "bastion_host_<project>" {
 - internet_ingestion_enabled (Optional)
 - internet_query_enabled (Optional)
 - force_customer_storage_for_profiler (Optional)
-- tags - (Optional)
+- tags (Optional)
 ```
 
 ### Output:
