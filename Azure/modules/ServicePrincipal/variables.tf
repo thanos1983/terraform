@@ -100,6 +100,12 @@ variable "use_existing" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
+  type        = set(string)
+  default     = null
+}
+
+variable "kv_secret_tags" {
+  description = "A mapping of tags to assign to the resource."
   type        = map(any)
   default     = null
 }

@@ -228,6 +228,7 @@ variable "workload_profile_name" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)
+  default     = null
 }
 
 variable "timeouts_block" {
