@@ -156,3 +156,9 @@ variable "start_date" {
   type        = string
   default     = null
 }
+
+variable "application_id" {
+  description = "The resource ID of the application for which this password should be created."
+  type        = string
+  default     = null
+}
