@@ -21,6 +21,8 @@ module "application_password_<project>" {
 - end_date_relative (Optional)
 - rotate_when_changed (Optional)
 - start_date (Optional)
+- key_vault_id (Optional)
+- tags (Optional)
 ```
 
 ### Output:

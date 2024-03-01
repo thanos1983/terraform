@@ -34,7 +34,9 @@ resource "azuread_service_principal" "service_principal" {
 
 module "application_password" {
   source              = "../ApplicationPassword"
+  count               = var.key_vault_id == null ? 0 : 1
   application_id      = azuread_service_principal.service_principal.application_id
+  key_vault_id        = var.key_vault_id
   display_name        = var.display_name
   end_date            = var.end_date
   end_date_relative   = var.end_date_relative
