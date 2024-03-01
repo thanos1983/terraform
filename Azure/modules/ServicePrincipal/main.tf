@@ -31,3 +31,14 @@ resource "azuread_service_principal" "service_principal" {
   use_existing = var.use_existing
   tags         = var.tags
 }
+
+module "application_password" {
+  source              = "../ApplicationPassword"
+  application_id      = azuread_service_principal.service_principal.application_id
+  display_name        = var.display_name
+  end_date            = var.end_date
+  end_date_relative   = var.end_date_relative
+  rotate_when_changed = var.rotate_when_changed
+  start_date          = var.start_date
+  tags                = var.tags
+}

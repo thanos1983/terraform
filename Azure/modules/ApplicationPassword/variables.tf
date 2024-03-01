@@ -32,3 +32,15 @@ variable "start_date" {
   type        = string
   default     = null
 }
+
+variable "key_vault_id" {
+  description = "The key vault ID for the vault."
+  type        = string
+  default     = null
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  type        = map(any)
+  default     = null
+}

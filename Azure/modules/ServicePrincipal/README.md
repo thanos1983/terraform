@@ -29,6 +29,11 @@ module "service_principal_<project>" {
 - saml_single_sign_on_block (Optional)
 - use_existing (Optional)
 - tags (Optional)
+- display_name (Optional)
+- end_date (Optional)
+- end_date_relative (Optional)
+- rotate_when_changed (Optional)
+- start_date (Optional)
 ```
 
 ### Output:
