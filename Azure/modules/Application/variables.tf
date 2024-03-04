@@ -191,9 +191,9 @@ variable "sign_in_audience" {
   type        = string
   validation {
     condition = contains([
-      "AzureADMultipleOrgs", "AzureADandPersonalMicrosoftAccount", "PersonalMicrosoftAccount", "AzureADMyOrg"
+      "AzureADMyOrg", "AzureADMultipleOrgs", "AzureADandPersonalMicrosoftAccount", "PersonalMicrosoftAccount"
     ], title(var.sign_in_audience))
-    error_message = "Possible values can be \"AzureADMultipleOrgs\", \"AzureADandPersonalMicrosoftAccount\", \"PersonalMicrosoftAccount\" or \"AzureADMyOrg\" string."
+    error_message = "Possible values can be \"AzureADMyOrg\", \"AzureADMultipleOrgs\", \"AzureADandPersonalMicrosoftAccount\" or \"PersonalMicrosoftAccount\" string."
   }
   default = "AzureADMyOrg"
 }

@@ -19,7 +19,7 @@ module "application_<project>" {
 - app_role_blocks (Optional)
 - description (Optional)
 - device_only_auth_enabled (Optional)
-- display_name (Optional)
+- display_name (Required)
 - fallback_public_client_enabled (Optional)
 - feature_tags_block (Optional)
 - group_membership_claims (Optional)
