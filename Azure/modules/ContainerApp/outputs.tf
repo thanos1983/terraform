@@ -51,8 +51,3 @@ output "tenant_id" {
     for identity in azurerm_container_app.container_app[*].identity : identity[*].tenant_id
   ])
 }
-
-output "application_url" {
-  description = "Extract the Portal Url."
-  value       = azurerm_container_app.container_app.ingress[0].fqdn
-}
