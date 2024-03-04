@@ -69,7 +69,7 @@ variable "requested_access_token_version" {
   description = "The access token version expected by this resource."
   type        = number
   validation {
-    condition     = var.requested_access_token_version == 1 && var.requested_access_token_version == 2
+    condition     = var.requested_access_token_version >= 1 && var.requested_access_token_version <= 2
     error_message = "Accepted nubered values: 1 or 2."
   }
   default = 2
