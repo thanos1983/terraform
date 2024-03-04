@@ -132,7 +132,7 @@ resource "azuread_application" "application" {
     content {
       homepage_url = web.value.homepage_url
       dynamic "implicit_grant" {
-        for_each = web.value.implicit_grant_block
+        for_each = web.value.implicit_grant_block[*]
         content {
           access_token_issuance_enabled = implicit_grant.value.access_token_issuance_enabled
           id_token_issuance_enabled     = implicit_grant.value.id_token_issuance_enabled
