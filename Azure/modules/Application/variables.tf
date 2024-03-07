@@ -163,7 +163,7 @@ variable "privacy_statement_url" {
 variable "public_client_block" {
   description = "A public_client block as documented below, which configures non-web app or non-web API application settings, for example mobile or other public clients such as an installed application running on a desktop device."
   type        = object({
-    redirect_uris = optional(string)
+    redirect_uris = optional(set(string))
   })
   default = null
 }
