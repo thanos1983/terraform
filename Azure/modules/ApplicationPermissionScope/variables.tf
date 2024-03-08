@@ -5,7 +5,7 @@ variable "admin_consent_description" {
 
 variable "admin_consent_display_name" {
   description = "Display name for the delegated permission, intended to be read by an administrator granting the permission on behalf of all users."
-  type        = set(string)
+  type        = string
 }
 
 variable "application_id" {
