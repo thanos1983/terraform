@@ -4,7 +4,7 @@
 
 ```bash
 module "password_<project>" {
-  source  = "git::https://example.com/azure_<my_repo>.git"
+  source  = "git::https://example.com/password_<my_repo>.git"
   length = 16
   .
   .
@@ -36,4 +36,4 @@ module "password_<project>" {
 - result
 ```
 
-###### More information can be found on the official document [azurerm_data_factory_custom_dataset](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_custom_dataset)
+###### More information can be found on the official document [random_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password)
