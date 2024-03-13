@@ -1,11 +1,19 @@
 variable "always_run" {
   description = "When to trigger the MS SQL Table Database Creation."
   type        = string
+  default     = null
+}
+
+variable "cluster_instance_ids" {
+  description = "Changes to any instance of the cluster requires re-provisioning."
+  type        = string
+  default     = null
 }
 
 variable "command" {
   description = "Command to execute"
   type        = string
+  default     = null
 }
 
 variable "working_dir" {

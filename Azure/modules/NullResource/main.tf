@@ -1,6 +1,7 @@
 resource "null_resource" "resource" {
   triggers = {
-    always_run = var.always_run
+    always_run           = var.always_run
+    cluster_instance_ids = var.cluster_instance_ids
   }
   provisioner "local-exec" {
     command     = var.command
