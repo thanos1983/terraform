@@ -34,7 +34,6 @@ resource "null_resource" "resource" {
     environment = var.environment
     when        = var.when
     quiet       = var.quiet
-    inline      = var.inline
   }
 
   provisioner "remote-exec" {
