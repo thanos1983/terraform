@@ -151,11 +151,7 @@ variable "environment" {
 variable "when" {
   description = "If when is specified, the provisioner will run when the resource it is defined within is created or destroyed."
   type        = string
-  validation {
-    condition     = contains(["create", "destroy"], lower(var.when))
-    error_message = "Parameter must be \"create\" or \"destroy\" string."
-  }
-  default = "create"
+  default     = null
 }
 
 variable "quiet" {
