@@ -1,12 +1,6 @@
-variable "always_run" {
-  description = "When to trigger the MS SQL Table Database Creation."
-  type        = string
-  default     = null
-}
-
-variable "cluster_instance_ids" {
-  description = "Changes to any instance of the cluster requires re-provisioning."
-  type        = string
+variable "triggers" {
+  description = "A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners."
+  type        = map(string)
   default     = null
 }
 
@@ -30,7 +24,7 @@ variable "interpreter" {
 
 variable "environment" {
   description = "Block of key value pairs representing the environment of the executed command."
-  type        = map(any)
+  type        = map(string)
   default     = null
 }
 
