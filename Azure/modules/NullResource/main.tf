@@ -36,4 +36,10 @@ resource "null_resource" "resource" {
     quiet       = var.quiet
     inline      = var.inline
   }
+
+  provisioner "remote-exec" {
+    inline  = var.inline
+    script  = var.script
+    scripts = var.scripts
+  }
 }

@@ -173,3 +173,15 @@ variable "inline" {
   type        = list(string)
   default     = []
 }
+
+variable "script" {
+  description = "This is a path (relative or absolute) to a local script that will be copied to the remote resource and then executed."
+  type        = string
+  default     = null
+}
+
+variable "scripts" {
+  description = "This is a list of paths (relative or absolute) to local scripts that will be copied to the remote resource and then executed."
+  type        = list(string)
+  default     = null
+}

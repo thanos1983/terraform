@@ -38,6 +38,10 @@ The [connection Provisioner](https://developer.hashicorp.com/terraform/language/
 
 The [file Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/file) copies files or directories from the machine running Terraform to the newly created resource. The file provisioner supports both ssh and winrm type connections.
 
+### local-exec Provisioner
+
+The [local-exec provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec) invokes a local executable after a resource is created. This invokes a process on the machine running Terraform, not on the resource.
+
 ### remote-exec Provisioner
 
 The [remote-exec Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec) invokes a script on a remote resource after it is created. This can be used to run a configuration management tool, bootstrap into a cluster, etc. To invoke a local process, see the local-exec provisioner instead. The remote-exec provisioner requires a connection and supports both ssh and winrm.
