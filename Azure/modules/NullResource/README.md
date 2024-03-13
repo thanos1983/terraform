@@ -30,6 +30,10 @@ module "sample_null_resource_<project>" {
 - id
 ```
 
+### connection Provisioner
+
+The [connection Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/connection). Most provisioners require access to the remote resource via SSH or WinRM and expect a nested connection block with details about how to connect.
+
 ### file Provisioner
 
 The [file Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/file) copies files or directories from the machine running Terraform to the newly created resource. The file provisioner supports both ssh and winrm type connections.
