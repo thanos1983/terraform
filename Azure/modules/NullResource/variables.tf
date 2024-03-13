@@ -49,7 +49,7 @@ variable "quiet" {
 }
 
 variable "inline" {
-  description = "The user can execute multiple commands comma separated."
+  description = "This is a list of command strings. The provisioner uses a default shell unless you specify a shell as the first command (eg., #!/bin/bash)."
   type        = list(string)
   default     = []
 }
