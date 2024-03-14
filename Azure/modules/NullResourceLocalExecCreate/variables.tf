@@ -4,8 +4,8 @@ variable "triggers" {
   default     = null
 }
 
-variable "file_source" {
-  description = "The source file or directory. Specify it either relative to the current working directory or as an absolute path."
+variable "file_content" {
+  description = "The direct content to copy on the destination. If destination is a file, the content will be written on that file."
   type        = string
   default     = null
 }

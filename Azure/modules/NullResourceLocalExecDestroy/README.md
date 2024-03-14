@@ -15,7 +15,7 @@ module "sample_null_resource_<project>" {
 
 ```bash
 - triggers (Optional)
-- file_source (Optional)
+- file_content (Optional)
 - file_destination (Optional)
 - command (Required)
 - working_dir (Optional)
