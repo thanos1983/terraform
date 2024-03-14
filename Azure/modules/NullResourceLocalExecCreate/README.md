@@ -15,8 +15,6 @@ module "sample_null_resource_<project>" {
 
 ```bash
 - triggers (Optional)
-- file_content (Optional)
-- file_destination (Optional)
 - command (Required)
 - working_dir (Optional)
 - interpreter (Optional)
@@ -31,4 +29,4 @@ module "sample_null_resource_<project>" {
 - id
 ```
 
-###### More information can be found on the official document [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource), [File Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/file) and [terraform/local-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec).
+###### More information can be found on the official document [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) and [terraform/local-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec).
