@@ -4,6 +4,18 @@ variable "triggers" {
   default     = null
 }
 
+variable "file_source" {
+  description = "The source file or directory. Specify it either relative to the current working directory or as an absolute path."
+  type        = string
+  default     = null
+}
+
+variable "file_destination" {
+  description = "The destination path to write to on the remote system."
+  type        = string
+  default     = null
+}
+
 variable "command" {
   description = "Command to execute"
   type        = string
