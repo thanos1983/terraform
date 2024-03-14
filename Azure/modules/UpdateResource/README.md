@@ -1,11 +1,11 @@
-# Microsoft.App jobs
+# Update Resource
 
 ## Sample of use:
 
 ```bash
-module "azapi_container_app_job_<project>" {
+module "azapi_update_resource_<project>" {
   source   = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_azapi_container_app_job"
+  name = "my_update_resource"
   .
   .
   .
@@ -15,11 +15,17 @@ module "azapi_container_app_job_<project>" {
 ### Variables:
 
 ```bash
-- container_app_environment_id (Required) 
-- name (Required)
-- parent_id (Required)
-- identity_block (Optional)
-- tags (Optional)
+- name (Optional)
+- parent_id (Optional)
+- resource_id (Optional)
+- type (Required)
+- body (Required)
+- response_export_values (Optional)
+- locks (Optional)
+- ignore_casing (Optional)
+- ignore_body_changes (Optional)
+- ignore_missing_property (Optional)
+- timeouts_block (Optional)
 ```
 
 ### Output:
@@ -27,6 +33,7 @@ module "azapi_container_app_job_<project>" {
 ```bash
 - id
 - name
+- output
 ```
 
 ### Provider azure/azapi
@@ -38,10 +45,6 @@ Sample of ``versions.tf`` file:
 $ cat versions.tf
 terraform {
   required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=3.83.0"
-    }
     azapi = {
       source  = "azure/azapi"
       version = "=1.12.1"
@@ -56,11 +59,7 @@ Sample of ``provider.tf`` file:
 
 ````bash
 $ cat provider.tf
-provider "azurerm" {
-  features {}
-}
-
 provider "azapi" {}
 ````
 
-###### More information can be found on the official document [containerApps/Microsoft.App jobs](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/jobs?pivots=deployment-language-terraform)
+###### More information can be found on the official document [azapi_update_resource](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/azapi_update_resource)
