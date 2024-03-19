@@ -33,9 +33,9 @@ variable "time_zone" {
 variable "schedule_block" {
   description = "Specifies the Relative Path used for this Request."
   type        = object({
-    at_these_minutes = optional(list(number))
-    at_these_hours   = optional(list(number))
-    on_these_days    = optional(list(string))
+    at_these_minutes = optional(list(number), [])
+    at_these_hours   = optional(list(number), [])
+    on_these_days    = optional(list(string), [])
   })
   default = null
 }

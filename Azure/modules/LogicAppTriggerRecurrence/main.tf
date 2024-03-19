@@ -7,7 +7,7 @@ resource "azurerm_logic_app_trigger_recurrence" "logic_app_trigger_recurrence" {
   time_zone    = var.time_zone
 
   dynamic "schedule" {
-    for_each = var.schedule_block
+    for_each = var.schedule_block[*]
     content {
       at_these_minutes = schedule.value.at_these_minutes
       at_these_hours   = schedule.value.at_these_hours
