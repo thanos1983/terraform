@@ -26,6 +26,16 @@ variable "principal_id" {
   type        = string
 }
 
+variable "principal_type" {
+  description = "The type of the principal_id."
+  type        = string
+  validation {
+    condition     = contains(["User", "Group", "ServicePrincipal"], title(var.principal_type))
+    error_message = "Parameter must be 'User', 'Group' or 'ServicePrincipal'."
+  }
+  default = "ServicePrincipal"
+}
+
 variable "condition" {
   description = "The condition that limits the resources that the role can be assigned to."
   type        = string
@@ -62,7 +72,7 @@ variable "skip_service_principal_aad_check" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type = object({
+  type        = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)
