@@ -87,7 +87,6 @@ module "kv_access_policy" {
 module "cognitive_account_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
-  principal_type       = var.principal_type
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_cognitive_account.cognitive_account.id
@@ -98,7 +97,6 @@ module "cognitive_account_role_assignment_names" {
 module "cognitive_account_role_assignment_ids" {
   source             = "../RoleAssignment"
   count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
-  principal_type     = var.principal_type
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_cognitive_account.cognitive_account.id

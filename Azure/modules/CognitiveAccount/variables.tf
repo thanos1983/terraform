@@ -173,12 +173,6 @@ variable "timeouts_block" {
   default = null
 }
 
-variable "principal_type" {
-  description = "The type of the principal_id."
-  type        = string
-  default     = "ServicePrincipal"
-}
-
 variable "role_assignment_name" {
   description = "A unique UUID/GUID for this Role Assignment."
   type        = string
