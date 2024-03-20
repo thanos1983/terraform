@@ -173,6 +173,18 @@ variable "timeouts_block" {
   default = null
 }
 
+variable "principal_type" {
+  description = "The type of the principal_id."
+  type        = string
+  default     = "ServicePrincipal"
+}
+
+variable "role_assignment_name" {
+  description = "A unique UUID/GUID for this Role Assignment."
+  type        = string
+  default     = null
+}
+
 variable "role_definition_names" {
   description = "Specifies the role the user will be assigned to the ACR."
   type        = list(string)
@@ -183,6 +195,12 @@ variable "role_definition_ids" {
   description = "Specifies the role id the user will be assigned to the ACR."
   type        = list(string)
   default     = []
+}
+
+variable "principal_id" {
+  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
+  type        = string
+  default     = null
 }
 
 variable "key_vault_id" {
