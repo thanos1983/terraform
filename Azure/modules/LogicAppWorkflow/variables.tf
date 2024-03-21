@@ -40,12 +40,14 @@ variable "access_control_block" {
 }
 
 variable "identity_block" {
-  description = "Customer managed keys dynamic block."
+  description = "An identity block as defined below."
   type        = object({
     type         = string
-    identity_ids = optional(set(string))
+    identity_ids = optional(list(string))
   })
-  default = null
+  default = {
+    type = "SystemAssigned"
+  }
 }
 
 variable "integration_service_environment_id" {

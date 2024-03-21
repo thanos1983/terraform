@@ -14,12 +14,14 @@ variable "parent_id" {
 }
 
 variable "identity_block" {
-  description = "An identity block as detailed below."
+  description = "An identity block as defined below."
   type        = object({
     type         = string
-    identity_ids = optional(list(string), [])
+    identity_ids = optional(list(string))
   })
-  default = null
+  default = {
+    type = "SystemAssigned"
+  }
 }
 
 variable "environmentId" {

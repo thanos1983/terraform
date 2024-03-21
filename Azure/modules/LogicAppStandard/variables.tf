@@ -56,7 +56,9 @@ variable "identity_block" {
     type         = string
     identity_ids = optional(list(string))
   })
-  default = null
+  default = {
+    type = "SystemAssigned"
+  }
 }
 
 variable "site_config_block" {
