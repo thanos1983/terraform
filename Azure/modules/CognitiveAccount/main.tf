@@ -78,9 +78,9 @@ module "kv_access_policy" {
   count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
-  tenant_id          = data.azurerm_client_config.current.tenant_id
-  application_id     = data.azurerm_client_config.current.object_id
-  object_id          = var.principal_id == null ? data.azurerm_client_config.current.object_id : var.principal_id
+  object_id          = data.azuread_service_principal.cognitive_account.object_id
+  application_id     = data.azuread_service_principal.cognitive_account.application_id
+  tenant_id          = azurerm_cognitive_account.cognitive_account.identity.0.tenant_id
 }
 
 # Create RBAC permissions for Cognitive Account based on name(s)

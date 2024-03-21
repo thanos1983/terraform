@@ -53,9 +53,9 @@ module "kv_access_policy" {
   count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
+  tenant_id          = azurerm_mssql_server.mssql_server.identity.tenant_id
   object_id          = data.azuread_service_principal.mssql_server.object_id
   application_id     = data.azuread_service_principal.mssql_server.application_id
-  tenant_id          = data.azuread_service_principal.mssql_server.application_tenant_id
   depends_on         = [
     azurerm_mssql_server.mssql_server
   ]

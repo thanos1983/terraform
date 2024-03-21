@@ -241,29 +241,29 @@ module "kv_access_policy" {
   count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
-  tenant_id          = data.azurerm_client_config.current.tenant_id
-  application_id     = data.azurerm_client_config.current.object_id
-  object_id          = var.principal_id == null ? data.azurerm_client_config.current.object_id : var.principal_id
+  object_id          = data.azuread_service_principal.storage_account.object_id
+  tenant_id          = azurerm_storage_account.storage_account.identity.0.tenant_id
+  application_id     = data.azuread_service_principal.storage_account.application_id
 }
 
 # Create RBAC permissions for ACR based on name(s)
 module "st_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
-  principal_id         = var.principal_id
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_storage_account.storage_account.id
+  principal_id         = azurerm_storage_account.storage_account.identity.0.principal_id
 }
 
 # Create RBAC permissions for ACR based on id(s)
 module "st_role_assignment_ids" {
   source             = "../RoleAssignment"
   count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
-  principal_id       = var.principal_id
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_storage_account.storage_account.id
+  principal_id       = azurerm_storage_account.storage_account.identity.0.principal_id
 }
 
 module "st_primary_access_key" {

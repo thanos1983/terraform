@@ -196,12 +196,6 @@ variable "role_definition_ids" {
   default     = []
 }
 
-variable "principal_id" {
-  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
-  type        = string
-  default     = null
-}
-
 variable "key_vault_id" {
   description = "The key vault ID for the vault."
   type        = string

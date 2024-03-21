@@ -1,6 +1,6 @@
 locals {}
 
-data "azurerm_client_config" "current" {
+data "azuread_service_principal" "container_registry" {
   depends_on = [
     azurerm_container_registry.container_registry
   ]
