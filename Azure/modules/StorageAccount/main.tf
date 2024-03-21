@@ -242,8 +242,8 @@ module "kv_access_policy" {
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.storage_account.object_id
+  application_id     = data.azuread_service_principal.storage_account.client_id
   tenant_id          = azurerm_storage_account.storage_account.identity.0.tenant_id
-  application_id     = data.azuread_service_principal.storage_account.application_id
 }
 
 # Create RBAC permissions for ACR based on name(s)

@@ -79,7 +79,7 @@ module "kv_access_policy" {
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.cognitive_account.object_id
-  application_id     = data.azuread_service_principal.cognitive_account.application_id
+  application_id     = data.azuread_service_principal.cognitive_account.client_id
   tenant_id          = azurerm_cognitive_account.cognitive_account.identity.0.tenant_id
 }
 

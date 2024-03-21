@@ -88,7 +88,7 @@ module "kv_access_policy" {
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.container_registry.object_id
-  application_id     = data.azuread_service_principal.container_registry.application_id
+  application_id     = data.azuread_service_principal.container_registry.client_id
   tenant_id          = azurerm_container_registry.container_registry.identity.0.tenant_id
 }
 
