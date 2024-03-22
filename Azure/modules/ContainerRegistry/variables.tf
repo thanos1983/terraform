@@ -161,7 +161,7 @@ variable "network_rule_bypass_option" {
     condition     = contains(["AzureServices", "None"], title(var.network_rule_bypass_option))
     error_message = "Possible values are 'AzureServices' and 'None'."
   }
-  default = "None"
+  default = "AzureServices"
 }
 
 variable "tags" {
