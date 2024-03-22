@@ -89,7 +89,7 @@ module "kv_access_policy" {
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.container_registry.object_id
   application_id     = data.azuread_service_principal.container_registry.client_id
-  tenant_id          = azurerm_container_registry.container_registry.identity.0.tenant_id
+  tenant_id          = data.azuread_service_principal.container_registry.application_tenant_id
 }
 
 # Create RBAC permissions for ACR based on name(s)
@@ -99,7 +99,7 @@ module "acr_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_container_registry.container_registry.id
-  principal_id         = azurerm_container_registry.container_registry.identity.0.principal_id
+  principal_id         = var.principal_id == null ? azurerm_container_registry.container_registry.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for ACR based on id(s)
@@ -109,7 +109,7 @@ module "acr_role_assignment_ids" {
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_container_registry.container_registry.id
-  principal_id       = azurerm_container_registry.container_registry.identity.0.principal_id
+  principal_id       = var.principal_id == null ? azurerm_container_registry.container_registry.identity.0.principal_id : var.principal_id
 }
 
 module "acr_administrator_username" {

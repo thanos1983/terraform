@@ -80,7 +80,7 @@ module "kv_access_policy" {
   secret_permissions = var.secret_permissions
   object_id          = data.azuread_service_principal.cognitive_account.object_id
   application_id     = data.azuread_service_principal.cognitive_account.client_id
-  tenant_id          = azurerm_cognitive_account.cognitive_account.identity.0.tenant_id
+  tenant_id          = data.azuread_service_principal.cognitive_account.application_tenant_id
 }
 
 # Create RBAC permissions for Cognitive Account based on name(s)
@@ -90,7 +90,7 @@ module "cognitive_account_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_cognitive_account.cognitive_account.id
-  principal_id         = azurerm_cognitive_account.cognitive_account.identity.0.principal_id
+  principal_id         = var.principal_id == null ? azurerm_cognitive_account.cognitive_account.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for Cognitive Account based on id(s)
@@ -100,7 +100,7 @@ module "cognitive_account_role_assignment_ids" {
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_cognitive_account.cognitive_account.id
-  principal_id       = azurerm_cognitive_account.cognitive_account.identity.0.principal_id
+  principal_id       = var.principal_id == null ? azurerm_cognitive_account.cognitive_account.identity.0.principal_id : var.principal_id
 }
 
 # Store the Primary Access Key in KV

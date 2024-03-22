@@ -633,3 +633,9 @@ variable "role_definition_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "principal_id" {
+  description = ""
+  type        = string
+  default     = null
+}

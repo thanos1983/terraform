@@ -206,10 +206,10 @@ module "kv_access_policy" {
   source             = "../KeyVaultAccessPolicy"
   count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
-  application_id     = var.application_id
   secret_permissions = var.secret_permissions
-  object_id          = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  tenant_id          = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
+  object_id          = data.azuread_service_principal.cognitive_account.object_id
+  application_id     = data.azuread_service_principal.cognitive_account.application_id
+  tenant_id          = data.azuread_service_principal.cognitive_account.application_tenant_id
 }
 
 # Create RBAC permissions for KV based on name(s)
@@ -219,7 +219,7 @@ module "kv_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
+  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -229,7 +229,7 @@ module "kv_role_assignment_ids" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_ids[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = azurerm_linux_virtual_machine.linux_virtual_machine.identity[0].principal_id
+  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
 }
 
 module "kv_secret_admin_username" {
