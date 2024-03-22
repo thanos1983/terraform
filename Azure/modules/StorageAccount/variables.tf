@@ -432,9 +432,3 @@ variable "secret_permissions" {
   type        = list(string)
   default     = []
 }
-
-variable "principal_id" {
-  description = ""
-  type        = string
-  default     = null
-}
