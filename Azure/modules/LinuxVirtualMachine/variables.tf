@@ -635,7 +635,7 @@ variable "role_definition_ids" {
 }
 
 variable "principal_id" {
-  description = ""
+  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
   type        = string
   default     = null
 }
