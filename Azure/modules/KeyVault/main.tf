@@ -54,6 +54,7 @@ module "kv_access_policy" {
 module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  principal_type       = var.principal_type
   name                 = var.role_assignment_name
   scope                = azurerm_key_vault.key_vault.id
   role_definition_name = var.role_definition_names[count.index]
@@ -64,6 +65,7 @@ module "kv_role_assignment_names" {
 module "kv_role_assignment_ids" {
   source             = "../RoleAssignment"
   count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  principal_type     = var.principal_type
   name               = var.role_assignment_name
   scope              = azurerm_key_vault.key_vault.id
   role_definition_id = var.role_definition_ids[count.index]

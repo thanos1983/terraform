@@ -230,3 +230,13 @@ variable "application_id" {
   type        = string
   default     = null
 }
+
+variable "principal_type" {
+  description = "The type of the principal_id."
+  type        = string
+  validation {
+    condition     = contains(["User", "Group", "ServicePrincipal"], title(var.principal_type))
+    error_message = "Parameter must be 'User', 'Group' or 'ServicePrincipal' string."
+  }
+  default = "ServicePrincipal"
+}
