@@ -175,9 +175,7 @@ variable "identity_block" {
     type         = string
     identity_ids = optional(list(string))
   })
-  default = {
-    type = "SystemAssigned"
-  }
+  default = null
 }
 
 variable "blob_properties_block" {
@@ -437,14 +435,4 @@ variable "principal_id" {
   description = ""
   type        = string
   default     = null
-}
-
-variable "principal_type" {
-  description = "The type of the principal_id."
-  type        = string
-  validation {
-    condition     = contains(["User", "Group", "ServicePrincipal"], title(var.principal_type))
-    error_message = "Parameter must be 'User', 'Group' or 'ServicePrincipal' string."
-  }
-  default = "ServicePrincipal"
 }

@@ -87,9 +87,9 @@ module "kv_access_policy" {
   count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
-  object_id          = data.azuread_service_principal.container_registry.object_id
-  application_id     = data.azuread_service_principal.container_registry.client_id
-  tenant_id          = data.azuread_service_principal.container_registry.application_tenant_id
+  object_id          = data.azurerm_client_config.container_registry.object_id
+  application_id     = data.azurerm_client_config.container_registry.client_id
+  tenant_id          = data.azurerm_client_config.container_registry.tenant_id
 }
 
 # Create RBAC permissions for ACR based on name(s)

@@ -53,16 +53,15 @@ module "kv_access_policy" {
   count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
+  object_id          = data.azurerm_client_config.mssql_server.object_id
+  application_id     = data.azurerm_client_config.mssql_server.client_id
   tenant_id          = azurerm_mssql_server.mssql_server.identity.tenant_id
-  object_id          = data.azuread_service_principal.mssql_server.object_id
-  application_id     = data.azuread_service_principal.mssql_server.application_id
 }
 
 # Create RBAC permissions for KV based on name(s)
 module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
   count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
-  principal_type       = var.principal_type
   name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
   role_definition_name = var.role_definition_names[count.index]
@@ -73,7 +72,6 @@ module "kv_role_assignment_names" {
 module "kv_role_assignment_ids" {
   source               = "../RoleAssignment"
   count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
-  principal_type       = var.principal_type
   name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
   role_definition_name = var.role_definition_ids[count.index]

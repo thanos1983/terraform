@@ -60,9 +60,7 @@ variable "identity_block" {
     type         = string
     identity_ids = optional(list(string))
   })
-  default = {
-    type = "SystemAssigned"
-  }
+  default = null
 }
 
 variable "local_auth_enabled" {
@@ -209,14 +207,4 @@ variable "principal_id" {
   description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
   type        = string
   default     = null
-}
-
-variable "principal_type" {
-  description = "The type of the principal_id."
-  type        = string
-  validation {
-    condition     = contains(["User", "Group", "ServicePrincipal"], title(var.principal_type))
-    error_message = "Parameter must be 'User', 'Group' or 'ServicePrincipal' string."
-  }
-  default = "ServicePrincipal"
 }
