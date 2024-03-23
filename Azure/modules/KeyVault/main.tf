@@ -57,7 +57,7 @@ module "kv_role_assignment_names" {
   name                 = var.role_assignment_name
   scope                = azurerm_key_vault.key_vault.id
   role_definition_name = var.role_definition_names[count.index]
-  principal_id         = var.principal_id == null ? data.azuread_service_principal.key_vault.object_id : var.principal_id
+  principal_id         = var.principal_id == null ? data.azurerm_client_config.key_vault.object_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -67,5 +67,5 @@ module "kv_role_assignment_ids" {
   name               = var.role_assignment_name
   scope              = azurerm_key_vault.key_vault.id
   role_definition_id = var.role_definition_ids[count.index]
-  principal_id       = var.principal_id == null ? data.azuread_service_principal.key_vault.object_id : var.principal_id
+  principal_id       = var.principal_id == null ? data.azurerm_client_config.key_vault.object_id : var.principal_id
 }
