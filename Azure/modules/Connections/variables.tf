@@ -48,8 +48,8 @@ variable "api" {
 
 variable "customParameterValues" {
   description = "Dictionary of custom parameter values."
-  type        = object({})
-  default     = {}
+  type        = map(string)
+  default     = null
 }
 
 variable "displayName" {
@@ -60,14 +60,14 @@ variable "displayName" {
 
 variable "nonSecretParameterValues" {
   description = "Dictionary of nonsecret parameter values."
-  type        = object({})
-  default     = {}
+  type        = map(string)
+  default     = null
 }
 
 variable "parameterValues" {
   description = "Dictionary of parameter values."
-  type        = object({})
-  default     = {}
+  type        = map(string)
+  default     = null
 }
 
 variable "statuses" {
