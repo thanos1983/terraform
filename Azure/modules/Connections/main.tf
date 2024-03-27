@@ -21,7 +21,7 @@ resource "azapi_resource" "connections" {
     "properties.customParameterValues", "properties.statuses", "properties.testLinks"
   ]
 
-  lifecycle {
-    ignore_changes = all
-  }
+  #  lifecycle {
+  #    ignore_changes = all
+  #  }
 }
