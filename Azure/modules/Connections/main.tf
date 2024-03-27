@@ -10,6 +10,7 @@ resource "azapi_resource" "connections" {
       api                      = var.api
       customParameterValues    = var.customParameterValues
       displayName              = var.displayName
+      parameterValueSet        = var.parameterValueSet
       nonSecretParameterValues = var.nonSecretParameterValues
       parameterValues          = var.parameterValues
       statuses                 = var.statuses
