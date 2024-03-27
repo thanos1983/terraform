@@ -72,7 +72,7 @@ variable "parameterValues" {
 
 variable "statuses" {
   description = "Status of the connection."
-  type        = object({
+  type        = list(object({
     error = optional(object({
       etag       = string
       location   = string
@@ -82,15 +82,17 @@ variable "statuses" {
       }))
       tags = optional(map(string))
     }))
-  })
+    status = string
+    target = optional(string)
+  }))
   default = null
 }
 
 variable "testLinks" {
   description = "Links to test the API connection."
-  type        = object({
+  type        = list(object({
     method     = string
     requestUri = string
-  })
+  }))
   default = null
 }
