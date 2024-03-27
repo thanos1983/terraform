@@ -22,7 +22,7 @@ variable "type" {
 }
 
 variable "body" {
-  description = "A JSON object that contains the request body used to add on an existing azure resource. "
+  description = "A JSON object that contains the request body used to add on an existing azure resource."
   type        = string
 }
 
