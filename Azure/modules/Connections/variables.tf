@@ -48,7 +48,7 @@ variable "api" {
 
 variable "customParameterValues" {
   description = "Dictionary of custom parameter values."
-  type        = map(string)
+  type        = map(any)
   default     = {}
 }
 
@@ -58,24 +58,15 @@ variable "displayName" {
   default     = null
 }
 
-variable "parameterValueSet" {
-  description = "The parameterValueSet object includes a name property that's set to managedIdentityAuth and a values property that's set to an empty object."
-  type        = object({
-    name   = string
-    values = optional(map(any))
-  })
-  default = null
-}
-
 variable "nonSecretParameterValues" {
   description = "Dictionary of nonsecret parameter values."
-  type        = map(string)
+  type        = map(any)
   default     = {}
 }
 
 variable "parameterValues" {
   description = "Dictionary of parameter values."
-  type        = map(string)
+  type        = map(any)
   default     = null
 }
 
