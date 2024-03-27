@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Specifies the name of the Logic App Changing this forces a new resource to be created."
+  description = "Specifies the name of the HTTP Action to be created within the Logic App Workflow."
   type        = string
 }
 
@@ -9,7 +9,7 @@ variable "logic_app_id" {
 }
 
 variable "body" {
-  description = "Specifies the JSON Blob defining the Body of this Custom Trigger."
+  description = "Specifies the JSON Blob defining the Body of this Custom Action."
   type        = string
 }
 

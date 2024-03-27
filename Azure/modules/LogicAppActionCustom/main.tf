@@ -1,4 +1,4 @@
-resource "azurerm_logic_app_trigger_custom" "logic_app_trigger_custom" {
+resource "azurerm_logic_app_action_custom" "logic_app_action_custom" {
   name         = var.name
   logic_app_id = var.logic_app_id
   body         = var.body
