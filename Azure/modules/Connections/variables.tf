@@ -64,7 +64,7 @@ variable "parameterValueSet" {
     name   = string
     values = optional(map(any))
   })
-  default = {}
+  default = null
 }
 
 variable "nonSecretParameterValues" {
