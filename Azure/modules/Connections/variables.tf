@@ -1,7 +1,7 @@
 variable "type" {
   description = "The resource type."
   type        = string
-  default     = "Microsoft.Web/connections@2018-07-01-preview"
+  default     = "Microsoft.Web/connections@2016-06-01"
 }
 
 variable "name" {
