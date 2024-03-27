@@ -1,7 +1,7 @@
 variable "type" {
   description = "The resource type."
   type        = string
-  default     = "Microsoft.Web/connections@2016-06-01"
+  default     = "Microsoft.Web/connections@2018-07-01-preview"
 }
 
 variable "name" {
@@ -55,6 +55,12 @@ variable "customParameterValues" {
 variable "displayName" {
   description = "Display name."
   type        = string
+  default     = null
+}
+
+variable "parameterValueSet" {
+  description = "The parameterValueSet object includes a name property that's set to managedIdentityAuth and a values property that's set to an empty object."
+  type        = any
   default     = null
 }
 
