@@ -18,12 +18,4 @@ resource "azapi_resource" "connections" {
       testLinks                = var.testLinks
     }
   })
-
-  ignore_body_changes = [
-    "properties.customParameterValues", "properties.statuses", "properties.testLinks"
-  ]
-
-  #  lifecycle {
-  #    ignore_changes = all
-  #  }
 }
