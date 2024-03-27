@@ -1,9 +1,10 @@
 resource "azapi_resource" "connections" {
-  type      = var.type
-  name      = var.name
-  location  = var.location
-  parent_id = var.parent_id
-  tags      = var.tags
+  type                      = var.type
+  name                      = var.name
+  location                  = var.location
+  parent_id                 = var.parent_id
+  tags                      = var.tags
+  schema_validation_enabled = var.schema_validation_enabled
 
   body = jsonencode({
     properties = {

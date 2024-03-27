@@ -26,6 +26,12 @@ variable "tags" {
   default     = null
 }
 
+variable "schema_validation_enabled" {
+  description = "AzApi provider will use embedded schema to verify the inputs, to skip the validation."
+  type        = bool
+  default     = true
+}
+
 variable "etag" {
   description = "Resource ETag."
   type        = string
