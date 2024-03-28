@@ -112,3 +112,39 @@ variable "timeouts_block" {
   })
   default = null
 }
+
+variable "key_vault_id" {
+  description = "The key vault ID for the vault."
+  type        = string
+  default     = null
+}
+
+variable "role_assignment_name" {
+  description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
+  type        = string
+  default     = null
+}
+
+variable "role_definition_ids" {
+  description = "The Scoped-ID(s) of the Role Definition."
+  type        = list(string)
+  default     = null
+}
+
+variable "role_definition_names" {
+  description = "Specifies the role the user will get with the secret(s) in the vault."
+  type        = list(string)
+  default     = null
+}
+
+variable "principal_id" {
+  description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
+  type        = string
+  default     = null
+}
+
+variable "secret_permissions" {
+  description = "List of secret permissions."
+  type        = list(string)
+  default     = null
+}
