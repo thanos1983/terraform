@@ -1,2 +1,2 @@
 # terraform
-Adding a repository where we can contribut to reusable terraform modules
+Adding a repository where we can contribute to reusable terraform modules
