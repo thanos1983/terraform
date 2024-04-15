@@ -36,7 +36,7 @@ variable "default_node_pool_blocks" {
       image_gc_low_threshold    = optional(number)
       pod_max_pid               = optional(number)
       topology_manager_policy   = optional(string)
-    }))
+    }), null)
     linux_os_config_block = optional(object({
       swap_file_size_mb   = optional(string)
       sysctl_config_block = optional(object({
@@ -69,9 +69,106 @@ variable "default_node_pool_blocks" {
         vm_max_map_count                   = optional(number)
         vm_swappiness                      = optional(number)
         vm_vfs_cache_pressure              = optional(number)
-      }))
+      }), null)
       transparent_huge_page_defrag  = optional(string)
       transparent_huge_page_enabled = optional(string)
-    }))
+    }), null)
+    fips_enabled               = optional(bool)
+    kubelet_disk_type          = optional(string)
+    max_pods                   = optional(number)
+    message_of_the_day         = optional(string)
+    node_network_profile_block = optional(object({
+      allowed_host_ports_blocks = optional(list(object({
+        port_start = optional(number)
+        port_end   = optional(number)
+        protocol   = optional(string)
+      })), [])
+      application_security_group_ids = optional(list(string))
+      node_public_ip_tags            = optional(list(map(any)))
+    }), null)
+    node_public_ip_prefix_id     = optional(string)
+    node_labels                  = optional(map(string))
+    only_critical_addons_enabled = optional(bool)
+    orchestrator_version         = optional(string)
+    os_disk_size_gb              = optional(string)
+    os_disk_type                 = optional(string)
+    os_sku                       = optional(string)
+    pod_subnet_id                = optional(string)
+    proximity_placement_group_id = optional(string)
+    scale_down_mode              = optional(string)
+    snapshot_id                  = optional(string)
+    temporary_name_for_rotation  = optional(string)
+    type                         = optional(string)
+    tags                         = optional(map(string))
+    ultra_ssd_enabled            = optional(bool)
+    upgrade_settings_block       = optional(object({
+      max_surge = number
+    }), null)
+    upgrade_settings = optional(string)
+    workload_runtime = optional(string)
+    zones            = optional(list(string))
+    max_count        = optional(number)
+    min_count        = optional(number)
+    node_count       = optional(number)
   }))
+}
+
+variable "dns_prefix" {
+  description = "DNS prefix specified when creating the managed cluster."
+  type        = string
+  default     = null
+}
+
+variable "dns_prefix_private_cluster" {
+  description = "Specifies the DNS prefix to use with private clusters."
+  type        = string
+  default     = null
+}
+
+variable "aci_connector_linux_block" {
+  description = "An aci_connector_linux block supports the following."
+  type        = object({
+    subnet_name = string
+  })
+  default = null
+}
+
+variable "automatic_channel_upgrade" {
+  description = "he upgrade channel for this Kubernetes Cluster."
+  type        = string
+  default     = null
+}
+
+variable "api_server_access_profile_block" {
+  description = "An api_server_access_profile block supports the following."
+  type        = object({
+    authorized_ip_ranges     = optional(set(string))
+    subnet_id                = optional(string)
+    vnet_integration_enabled = optional(bool)
+  })
+  default = null
+}
+
+variable "auto_scaler_profile_block" {
+  description = "An auto_scaler_profile block supports the following."
+  type        = object({
+    balance_similar_node_groups      = optional(bool)
+    expander                         = optional(string)
+    max_graceful_termination_sec     = optional(number)
+    max_node_provisioning_time       = optional(string)
+    max_unready_nodes                = optional(number)
+    max_unready_percentage           = optional(number)
+    new_pod_scale_up_delay           = optional(string)
+    scale_down_delay_after_add       = optional(string)
+    scale_down_delay_after_delete    = optional(string)
+    scale_down_delay_after_failure   = optional(string)
+    scan_interval                    = optional(string)
+    scale_down_unneeded              = optional(string)
+    scale_down_unready               = optional(string)
+    scale_down_utilization_threshold = optional(string)
+    empty_bulk_delete_max            = optional(number)
+    skip_nodes_with_local_storage    = optional(bool)
+    skip_nodes_with_system_pods      = optional(bool)
+  })
+  default = null
 }
