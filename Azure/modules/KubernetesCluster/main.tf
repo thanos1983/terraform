@@ -125,7 +125,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   dns_prefix_private_cluster = var.dns_prefix_private_cluster
 
   dynamic "aci_connector_linux" {
-    for_each = var.aci_connector_linux_block
+    for_each = var.aci_connector_linux_block[*]
     content {
       subnet_name = aci_connector_linux.value.subnet_name
     }
@@ -134,7 +134,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   automatic_channel_upgrade = var.automatic_channel_upgrade
 
   dynamic "api_server_access_profile" {
-    for_each = var.api_server_access_profile_block
+    for_each = var.api_server_access_profile_block[*]
     content {
       authorized_ip_ranges     = api_server_access_profile.value.authorized_ip_ranges
       subnet_id                = api_server_access_profile.value.subnet_id
@@ -143,7 +143,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 
   dynamic "auto_scaler_profile" {
-    for_each = var.auto_scaler_profile_block
+    for_each = var.auto_scaler_profile_block[*]
     content {
       balance_similar_node_groups      = auto_scaler_profile.value.balance_similar_node_groups
       expander                         = auto_scaler_profile.value.expander
@@ -162,6 +162,167 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       empty_bulk_delete_max            = auto_scaler_profile.value.empty_bulk_delete_max
       skip_nodes_with_local_storage    = auto_scaler_profile.value.skip_nodes_with_local_storage
       skip_nodes_with_system_pods      = auto_scaler_profile.value.skip_nodes_with_system_pods
+    }
+  }
+
+  dynamic "azure_active_directory_role_based_access_control" {
+    for_each = var.azure_active_directory_role_based_access_control_block[*]
+    content {
+      managed                = azure_active_directory_role_based_access_control.value.managed
+      tenant_id              = azure_active_directory_role_based_access_control.value.tenant_id
+      admin_group_object_ids = azure_active_directory_role_based_access_control.value.admin_group_object_ids
+      azure_rbac_enabled     = azure_active_directory_role_based_access_control.value.azure_rbac_enabled
+    }
+  }
+
+  azure_policy_enabled = var.azure_policy_enabled
+
+  dynamic "confidential_computing" {
+    for_each = var.confidential_computing_block[*]
+    content {
+      sgx_quote_helper_enabled = confidential_computing.value.sgx_quote_helper_enabled
+    }
+  }
+
+  custom_ca_trust_certificates_base64 = var.custom_ca_trust_certificates_base64
+  disk_encryption_set_id              = var.disk_encryption_set_id
+  edge_zone                           = var.edge_zone
+  http_application_routing_enabled    = var.http_application_routing_enabled
+
+  dynamic "http_proxy_config" {
+    for_each = var.http_proxy_config_block[*]
+    content {
+      http_proxy  = http_proxy_config.value.http_proxy
+      https_proxy = http_proxy_config.value.https_proxy
+      no_proxy    = http_proxy_config.value.no_proxy
+      trusted_ca  = http_proxy_config.value.trusted_ca
+    }
+  }
+
+  dynamic "identity" {
+    for_each = var.identity_block
+    content {
+      type         = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
+  }
+
+  image_cleaner_enabled        = var.image_cleaner_enabled
+  image_cleaner_interval_hours = var.image_cleaner_interval_hours
+
+  dynamic "ingress_application_gateway" {
+    for_each = var.ingress_application_gateway_block[*]
+    content {
+      gateway_id   = ingress_application_gateway.value.gateway_id
+      gateway_name = ingress_application_gateway.value.gateway_name
+      subnet_cidr  = ingress_application_gateway.value.subnet_cidr
+      subnet_id    = ingress_application_gateway.value.subnet_id
+    }
+  }
+
+  dynamic "key_management_service" {
+    for_each = var.key_management_service_block[*]
+    content {
+      key_vault_key_id         = key_management_service.value.key_vault_key_id
+      key_vault_network_access = key_management_service.value.key_vault_network_access
+    }
+  }
+
+  dynamic "key_vault_secrets_provider" {
+    for_each = var.key_vault_secrets_provider_block[*]
+    content {
+      secret_rotation_enabled  = key_vault_secrets_provider.value.secret_rotation_enabled
+      secret_rotation_interval = key_vault_secrets_provider.value.secret_rotation_interval
+    }
+  }
+
+  dynamic "kubelet_identity" {
+    for_each = var.kubelet_identity_block[*]
+    content {
+      client_id                 = kubelet_identity.value.client_id
+      object_id                 = kubelet_identity.value.object_id
+      user_assigned_identity_id = kubelet_identity.value.user_assigned_identity_id
+    }
+  }
+
+  kubernetes_version = var.kubernetes_version
+
+  dynamic "linux_profile" {
+    for_each = var.linux_profile_block[*]
+    content {
+      admin_username = linux_profile.value.admin_username
+      dynamic "ssh_key" {
+        for_each = linux_profile.value.ssh_key[*]
+        content {
+          key_data = ssh_key.value.key_data
+        }
+      }
+    }
+  }
+
+  local_account_disabled = var.local_account_disabled
+
+  dynamic "maintenance_window" {
+    for_each = var.maintenance_window_block[*]
+    content {
+      dynamic "allowed" {
+        for_each = maintenance_window.value.allowed_block
+        content {
+          day   = allowed.value.day
+          hours = allowed.value.hours
+        }
+      }
+      dynamic "not_allowed" {
+        for_each = maintenance_window.value.not_allowed_block
+        content {
+          end   = not_allowed.value.end
+          start = not_allowed.value.start
+        }
+      }
+    }
+  }
+
+  dynamic "maintenance_window_auto_upgrade" {
+    for_each = var.maintenance_window_auto_upgrade_block[*]
+    content {
+      frequency    = maintenance_window_auto_upgrade.value.frequency
+      interval     = maintenance_window_auto_upgrade.value.interval
+      duration     = maintenance_window_auto_upgrade.value.duration
+      day_of_week  = maintenance_window_auto_upgrade.value.day_of_week
+      day_of_month = maintenance_window_auto_upgrade.value.day_of_month
+      week_index   = maintenance_window_auto_upgrade.value.week_index
+      start_time   = maintenance_window_auto_upgrade.value.start_time
+      utc_offset   = maintenance_window_auto_upgrade.value.utc_offset
+      start_date   = maintenance_window_auto_upgrade.value.start_date
+      dynamic "not_allowed" {
+        for_each = maintenance_window_auto_upgrade.value.not_allowed_block
+        content {
+          end   = not_allowed.value.end
+          start = not_allowed.value.start
+        }
+      }
+    }
+  }
+
+  dynamic "maintenance_window_node_os" {
+    for_each = var.maintenance_window_node_os_block[*]
+    content {
+      frequency    = maintenance_window_node_os.value.frequency
+      interval     = maintenance_window_node_os.value.interval
+      duration     = maintenance_window_node_os.value.duration
+      day_of_week  = maintenance_window_node_os.value.day_of_week
+      day_of_month = maintenance_window_node_os.value.day_of_month
+      week_index   = maintenance_window_node_os.value.week_index
+      start_time   = maintenance_window_node_os.value.start_time
+      utc_offset   = maintenance_window_node_os.value.utc_offset
+      start_date   = maintenance_window_node_os.value.start_date
+      dynamic "not_allowed" {
+        for_each = maintenance_window_node_os.value.not_allowed_block
+        content {
+          end   = not_allowed.value.end
+          start = not_allowed.value.start
+        }
+      }
     }
   }
 

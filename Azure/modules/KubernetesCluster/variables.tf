@@ -172,3 +172,201 @@ variable "auto_scaler_profile_block" {
   })
   default = null
 }
+
+variable "azure_active_directory_role_based_access_control_block" {
+  description = "An azure_active_directory_role_based_access_control block supports the following"
+  type        = object({
+    managed                = optional(bool)
+    tenant_id              = optional(string)
+    admin_group_object_ids = optional(list(string))
+    azure_rbac_enabled     = optional(bool)
+  })
+  default = null
+}
+
+variable "azure_policy_enabled" {
+  description = "Should the Azure Policy Add-On be enabled?"
+  type        = bool
+  default     = false
+}
+
+variable "confidential_computing_block" {
+  description = "A confidential_computing block supports the following."
+  type        = object({
+    sgx_quote_helper_enabled = bool
+  })
+  default = null
+}
+
+variable "custom_ca_trust_certificates_base64" {
+  description = "A list of up to 10 base64 encoded CAs that will be added to the trust store on nodes with the custom_ca_trust_enabled feature enabled."
+  type        = list(string)
+  default     = []
+}
+
+variable "disk_encryption_set_id" {
+  description = "The ID of the Disk Encryption Set which should be used for the Nodes and Volumes."
+  type        = string
+  default     = null
+}
+
+variable "edge_zone" {
+  description = "Specifies the Edge Zone within the Azure Region where this Managed Kubernetes Cluster should exist."
+  type        = string
+  default     = null
+}
+
+variable "http_application_routing_enabled" {
+  description = "Should HTTP Application Routing be enabled?"
+  type        = bool
+  default     = false
+}
+
+variable "http_proxy_config_block" {
+  description = "A http_proxy_config block supports the following."
+  type        = object({
+    http_proxy  = optional(string)
+    https_proxy = optional(string)
+    no_proxy    = optional(list(string))
+    trusted_ca  = optional(string)
+  })
+  default = null
+}
+
+variable "identity_block" {
+  description = "An identity block supports the following."
+  type        = object({
+    type         = string
+    identity_ids = optional(list(string))
+  })
+  default = null
+}
+
+variable "image_cleaner_enabled" {
+  description = "Specifies whether Image Cleaner is enabled."
+  type        = bool
+  default     = false
+}
+
+variable "image_cleaner_interval_hours" {
+  description = "Specifies the interval in hours when images should be cleaned up."
+  type        = number
+  default     = 48
+}
+
+variable "ingress_application_gateway_block" {
+  description = "A ingress_application_gateway block as defined below."
+  type        = object({
+    gateway_id   = optional(string)
+    gateway_name = optional(string)
+    subnet_cidr  = optional(string)
+    subnet_id    = optional(string)
+  })
+  default = null
+}
+
+variable "key_management_service_block" {
+  description = "A key_management_service block as defined below."
+  type        = object({
+    key_vault_key_id         = string
+    key_vault_network_access = optional(string)
+  })
+  default = null
+}
+
+variable "key_vault_secrets_provider_block" {
+  description = "A key_vault_secrets_provider block as defined below."
+  type        = object({
+    secret_rotation_enabled  = optional(bool)
+    secret_rotation_interval = optional(string)
+  })
+  default = null
+}
+
+variable "kubelet_identity_block" {
+  description = "A kubelet_identity block as defined below."
+  type        = object({
+    client_id                 = optional(string)
+    object_id                 = optional(string)
+    user_assigned_identity_id = optional(string)
+  })
+  default = null
+}
+
+variable "kubernetes_version" {
+  description = "Version of Kubernetes specified when creating the AKS managed cluster."
+  type        = string
+  default     = null
+}
+
+variable "linux_profile_block" {
+  description = "A linux_profile block as defined below."
+  type        = object({
+    admin_username = string
+    ssh_key        = object({
+      key_data = string
+    })
+  })
+  default = null
+}
+
+variable "local_account_disabled" {
+  description = "If true local accounts will be disabled."
+  type        = bool
+  default     = false
+}
+
+variable "maintenance_window_block" {
+  description = "A maintenance_window block supports the following."
+  type        = object({
+    allowed_block = optional(list(object({
+      day   = string
+      hours = list(string)
+    })), null)
+    not_allowed_block = optional(list(object({
+      end   = string
+      start = string
+    })), null)
+  })
+  default = null
+}
+
+variable "maintenance_window_auto_upgrade_block" {
+  description = "A maintenance_window_auto_upgrade block as defined below."
+  type        = object({
+    frequency         = string
+    interval          = number
+    duration          = number
+    day_of_week       = optional(string)
+    day_of_month      = optional(string)
+    week_index        = optional(string)
+    start_time        = optional(string)
+    utc_offset        = optional(string)
+    start_date        = optional(string)
+    not_allowed_block = optional(list(object({
+      end   = string
+      start = string
+    })), [])
+  })
+  default = null
+}
+
+variable "maintenance_window_node_os_block" {
+  description = "A maintenance_window_node_os block as defined below."
+  type        = object({
+    frequency         = string
+    interval          = number
+    duration          = number
+    day_of_week       = optional(string)
+    day_of_month      = optional(string)
+    week_index        = optional(string)
+    start_time        = optional(string)
+    utc_offset        = optional(string)
+    start_date        = optional(string)
+    not_allowed_block = optional(list(object({
+      end   = string
+      start = string
+    })), [])
+  })
+  default = null
+}
