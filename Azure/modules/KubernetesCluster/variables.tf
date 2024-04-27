@@ -370,3 +370,52 @@ variable "maintenance_window_node_os_block" {
   })
   default = null
 }
+
+variable "microsoft_defender_block" {
+  description = "A microsoft_defender block as defined below."
+  type        = object({
+    log_analytics_workspace_id = string
+  })
+  default = null
+}
+
+variable "monitor_metrics_block" {
+  description = "Specifies a Prometheus add-on profile for the Kubernetes Cluster."
+  type        = object({
+    annotations_allowed = optional(list(string))
+    labels_allowed      = optional(list(string))
+  })
+  default = null
+}
+
+variable "network_profile_block" {
+  description = "A network_profile block as defined below."
+  type        = object({
+    network_plugin              = string
+    network_mode                = optional(string)
+    network_policy              = optional(string)
+    dns_service_ip              = optional(string)
+    ebpf_data_plane             = optional(string)
+    network_plugin_mode         = optional(string)
+    outbound_type               = optional(string)
+    pod_cidr                    = optional(string)
+    pod_cidrs                   = optional(list(string))
+    service_cidr                = optional(string)
+    service_cidrs               = optional(list(string))
+    ip_versions                 = optional(list(string))
+    load_balancer_sku           = optional(string)
+    load_balancer_profile_block = optional(object({
+      idle_timeout_in_minutes     = optional(number)
+      managed_outbound_ip_count   = optional(number)
+      managed_outbound_ipv6_count = optional(number)
+      outbound_ip_address_ids     = optional(list(string))
+      outbound_ip_prefix_ids      = optional(list(string))
+      outbound_ports_allocated    = optional(number)
+    }), null)
+    nat_gateway_profile_block = optional(object({
+      idle_timeout_in_minutes   = optional(number)
+      managed_outbound_ip_count = optional(number)
+    }), null)
+  })
+  default = null
+}

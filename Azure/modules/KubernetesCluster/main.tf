@@ -326,5 +326,57 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 
+  dynamic "microsoft_defender" {
+    for_each = var.microsoft_defender_block[*]
+    content {
+      log_analytics_workspace_id = microsoft_defender.value.log_analytics_workspace_id
+    }
+  }
+
+  dynamic "monitor_metrics" {
+    for_each = var.monitor_metrics_block[*]
+    content {
+      annotations_allowed = monitor_metrics.value.annotations_allowed
+      labels_allowed      = monitor_metrics.value.labels_allowed
+    }
+  }
+
+  dynamic "network_profile" {
+    for_each = var.network_profile_block[*]
+    content {
+      network_plugin      = network_profile.value.network_plugin
+      network_mode        = network_profile.value.network_mode
+      network_policy      = network_profile.value.network_policy
+      dns_service_ip      = network_profile.value.dns_service_ip
+      ebpf_data_plane     = network_profile.value.ebpf_data_plane
+      network_plugin_mode = network_profile.value.network_plugin_mode
+      outbound_type       = network_profile.value.outbound_type
+      pod_cidr            = network_profile.value.pod_cidr
+      pod_cidrs           = network_profile.value.pod_cidrs
+      service_cidr        = network_profile.value.service_cidr
+      service_cidrs       = network_profile.value.service_cidrs
+      ip_versions         = network_profile.value.ip_versions
+      load_balancer_sku   = network_profile.value.load_balancer_sku
+      dynamic "load_balancer_profile" {
+        for_each = network_profile.value.load_balancer_profile_block[*]
+        content {
+          idle_timeout_in_minutes     = load_balancer_profile.value.idle_timeout_in_minutes
+          managed_outbound_ip_count   = load_balancer_profile.value.managed_outbound_ip_count
+          managed_outbound_ipv6_count = load_balancer_profile.value.managed_outbound_ipv6_count
+          outbound_ip_address_ids     = load_balancer_profile.value.outbound_ip_address_ids
+          outbound_ip_prefix_ids      = load_balancer_profile.value.outbound_ip_prefix_ids
+          outbound_ports_allocated    = load_balancer_profile.value.outbound_ports_allocated
+        }
+      }
+      dynamic "nat_gateway_profile" {
+        for_each = network_profile.value.nat_gateway_profile_block[*]
+        content {
+          idle_timeout_in_minutes   = nat_gateway_profile.value.idle_timeout_in_minutes
+          managed_outbound_ip_count = nat_gateway_profile.value.managed_outbound_ip_count
+        }
+      }
+    }
+  }
+
   tags = var.tags
 }
