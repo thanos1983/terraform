@@ -1,7 +1,7 @@
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = var.name
   location            = var.location
-  resource_group_name = var.resource_group
+  resource_group_name = var.resource_group_name
 
   dynamic "default_node_pool" {
     for_each = var.default_node_pool_blocks
@@ -16,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       gpu_instance                  = default_node_pool.value.gpu_instance
       host_group_id                 = default_node_pool.value.host_group_id
       dynamic "kubelet_config" {
-        for_each = default_node_pool.value.kubelet_config_block
+        for_each = default_node_pool.value.kubelet_config_block[*]
         content {
           allowed_unsafe_sysctls    = kubelet_config.value.allowed_unsafe_sysctls
           container_log_max_line    = kubelet_config.value.container_log_max_line
@@ -31,11 +31,11 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
         }
       }
       dynamic "linux_os_config" {
-        for_each = default_node_pool.value.linux_os_config_block
+        for_each = default_node_pool.value.linux_os_config_block[*]
         content {
           swap_file_size_mb = linux_os_config.value.swap_file_size_mb
           dynamic "sysctl_config" {
-            for_each = linux_os_config.value.sysctl_config_block
+            for_each = linux_os_config.value.sysctl_config_block[*]
             content {
               fs_aio_max_nr                      = sysctl_config.value.fs_aio_max_nr
               fs_file_max                        = sysctl_config.value.fs_file_max
@@ -67,9 +67,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
               vm_swappiness                      = sysctl_config.value.vm_swappiness
               vm_vfs_cache_pressure              = sysctl_config.value.vm_vfs_cache_pressure
             }
-            transparent_huge_page_defrag  = linux_os_config.value.transparent_huge_page_defrag
-            transparent_huge_page_enabled = linux_os_config.value.transparent_huge_page_enabled
           }
+          transparent_huge_page_defrag  = linux_os_config.value.transparent_huge_page_defrag
+          transparent_huge_page_enabled = linux_os_config.value.transparent_huge_page_enabled
         }
       }
       fips_enabled       = default_node_pool.value.fips_enabled
@@ -77,7 +77,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       max_pods           = default_node_pool.value.max_pods
       message_of_the_day = default_node_pool.value.message_of_the_day
       dynamic "node_network_profile" {
-        for_each = default_node_pool.value.node_network_profile_block
+        for_each = default_node_pool.value.node_network_profile_block[*]
         content {
           dynamic "allowed_host_ports" {
             for_each = node_network_profile.value.allowed_host_ports_blocks
@@ -107,12 +107,11 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       tags                         = default_node_pool.value.tags
       ultra_ssd_enabled            = default_node_pool.value.ultra_ssd_enabled
       dynamic "upgrade_settings" {
-        for_each = default_node_pool.value.upgrade_settings_block
+        for_each = default_node_pool.value.upgrade_settings_block[*]
         content {
           max_surge = upgrade_settings.value.max_surge
         }
       }
-      upgrade_settings = default_node_pool.value.upgrade_settings
       workload_runtime = default_node_pool.value.workload_runtime
       zones            = default_node_pool.value.zones
       max_count        = default_node_pool.value.max_count
@@ -200,7 +199,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 
   dynamic "identity" {
-    for_each = var.identity_block
+    for_each = var.identity_block[*]
     content {
       type         = identity.value.type
       identity_ids = identity.value.identity_ids
@@ -405,7 +404,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 
   dynamic "workload_autoscaler_profile" {
-    for_each = var.workload_autoscaler_profile_block
+    for_each = var.workload_autoscaler_profile_block[*]
     content {
       keda_enabled                    = workload_autoscaler_profile.value.keda_enabled
       vertical_pod_autoscaler_enabled = workload_autoscaler_profile.value.vertical_pod_autoscaler_enabled

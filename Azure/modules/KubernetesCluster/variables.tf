@@ -8,7 +8,7 @@ variable "location" {
   type        = string
 }
 
-variable "resource_group" {
+variable "resource_group_name" {
   description = "The name of the resource group in which to create the Key Vault."
   type        = string
 }
@@ -326,11 +326,11 @@ variable "maintenance_window_block" {
     allowed_block = optional(list(object({
       day   = string
       hours = list(string)
-    })), null)
+    })), [])
     not_allowed_block = optional(list(object({
       end   = string
       start = string
-    })), null)
+    })), [])
   })
   default = null
 }
@@ -530,7 +530,7 @@ variable "run_command_enabled" {
   description = "Whether to enable run command for the cluster or not."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.role_based_access_control_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.run_command_enabled)))
     error_message = "Parameter must be \"true\" or \"false\" boolean."
   }
   default = true
