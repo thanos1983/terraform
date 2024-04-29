@@ -313,7 +313,11 @@ variable "linux_profile_block" {
 variable "local_account_disabled" {
   description = "If true local accounts will be disabled."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.local_account_disabled)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "maintenance_window_block" {
@@ -415,6 +419,187 @@ variable "network_profile_block" {
     nat_gateway_profile_block = optional(object({
       idle_timeout_in_minutes   = optional(number)
       managed_outbound_ip_count = optional(number)
+    }), null)
+  })
+  default = null
+}
+
+variable "node_os_channel_upgrade" {
+  description = "The upgrade channel for this Kubernetes Cluster Nodes' OS Image."
+  type        = string
+  validation {
+    condition     = contains(["Unmanaged", "SecurityPatch", "NodeImage", "None"], title(var.node_os_channel_upgrade))
+    error_message = "Parameter must be either \"Unmanaged\", \"SecurityPatch\", \"NodeImage\" or \"None\" string variable."
+  }
+  default = "None"
+}
+
+variable "node_resource_group" {
+  description = "The name of the Resource Group where the Kubernetes Nodes should exist."
+  type        = string
+  default     = null
+}
+
+variable "oidc_issuer_enabled" {
+  description = "Enable or Disable the OIDC issuer URL."
+  type        = string
+  default     = null
+}
+
+variable "oms_agent_block" {
+  description = "A oms_agent block as defined below."
+  type        = object({
+    log_analytics_workspace_id      = string
+    msi_auth_for_monitoring_enabled = optional(bool)
+  })
+  default = null
+}
+
+variable "open_service_mesh_enabled" {
+  description = "Is Open Service Mesh enabled?"
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.open_service_mesh_enabled)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = false
+}
+
+variable "private_cluster_enabled" {
+  description = "Should this Kubernetes Cluster have its API server only exposed on internal IP addresses?"
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.private_cluster_enabled)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = false
+}
+
+variable "private_dns_zone_id" {
+  description = "Either the ID of Private DNS Zone which should be delegated to this Cluster, System to have AKS manage this or None."
+  type        = string
+  default     = null
+}
+
+variable "private_cluster_public_fqdn_enabled" {
+  description = "Specifies whether a Public FQDN for this Private Cluster should be added."
+  type        = bool
+  default     = false
+}
+
+variable "service_mesh_profile_block" {
+  description = "A service_mesh_profile block as defined below."
+  type        = object({
+    mode                             = string
+    internal_ingress_gateway_enabled = optional(bool)
+    external_ingress_gateway_enabled = optional(bool)
+  })
+  default = null
+}
+
+variable "workload_autoscaler_profile_block" {
+  description = "A workload_autoscaler_profile block defined below."
+  type        = object({
+    keda_enabled                    = optional(bool)
+    vertical_pod_autoscaler_enabled = optional(bool)
+  })
+  default = null
+}
+
+variable "workload_identity_enabled" {
+  description = "Specifies whether Azure AD Workload Identity should be enabled for the Cluster."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.workload_identity_enabled)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = false
+}
+
+variable "role_based_access_control_enabled" {
+  description = "Whether Role Based Access Control for the Kubernetes Cluster should be enabled."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.role_based_access_control_enabled)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "run_command_enabled" {
+  description = "Whether to enable run command for the cluster or not."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.role_based_access_control_enabled)))
+    error_message = "Parameter must be \"true\" or \"false\" boolean."
+  }
+  default = true
+}
+
+variable "service_principal_block" {
+  description = "A service_principal block as documented below."
+  type        = object({
+    client_id     = string
+    client_secret = string
+  })
+  default = null
+}
+
+variable "sku_tier" {
+  description = "The SKU Tier that should be used for this Kubernetes Cluster."
+  type        = string
+  validation {
+    condition     = contains(["Premium", "Standard", "Free"], title(var.sku_tier))
+    error_message = "Parameter must be \"Premium\", \"Standard\" or \"Free\" string variable."
+  }
+  default = "Free"
+}
+
+variable "storage_profile_block" {
+  description = "A storage_profile block as defined below."
+  type        = object({
+    blob_driver_enabled         = optional(bool)
+    disk_driver_enabled         = optional(bool)
+    disk_driver_version         = optional(string)
+    file_driver_enabled         = optional(bool)
+    snapshot_controller_enabled = optional(bool)
+  })
+  default = null
+}
+
+variable "support_plan" {
+  description = "Specifies the support plan which should be used for this Kubernetes Cluster."
+  type        = string
+  validation {
+    condition     = contains(["KubernetesOfficial", "AKSLongTermSupport"], title(var.support_plan))
+    error_message = "Parameter must be \"KubernetesOfficial\" or \"AKSLongTermSupport\" string variable."
+  }
+  default = "KubernetesOfficial"
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  type        = map(any)
+  default     = null
+}
+
+variable "web_app_routing_block" {
+  description = "A web_app_routing block as defined below."
+  type        = object({
+    dns_zone_id = string
+  })
+  default = null
+}
+
+variable "windows_profile_block" {
+  description = "A windows_profile block as defined below."
+  type        = object({
+    admin_username = string
+    admin_password = optional(string)
+    license        = optional(string)
+    gmsa_block     = optional(object({
+      dns_server  = string
+      root_domain = string
     }), null)
   })
   default = null

@@ -378,5 +378,88 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 
-  tags = var.tags
+  node_os_channel_upgrade = var.node_os_channel_upgrade
+  node_resource_group     = var.node_resource_group
+  oidc_issuer_enabled     = var.oidc_issuer_enabled
+
+  dynamic "oms_agent" {
+    for_each = var.oms_agent_block[*]
+    content {
+      log_analytics_workspace_id      = oms_agent.value.log_analytics_workspace_id
+      msi_auth_for_monitoring_enabled = oms_agent.value.msi_auth_for_monitoring_enabled
+    }
+  }
+
+  open_service_mesh_enabled           = var.open_service_mesh_enabled
+  private_cluster_enabled             = var.private_cluster_enabled
+  private_dns_zone_id                 = var.private_dns_zone_id
+  private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enabled
+
+  dynamic "service_mesh_profile" {
+    for_each = var.service_mesh_profile_block[*]
+    content {
+      mode                             = service_mesh_profile.value.mode
+      internal_ingress_gateway_enabled = service_mesh_profile.value.internal_ingress_gateway_enabled
+      external_ingress_gateway_enabled = service_mesh_profile.value.external_ingress_gateway_enabled
+    }
+  }
+
+  dynamic "workload_autoscaler_profile" {
+    for_each = var.workload_autoscaler_profile_block
+    content {
+      keda_enabled                    = workload_autoscaler_profile.value.keda_enabled
+      vertical_pod_autoscaler_enabled = workload_autoscaler_profile.value.vertical_pod_autoscaler_enabled
+    }
+  }
+
+  workload_identity_enabled         = var.workload_identity_enabled
+  role_based_access_control_enabled = var.role_based_access_control_enabled
+  run_command_enabled               = var.run_command_enabled
+
+  dynamic "service_principal" {
+    for_each = var.service_principal_block[*]
+    content {
+      client_id     = service_principal.value.client_id
+      client_secret = service_principal.value.client_secret
+    }
+  }
+
+  sku_tier = var.sku_tier
+
+  dynamic "storage_profile" {
+    for_each = var.storage_profile_block[*]
+    content {
+      blob_driver_enabled         = storage_profile.value.blob_driver_enabled
+      disk_driver_enabled         = storage_profile.value.disk_driver_enabled
+      disk_driver_version         = storage_profile.value.disk_driver_version
+      file_driver_enabled         = storage_profile.value.file_driver_enabled
+      snapshot_controller_enabled = storage_profile.value.snapshot_controller_enabled
+    }
+  }
+
+  support_plan = var.support_plan
+  tags         = var.tags
+
+  dynamic "web_app_routing" {
+    for_each = var.web_app_routing_block[*]
+    content {
+      dns_zone_id = web_app_routing.value.dns_zone_id
+    }
+  }
+
+  dynamic "windows_profile" {
+    for_each = var.windows_profile_block[*]
+    content {
+      admin_username = windows_profile.value.admin_username
+      admin_password = windows_profile.value.admin_password
+      license        = windows_profile.value.license
+      dynamic "gmsa" {
+        for_each = windows_profile.value.gmsa_block
+        content {
+          dns_server  = gmsa.value.dns_server
+          root_domain = gmsa.value.root_domain
+        }
+      }
+    }
+  }
 }
