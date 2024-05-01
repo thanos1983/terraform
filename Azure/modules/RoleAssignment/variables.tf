@@ -29,11 +29,7 @@ variable "principal_id" {
 variable "principal_type" {
   description = "The type of the principal_id."
   type        = string
-  validation {
-    condition     = contains(["User", "Group", "ServicePrincipal"], title(var.principal_type))
-    error_message = "Parameter must be 'User', 'Group' or 'ServicePrincipal'."
-  }
-  default = "User"
+  default     = null
 }
 
 variable "condition" {
