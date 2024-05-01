@@ -219,7 +219,8 @@ module "kv_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ?
+    azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -229,12 +230,13 @@ module "kv_role_assignment_ids" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_ids[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ?
+    azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
 }
 
 module "kv_secret_admin_username" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names == null || var.role_definition_ids == null || var.secret_permissions == null) ? 0 : 1
+  count        = length(concat(var.secret_permissions, var.role_definition_names, var.role_definition_ids)) == 0 ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-username"
@@ -246,7 +248,7 @@ module "kv_secret_admin_username" {
 
 module "kv_secret_admin_password" {
   source       = "../KeyVaultSecret"
-  count        = (var.role_definition_names == null || var.role_definition_ids == null || var.secret_permissions == null) ? 0 : 1
+  count        = length(concat(var.secret_permissions, var.role_definition_names, var.role_definition_ids)) == 0 ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"

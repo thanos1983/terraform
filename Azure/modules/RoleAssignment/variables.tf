@@ -33,7 +33,7 @@ variable "principal_type" {
     condition     = contains(["User", "Group", "ServicePrincipal"], title(var.principal_type))
     error_message = "Parameter must be 'User', 'Group' or 'ServicePrincipal'."
   }
-  default = "ServicePrincipal"
+  default = "User"
 }
 
 variable "condition" {
