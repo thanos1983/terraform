@@ -253,8 +253,7 @@ module "st_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_storage_account.storage_account.id
-  principal_id         = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id :
-    var.principal_id
+  principal_id         = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for ACR based on id(s)
@@ -264,8 +263,7 @@ module "st_role_assignment_ids" {
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_storage_account.storage_account.id
-  principal_id       = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id :
-    var.principal_id
+  principal_id       = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id : var.principal_id
 }
 
 module "st_primary_access_key" {
