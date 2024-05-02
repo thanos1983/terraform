@@ -23,9 +23,12 @@ resource "azurerm_data_factory" "data_factory" {
     }
   }
 
-  identity {
-    type         = var.identity_type
-    identity_ids = var.identity_ids
+  dynamic "identity" {
+    for_each = var.identity_block[*]
+    content {
+      type         = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
   }
 
   dynamic "vsts_configuration" {

@@ -35,16 +35,15 @@ variable "global_parameter_block" {
   default = []
 }
 
-variable "identity_type" {
-  description = "Identity type."
-  type        = string
-  validation {
-    condition     = contains([
-      "SystemAssigned", "UserAssigned", "SystemAssigned, UserAssigned"
-    ], title(var.identity_type))
-    error_message = "Identity type variable must be \"SystemAssigned\", \"UserAssigned\" or \"SystemAssigned, UserAssigned\" case sensitive."
+variable "identity_block" {
+  description = "An identity block as defined below."
+  type        = object({
+    type         = string
+    identity_ids = optional(list(string))
+  })
+  default = {
+    type = "SystemAssigned"
   }
-  default = "SystemAssigned"
 }
 
 variable "identity_ids" {
