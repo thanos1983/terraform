@@ -1,11 +1,11 @@
-# Manages an API Connection
+# A Release is an instance of a chart running in a Kubernetes cluster
 
 ## Sample of use:
 
 ```bash
-module "api_connection<project>" {
-  source   = "git::https://example.com/api_connection_<my_repo>.git"
-  name = "my_api_connection"
+module "helm_release<project>" {
+  source   = "git::https://example.com/helm_release_<my_repo>.git"
+  name = "my_helm_release"
   .
   .
   .
