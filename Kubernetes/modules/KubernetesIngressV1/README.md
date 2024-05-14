@@ -1,0 +1,37 @@
+# Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend.
+
+## Sample of use:
+
+```bash
+module "kubectl_manifest_<project>" {
+  source   = "git::https://example.com/kubernetes_ingress_v1_<my_repo>.git"
+  metadata_block = {
+    .
+    .
+    .
+  }
+  .
+  .
+  .
+}
+```
+
+### Variables:
+
+```bash
+- metadata_block (Required)
+- spec_block (Required)
+- wait_for_load_balancer (Opional)
+```
+
+### Output:
+
+```bash
+- status
+- load_balancer
+- ingress
+- load_balancer_ip
+- load_balancer_hostname
+```
+
+###### More information can be found on the official document [kubernetes_ingress_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1)
