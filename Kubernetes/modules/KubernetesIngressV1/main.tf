@@ -1,6 +1,6 @@
 resource "kubernetes_ingress_v1" "ingress_v1" {
   dynamic "metadata" {
-    for_each = var.metadata_block
+    for_each = var.metadata_block[*]
     content {
       annotations   = metadata.value.annotations
       generate_name = metadata.value.generate_name
@@ -11,7 +11,7 @@ resource "kubernetes_ingress_v1" "ingress_v1" {
   }
 
   dynamic "spec" {
-    for_each = var.spec_block
+    for_each = var.spec_block[*]
     content {
       dynamic "default_backend" {
         for_each = spec.value.default_backend_block[*]
@@ -57,17 +57,20 @@ resource "kubernetes_ingress_v1" "ingress_v1" {
                       dynamic "resource" {
                         for_each = backend.value.resource_block[*]
                         content {
-                          dynamic "service" {
-                            for_each = resource.value.service_block[*]
+                          kind      = resource.value.kind
+                          name      = resource.value.name
+                          api_group = resource.value.api_group
+                        }
+                      }
+                      dynamic "service" {
+                        for_each = backend.value.service_block[*]
+                        content {
+                          name = service.value.name
+                          dynamic "port" {
+                            for_each = service.value.port_block[*]
                             content {
-                              name = service.value.name
-                              dynamic "port" {
-                                for_each = service.value.port_block
-                                content {
-                                  name   = port.value.name
-                                  number = port.value.number
-                                }
-                              }
+                              name   = port.value.name
+                              number = port.value.number
                             }
                           }
                         }
@@ -81,7 +84,7 @@ resource "kubernetes_ingress_v1" "ingress_v1" {
         }
       }
       dynamic "tls" {
-        for_each = spec.value.tls_block
+        for_each = spec.value.tls_blocks
         content {
           hosts       = tls.value.hosts
           secret_name = tls.value.secret_name

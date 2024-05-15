@@ -32,17 +32,20 @@ variable "spec_block" {
         path_blocks = list(object({
           path          = string
           path_type     = optional(string)
-          backend_block = optional(object({
+          backend_block = object({
             resource_block = optional(object({
-              service_block = object({
-                name       = string
-                port_block = object({
-                  number = optional(number)
-                  name   = optional(string)
-                })
-              })
+              kind      = string
+              name      = string
+              api_group = string
             }), null)
-          }), null)
+            service_block = optional(object({
+              name       = string
+              port_block = optional(object({
+                name   = optional(string)
+                number = optional(number)
+              }), null)
+            }), null)
+          })
         }))
       })), [])
     })), [])
