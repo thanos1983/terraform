@@ -34,4 +34,12 @@ module "kubectl_manifest_<project>" {
 - load_balancer_hostname
 ```
 
+#### How to import the module
+
+Sample of code:
+
+````bash
+terraform import module.test_ingress.kubernetes_ingress_v1.ingress_v1 default/example-ingress
+````
+
 ###### More information can be found on the official document [kubernetes_ingress_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1)
