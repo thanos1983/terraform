@@ -10,7 +10,7 @@ output "load_balancer" {
 
 output "ingress" {
   description = "Ingress is a list containing ingress points for the load-balancer."
-  value       = kubernetes_ingress_v1.ingress_v1.status.0.ingress
+  value       = kubernetes_ingress_v1.ingress_v1.status.0.load_balancer.0.ingress
 }
 
 output "load_balancer_ip" {
