@@ -43,7 +43,7 @@ variable "spec_block" {
               })
             }), null)
           }), null)
-        }), [])
+        }))
       })), [])
     })), [])
     tls_blocks = optional(list(object({
