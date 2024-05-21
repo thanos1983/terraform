@@ -24,8 +24,12 @@ variable "aggregation_rule_block" {
   description = "A list of selectors which will be used to find ClusterRoles and create the rules."
   type        = object({
     cluster_role_selectors_blocks = optional(list(object({
-      match_expressions = optional(list(string))
-      match_labels      = optional(map(string))
+      match_expressions_blocks = optional(list(object({
+        key      = string
+        operator = string
+        values   = list(string)
+      })))
+      match_labels = optional(list(map(string)))
     })))
   })
   default = null
