@@ -26,15 +26,8 @@ resource "kubernetes_cluster_role_v1" "cluster_role_v1" {
       dynamic "cluster_role_selectors" {
         for_each = aggregation_rule.value.cluster_role_selectors_blocks
         content {
-          dynamic "match_expressions" {
-            for_each = cluster_role_selectors.value.match_expressions_blocks
-            content {
-              key      = match_expressions.value.key
-              operator = match_expressions.value.operator
-              values   = match_expressions.value.values
-            }
-          }
-          match_labels = cluster_role_selectors.value.match_labels
+          match_expressions = cluster_role_selectors.value.match_expressions
+          match_labels      = cluster_role_selectors.value.match_labels
         }
       }
     }
