@@ -3,7 +3,7 @@
 ## Sample of use:
 
 ```bash
-module "kubectl_manifest_<project>" {
+module "kubernetes_ingress_<project>" {
   source   = "git::https://example.com/kubernetes_ingress_v1_<my_repo>.git"
   metadata_block = {
     .
@@ -21,7 +21,7 @@ module "kubectl_manifest_<project>" {
 ```bash
 - metadata_block (Required)
 - spec_block (Required)
-- wait_for_load_balancer (Opional)
+- wait_for_load_balancer (Optional)
 ```
 
 ### Output:
