@@ -1,6 +1,6 @@
 output "generation" {
   description = "A sequence number representing a specific generation of the desired state."
-  value       = kubernetes_cluster_role_v1.cluster_role_v1.generation
+  value       = kubernetes_cluster_role_v1.cluster_role_v1.0.generation
 }
 
 output "resource_version" {
