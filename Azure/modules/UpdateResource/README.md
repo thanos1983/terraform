@@ -17,7 +17,6 @@ module "azapi_update_resource_<project>" {
 ```bash
 - name (Optional)
 - parent_id (Optional)
-- resource_id (Optional)
 - type (Required)
 - body (Required)
 - response_export_values (Optional)

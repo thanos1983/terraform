@@ -10,12 +10,6 @@ variable "parent_id" {
   default     = null
 }
 
-variable "resource_id" {
-  description = "The ID of an existing azure source."
-  type        = string
-  default     = null
-}
-
 variable "type" {
   description = "It is in a format like <resource-type>@<api-version>. <resource-type> is the Azure resource type, for example, Microsoft.Storage/storageAccounts. <api-version> is version of the API used to manage this azure resource."
   type        = string

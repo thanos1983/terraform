@@ -1,7 +1,6 @@
 resource "azapi_update_resource" "update_resource" {
   name                    = var.name
   parent_id               = var.parent_id
-  resource_id             = var.resource_id
   type                    = var.type
   body                    = var.body
   response_export_values  = var.response_export_values
