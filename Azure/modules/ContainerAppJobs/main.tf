@@ -1,5 +1,5 @@
 resource "azapi_resource" "container_app_job" {
-  type                      = "Microsoft.App/jobs@2023-05-01"
+  type                      = "Microsoft.App/jobs@2023-11-02-preview"
   name                      = var.name
   location                  = var.location
   parent_id                 = var.parent_id
