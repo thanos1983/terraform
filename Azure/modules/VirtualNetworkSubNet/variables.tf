@@ -30,16 +30,6 @@ variable "delegation_block" {
   default = []
 }
 
-variable "private_endpoint_network_policies_enabled" {
-  description = "Enable or Disable network policies for the private endpoint on the subnet."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.private_endpoint_network_policies_enabled)))
-    error_message = "Possible values can be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
 variable "service_endpoints" {
   description = "The list of Service endpoints to associate with the subnet."
   type        = list(string)
