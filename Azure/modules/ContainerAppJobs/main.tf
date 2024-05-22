@@ -47,7 +47,6 @@ resource "azapi_resource" "container_app_job" {
     content {
       create = timeouts.value.create
       read   = timeouts.value.read
-      update = timeouts.value.update
       delete = timeouts.value.delete
     }
   }
