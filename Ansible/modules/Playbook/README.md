@@ -16,7 +16,7 @@ module "ansible_playbook<project>" {
 
 ```bash
 - name (Required)
-- playbook (Required)
+- Playbook (Required)
 - ansible_playbook_binary (Optional)
 - check_mode (Optional)
 - diff_mode (Optional)
