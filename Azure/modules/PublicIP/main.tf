@@ -30,7 +30,10 @@ resource "azurerm_public_ip" "public_ip" {
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
     content {
-      read = timeouts.value.read
+      create = timeouts.value.create
+      update = timeouts.value.update
+      read   = timeouts.value.read
+      delete = timeouts.value.delete
     }
   }
 }

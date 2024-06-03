@@ -138,7 +138,10 @@ variable "lifecycle_block" {
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type        = object({
-    read = optional(number, 5)
+    create = optional(number, 30)
+    update = optional(number, 30)
+    read   = optional(number, 5)
+    delete = optional(number, 30)
   })
   default = null
 }
