@@ -32,6 +32,7 @@ module "public_ip_<project>" {
 - sku - (Optional)
 - sku_tier - (Optional)
 - tags - (Optional)
+- timeouts_block (Optional)
 ```
 
 ### Output:
@@ -41,6 +42,15 @@ module "public_ip_<project>" {
 - name
 - ip_address
 - fqdn
+- domain_name_label
+- idle_timeout_in_minutes
+- ddos_protection_mode
+- ddos_protection_plan_id
+- ip_version
+- sku
+- ip_tags
+- tags
+- zones
 ```
 
 ###### More information can be found on the official document [azurerm_public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip)
