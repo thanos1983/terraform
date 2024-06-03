@@ -124,17 +124,6 @@ variable "tags" {
   default     = null
 }
 
-variable "lifecycle_block" {
-  description = "lifecycle is a nested block that can appear within a resource block."
-  type        = object({
-    create_before_destroy = optional(bool)
-    prevent_destroy       = optional(bool)
-    ignore_changes        = optional(list(string))
-    replace_triggered_by  = optional(list(string))
-  })
-  default = null
-}
-
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type        = object({
