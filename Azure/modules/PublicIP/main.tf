@@ -17,10 +17,20 @@ resource "azurerm_public_ip" "public_ip" {
   sku_tier                = var.sku_tier
   tags                    = var.tags
 
+  dynamic "lifecycle" {
+    for_each = var.lifecycle_block[*]
+    content {
+      create_before_destroy = lifecycle.value.create_before_destroy
+      prevent_destroy       = lifecycle.value.prevent_destroy
+      ignore_changes        = lifecycle.value.ignore_changes
+      replace_triggered_by  = lifecycle.value.replace_triggered_by
+    }
+  }
+
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
     content {
-      read   = timeouts.value.read
+      read = timeouts.value.read
     }
   }
 }
