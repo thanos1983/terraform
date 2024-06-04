@@ -54,9 +54,9 @@ variable "size" {
   validation {
     condition = contains([
       "Standard_F1", "Standard_F2", "Standard_F4", "Standard_F8", "Standard_F16", "Standard_DS1_v2", "Standard_DS2_v2",
-      "Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2"
+      "Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", "Standard_D2s_v3"
     ], title(var.size))
-    error_message = "SKU size values can only be \"Standard_F1\", \"Standard_F2\", \"Standard_F4\", \"Standard_F8\", \"Standard_F16\", \"Standard_DS1_v2\", \"Standard_DS2_v2\", \"Standard_DS3_v2\", \"Standard_DS4_v2\" or \"Standard_DS5_v2\"."
+    error_message = "SKU size values can only be \"Standard_F1\", \"Standard_F2\", \"Standard_F4\", \"Standard_F8\", \"Standard_F16\", \"Standard_DS1_v2\", \"Standard_DS2_v2\", \"Standard_DS3_v2\", \"Standard_DS4_v2\", \"Standard_D2s_v3\" or \"Standard_DS5_v2\"."
   }
   default = "Standard_DS1_v2"
 }
