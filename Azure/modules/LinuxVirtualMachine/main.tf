@@ -70,15 +70,16 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  capacity_reservation_group_id = var.capacity_reservation_group_id
-  computer_name                 = var.computer_name
-  custom_data                   = var.custom_data
-  dedicated_host_id             = var.dedicated_host_id
-  dedicated_host_group_id       = var.dedicated_host_group_id
-  edge_zone                     = var.edge_zone
-  encryption_at_host_enabled    = var.encryption_at_host_enabled
-  eviction_policy               = var.eviction_policy
-  extensions_time_budget        = var.extensions_time_budget
+  capacity_reservation_group_id   = var.capacity_reservation_group_id
+  computer_name                   = var.computer_name
+  custom_data                     = var.custom_data
+  dedicated_host_id               = var.dedicated_host_id
+  dedicated_host_group_id         = var.dedicated_host_group_id
+  disable_password_authentication = var.disable_password_authentication
+  edge_zone                       = var.edge_zone
+  encryption_at_host_enabled      = var.encryption_at_host_enabled
+  eviction_policy                 = var.eviction_policy
+  extensions_time_budget          = var.extensions_time_budget
 
   dynamic "gallery_application" {
     for_each = var.gallery_application_blocks
