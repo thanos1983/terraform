@@ -76,6 +76,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   dedicated_host_id               = var.dedicated_host_id
   dedicated_host_group_id         = var.dedicated_host_group_id
   disable_password_authentication = var.disable_password_authentication
+  disk_controller_type            = var.disk_controller_type
   edge_zone                       = var.edge_zone
   encryption_at_host_enabled      = var.encryption_at_host_enabled
   eviction_policy                 = var.eviction_policy
@@ -153,10 +154,11 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  user_data                    = var.user_data
-  virtual_machine_scale_set_id = var.virtual_machine_scale_set_id
-  vtpm_enabled                 = var.vtpm_enabled
-  zone                         = var.zone
+  user_data                         = var.user_data
+  vm_agent_platform_updates_enabled = var.vm_agent_platform_updates_enabled
+  virtual_machine_scale_set_id      = var.virtual_machine_scale_set_id
+  vtpm_enabled                      = var.vtpm_enabled
+  zone                              = var.zone
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

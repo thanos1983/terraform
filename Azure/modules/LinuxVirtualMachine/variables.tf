@@ -150,6 +150,12 @@ variable "disable_password_authentication" {
   default = false
 }
 
+variable "disk_controller_type" {
+  description = "Specifies the Disk Controller Type used for this Virtual Machine."
+  type        = string
+  default     = null
+}
+
 variable "edge_zone" {
   description = "Specifies the Edge Zone within the Azure Region where this Windows Virtual Machine should exist."
   type        = string
@@ -158,8 +164,12 @@ variable "edge_zone" {
 
 variable "encryption_at_host_enabled" {
   description = "Should all of the disks (including the temp disk) attached to this Virtual Machine be encrypted by enabling Encryption at Host?"
-  type        = string
-  default     = null
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.encryption_at_host_enabled)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "eviction_policy" {
@@ -209,7 +219,7 @@ variable "patch_assessment_mode" {
 }
 
 variable "patch_mode" {
-  description = " Specifies the mode of in-guest patching to this Windows Virtual Machine."
+  description = "Specifies the mode of in-guest patching to this Linux Virtual Machine."
   type        = string
   validation {
     condition = contains([
@@ -217,7 +227,7 @@ variable "patch_mode" {
     ], title(var.patch_mode))
     error_message = "Possible values can only be \"AutomaticByPlatform\" or \"ImageDefault\"."
   }
-  default = "AutomaticByPlatform"
+  default = "ImageDefault"
 }
 
 variable "max_bid_price" {
@@ -292,7 +302,7 @@ variable "secure_boot_enabled" {
     ], lower(tostring(var.secure_boot_enabled)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
-  default = true
+  default = false
 }
 
 variable "source_image_id" {
@@ -333,10 +343,24 @@ variable "user_data" {
   default     = null
 }
 
+variable "vm_agent_platform_updates_enabled" {
+  description = "Specifies whether VMAgent Platform Updates is enabled."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.vm_agent_platform_updates_enabled)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = false
+}
+
 variable "vtpm_enabled" {
   description = "Specifies if vTPM (virtual Trusted Platform Module) and Trusted Launch is enabled for the Virtual Machine."
-  type        = string
-  default     = null
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.vtpm_enabled)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "virtual_machine_scale_set_id" {
@@ -348,7 +372,7 @@ variable "virtual_machine_scale_set_id" {
 variable "zone" {
   description = "Specifies the Availability Zone in which this Windows Virtual Machine should be located."
   type        = string
-  default     = "1"
+  default     = null
 }
 
 variable "disk_encryption_set_id" {

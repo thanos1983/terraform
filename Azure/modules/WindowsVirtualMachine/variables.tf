@@ -362,7 +362,7 @@ variable "patch_assessment_mode" {
 }
 
 variable "patch_mode" {
-  description = " Specifies the mode of in-guest patching to this Windows Virtual Machine."
+  description = "Specifies the mode of in-guest patching to this Windows Virtual Machine."
   type        = string
   validation {
     condition = contains([
