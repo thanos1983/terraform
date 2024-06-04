@@ -25,6 +25,24 @@ variable "network_interface_ids" {
   type        = list(string)
 }
 
+variable "os_disk_block" {
+  description = "A os_disk block supports the following."
+  type        = object({
+    caching                  = string
+    storage_account_type     = string
+    diff_disk_settings_block = optional(object({
+      option    = string
+      placement = optional(string, "CacheDisk")
+    }), null)
+    disk_encryption_set_id           = optional(string)
+    disk_size_gb                     = optional(number)
+    name                             = optional(string)
+    secure_vm_disk_encryption_set_id = optional(string)
+    security_encryption_type         = optional(string)
+    write_accelerator_enabled        = optional(string)
+  })
+}
+
 variable "resource_group_name" {
   description = "The name of the Resource Group in which the Windows Virtual Machine should be exist."
   type        = string
@@ -257,9 +275,8 @@ variable "proximity_placement_group_id" {
 variable "secret_block" {
   description = "A secret block."
   type        = object({
-    certificate = object({
-      store = string
-      url   = string
+    certificate_blocks = object({
+      url = string
     })
     key_vault_id = string
   })
@@ -443,39 +460,6 @@ variable "diff_disk_settings_block" {
   default = null
 }
 
-variable "additional_unattend_content_blocks" {
-  description = "One or more additional_unattend_content blocks as defined below."
-  type        = list(object({
-    content = string
-    setting = string
-  }))
-  default = []
-}
-
-variable "enable_automatic_updates" {
-  description = "Specifies if Automatic Updates are Enabled for the Windows Virtual Machine."
-  type        = bool
-  validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.enable_automatic_updates)))
-    error_message = "Possible values can only be \"true\" or \"false\"."
-  }
-  default = true
-}
-
-variable "hotpatching_enabled" {
-  description = " Should the VM be patched without requiring a reboot? Possible values are true or false."
-  type        = bool
-  validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.hotpatching_enabled)))
-    error_message = "Possible values can only be \"true\" or \"false\"."
-  }
-  default = false
-}
-
 variable "publisher" {
   description = "Specifies the publisher of the image used to create the virtual machines."
   type        = string
@@ -498,21 +482,6 @@ variable "image_reference_version" {
   description = "Specifies the version of the image used to create the virtual machines."
   type        = string
   default     = "latest"
-}
-
-variable "timezone" {
-  description = "Specifies the Time Zone which should be used by the Virtual Machine."
-  type        = string
-  default     = "Romance Standard Time"
-}
-
-variable "winrm_listener_blocks" {
-  description = "One or more winrm_listener blocks."
-  type        = list(object({
-    protocol        = string
-    certificate_url = optional(string)
-  }))
-  default = []
 }
 
 variable "timeouts_block" {

@@ -28,15 +28,24 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   name                  = var.name
   network_interface_ids = var.network_interface_ids
 
-  os_disk {
-    caching              = var.caching
-    storage_account_type = var.storage_account_type
-    dynamic "diff_disk_settings" {
-      for_each = var.diff_disk_settings_block[*]
-      content {
-        option    = diff_disk_settings.value.option
-        placement = diff_disk_settings.value.placement
+  dynamic "os_disk" {
+    for_each = var.os_disk_block[*]
+    content {
+      caching              = os_disk.value.caching
+      storage_account_type = os_disk.value.storage_account_type
+      dynamic "diff_disk_settings" {
+        for_each = os_disk.value.diff_disk_settings_block[*]
+        content {
+          option    = diff_disk_settings.value.option
+          placement = diff_disk_settings.value.placement
+        }
       }
+      disk_encryption_set_id           = os_disk.value.disk_encryption_set_id
+      disk_size_gb                     = os_disk.value.disk_size_gb
+      name                             = os_disk.value.name
+      secure_vm_disk_encryption_set_id = os_disk.value.secure_vm_disk_encryption_set_id
+      security_encryption_type         = os_disk.value.security_encryption_type
+      write_accelerator_enabled        = os_disk.value.write_accelerator_enabled
     }
   }
 
@@ -47,14 +56,6 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     for_each = var.additional_capabilities_block[*]
     content {
       ultra_ssd_enabled = additional_capabilities.value.ultra_ssd_enabled
-    }
-  }
-
-  dynamic "additional_unattend_content" {
-    for_each = var.additional_unattend_content_blocks
-    content {
-      content = additional_unattend_content.value.content
-      setting = additional_unattend_content.value.setting
     }
   }
 
@@ -74,7 +75,6 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   dedicated_host_id             = var.dedicated_host_id
   dedicated_host_group_id       = var.dedicated_host_group_id
   edge_zone                     = var.edge_zone
-  enable_automatic_updates      = var.enable_automatic_updates
   encryption_at_host_enabled    = var.encryption_at_host_enabled
   eviction_policy               = var.eviction_policy
   extensions_time_budget        = var.extensions_time_budget
@@ -88,8 +88,6 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
       tag                    = gallery_application.value.tag
     }
   }
-
-  hotpatching_enabled = var.hotpatching_enabled
 
   dynamic "identity" {
     for_each = var.identity_block[*]
@@ -122,10 +120,9 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     for_each = var.secret_block[*]
     content {
       dynamic "certificate" {
-        for_each = secret.value.certificate
+        for_each = secret.value.certificate_blocks
         content {
-          store = certificate.value.store
-          url   = certificate.value.url
+          url = certificate.value.url
         }
       }
       key_vault_id = secret.value.key_vault_id
@@ -162,20 +159,10 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  timezone                     = var.timezone
   user_data                    = var.user_data
   virtual_machine_scale_set_id = var.virtual_machine_scale_set_id
   vtpm_enabled                 = var.vtpm_enabled
-
-  dynamic "winrm_listener" {
-    for_each = var.winrm_listener_blocks
-    content {
-      protocol        = winrm_listener.value.protocol
-      certificate_url = winrm_listener.value.certificate_url
-    }
-  }
-
-  zone = var.zone
+  zone                         = var.zone
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
