@@ -13,7 +13,7 @@ module "password" {
 }
 
 resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
-  admin_password        = coalesce(var.administrator_password, module.password[0].result)
+  admin_password        = var.admin_password == null ? module.password[0].result : var.admin_password
   admin_username        = var.admin_username
   location              = var.location
   name                  = var.name
@@ -133,11 +133,14 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   secure_boot_enabled = var.secure_boot_enabled
   source_image_id     = var.source_image_id
 
-  source_image_reference {
-    offer     = var.offer
-    publisher = var.publisher
-    sku       = var.sku
-    version   = var.image_reference_version
+  dynamic "source_image_reference" {
+    for_each = var.source_image_reference_block[*]
+    content {
+      publisher = source_image_reference.value.publisher
+      offer     = source_image_reference.value.offer
+      sku       = source_image_reference.value.sku
+      version   = source_image_reference.value.version
+    }
   }
 
   tags = var.tags

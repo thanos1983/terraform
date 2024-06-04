@@ -440,13 +440,24 @@ variable "secure_boot_enabled" {
     ], lower(tostring(var.secure_boot_enabled)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
-  default = false
+  default = true
 }
 
 variable "source_image_id" {
   description = "The ID of the Image which this Virtual Machine should be created from."
   type        = string
   default     = null
+}
+
+variable "source_image_reference_block" {
+  description = "A source_image_reference block as defined below."
+  type        = object({
+    publisher = string
+    offer     = string
+    sku       = string
+    version   = string
+  })
+  default = null
 }
 
 variable "publisher" {

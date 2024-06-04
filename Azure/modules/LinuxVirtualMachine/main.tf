@@ -1,6 +1,6 @@
 module "password" {
   source      = "../RandomPassword"
-  count       = var.administrator_password == null ? 1 : 0
+  count       = var.admin_password == null ? 1 : 0
   length      = var.length
   lower       = var.lower
   min_lower   = var.min_lower
@@ -13,18 +13,9 @@ module "password" {
 }
 
 resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
-  admin_password = coalesce(var.administrator_password, module.password[0].result)
-
-  dynamic "admin_ssh_key" {
-    for_each = var.admin_ssh_key_block[*]
-    content {
-      public_key = admin_ssh_key.value.public_key
-      username   = admin_ssh_key.value.username
-    }
-  }
-
   admin_username        = var.admin_username
   location              = var.location
+  license_type          = var.license_type
   name                  = var.name
   network_interface_ids = var.network_interface_ids
 
@@ -56,6 +47,16 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     for_each = var.additional_capabilities_block[*]
     content {
       ultra_ssd_enabled = additional_capabilities.value.ultra_ssd_enabled
+    }
+  }
+
+  admin_password = var.admin_password == null ? module.password[0].result : var.admin_password
+
+  dynamic "admin_ssh_key" {
+    for_each = var.admin_ssh_key_block[*]
+    content {
+      public_key = admin_ssh_key.value.public_key
+      username   = admin_ssh_key.value.username
     }
   }
 
@@ -97,7 +98,6 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  license_type          = var.license_type
   max_bid_price         = var.max_bid_price
   patch_assessment_mode = var.patch_assessment_mode
   patch_mode            = var.patch_mode
@@ -129,6 +129,9 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
+  secure_boot_enabled = var.secure_boot_enabled
+  source_image_id     = var.source_image_id
+
   dynamic "source_image_reference" {
     for_each = var.source_image_reference_block[*]
     content {
@@ -137,16 +140,6 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
       sku       = source_image_reference.value.sku
       version   = source_image_reference.value.version
     }
-  }
-
-  secure_boot_enabled = var.secure_boot_enabled
-  source_image_id     = var.source_image_id
-
-  source_image_reference {
-    offer     = var.offer
-    publisher = var.publisher
-    sku       = var.sku
-    version   = var.image_reference_version
   }
 
   tags = var.tags
@@ -237,7 +230,7 @@ module "kv_secret_admin_password" {
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"
-  value        = coalesce(var.administrator_password, module.password[0].result)
+  value        = coalesce(var.admin_password, module.password[0].result)
   depends_on   = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
