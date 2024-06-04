@@ -193,7 +193,7 @@ module "AADLoginForWindows" {
 # Assign Access Policies if enabled
 module "kv_access_policy" {
   source             = "../KeyVaultAccessPolicy"
-  count              = var.secret_permissions == null ? 0 : length(var.secret_permissions)
+  count              = var.secret_permissions == [] ? 0 : length(var.secret_permissions)
   key_vault_id       = var.key_vault_id
   secret_permissions = var.secret_permissions
   object_id          = data.azurerm_client_config.cognitive_account.object_id
@@ -204,7 +204,7 @@ module "kv_access_policy" {
 # Create RBAC permissions for KV based on name(s)
 module "kv_role_assignment_names" {
   source               = "../RoleAssignment"
-  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  count                = var.role_definition_names == [] ? 0 : length(var.role_definition_names)
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_windows_virtual_machine.windows_virtual_machine.id
@@ -214,7 +214,7 @@ module "kv_role_assignment_names" {
 # Create RBAC permissions for KV based on id(s)
 module "kv_role_assignment_ids" {
   source               = "../RoleAssignment"
-  count                = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  count                = var.role_definition_ids == [] ? 0 : length(var.role_definition_ids)
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_ids[count.index]
   scope                = azurerm_windows_virtual_machine.windows_virtual_machine.id
