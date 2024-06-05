@@ -109,7 +109,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       dynamic "upgrade_settings" {
         for_each = default_node_pool.value.upgrade_settings_block[*]
         content {
-          max_surge = upgrade_settings.value.max_surge
+          drain_timeout_in_minutes      = upgrade_settings.value.drain_timeout_in_minutes
+          node_soak_duration_in_minutes = upgrade_settings.value.node_soak_duration_in_minutes
+          max_surge                     = upgrade_settings.value.max_surge
         }
       }
       workload_runtime = default_node_pool.value.workload_runtime

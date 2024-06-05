@@ -102,9 +102,10 @@ variable "default_node_pool_blocks" {
     tags                         = optional(map(string))
     ultra_ssd_enabled            = optional(bool)
     upgrade_settings_block       = optional(object({
-      max_surge = number
+      drain_timeout_in_minutes      = optional(number)
+      node_soak_duration_in_minutes = optional(number, 0)
+      max_surge                     = string
     }), null)
-    upgrade_settings = optional(string)
     workload_runtime = optional(string)
     zones            = optional(list(string))
     max_count        = optional(number)
@@ -176,7 +177,7 @@ variable "auto_scaler_profile_block" {
 variable "azure_active_directory_role_based_access_control_block" {
   description = "An azure_active_directory_role_based_access_control block supports the following"
   type        = object({
-    managed                = optional(bool)
+    managed                = optional(bool, false)
     tenant_id              = optional(string)
     admin_group_object_ids = optional(list(string))
     azure_rbac_enabled     = optional(bool)
