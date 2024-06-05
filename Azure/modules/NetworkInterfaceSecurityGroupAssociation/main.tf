@@ -7,7 +7,6 @@ resource "azurerm_network_interface_security_group_association" "network_interfa
     content {
       create = timeouts.value.create
       read   = timeouts.value.read
-      update = timeouts.value.update
       delete = timeouts.value.delete
     }
   }
