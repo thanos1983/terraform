@@ -42,7 +42,6 @@ resource "helm_release" "release" {
     content {
       name  = set_list.value.name
       value = set_list.value.value
-      type  = set_list.value.type
     }
   }
 
@@ -60,7 +59,7 @@ resource "helm_release" "release" {
   description       = var.description
 
   dynamic "postrender" {
-    for_each = var.postrender_block
+    for_each = var.postrender_block[*]
     content {
       binary_path = postrender.value.binary_path
       args        = postrender.value.args

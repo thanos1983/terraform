@@ -65,7 +65,11 @@ variable "namespace" {
 variable "verify" {
   description = "Verify the package before installing it."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.verify)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "keyring" {
@@ -83,37 +87,61 @@ variable "timeout" {
 variable "disable_webhooks" {
   description = "Prevent hooks from running."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.disable_webhooks)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "reuse_values" {
   description = "When upgrading, reuse the last release's values and merge in any overrides."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.reuse_values)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "reset_values" {
   description = "When upgrading, reset the values to the ones built into the chart."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.reset_values)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "force_update" {
   description = "Force resource update through delete/recreate if needed."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.force_update)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "recreate_pods" {
   description = "Perform pods restart during upgrade/rollback."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.recreate_pods)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "cleanup_on_fail" {
   description = "Allow deletion of new resources created in this upgrade when upgrade fails."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.cleanup_on_fail)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "max_history" {
@@ -125,37 +153,61 @@ variable "max_history" {
 variable "atomic" {
   description = "If set, installation process purges chart on fail."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.atomic)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "skip_crds" {
   description = "If set, no CRDs will be installed."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.skip_crds)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "render_subchart_notes" {
   description = "If set, render subchart notes along with the parent."
   type        = bool
-  default     = true
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.render_subchart_notes)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = true
 }
 
 variable "disable_openapi_validation" {
   description = "If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.disable_openapi_validation)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "wait" {
   description = "Will wait until all resources are in a ready state before marking the release as successful."
   type        = bool
-  default     = true
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.wait)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = true
 }
 
 variable "wait_for_jobs" {
   description = "If wait is enabled, will wait until all Jobs have been completed before marking the release as successful."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.wait_for_jobs)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "values" {
@@ -171,7 +223,7 @@ variable "set_blocks" {
     value = string
     type  = optional(string)
   }))
-  default = null
+  default = []
 }
 
 variable "set_list_blocks" {
@@ -179,9 +231,8 @@ variable "set_list_blocks" {
   type        = list(object({
     name  = string
     value = list(string)
-    type  = optional(string)
   }))
-  default = null
+  default = []
 }
 
 variable "set_sensitive_blocks" {
@@ -191,25 +242,37 @@ variable "set_sensitive_blocks" {
     value = list(string)
     type  = optional(string)
   }))
-  default = null
+  default = []
 }
 
 variable "dependency_update" {
   description = "Runs helm dependency update before installing the chart."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.dependency_update)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "replace" {
   description = "Re-use the given name, only if that name is a deleted release which remains in the history."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.replace)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "description" {
   description = "Set release description attribute (visible in the history)."
-  type        = string
-  default     = false
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.description)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "postrender_block" {
@@ -224,17 +287,29 @@ variable "postrender_block" {
 variable "pass_credentials" {
   description = "Pass credentials to all domains."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.pass_credentials)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "lint" {
   description = "Run the helm chart linter during the plan."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.lint)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "create_namespace" {
   description = "Create the namespace if it does not yet exist."
   type        = bool
-  default     = false
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.create_namespace)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
