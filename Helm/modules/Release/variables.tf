@@ -267,12 +267,8 @@ variable "replace" {
 
 variable "description" {
   description = "Set release description attribute (visible in the history)."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.description)))
-    error_message = "Possible values are 'true' and 'false'."
-  }
-  default = false
+  type        = string
+  default     = null
 }
 
 variable "postrender_block" {
