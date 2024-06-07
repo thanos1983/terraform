@@ -86,3 +86,8 @@ output "key_vault_secrets_provider" {
   description = "A key_vault_secrets_provider block as defined below."
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.key_vault_secrets_provider
 }
+
+output "connector_identity" {
+  description = "The connector_identity block exports the following (client_id, object_id, user_assigned_identity_id)"
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.kubelet_identity
+}
