@@ -1,4 +1,4 @@
-output "generation" {
-  description = "A sequence number representing a specific generation of the desired."
-  value       = kubernetes_secret.secret.id
+output "metadata" {
+  description = "Standard namespace's metadata."
+  value       = kubernetes_secret.secret.metadata
 }
