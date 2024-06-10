@@ -1,6 +1,6 @@
 resource "kubernetes_namespace_v1" "namespace" {
   dynamic "metadata" {
-    for_each = var.metadata_block
+    for_each = var.metadata_block[*]
     content {
       annotations   = metadata.value.annotations
       generate_name = metadata.value.generate_name
