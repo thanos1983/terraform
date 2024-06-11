@@ -26,9 +26,8 @@ module "kubernetes_secret_<project>" {
 ### Output:
 
 ```bash
-- generation
-- resource_version
-- uid
+- metadata
+- data
 ```
 
-###### More information can be found on the official document [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret)
+###### More information can be found on the official document [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1)

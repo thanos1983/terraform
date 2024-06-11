@@ -30,8 +30,6 @@ module "kubernetes_ingress_<project>" {
 - status
 - load_balancer
 - ingress
-- load_balancer_ip
-- load_balancer_hostname
 ```
 
 #### How to import the module

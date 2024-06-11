@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "secret" {
+resource "kubernetes_secret_v1" "secret" {
   data        = var.data
   binary_data = var.binary_data
 

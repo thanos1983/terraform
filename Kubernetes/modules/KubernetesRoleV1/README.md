@@ -27,9 +27,9 @@ module "kubernetes_role_<project>" {
 ### Output:
 
 ```bash
-- generation
-- resource_version
-- uid
+- metadata
+- rule
+- aggregation_rule
 ```
 
 #### How to import the module

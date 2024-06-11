@@ -27,9 +27,9 @@ module "kubernetes_role_binding_<project>" {
 ### Output:
 
 ```bash
-- generation
-- resource_version
-- uid
+- metadata
+- role_ref
+- subject
 ```
 
 #### How to import the module
