@@ -21,6 +21,7 @@ module "kubernetes_role_<project>" {
 ```bash
 - metadata_block (Required)
 - rule_blocks (Optional)
+- aggregation_rule_block (Optional)
 ```
 
 ### Output:

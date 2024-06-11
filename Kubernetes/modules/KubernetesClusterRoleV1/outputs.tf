@@ -1,14 +1,14 @@
-output "generation" {
-  description = "A sequence number representing a specific generation of the desired state."
-  value       = kubernetes_cluster_role_v1.cluster_role_v1
+output "metadata" {
+  description = "Standard kubernetes metadata."
+  value       = kubernetes_cluster_role_v1.cluster_role_v1.metadata
 }
 
-output "resource_version" {
-  description = "An opaque value that represents the internal version of this object that can be used by clients to determine when the object has changed."
-  value       = kubernetes_cluster_role_v1.cluster_role_v1
+output "rule" {
+  description = "The PolicyRoles for this ClusterRole."
+  value       = kubernetes_cluster_role_v1.cluster_role_v1.rule
 }
 
-output "uid" {
-  description = "The unique in time and space value for this cluster role binding."
-  value       = kubernetes_cluster_role_v1.cluster_role_v1
+output "aggregation_rule" {
+  description = "Describes how to build the Rules for this ClusterRole."
+  value       = kubernetes_cluster_role_v1.cluster_role_v1.aggregation_rule
 }

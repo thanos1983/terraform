@@ -12,10 +12,21 @@ variable "metadata_block" {
 variable "rule_blocks" {
   description = "The PolicyRoles for this ClusterRole."
   type        = list(object({
-    api_groups        = list(string)
-    resources         = list(string)
-    resource_names    = optional(list(string))
-    verbs             = list(string)
+    api_groups     = list(string)
+    resources      = list(string)
+    resource_names = optional(list(string))
+    verbs          = list(string)
   }))
+  default = null
+}
+
+variable "aggregation_rule_block" {
+  description = "Describes how to build the Rules for this ClusterRole."
+  type        = object({
+    cluster_role_selectors_blocks = list(object({
+      match_expressions = optional(list(string))
+      match_labels      = optional(map(string))
+    }), [])
+  })
   default = null
 }

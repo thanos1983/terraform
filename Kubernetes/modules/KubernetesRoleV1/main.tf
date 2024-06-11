@@ -19,4 +19,17 @@ resource "kubernetes_role_v1" "role_v1" {
       verbs          = rule.value.verbs
     }
   }
+
+  dynamic "aggregation_rule" {
+    for_each = var.aggregation_rule_block[*]
+    content {
+      dynamic "cluster_role_selectors" {
+        for_each = aggregation_rule.value.cluster_role_selectors_blocks
+        content {
+          match_expressions = cluster_role_selectors.value.match_expressions
+          match_labels      = cluster_role_selectors.value.match_labels
+        }
+      }
+    }
+  }
 }

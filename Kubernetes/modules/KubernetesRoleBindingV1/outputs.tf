@@ -1,14 +1,14 @@
-output "generation" {
-  description = "A sequence number representing a specific generation of the desired state."
-  value       = kubernetes_role_binding_v1.role_binding_v1.generation
+output "metadata" {
+  description = "Standard kubernetes metadata."
+  value       = kubernetes_role_binding_v1.role_binding_v1.metadata
 }
 
-output "resource_version" {
-  description = "An opaque value that represents the internal version of this object that can be used by clients to determine when the object has changed."
-  value       = kubernetes_role_binding_v1.role_binding_v1.resource_version
+output "role_ref" {
+  description = "The Role to bind Subjects to."
+  value       = kubernetes_role_binding_v1.role_binding_v1.role_ref
 }
 
-output "uid" {
-  description = "The unique in time and space value for this role binding."
-  value       = kubernetes_role_binding_v1.role_binding_v1.uid
+output "subject" {
+  description = "The Users, Groups, or ServiceAccounts to grand permissions to."
+  value       = kubernetes_role_binding_v1.role_binding_v1.subject
 }
