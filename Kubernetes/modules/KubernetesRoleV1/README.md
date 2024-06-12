@@ -6,13 +6,25 @@
 module "kubernetes_role_<project>" {
   source   = "git::https://example.com/kubernetes_role_v1_<my_repo>.git"
   metadata_block = {
-    .
-    .
-    .
+    name = "example-role"
   }
-  .
-  .
-  .
+  rule_blocks = [
+    {
+      api_groups = [""]
+      resources  = ["services", "endpoints", "pods"]
+      verbs      = ["get", "watch", "list"]
+    },
+    {
+      api_groups = ["extensions", "networking.k8s.io"]
+      resources  = ["ingresses"]
+      verbs      = ["get", "watch", "list"]
+    },
+    {
+      api_groups = [""]
+      resources  = ["nodes"]
+      verbs      = ["list", "watch"]
+    }
+  ]
 }
 ```
 
@@ -21,7 +33,6 @@ module "kubernetes_role_<project>" {
 ```bash
 - metadata_block (Required)
 - rule_blocks (Optional)
-- aggregation_rule_block (Optional)
 ```
 
 ### Output:
@@ -29,7 +40,6 @@ module "kubernetes_role_<project>" {
 ```bash
 - metadata
 - rule
-- aggregation_rule
 ```
 
 #### How to import the module

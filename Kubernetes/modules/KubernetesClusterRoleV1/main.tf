@@ -1,4 +1,4 @@
-resource "kubernetes_cluster_role_v1" "cluster_role_v1" {
+resource "kubernetes_cluster_role_v1" "cluster_role" {
   dynamic "metadata" {
     for_each = var.metadata_block[*]
     content {
