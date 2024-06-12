@@ -40,4 +40,6 @@ module "cloudflare_api_token_<project>" {
 - value
 ```
 
+#### API token permissions [Products > Cloudflare > Fundamentals > ... > Reference > API token permissions](https://developers.cloudflare.com/fundamentals/api/reference/permissions/)
+
 ###### More information can be found on the official document [cloudflare_api_token](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/api_token)
