@@ -1,4 +1,4 @@
-# A ClusterRoleBinding may be used to grant permission at the cluster level and in all namespaces.
+# A ClusterRoleBinding may be used to grant permission at the cluster level and in all namespaces
 
 ## Sample of use:
 
@@ -6,13 +6,20 @@
 module "kubernetes_cluster_role_binding_<project>" {
   source   = "git::https://example.com/kubernetes_cluster_role_binding_<my_repo>.git"
   metadata_block = {
-    .
-    .
-    .
+    name = "cluster_role_binding_example"
   }
-  .
-  .
-  .
+  role_ref_block = {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "example-name"
+  }
+  subject_blocks = [
+    {
+      name      = "example-name"
+      namespace = "default"
+      kind      = "ServiceAccount"
+    }
+  ]
 }
 ```
 
