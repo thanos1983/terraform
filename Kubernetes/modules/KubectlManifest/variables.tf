@@ -96,15 +96,3 @@ variable "wait_for_rollout" {
   }
   default = true
 }
-
-variable "wait_for" {
-  description = "Set this flag to wait or not for Deployments and APIService to complete rollout."
-  type        = list(object({
-    field = list(object({
-      key        = string
-      value      = string
-      value_type = optional(string)
-    }))
-  }))
-  default = null
-}

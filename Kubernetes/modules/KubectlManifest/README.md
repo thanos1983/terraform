@@ -44,7 +44,6 @@ YAML
 - validate_schema (Optional)
 - wait (Optional)
 - wait_for_rollout (Optional)
-- wait_for (Optional)
 ```
 
 ### Output:

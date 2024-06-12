@@ -11,11 +11,4 @@ resource "kubectl_manifest" "manifest" {
   validate_schema    = var.validate_schema
   wait               = var.wait
   wait_for_rollout   = var.wait_for_rollout
-
-  dynamic "wait_for" {
-    for_each = var.wait_for[*]
-    content {
-      field = wait_for.value.field
-    }
-  }
 }
