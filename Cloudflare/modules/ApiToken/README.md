@@ -5,10 +5,18 @@
 ```bash
 module "cloudflare_api_token_<project>" {
   source = "git::https://example.com/cloudflare_api_token_<my_repo>.git"
-  name   = "api_token_create"
-  .
-  .
-  .
+  name          = "api_token_cloudflare_external_dns"
+  policy_blocks = [
+    {
+      permission_groups = [
+        data.cloudflare_api_token_permission_groups.all.zone["DNS Write"],
+        data.cloudflare_api_token_permission_groups.all.zone["Zone Read"]
+      ]
+      resources = {
+        "com.cloudflare.api.account.zone.*" = "*"
+      }
+    }
+  ]
 }
 ```
 
