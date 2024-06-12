@@ -10,7 +10,7 @@ resource "kubernetes_cluster_role_binding_v1" "cluster_role_binding_v1" {
   }
 
   dynamic "role_ref" {
-    for_each = var.role_ref_block
+    for_each = var.role_ref_block[*]
     content {
       api_group = role_ref.value.api_group
       kind      = role_ref.value.kind
