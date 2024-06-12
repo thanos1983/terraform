@@ -19,14 +19,3 @@ variable "rule_blocks" {
   }))
   default = null
 }
-
-variable "aggregation_rule_block" {
-  description = "Describes how to build the Rules for this ClusterRole."
-  type        = object({
-    cluster_role_selectors_blocks = optional(list(object({
-      match_expressions = optional(list(string), [])
-      match_labels      = optional(map(string), {})
-    })), [])
-  })
-  default = null
-}

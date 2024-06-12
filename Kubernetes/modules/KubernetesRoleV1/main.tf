@@ -1,4 +1,4 @@
-resource "kubernetes_role_v1" "role_v1" {
+resource "kubernetes_role_v1" "role" {
   dynamic "metadata" {
     for_each = var.metadata_block[*]
     content {
@@ -17,19 +17,6 @@ resource "kubernetes_role_v1" "role_v1" {
       resources      = rule.value.resources
       resource_names = rule.value.resource_names
       verbs          = rule.value.verbs
-    }
-  }
-
-  dynamic "aggregation_rule" {
-    for_each = var.aggregation_rule_block[*]
-    content {
-      dynamic "cluster_role_selectors" {
-        for_each = aggregation_rule.value.cluster_role_selectors_blocks
-        content {
-          match_expressions = cluster_role_selectors.value.match_expressions
-          match_labels      = cluster_role_selectors.value.match_labels
-        }
-      }
     }
   }
 }
