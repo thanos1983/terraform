@@ -11,7 +11,7 @@ resource "cloudflare_api_token" "api_token" {
   }
 
   dynamic "condition" {
-    for_each = var.condition_block
+    for_each = var.condition_block[*]
     content {
       dynamic "request_ip" {
         for_each = condition.value.request_ip_block
