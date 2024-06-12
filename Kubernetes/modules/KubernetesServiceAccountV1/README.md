@@ -1,31 +1,32 @@
-# Kubectl Server Version
+# A service account provides an identity for processes that run in a Pod
 
 ## Sample of use:
 
 ```bash
-module "kubectl_server_version_<project>" {
-  source   = "git::https://example.com/kubectl_server_version_<my_repo>.git"
-  triggers = {}
+module "kubernetes_service_account_v1_<project>" {
+  source   = "git::https://example.com/kubernetes_service_account_v1_<my_repo>.git"
+  medata_block = {
+    name = "example_kubernetes_service_account"
+  }
 }
 ```
 
 ### Variables:
 
 ```bash
-- triggers (Optional)
+- medata_block (Required)
+- image_pull_secret_blocks (Optional)
+- secret_blocks (Optional)
+- automount_service_account_token (Optional)
 ```
 
 ### Output:
 
 ```bash
-- varsion
-- major
-- minor
-- patch
-- git_version
-- git_commit
-- build_date
-- platform
+- metadata
+- image_pull_secret
+- secret
+- automount_service_account_token
 ```
 
-###### More information can be found on the official document [kubectl_server_version](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/resources/kubectl_server_version)
+###### More information can be found on the official document [service_account_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account_v1)

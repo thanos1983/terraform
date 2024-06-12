@@ -1,39 +1,19 @@
-output "version" {
-  description = "Version of the server, e.g. v1.12.10."
-  value       = kubectl_server_version.current.version
+output "metadata" {
+  description = "Standard service account's metadata."
+  value       = kubernetes_service_account_v1.service_account.metadata
 }
 
-output "major" {
-  description = "Major version, server if available, e.g. 1."
-  value       = kubectl_server_version.current.major
+output "image_pull_secret" {
+  description = "A list of references to secrets in the same namespace to use for pulling any images in pods that reference this Service Account."
+  value       = kubernetes_service_account_v1.service_account.image_pull_secret
 }
 
-output "minor" {
-  description = "Minor version, server if available, e.g. 12."
-  value       = kubectl_server_version.current.minor
+output "secret" {
+  description = "A list of secrets allowed to be used by pods running using this Service Account."
+  value       = kubernetes_service_account_v1.service_account.secret
 }
 
-output "patch" {
-  description = "Patch version, server if available, e.g. 10."
-  value       = kubectl_server_version.current.patch
-}
-
-output "git_version" {
-  description = "Version of the server, e.g. v1.12.10-eks-aae39f."
-  value       = kubectl_server_version.current.git_version
-}
-
-output "git_commit" {
-  description = "Git sha commit, e.g. aae39f4697508697bf16c0de4a5687d464f4da81."
-  value       = kubectl_server_version.current.git_commit
-}
-
-output "build_date" {
-  description = "Date server binaries were build, e.g. 2019-12-23T08:19:12Z."
-  value       = kubectl_server_version.current.build_date
-}
-
-output "platform" {
-  description = "Server platform name, e.g. linux/amd64."
-  value       = kubectl_server_version.current.platform
+output "automount_service_account_token" {
+  description = "Boolean, true to enable automatic mounting of the service account token."
+  value       = kubernetes_service_account_v1.service_account.automount_service_account_token
 }
