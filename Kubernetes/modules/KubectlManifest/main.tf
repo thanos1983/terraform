@@ -13,9 +13,16 @@ resource "kubectl_manifest" "manifest" {
   wait_for_rollout   = var.wait_for_rollout
 
   dynamic "wait_for" {
-    for_each = var.wait_for
+    for_each = var.wait_for_block
     content {
-      field = wait_for.value.field
+      dynamic "field" {
+        for_each = wait_for.value.field_blocks
+        content {
+          key        = field.value.key
+          value      = field.value.value
+          value_type = field.value.value_type
+        }
+      }
     }
   }
 }
