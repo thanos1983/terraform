@@ -106,5 +106,5 @@ variable "wait_for" {
       value_type = optional(string)
     }))
   }))
-  default = null
+  default = []
 }
