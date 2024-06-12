@@ -26,7 +26,7 @@ variable "aggregation_rule_block" {
     cluster_role_selectors_blocks = list(object({
       match_expressions = optional(list(string), [])
       match_labels      = optional(map(string), {})
-    }), [])
+    }))
   })
   default = null
 }
