@@ -6,9 +6,17 @@ resource "kubernetes_manifest" "manifest" {
   dynamic "wait" {
     for_each = var.wait_block[*]
     content {
-      rollout   = wait.value.rollout
-      condition = wait.value.condition
-      fields    = wait.value.fields
+      rollout = wait.value.rollout
+
+      dynamic "condition" {
+        for_each = wait.value.condition_block
+        content {
+          status = condition.value.status
+          type   = condition.value.type
+        }
+      }
+
+      fields = wait.value.fields
     }
   }
 

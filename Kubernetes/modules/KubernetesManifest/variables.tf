@@ -18,9 +18,12 @@ variable "object" {
 variable "wait_block" {
   description = "An object which allows you configure the provider to wait for specific fields to reach a desired value or certain conditions to be met."
   type        = object({
-    rollout   = optional(bool)
-    condition = optional(set(map(any)))
-    fields    = optional(map(any))
+    rollout         = optional(bool)
+    condition_block = optional(object({
+      status = optional(string)
+      type   = optional(string)
+    }))
+    fields = optional(map(any))
   })
   default = null
 }
