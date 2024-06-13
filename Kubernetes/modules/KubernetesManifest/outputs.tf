@@ -1,4 +1,4 @@
-output "id" {
-  description = "The object id of the manifest deployment."
-  value       = kubernetes_manifest.manifest.id
+output "manifest" {
+  description = "The manifest deployment."
+  value       = kubernetes_manifest.manifest.manifest
 }
