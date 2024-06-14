@@ -11,7 +11,7 @@ variable "manifest" {
 
 variable "object" {
   description = "The resulting resource state, as returned by the API server after applying the desired state from manifest."
-  type        = map(any)
+  type        = any
   default     = null
 }
 
