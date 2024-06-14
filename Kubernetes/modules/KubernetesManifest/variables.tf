@@ -6,7 +6,7 @@ variable "computed_fields" {
 
 variable "manifest" {
   description = "An object Kubernetes manifest describing the desired state of the resource in HCL format."
-  type        = map(any)
+  type        = any
 }
 
 variable "object" {
