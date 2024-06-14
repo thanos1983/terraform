@@ -22,7 +22,7 @@ variable "wait_block" {
     condition_block = optional(object({
       status = optional(string)
       type   = optional(string)
-    }))
+    }), null)
     fields = optional(map(any))
   })
   default = null
