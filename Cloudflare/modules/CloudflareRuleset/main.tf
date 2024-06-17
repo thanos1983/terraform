@@ -166,123 +166,151 @@ resource "cloudflare_ruleset" "ruleset" {
           mirage                   = action_parameters.value.mirage
           opportunistic_encryption = action_parameters.value.opportunistic_encryption
         }
-      }
-    }
-  }
 
-  #   dynamic "" {
-  #     for_each = ""
-  #     content {}
-  #   }
-
-  rules {
-    expression = ""
-    action_parameters {
-      origin {
-        host = ""
-        port = ""
-      }
-
-      origin_cache_control       = ""
-      origin_error_page_passthru = ""
-
-      overrides {
-        action = ""
-
-        categories {
-          action   = ""
-          category = ""
-          enabled  = ""
+        dynamic "origin" {
+          for_each = action_parameters.value.origin_block
+          content {
+            host = origin.value.host
+            port = origin.value.port
+          }
         }
 
-        enabled = ""
+        origin_cache_control       = action_parameters.value.origin_cache_control
+        origin_error_page_passthru = action_parameters.value.origin_error_page_passthru
 
-        rules {
-          action            = ""
-          enabled           = ""
-          id                = ""
-          score_threshold   = ""
-          sensitivity_level = ""
+        dynamic "overrides" {
+          for_each = action_parameters.value.overrides_block
+          content {
+            action = overrides.value.action
+
+            dynamic "categories" {
+              for_each = action_parameters.value.categories_block
+              content {
+                action   = categories.value.action
+                category = categories.value.category
+                enabled  = categories.value.enabled
+              }
+            }
+
+            enabled = overrides.value.enabled
+
+            dynamic "rules" {
+              for_each = overrides.value.rules_block
+              content {
+                action            = rules.value.action
+                enabled           = rules.value.enabled
+                id                = rules.value.id
+                score_threshold   = rules.value.score_threshold
+                sensitivity_level = rules.value.sensitivity_level
+              }
+            }
+
+            sensitivity_level = overrides.value.sensitivity_level
+          }
         }
 
-        sensitivity_level = ""
-      }
+        phases               = action_parameters.value.phases
+        polish               = action_parameters.value.polish
+        products             = action_parameters.value.products
+        read_timeout         = action_parameters.value.read_timeout
+        request_fields       = action_parameters.value.request_fields
+        respect_strong_etags = action_parameters.value.respect_strong_etags
 
-      phases               = []
-      polish               = ""
-      products             = []
-      read_timeout         = ""
-      request_fields       = []
-      respect_strong_etags = ""
-
-      response {
-        content      = ""
-        content_type = ""
-        status_code  = ""
-      }
-
-      response_fields = []
-      rocket_loader   = ""
-      rules = {}
-      ruleset         = ""
-      security_level  = ""
-
-      serve_stale {
-        disable_stale_while_updating = ""
-      }
-
-      server_side_excludes = ""
-
-      sni {
-        value = ""
-      }
-
-      ssl         = ""
-      status_code = ""
-      sxg         = ""
-
-      uri {
-        origin = ""
-
-        path {
-          expression = ""
-          value      = ""
+        dynamic "response" {
+          for_each = action_parameters.value.response_block
+          content {
+            content      = response.value.content
+            content_type = response.value.content_type
+            status_code  = response.value.status_code
+          }
         }
 
-        query {
-          expression = ""
-          value      = ""
+        response_fields = action_parameters.value.response_fields
+        rocket_loader   = action_parameters.value.rocket_loader
+        rules           = action_parameters.value.rules
+        ruleset         = action_parameters.value.ruleset
+        security_level  = action_parameters.value.security_level
+
+        dynamic "serve_stale" {
+          for_each = action_parameters.value.serve_stale_block
+          content {
+            disable_stale_while_updating = serve_stale.value.disable_stale_while_updating
+          }
         }
 
+        server_side_excludes = action_parameters.value.server_side_excludes
+
+        dynamic "sni" {
+          for_each = action_parameters.value.sni_block
+          content {
+            value = sni.value.sni
+          }
+        }
+
+        ssl         = action_parameters.value.ssl
+        status_code = action_parameters.value.status_code
+        sxg         = action_parameters.value.sxg
+
+        dynamic "uri" {
+          for_each = action_parameters.value.uri_block
+          content {
+            origin = uri.value.origin
+
+            dynamic "path" {
+              for_each = uri.value.path_block
+              content {
+                expression = path.value.expression
+                value      = path.value.value
+              }
+            }
+
+            dynamic "query" {
+              for_each = uri.value.query_block
+              content {
+                expression = query.value.expression
+                value      = query.value.value
+              }
+            }
+          }
+        }
+
+        version = action_parameters.value.version
       }
 
-      version = ""
+      description = rules.value.description
+      enabled     = rules.value.enabled
+
+      dynamic "exposed_credential_check" {
+        for_each = rules.value.exposed_credential_check_block
+        content {
+          password_expression = exposed_credential_check.value.password_expression
+          username_expression = exposed_credential_check.value.username_expression
+        }
+      }
+
+      dynamic "logging" {
+        for_each = rules.value.logging_block
+        content {
+          enabled = logging.value.enabled
+        }
+      }
+
+      dynamic "ratelimit" {
+        for_each = rules.value.ratelimit_block
+        content {
+          characteristics            = ratelimit.value.characteristics
+          counting_expression        = ratelimit.value.counting_expression
+          mitigation_timeout         = ratelimit.value.mitigation_timeout
+          period                     = ratelimit.value.period
+          requests_per_period        = ratelimit.value.requests_per_period
+          requests_to_origin         = ratelimit.value.requests_to_origin
+          score_per_period           = ratelimit.value.score_per_period
+          score_response_header_name = ratelimit.value.score_response_header_name
+        }
+      }
+
+      ref = rules.value.ref
     }
-
-    description = ""
-    enabled     = ""
-
-    exposed_credential_check {
-      password_expression = ""
-      username_expression = ""
-    }
-
-    logging {
-      enabled = ""
-    }
-
-    ratelimit {
-      characteristics            = []
-      counting_expression        = ""
-      mitigation_timeout         = ""
-      period                     = ""
-      requests_per_period        = ""
-      requests_to_origin         = false
-      score_per_period           = ""
-      score_response_header_name = ""
-    }
-
-    ref = ""
   }
 
   zone_id = var.zone_id
