@@ -117,3 +117,18 @@ variable "value" {
   type        = string
   default     = null
 }
+
+variable "provisioner_block" {
+  description = "If when = destroy is specified, the provisioner will run when the resource it is defined within is destroyed."
+  type        = object({
+    when    = string
+    command = string
+  })
+  default = null
+}
+
+variable "bearer_token" {
+  description = "The token that has enough permissions to alter the DNS record(s)."
+  type        = string
+  default     = null
+}
