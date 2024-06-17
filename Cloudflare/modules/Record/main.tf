@@ -58,7 +58,7 @@ resource "cloudflare_record" "record" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "bash ${path.module}/scripts/cleanup.sh"
+    command = "bash ${path.module}/scripts/cleanup.sh $ZONEID $BEARER_TOKEN"
     environment = {
       ZONEID       = var.zone_id
       BEARER_TOKEN = var.bearer_token
