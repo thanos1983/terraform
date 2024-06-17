@@ -56,14 +56,9 @@ resource "cloudflare_record" "record" {
   ttl      = var.ttl
   value    = var.value
 
-  provisioner "remote-exec" {
+  provisioner "local-exec" {
     when    = destroy
     command = "bash ${path.module}/scripts/cleanup.sh ${self.zone_id}"
-
-#     environment = {
-#       zoneid = var.zone_id
-#       bearer = var.bearer_token
-#     }
   }
 
   dynamic "timeouts" {
