@@ -63,11 +63,8 @@ variable "ignore_fields" {
 
 variable "override_namespace" {
   description = "Override the namespace to apply the kubernetes resource to, ignoring any declared namespace in the yaml_body."
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.override_namespace)))
-    error_message = "Parameter must be \"true\" or \"false\" boolean."
-  }
-  default = false
+  type        = string
+  default     = null
 }
 
 variable "validate_schema" {
