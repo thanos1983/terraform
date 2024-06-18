@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     kustomization = {
-      source = "kbst/kustomize"
+      source = "kbst/kustomization"
     }
   }
 }
