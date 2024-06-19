@@ -24,7 +24,6 @@ module "linux_virtual_machine_<project>" {
 - resources_group_name - (Required)
 - size - (Required)
 - additional_capabilities - (Optional)
-- additional_unattend_content - (Optional)
 ```
 
 ### Output:
