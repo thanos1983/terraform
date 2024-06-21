@@ -6,20 +6,31 @@
 module "kubernetes_ingress_<project>" {
   source   = "git::https://example.com/kubernetes_ingress_v1_<my_repo>.git"
   metadata_block = {
-    name      = "prometheus-ingress"
-    namespace = "prometheus"
+    name      = "grafana-ingress"
+    namespace = "grafana"
+    labels = {
+      "app.kubernetes.io/version"   = var.kubernetes_version
+      "app.kubernetes.io/component" = "grafana"
+      "app.kubernetes.io/instance"  = "grafana-terraform"
+      "app.kubernetes.io/name"      = "grafanaUserInterface"
+    }
+    annotations = {
+      "nginx.ingress.kubernetes.io/ssl-passthrough"  = "false"
+      "nginx.ingress.kubernetes.io/backend-protocol" = "HTTP"
+      "cert-manager.io/cluster-issuer"               = "letsencrypt"
+    }
   }
   spec_block = {
     ingress_class_name = var.ingressClass
     tls_blocks = [
       {
         secret_name = var.secret_key_ref
-        hosts = ["prometheus.example.com"]
+        hosts = ["grafana.example.com"]
       }
     ]
     rule_blocks = [
       {
-        host = "prometheus.example.com"
+        host = "grafana.example.com"
         http_blocks = [
           {
             path_blocks = [
@@ -27,7 +38,7 @@ module "kubernetes_ingress_<project>" {
                 path = "/"
                 backend_block = {
                   service_block = {
-                    name = "prometheus-server"
+                    name = "loki-grafana-loki-gateway"
                     port_block = {
                       number = 80
                     }
