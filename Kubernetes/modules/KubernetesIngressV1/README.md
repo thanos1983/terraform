@@ -6,13 +6,40 @@
 module "kubernetes_ingress_<project>" {
   source   = "git::https://example.com/kubernetes_ingress_v1_<my_repo>.git"
   metadata_block = {
-    .
-    .
-    .
+    name      = "prometheus-ingress"
+    namespace = "prometheus"
   }
-  .
-  .
-  .
+  spec_block = {
+    ingress_class_name = var.ingressClass
+    tls_blocks = [
+      {
+        secret_name = var.secret_key_ref
+        hosts = ["prometheus.example.com"]
+      }
+    ]
+    rule_blocks = [
+      {
+        host = "prometheus.example.com"
+        http_blocks = [
+          {
+            path_blocks = [
+              {
+                path = "/"
+                backend_block = {
+                  service_block = {
+                    name = "prometheus-server"
+                    port_block = {
+                      number = 80
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
