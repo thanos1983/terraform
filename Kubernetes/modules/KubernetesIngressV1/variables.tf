@@ -1,9 +1,9 @@
 variable "metadata_block" {
   description = "Standard ingress's metadata."
   type        = object({
-    annotations   = optional(any)
+    annotations   = optional(map(string))
     generate_name = optional(string)
-    labels        = optional(any)
+    labels        = optional(map(string))
     name          = optional(string)
     namespace     = optional(string)
   })
