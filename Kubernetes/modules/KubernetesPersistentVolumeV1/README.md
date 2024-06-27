@@ -58,6 +58,7 @@ module "example_projekt_k8s_pv" {
 
 ```bash
 - id
+- name
 ```
 
 ###### More information can be found on the official document [persistent_volume_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/persistent_volume_v1)
