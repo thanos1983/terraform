@@ -26,7 +26,7 @@ variable "spec_block" {
         }), null)
       }), null)
     }), null)
-    ingress_class_name = optional(string, null)
+    ingress_class_name = optional(string)
     rule_blocks = optional(list(object({
       host = optional(string)
       http_blocks = optional(list(object({
