@@ -1,17 +1,17 @@
 variable "metadata_block" {
   description = "Standard ingress's metadata."
-  type        = object({
-    annotations   = optional(map(string))
+  type = object({
+    annotations = optional(map(string))
     generate_name = optional(string)
-    labels        = optional(map(string))
-    name          = optional(string)
-    namespace     = optional(string)
+    labels = optional(map(string))
+    name = optional(string)
+    namespace = optional(string)
   })
 }
 
 variable "spec_block" {
   description = "Spec defines the behavior of a ingress."
-  type        = object({
+  type = object({
     default_backend_block = optional(object({
       resource_block = optional(object({
         kind      = string
@@ -19,19 +19,20 @@ variable "spec_block" {
         api_group = string
       }), null)
       service_block = optional(object({
-        name       = string
+        name = string
         port_block = optional(object({
-          name   = optional(string)
+          name = optional(string)
           number = optional(number)
         }), null)
       }), null)
     }), null)
+    ingress_class_name = optional(string)
     rule_blocks = optional(list(object({
-      host        = optional(string)
+      host = optional(string)
       http_blocks = optional(list(object({
         path_blocks = list(object({
-          path          = string
-          path_type     = optional(string)
+          path = string
+          path_type = optional(string)
           backend_block = object({
             resource_block = optional(object({
               kind      = string
@@ -39,9 +40,9 @@ variable "spec_block" {
               api_group = string
             }), null)
             service_block = optional(object({
-              name       = string
+              name = string
               port_block = optional(object({
-                name   = optional(string)
+                name = optional(string)
                 number = optional(number)
               }), null)
             }), null)
@@ -50,10 +51,9 @@ variable "spec_block" {
       })), [])
     })), [])
     tls_blocks = optional(list(object({
-      hosts       = optional(list(string))
+      hosts = optional(list(string))
       secret_name = optional(string)
     })), [])
-    ingress_class_name = optional(string)
   })
 }
 
@@ -61,7 +61,7 @@ variable "wait_for_load_balancer" {
   description = "Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.wait_for_load_balancer)))
+    condition = contains(["true", "false"], lower(tostring(var.wait_for_load_balancer)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

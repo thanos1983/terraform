@@ -39,6 +39,9 @@ resource "kubernetes_ingress_v1" "ingress_v1" {
           }
         }
       }
+
+      ingress_class_name = spec.value.ingress_class_name
+
       dynamic "rule" {
         for_each = spec.value.rule_blocks
         content {
@@ -83,6 +86,7 @@ resource "kubernetes_ingress_v1" "ingress_v1" {
           }
         }
       }
+
       dynamic "tls" {
         for_each = spec.value.tls_blocks
         content {
@@ -90,7 +94,6 @@ resource "kubernetes_ingress_v1" "ingress_v1" {
           secret_name = tls.value.secret_name
         }
       }
-      ingress_class_name = spec.value.ingress_class_name
     }
   }
 }
