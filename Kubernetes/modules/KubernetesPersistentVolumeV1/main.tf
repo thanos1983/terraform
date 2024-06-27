@@ -266,7 +266,7 @@ resource "kubernetes_persistent_volume_v1" "persistent_volume" {
       mount_options = spec.value.mount_options
 
       dynamic "node_affinity" {
-        for_each = spec.value.node_affinity_block
+        for_each = spec.value.node_affinity_block[*]
         content {
           dynamic "required" {
             for_each = node_affinity.value.required_block[*]
