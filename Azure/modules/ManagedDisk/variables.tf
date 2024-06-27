@@ -32,25 +32,25 @@ variable "disk_encryption_set_id" {
 variable "disk_iops_read_write" {
   description = "The number of IOPS allowed for this disk."
   type        = number
-  default     = null
+  default     = 0
 }
 
 variable "disk_mbps_read_write" {
   description = "The bandwidth allowed for this disk."
   type        = number
-  default     = null
+  default     = 0
 }
 
 variable "disk_iops_read_only" {
   description = "The number of IOPS allowed across all VMs mounting the shared disk as read-only."
   type        = number
-  default     = null
+  default     = 0
 }
 
 variable "disk_mbps_read_only" {
   description = "The bandwidth allowed across all VMs mounting the shared disk as read-only."
   type        = number
-  default     = null
+  default     = 0
 }
 
 variable "upload_size_bytes" {
