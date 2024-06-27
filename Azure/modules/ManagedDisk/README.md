@@ -55,6 +55,20 @@ resource "azurerm_managed_disk" "managed_disk" {
 }
 ```
 
+### Example usage
+
+````bash
+module "example_projekt_managed_disk" {
+  source               = "git::https://example.com/managed_disk_<my_repo>.git"
+  name                 = "acctestmd"
+  location             = azurerm_resource_group.example.location
+  resource_group_name  = azurerm_resource_group.example.name
+  storage_account_type = "PremiumV2_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "1"
+}
+````
+
 ### Output:
 
 ```bash
