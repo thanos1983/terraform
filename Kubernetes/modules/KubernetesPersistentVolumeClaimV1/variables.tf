@@ -38,3 +38,9 @@ variable "timeouts_block" {
   })
   default = null
 }
+
+variable "wait_until_bound" {
+  description = "Whether to wait for the claim to reach Bound state (to find volume in which to claim the space)."
+  type        = bool
+  default     = true
+}

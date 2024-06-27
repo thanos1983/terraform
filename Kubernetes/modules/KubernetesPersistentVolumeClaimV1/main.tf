@@ -50,4 +50,6 @@ resource "kubernetes_persistent_volume_claim_v1" "persistent_volume_claim" {
       create = timeouts.value.create
     }
   }
+
+  wait_until_bound = var.wait_until_bound
 }
