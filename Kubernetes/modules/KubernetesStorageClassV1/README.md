@@ -9,12 +9,14 @@ module "test_kubernetes_storage_class_v1" {
     name = "my-azurefile"
   }
 
-  storage_provisioner = "file.csi.azure.com"
-  reclaim_policy      = "Retain"
+  storage_provisioner    = "file.csi.azure.com"
+  reclaim_policy         = "Delete"
+  volume_binding_mode    = "Immediate"
+  allow_volume_expansion = true
   parameters = {
-    skuName = "Premium_LRS"
+    skuName = "Standard_LRS"
   }
-  mount_options = ["dir_mode=0777", "file_mode=0777", "uid=0", "gid=0", "mfsymlinks", "cache=strict", "actimeo=30"]
+  mount_options = ["dir_mode=0640", "file_mode=0640", "uid=0", "gid=0", "mfsymlinks", "cache=strict", "actimeo=30"]
 }
 ```
 
