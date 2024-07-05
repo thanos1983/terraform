@@ -3,10 +3,10 @@ resource "qdrant-cloud_accounts_cluster" "accounts_cluster" {
   cloud_region   = var.cloud_region
 
   dynamic "configuration" {
-    for_each = var.configuration_block
+    for_each = var.configuration_block[*]
     content {
       dynamic "node_configuration" {
-        for_each = configuration.value.node_configuration_block
+        for_each = configuration.value.node_configuration_block[*]
         content {
           package_id = node_configuration.value.package_id
         }
