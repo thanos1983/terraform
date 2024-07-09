@@ -21,7 +21,7 @@ resource "azurerm_network_interface" "network_interface" {
   }
 
   edge_zone                     = var.edge_zone
-  enable_ip_forwarding          = var.enable_ip_forwarding
+  ip_forwarding_enabled         = var.ip_forwarding_enabled
   enable_accelerated_networking = var.enable_accelerated_networking
   internal_dns_name_label       = var.internal_dns_name_label
   tags                          = var.tags
