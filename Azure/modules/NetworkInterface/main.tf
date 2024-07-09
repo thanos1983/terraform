@@ -20,11 +20,11 @@ resource "azurerm_network_interface" "network_interface" {
     }
   }
 
-  edge_zone                     = var.edge_zone
-  ip_forwarding_enabled         = var.ip_forwarding_enabled
-  enable_accelerated_networking = var.enable_accelerated_networking
-  internal_dns_name_label       = var.internal_dns_name_label
-  tags                          = var.tags
+  edge_zone                      = var.edge_zone
+  ip_forwarding_enabled          = var.ip_forwarding_enabled
+  accelerated_networking_enabled = var.accelerated_networking_enabled
+  internal_dns_name_label        = var.internal_dns_name_label
+  tags                           = var.tags
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

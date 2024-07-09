@@ -62,11 +62,11 @@ variable "ip_forwarding_enabled" {
   default = false
 }
 
-variable "enable_accelerated_networking" {
+variable "accelerated_networking_enabled" {
   description = "Should Accelerated Networking be enabled?"
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.enable_accelerated_networking)))
+    condition = contains(["true", "false"], lower(tostring(var.accelerated_networking_enabled)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = true
