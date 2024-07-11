@@ -13,7 +13,7 @@ variable "spec_block" {
   type = object({
     additional_manifests_blocks = optional(list(object({
       url = optional(string)
-    })))
+    })), [])
     config = optional(map(string))
     default_broker_class = optional(string)
     deployments_blocks = optional(list(object({
@@ -25,30 +25,30 @@ variable "spec_block" {
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
               match_fields_blocks = optional(list(object({
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
             })
             weight = number
-          })))
+          })), [])
           required_during_scheduling_ignored_during_execution_block = optional(object({
             node_selector_terms_blocks = list(object({
               match_expressions_blocks = optional(list(object({
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
               match_fields_blocks = optional(list(object({
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
             }))
-          }))
-        }))
+          }), null)
+        }), null)
         pod_affinity_block = optional(object({
           preferred_during_scheduling_ignored_during_execution_blocks = optional(list(object({
             pod_affinity_term_block = object({
@@ -58,13 +58,13 @@ variable "spec_block" {
                   key      = string
                   operator = string
                   values = optional(list(string))
-                })))
+                })), [])
                 match_labels = optional(map(string))
-              }))
+              }), null)
               namespaces = optional(list(string))
             })
             weight = number
-          })))
+          })), [])
           required_during_scheduling_ignored_during_execution_block = optional(object({
             topology_key = string
             label_selector_block = optional(object({
@@ -72,12 +72,12 @@ variable "spec_block" {
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
               match_labels = optional(map(string))
-            }))
+            }), null)
             namespaces = optional(list(string))
-          }))
-        }))
+          }), null)
+        }), null)
         pod_anti_affinity_block = optional(object({
           preferred_during_scheduling_ignored_during_execution_blocks = optional(list(object({
             pod_affinity_term_block = object({
@@ -87,13 +87,13 @@ variable "spec_block" {
                   key      = string
                   operator = string
                   values = optional(list(string))
-                })))
+                })), [])
                 match_labels = optional(map(string))
-              }))
+              }), null)
               namespaces = optional(list(string))
             })
             weight = number
-          })))
+          })), [])
           required_during_scheduling_ignored_during_execution_block = optional(object({
             topology_key = string
             label_selector_block = optional(object({
@@ -101,13 +101,13 @@ variable "spec_block" {
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
               match_labels = optional(map(string))
-            }))
+            }), null)
             namespaces = optional(list(string))
-          }))
-        }))
-      }))
+          }), null)
+        }), null)
+      }), null)
       annotations = optional(map(string))
       env_block = optional(object({
         container = string
@@ -119,24 +119,24 @@ variable "spec_block" {
               key = string
               name = optional(string)
               optional = optional(bool)
-            }))
+            }), null)
             field_ref_block = optional(object({
               field_path = string
               api_version = optional(string, "v1")
-            }))
+            }), null)
             resource_field_ref_block = optional(object({
               resource = string
               container_name = optional(string)
               divisor = optional(string, "1")
-            }))
+            }), null)
             secret_key_ref_block = optional(object({
               key = string
               name = optional(string)
               optional = optional(bool)
-            }))
-          }))
-        }))
-      }))
+            }), null)
+          }), null)
+        }), null)
+      }), null)
       host_network = optional(bool)
       labels = optional(map(string))
       liveness_probes_blocks = optional(list(object({
@@ -147,7 +147,7 @@ variable "spec_block" {
         success_threshold = optional(number)
         termination_grace_period_seconds = optional(number)
         timeout_seconds = optional(number)
-      })))
+      })), [])
       name = optional(string)
       node_selector = optional(map(string))
       readiness_probes_blocks = optional(list(object({
@@ -158,26 +158,26 @@ variable "spec_block" {
         success_threshold = optional(number)
         termination_grace_period_seconds = optional(number)
         timeout_seconds = optional(number)
-      })))
+      })), [])
       replicas = optional(number)
       resources_blocks = optional(list(object({
         container = optional(string)
         limits_block = optional(object({
           cpu = optional(string)
           memory = optional(string)
-        }))
+        }), null)
         requests_block = optional(object({
           cpu = optional(string)
           memory = optional(string)
-        }))
-      })))
+        }), null)
+      })), [])
       tolerations_blocks = optional(list(object({
         effect = optional(string)
         key = optional(string)
         operator = optional(string)
         toleration_seconds = optional(number)
         value = optional(string)
-      })))
+      })), [])
       topology_spread_constraints_blocks = optional(list(object({
         max_skew           = number
         topology_key       = string
@@ -187,56 +187,56 @@ variable "spec_block" {
             key      = string
             operator = string
             values = optional(list(string))
-          })))
+          })), [])
           match_labels = optional(map(string))
-        }))
-      })))
-    })))
+        }), null)
+      })), [])
+    })), [])
     high_availability_block = optional(object({
       replicas = optional(number)
-    }))
+    }), null)
     manifests_blocks = optional(list(object({
       url = optional(string)
-    })))
+    })), [])
     pod_disruption_budgets_blocks = optional(list(object({
       max_unavailable = optional(string)
       min_available = optional(string)
       name = optional(string)
-    })))
+    })), [])
     registry_block = optional(object({
       default = optional(string)
       image_pull_secrets_blocks = optional(list(object({
         name = optional(string)
-      })))
+      })), [])
       override = optional(map(string))
-    }))
+    }), null)
     services_blocks = optional(list(object({
       annotations = optional(map(string))
       labels = optional(map(string))
       name = optional(string)
       selector = optional(map(string))
-    })))
+    })), [])
     sink_binding_selection_mode = optional(string)
     source_block = optional(object({
       ceph_block = optional(object({
         enabled = optional(bool)
-      }))
+      }), null)
       github_block = optional(object({
         enabled = optional(bool)
-      }))
+      }), null)
       gitlab_block = optional(object({
         enabled = optional(bool)
-      }))
+      }), null)
       kafka_block = optional(object({
         enabled = optional(bool)
-      }))
+      }), null)
       rabbitmq_block = optional(object({
         enabled = optional(bool)
-      }))
+      }), null)
       redis_block = optional(object({
         enabled = optional(bool)
-      }))
-    }))
+      }), null)
+    }), null)
     version = optional(string)
     workloads_blocks = optional(list(object({
       affinity_block = optional(object({
@@ -280,13 +280,13 @@ variable "spec_block" {
                   key      = string
                   operator = string
                   values = optional(list(string))
-                })))
+                })), [])
                 match_labels = optional(map(string))
-              }))
+              }), null)
               namespaces = optional(list(string))
             })
             weight = number
-          })))
+          })), [])
           required_during_scheduling_ignored_during_execution_block = optional(object({
             topology_key = string
             label_selector_block = optional(object({
@@ -294,11 +294,11 @@ variable "spec_block" {
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
               match_labels = optional(map(string))
-            }))
+            }), null)
             namespaces = optional(list(string))
-          }))
+          }), null)
         }))
         pod_anti_affinity_block = optional(object({
           preferred_during_scheduling_ignored_during_execution_blocks = optional(list(object({
@@ -309,13 +309,13 @@ variable "spec_block" {
                   key      = string
                   operator = string
                   values = optional(list(string))
-                })))
+                })), [])
                 match_labels = optional(map(string))
-              }))
+              }), null)
               namespaces = optional(list(string))
             })
             weight = number
-          })))
+          })), [])
           required_during_scheduling_ignored_during_execution_block = optional(object({
             topology_key = string
             label_selector_block = optional(object({
@@ -323,13 +323,13 @@ variable "spec_block" {
                 key      = string
                 operator = string
                 values = optional(list(string))
-              })))
+              })), [])
               match_labels = optional(map(string))
-            }))
+            }), null)
             namespaces = optional(list(string))
-          }))
-        }))
-      }))
+          }), null)
+        }), null)
+      }), null)
       annotations = optional(map(string))
       env_blocks = optional(list(object({
         container = string
@@ -341,24 +341,24 @@ variable "spec_block" {
               key = string
               name = optional(string)
               optional = optional(bool)
-            }))
+            }), null)
             field_ref_block = optional(object({
               field_path = string
               api_version = optional(string, "v1")
-            }))
+            }), null)
             resource_field_ref_block = optional(object({
               resource = string
               container_name = optional(string)
               divisor = optional(string, "1")
-            }))
+            }), null)
             secret_key_ref_block = optional(object({
               key = string
               name = optional(string)
               optional = optional(bool)
-            }))
-          }))
-        }))
-      })))
+            }), null)
+          }), null)
+        }), null)
+      })), [])
       host_network = optional(bool)
       labels = optional(map(string))
       liveness_probes_blocks = optional(list(object({
@@ -369,7 +369,7 @@ variable "spec_block" {
         success_threshold = optional(number)
         termination_grace_period_seconds = optional(number)
         timeout_seconds = optional(number)
-      })))
+      })), [])
       name = optional(string)
       node_selector = optional(map(string))
       readiness_probes_blocks = optional(list(object({
@@ -380,26 +380,26 @@ variable "spec_block" {
         success_threshold = optional(number)
         termination_grace_period_seconds = optional(number)
         timeout_seconds = optional(number)
-      })))
+      })), [])
       replicas = optional(number)
       resources_blocks = optional(list(object({
         container = optional(string)
         limits_block = optional(object({
           cpu = optional(string)
           memory = optional(string)
-        }))
+        }), null)
         requests_block = optional(object({
           cpu = optional(string)
           memory = optional(string)
-        }))
-      })))
+        }), null)
+      })), [])
       tolerations_blocks = optional(list(object({
         effect = optional(string)
         key = optional(string)
         operator = optional(string)
         toleration_seconds = optional(number)
         value = optional(string)
-      })))
+      })), [])
       topology_spread_constraints_blocks = optional(list(object({
         max_skew           = number
         topology_key       = string
@@ -409,10 +409,10 @@ variable "spec_block" {
             key      = string
             operator = string
             values = optional(list(string))
-          })))
+          })), [])
           match_labels = optional(map(string))
-        }))
-      })))
+        }), null)
+      })), [])
       version = optional(string)
       volume_mounts_blocks = optional(list(object({
         mount_path = string
@@ -421,7 +421,8 @@ variable "spec_block" {
         read_only = optional(bool)
         sub_path = optional(string)
         sub_path_expr = optional(string)
-      })))
-    })))
+      })), [])
+    })), [])
   })
+  default = null
 }
