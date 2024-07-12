@@ -27,8 +27,8 @@ module "kubernetes_manifest_<project>" {
 ### Variables:
 
 ```bash
-- computed_fields (Optional)
 - manifest (Required)
+- computed_fields (Optional)
 - object (Optional)
 - wait_block (Optional)
 - field_manager_block (Optional)

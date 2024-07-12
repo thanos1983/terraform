@@ -1,12 +1,12 @@
+variable "manifest" {
+  description = "An object Kubernetes manifest describing the desired state of the resource in HCL format."
+  type        = any
+}
+
 variable "computed_fields" {
   description = "List of paths of fields to be handled as 'computed'."
   type        = list(string)
   default     = null
-}
-
-variable "manifest" {
-  description = "An object Kubernetes manifest describing the desired state of the resource in HCL format."
-  type        = any
 }
 
 variable "object" {

@@ -1,6 +1,6 @@
 resource "kubernetes_manifest" "manifest" {
-  computed_fields = var.computed_fields
   manifest        = var.manifest
+  computed_fields = var.computed_fields
   object          = var.object
 
   dynamic "wait" {
