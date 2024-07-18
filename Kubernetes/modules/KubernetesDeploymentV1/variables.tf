@@ -876,7 +876,7 @@ variable "spec_block" {
         key = optional(string)
         operator = optional(string)
         values = optional(set(string))
-      })), null)
+      })), [])
       match_labels = optional(map(string))
     }), null)
     strategy_block = optional(object({
