@@ -59,7 +59,8 @@ module "kubernetes_deployment_<project>" {
 ```bash
 - metadata_block (Required)
 - spec_block (Required)
-- wait_for_load_balancer (Optional)
+- timeouts_block (Optional)
+- wait_for_rollout (Optional)
 ```
 
 ### Output:

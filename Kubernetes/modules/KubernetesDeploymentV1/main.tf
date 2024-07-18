@@ -26,10 +26,12 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
               namespace     = metadata.value.namespace
             }
           }
+
           dynamic "spec" {
             for_each = template.value.spec_block[*]
             content {
               active_deadline_seconds = spec.value.active_deadline_seconds
+
               dynamic "affinity" {
                 for_each = spec.value.affinity_block[*]
                 content {
@@ -50,6 +52,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                   values   = match_expressions.value.values
                                 }
                               }
+
                               dynamic "match_fields" {
                                 for_each = preference.value.match_fields_blocks
                                 content {
@@ -60,9 +63,11 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               }
                             }
                           }
+
                           weight = 0
                         }
                       }
+
                       dynamic "required_during_scheduling_ignored_during_execution" {
                         for_each = node_affinity.value.required_during_scheduling_ignored_during_execution_block[*]
                         content {
@@ -77,6 +82,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                   values   = match_expressions.value.values
                                 }
                               }
+
                               dynamic "match_fields" {
                                 for_each = node_selector_term.value.match_fields_blocks
                                 content {
@@ -91,6 +97,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "pod_affinity" {
                     for_each = affinity.value.pod_affinity_block[*]
                     content {
@@ -101,6 +108,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                             for_each = preferred_during_scheduling_ignored_during_execution.value.pod_affinity_term_block[*]
                             content {
                               topology_key = pod_affinity_term.value.topology_key
+
                               dynamic "label_selector" {
                                 for_each = pod_affinity_term.value.label_selector_blocks
                                 content {
@@ -112,19 +120,24 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                       values   = match_expressions.value.values
                                     }
                                   }
+
                                   match_labels = label_selector.value.match_labels
                                 }
                               }
+
                               namespaces = pod_affinity_term.value.namespaces
                             }
                           }
+
                           weight = preferred_during_scheduling_ignored_during_execution.value.weight
                         }
                       }
+
                       dynamic "required_during_scheduling_ignored_during_execution" {
                         for_each = pod_affinity.value.required_during_scheduling_ignored_during_execution_block[*]
                         content {
                           topology_key = required_during_scheduling_ignored_during_execution.value.topology_key
+
                           dynamic "label_selector" {
                             for_each = required_during_scheduling_ignored_during_execution.value.label_selector_blocks
                             content {
@@ -136,14 +149,17 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                   values   = match_expressions.value.values
                                 }
                               }
+
                               match_labels = label_selector.value.match_labels
                             }
                           }
+
                           namespaces = required_during_scheduling_ignored_during_execution.value.namespaces
                         }
                       }
                     }
                   }
+
                   dynamic "pod_anti_affinity" {
                     for_each = affinity.value.pod_anti_affinity_block[*]
                     content {
@@ -154,6 +170,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                             for_each = preferred_during_scheduling_ignored_during_execution.value.pod_affinity_term_block[*]
                             content {
                               topology_key = pod_affinity_term.value.topology_key
+
                               dynamic "label_selector" {
                                 for_each = pod_affinity_term.value.label_selector_blocks
                                 content {
@@ -165,19 +182,24 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                       values   = match_expressions.value.values
                                     }
                                   }
+
                                   match_labels = label_selector.value.match_labels
                                 }
                               }
+
                               namespaces = pod_affinity_term.value.namespaces
                             }
                           }
+
                           weight = preferred_during_scheduling_ignored_during_execution.value.weight
                         }
                       }
+
                       dynamic "required_during_scheduling_ignored_during_execution" {
                         for_each = pod_anti_affinity.value.required_during_scheduling_ignored_during_execution_block[*]
                         content {
                           topology_key = required_during_scheduling_ignored_during_execution.value.topology_key
+
                           dynamic "label_selector" {
                             for_each = required_during_scheduling_ignored_during_execution.value.label_selector_blocks
                             content {
@@ -189,9 +211,11 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                   values   = match_expressions.value.values
                                 }
                               }
+
                               match_labels = label_selector.value.match_labels
                             }
                           }
+
                           namespaces = required_during_scheduling_ignored_during_execution.value.namespaces
                         }
                       }
@@ -199,18 +223,22 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   }
                 }
               }
+
               automount_service_account_token = spec.value.automount_service_account_token
+
               dynamic "container" {
                 for_each = spec.value.container_blocks
                 content {
                   name    = container.value.name
                   args    = container.value.args
                   command = container.value.command
+
                   dynamic "env" {
                     for_each = container.value.env_blocks
                     content {
                       name  = env.value.name
                       value = env.value.value
+
                       dynamic "value_from" {
                         for_each = env.value.value_from_block[*]
                         content {
@@ -222,6 +250,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               optional = config_map_key_ref.value.optional
                             }
                           }
+
                           dynamic "field_ref" {
                             for_each = value_from.value.field_ref_block[*]
                             content {
@@ -229,6 +258,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               field_path  = field_ref.value.field_path
                             }
                           }
+
                           dynamic "resource_field_ref" {
                             for_each = value_from.value.resource_field_ref_block[*]
                             content {
@@ -237,6 +267,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               divisor        = resource_field_ref.value.divisor
                             }
                           }
+
                           dynamic "secret_key_ref" {
                             for_each = value_from.value.secret_key_ref_block[*]
                             content {
@@ -249,6 +280,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "env_from" {
                     for_each = container.value.env_from_blocks
                     content {
@@ -259,7 +291,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           optional = config_map_ref.value.optional
                         }
                       }
+
                       prefix = env_from.value.prefix
+
                       dynamic "secret_ref" {
                         for_each = env_from.value.secret_ref_block[*]
                         content {
@@ -269,8 +303,10 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   image             = container.value.image
                   image_pull_policy = container.value.image_pull_policy
+
                   dynamic "lifecycle" {
                     for_each = container.value.lifecycle_block[*]
                     content {
@@ -283,22 +319,26 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               command = exec.value.command
                             }
                           }
+
                           dynamic "http_get" {
                             for_each = post_start.value.http_get_block[*]
                             content {
                               host = http_get.value.host
+
                               dynamic "http_header" {
-                                for_each = http_get.value.http_header_block[*]
+                                for_each = http_get.value.http_header_blocks
                                 content {
                                   name  = http_header.value.name
                                   value = http_header.value.value
                                 }
                               }
+
                               path   = http_get.value.path
                               port   = http_get.value.port
                               scheme = http_get.value.scheme
                             }
                           }
+
                           dynamic "tcp_socket" {
                             for_each = post_start.value.tcp_socket_blocks
                             content {
@@ -307,6 +347,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           }
                         }
                       }
+
                       dynamic "pre_stop" {
                         for_each = lifecycle.value.pre_stop_blocks
                         content {
@@ -316,22 +357,26 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               command = exec.value.command
                             }
                           }
+
                           dynamic "http_get" {
                             for_each = pre_stop.value.http_get_block[*]
                             content {
                               host = http_get.value.host
+
                               dynamic "http_header" {
-                                for_each = http_get.value.http_header_block[*]
+                                for_each = http_get.value.http_header_blocks
                                 content {
                                   name  = http_header.value.name
                                   value = http_header.value.value
                                 }
                               }
+
                               path   = http_get.value.path
                               port   = http_get.value.port
                               scheme = http_get.value.scheme
                             }
                           }
+
                           dynamic "tcp_socket" {
                             for_each = pre_stop.value.tcp_socket_blocks
                             content {
@@ -342,6 +387,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "liveness_probe" {
                     for_each = container.value.liveness_probe_blocks
                     content {
@@ -351,7 +397,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           command = exec.value.command
                         }
                       }
+
                       failure_threshold = liveness_probe.value.failure_threshold
+
                       dynamic "grpc" {
                         for_each = liveness_probe.value.grpc_blocks
                         content {
@@ -359,34 +407,41 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           service = grpc.value.service
                         }
                       }
+
                       dynamic "http_get" {
                         for_each = liveness_probe.value.http_get_block[*]
                         content {
                           host = http_get.value.host
+
                           dynamic "http_header" {
-                            for_each = http_get.value.http_header_block[*]
+                            for_each = http_get.value.http_header_blocks
                             content {
                               name  = http_header.value.name
                               value = http_header.value.value
                             }
                           }
+
                           path   = http_get.value.path
                           port   = http_get.value.port
                           scheme = http_get.value.scheme
                         }
                       }
+
                       initial_delay_seconds = liveness_probe.value.initial_delay_seconds
                       period_seconds        = liveness_probe.value.period_seconds
                       success_threshold     = liveness_probe.value.success_threshold
+
                       dynamic "tcp_socket" {
                         for_each = liveness_probe.value.tcp_socket_blocks
                         content {
                           port = tcp_socket.value.port
                         }
                       }
+
                       timeout_seconds = liveness_probe.value.timeout_seconds
                     }
                   }
+
                   dynamic "port" {
                     for_each = container.value.port
                     content {
@@ -396,6 +451,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       protocol       = port.value.protocol
                     }
                   }
+
                   dynamic "readiness_probe" {
                     for_each = container.value.readiness_probe_block[*]
                     content {
@@ -405,7 +461,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           command = exec.value.command
                         }
                       }
+
                       failure_threshold = readiness_probe.value.failure_threshold
+
                       dynamic "grpc" {
                         for_each = readiness_probe.value.grpc_blocks
                         content {
@@ -413,34 +471,41 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           service = grpc.value.service
                         }
                       }
+
                       dynamic "http_get" {
                         for_each = readiness_probe.value.http_get_block[*]
                         content {
                           host = http_get.value.host
+
                           dynamic "http_header" {
-                            for_each = http_get.value.http_header_block[*]
+                            for_each = http_get.value.http_header_blocks
                             content {
                               name  = http_header.value.name
                               value = http_header.value.value
                             }
                           }
+
                           path   = http_get.value.path
                           port   = http_get.value.port
                           scheme = http_get.value.scheme
                         }
                       }
+
                       initial_delay_seconds = readiness_probe.value.initial_delay_seconds
                       period_seconds        = readiness_probe.value.period_seconds
                       success_threshold     = readiness_probe.value.success_threshold
+
                       dynamic "tcp_socket" {
                         for_each = readiness_probe.value.tcp_socket_blocks
                         content {
                           port = tcp_socket.value.port
                         }
                       }
+
                       timeout_seconds = readiness_probe.value.timeout_seconds
                     }
                   }
+
                   dynamic "resources" {
                     for_each = container.value.resources_block[*]
                     content {
@@ -448,10 +513,12 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       requests = resources.value.requests
                     }
                   }
+
                   dynamic "security_context" {
                     for_each = container.value.security_context_block[*]
                     content {
                       allow_privilege_escalation = security_context.value.allow_privilege_escalation
+
                       dynamic "capabilities" {
                         for_each = security_context.value.capabilities_block[*]
                         content {
@@ -459,11 +526,13 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           drop = capabilities.value.drop
                         }
                       }
+
                       privileged                = security_context.value.privileged
                       read_only_root_filesystem = security_context.value.read_only_root_filesystem
                       run_as_group              = security_context.value.run_as_group
                       run_as_non_root           = security_context.value.run_as_non_root
                       run_as_user               = security_context.value.run_as_user
+
                       dynamic "se_linux_options" {
                         for_each = security_context.value.se_linux_options_block[*]
                         content {
@@ -473,6 +542,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           user  = se_linux_options.value.user
                         }
                       }
+
                       dynamic "seccomp_profile" {
                         for_each = security_context.value.seccomp_profile_block[*]
                         content {
@@ -482,6 +552,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "startup_probe" {
                     for_each = container.value.lifecycle_block[*]
                     content {
@@ -491,7 +562,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           command = exec.value.command
                         }
                       }
+
                       failure_threshold = startup_probe.value.failure_threshold
+
                       dynamic "grpc" {
                         for_each = startup_probe.value.grpc_blocks
                         content {
@@ -499,39 +572,47 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           service = grpc.value.service
                         }
                       }
+
                       dynamic "http_get" {
                         for_each = startup_probe.value.http_get_block[*]
                         content {
                           host = http_get.value.host
+
                           dynamic "http_header" {
-                            for_each = http_get.value.http_header_block[*]
+                            for_each = http_get.value.http_header_blocks
                             content {
                               name  = http_header.value.name
                               value = http_header.value.value
                             }
                           }
+
                           path   = http_get.value.path
                           port   = http_get.value.port
                           scheme = http_get.value.scheme
                         }
                       }
+
                       initial_delay_seconds = startup_probe.value.initial_delay_seconds
                       period_seconds        = startup_probe.value.period_seconds
                       success_threshold     = startup_probe.value.success_threshold
+
                       dynamic "tcp_socket" {
                         for_each = startup_probe.value.tcp_socket_blocks
                         content {
                           port = tcp_socket.value.port
                         }
                       }
+
                       timeout_seconds = startup_probe.value.timeout_seconds
                     }
                   }
+
                   stdin                      = container.value.stdin
                   stdin_once                 = container.value.stdin_once
                   termination_message_path   = container.value.termination_message_path
                   termination_message_policy = container.value.termination_message_policy
                   tty                        = container.value.tty
+
                   dynamic "volume_mount" {
                     for_each = container.value.volume_mount_blocks
                     content {
@@ -542,13 +623,16 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       sub_path          = volume_mount.value.sub_path
                     }
                   }
+
                   working_dir = container.value.working_dir
                 }
               }
+
               dynamic "dns_config" {
                 for_each = spec.value.dns_config_block[*]
                 content {
                   nameservers = dns_config.value.nameservers
+
                   dynamic "option" {
                     for_each = dns_config.value.option_blocks
                     content {
@@ -559,8 +643,10 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   searches = dns_config.value.searches
                 }
               }
+
               dns_policy           = spec.value.dns_policy
               enable_service_links = spec.value.enable_service_links
+
               dynamic "host_aliases" {
                 for_each = spec.value.host_aliases_blocks
                 content {
@@ -568,30 +654,36 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   ip        = host_aliases.value.ip
                 }
               }
+
               host_ipc     = spec.value.host_ipc
               host_network = spec.value.host_network
               host_pid     = spec.value.host_pid
               hostname     = spec.value.hostname
+
               dynamic "image_pull_secrets" {
                 for_each = spec.value.image_pull_secrets_blocks
                 content {
                   name = image_pull_secrets.value.name
                 }
               }
+
               dynamic "init_container" {
                 for_each = spec.value.init_container_blocks
                 content {
                   name    = init_container.value.name
                   args    = init_container.value.args
                   command = init_container.value.command
+
                   dynamic "env" {
                     for_each = init_container.value.env_blocks
                     content {
                       name  = env.value.name
                       value = env.value.value
+
                       dynamic "value_from" {
                         for_each = env.value.value_from_block[*]
                         content {
+
                           dynamic "config_map_key_ref" {
                             for_each = value_from.value.config_map_key_ref_block[*]
                             content {
@@ -600,6 +692,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               optional = config_map_key_ref.value.optional
                             }
                           }
+
                           dynamic "field_ref" {
                             for_each = value_from.value.field_ref_block[*]
                             content {
@@ -607,6 +700,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               field_path  = field_ref.value.field_path
                             }
                           }
+
                           dynamic "resource_field_ref" {
                             for_each = value_from.value.resource_field_ref_block[*]
                             content {
@@ -615,6 +709,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               divisor        = resource_field_ref.value.divisor
                             }
                           }
+
                           dynamic "secret_key_ref" {
                             for_each = value_from.value.secret_key_ref_block[*]
                             content {
@@ -627,6 +722,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "env_from" {
                     for_each = init_container.value.env_from_blocks
                     content {
@@ -637,7 +733,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           optional = config_map_ref.value.optional
                         }
                       }
+
                       prefix = env_from.value.prefix
+
                       dynamic "secret_ref" {
                         for_each = env_from.value.secret_ref_block[*]
                         content {
@@ -647,8 +745,10 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   image             = init_container.value.image
                   image_pull_policy = init_container.value.image_pull_policy
+
                   dynamic "lifecycle" {
                     for_each = init_container.value.lifecycle_block[*]
                     content {
@@ -661,22 +761,26 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               command = exec.value.command
                             }
                           }
+
                           dynamic "http_get" {
                             for_each = post_start.value.http_get_block[*]
                             content {
                               host = http_get.value.host
+
                               dynamic "http_header" {
-                                for_each = http_get.value.http_header_block[*]
+                                for_each = http_get.value.http_header_blocks
                                 content {
                                   name  = http_header.value.name
                                   value = http_header.value.value
                                 }
                               }
+
                               path   = http_get.value.path
                               port   = http_get.value.port
                               scheme = http_get.value.scheme
                             }
                           }
+
                           dynamic "tcp_socket" {
                             for_each = post_start.value.tcp_socket_blocks
                             content {
@@ -685,6 +789,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           }
                         }
                       }
+
                       dynamic "pre_stop" {
                         for_each = lifecycle.value.pre_stop_blocks
                         content {
@@ -694,22 +799,26 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               command = exec.value.command
                             }
                           }
+
                           dynamic "http_get" {
                             for_each = pre_stop.value.http_get_block[*]
                             content {
                               host = http_get.value.host
+
                               dynamic "http_header" {
-                                for_each = http_get.value.http_header_block[*]
+                                for_each = http_get.value.http_header_blocks
                                 content {
                                   name  = http_header.value.name
                                   value = http_header.value.value
                                 }
                               }
+
                               path   = http_get.value.path
                               port   = http_get.value.port
                               scheme = http_get.value.scheme
                             }
                           }
+
                           dynamic "tcp_socket" {
                             for_each = pre_stop.value.tcp_socket_blocks
                             content {
@@ -720,6 +829,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "liveness_probe" {
                     for_each = init_container.value.liveness_probe_blocks
                     content {
@@ -729,6 +839,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           command = exec.value.command
                         }
                       }
+
                       failure_threshold = liveness_probe.value.failure_threshold
                       dynamic "grpc" {
                         for_each = liveness_probe.value.grpc_blocks
@@ -737,34 +848,40 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           service = grpc.value.service
                         }
                       }
+
                       dynamic "http_get" {
                         for_each = liveness_probe.value.http_get_block[*]
                         content {
                           host = http_get.value.host
                           dynamic "http_header" {
-                            for_each = http_get.value.http_header_block[*]
+                            for_each = http_get.value.http_header_blocks
                             content {
                               name  = http_header.value.name
                               value = http_header.value.value
                             }
                           }
+
                           path   = http_get.value.path
                           port   = http_get.value.port
                           scheme = http_get.value.scheme
                         }
                       }
+
                       initial_delay_seconds = liveness_probe.value.initial_delay_seconds
                       period_seconds        = liveness_probe.value.period_seconds
                       success_threshold     = liveness_probe.value.success_threshold
+
                       dynamic "tcp_socket" {
                         for_each = liveness_probe.value.tcp_socket_blocks
                         content {
                           port = tcp_socket.value.port
                         }
                       }
+
                       timeout_seconds = liveness_probe.value.timeout_seconds
                     }
                   }
+
                   dynamic "port" {
                     for_each = init_container.value.port
                     content {
@@ -774,6 +891,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       protocol       = port.value.protocol
                     }
                   }
+
                   dynamic "readiness_probe" {
                     for_each = init_container.value.readiness_probe_block[*]
                     content {
@@ -783,7 +901,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           command = exec.value.command
                         }
                       }
+
                       failure_threshold = readiness_probe.value.failure_threshold
+
                       dynamic "grpc" {
                         for_each = readiness_probe.value.grpc_blocks
                         content {
@@ -791,34 +911,40 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           service = grpc.value.service
                         }
                       }
+
                       dynamic "http_get" {
                         for_each = readiness_probe.value.http_get_block[*]
                         content {
                           host = http_get.value.host
                           dynamic "http_header" {
-                            for_each = http_get.value.http_header_block[*]
+                            for_each = http_get.value.http_header_blocks
                             content {
                               name  = http_header.value.name
                               value = http_header.value.value
                             }
                           }
+
                           path   = http_get.value.path
                           port   = http_get.value.port
                           scheme = http_get.value.scheme
                         }
                       }
+
                       initial_delay_seconds = readiness_probe.value.initial_delay_seconds
                       period_seconds        = readiness_probe.value.period_seconds
                       success_threshold     = readiness_probe.value.success_threshold
+
                       dynamic "tcp_socket" {
                         for_each = readiness_probe.value.tcp_socket_blocks
                         content {
                           port = tcp_socket.value.port
                         }
                       }
+
                       timeout_seconds = readiness_probe.value.timeout_seconds
                     }
                   }
+
                   dynamic "resources" {
                     for_each = init_container.value.resources_block[*]
                     content {
@@ -826,10 +952,12 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       requests = resources.value.requests
                     }
                   }
+
                   dynamic "security_context" {
                     for_each = init_container.value.security_context_block[*]
                     content {
                       allow_privilege_escalation = security_context.value.allow_privilege_escalation
+
                       dynamic "capabilities" {
                         for_each = security_context.value.capabilities_block[*]
                         content {
@@ -837,11 +965,13 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           drop = capabilities.value.drop
                         }
                       }
+
                       privileged                = security_context.value.privileged
                       read_only_root_filesystem = security_context.value.read_only_root_filesystem
                       run_as_group              = security_context.value.run_as_group
                       run_as_non_root           = security_context.value.run_as_non_root
                       run_as_user               = security_context.value.run_as_user
+
                       dynamic "se_linux_options" {
                         for_each = security_context.value.se_linux_options_block[*]
                         content {
@@ -851,6 +981,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           user  = se_linux_options.value.user
                         }
                       }
+
                       dynamic "seccomp_profile" {
                         for_each = security_context.value.seccomp_profile_block[*]
                         content {
@@ -860,6 +991,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       }
                     }
                   }
+
                   dynamic "startup_probe" {
                     for_each = init_container.value.lifecycle_block[*]
                     content {
@@ -869,7 +1001,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           command = exec.value.command
                         }
                       }
+
                       failure_threshold = startup_probe.value.failure_threshold
+
                       dynamic "grpc" {
                         for_each = startup_probe.value.grpc_blocks
                         content {
@@ -877,25 +1011,30 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                           service = grpc.value.service
                         }
                       }
+
                       dynamic "http_get" {
                         for_each = startup_probe.value.http_get_block[*]
                         content {
                           host = http_get.value.host
+
                           dynamic "http_header" {
-                            for_each = http_get.value.http_header_block[*]
+                            for_each = http_get.value.http_header_blocks
                             content {
                               name  = http_header.value.name
                               value = http_header.value.value
                             }
                           }
+
                           path   = http_get.value.path
                           port   = http_get.value.port
                           scheme = http_get.value.scheme
                         }
                       }
+
                       initial_delay_seconds = startup_probe.value.initial_delay_seconds
                       period_seconds        = startup_probe.value.period_seconds
                       success_threshold     = startup_probe.value.success_threshold
+
                       dynamic "tcp_socket" {
                         for_each = startup_probe.value.tcp_socket_blocks
                         content {
@@ -905,11 +1044,13 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       timeout_seconds = startup_probe.value.timeout_seconds
                     }
                   }
+
                   stdin                      = init_container.value.stdin
                   stdin_once                 = init_container.value.stdin_once
                   termination_message_path   = init_container.value.termination_message_path
                   termination_message_policy = init_container.value.termination_message_policy
                   tty                        = init_container.value.tty
+
                   dynamic "volume_mount" {
                     for_each = init_container.value.volume_mount_blocks
                     content {
@@ -920,27 +1061,34 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       sub_path          = volume_mount.value.sub_path
                     }
                   }
+
                   working_dir = init_container.value.working_dir
                 }
               }
+
               node_name     = spec.value.node_name
               node_selector = spec.value.node_selector
+
               dynamic "os" {
                 for_each = spec.value.os_block[*]
                 content {
                   name = os.value.name
                 }
               }
+
               priority_class_name = spec.value.priority_class_name
+
               dynamic "readiness_gate" {
                 for_each = spec.value.readiness_gate_blocks
                 content {
                   condition_type = readiness_gate.value.condition_type
                 }
               }
+
               restart_policy     = spec.value.restart_policy
               runtime_class_name = spec.value.runtime_class_name
               scheduler_name     = spec.value.scheduler_name
+
               dynamic "security_context" {
                 for_each = spec.value.security_context_block[*]
                 content {
@@ -949,6 +1097,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   run_as_group           = security_context.value.run_as_group
                   run_as_non_root        = security_context.value.run_as_non_root
                   run_as_user            = security_context.value.run_as_user
+
                   dynamic "seccomp_profile" {
                     for_each = security_context.value.seccomp_profile_block[*]
                     content {
@@ -956,7 +1105,9 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       type              = seccomp_profile.value.type
                     }
                   }
+
                   supplemental_groups = security_context.value.supplemental_groups
+
                   dynamic "sysctl" {
                     for_each = security_context.value.sysctl_blocks
                     content {
@@ -964,6 +1115,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       value = sysctl.value.value
                     }
                   }
+
                   dynamic "windows_options" {
                     for_each = security_context.value.windows_options_block[*]
                     content {
@@ -975,10 +1127,12 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   }
                 }
               }
+
               service_account_name             = spec.value.service_account_name
               share_process_namespace          = spec.value.share_process_namespace
               subdomain                        = spec.value.subdomain
               termination_grace_period_seconds = spec.value.termination_grace_period_seconds
+
               dynamic "toleration" {
                 for_each = spec.value.toleration_blocks
                 content {
@@ -989,6 +1143,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   value              = toleration.value.value
                 }
               }
+
               dynamic "topology_spread_constraint" {
                 for_each = spec.value.topology_spread_constraint_blocks
                 content {
@@ -1006,6 +1161,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                       match_labels = label_selector.value.match_labels
                     }
                   }
+
                   match_label_keys     = topology_spread_constraint.value.match_label_keys
                   max_skew             = topology_spread_constraint.value.max_skew
                   min_domains          = topology_spread_constraint.value.min_domains
@@ -1356,6 +1512,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                                 for_each = downward_api.value.items_blocks
                                 content {
                                   path = items.value.path
+
                                   dynamic "field_ref" {
                                     for_each = sources.value.field_ref_block[*]
                                     content {
@@ -1516,7 +1673,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
   }
 
   dynamic "timeouts" {
-    for_each = var.timeouts_block
+    for_each = var.timeouts_block[*]
     content {
       create = timeouts.value.create
       delete = timeouts.value.delete
