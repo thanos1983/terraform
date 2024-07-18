@@ -872,7 +872,7 @@ variable "spec_block" {
     replicas = optional(string)
     revision_history_limit = optional(number)
     selector_block = optional(object({
-      match_expressions = optional(list(object({
+      match_expressions_blocks = optional(list(object({
         key = optional(string)
         operator = optional(string)
         values = optional(set(string))
