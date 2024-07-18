@@ -5,6 +5,7 @@
 ```bash
 module "kubernetes_daemon_set_<project>" {
   source   = "git::https://example.com/kubernetes_daemon_set_<my_repo>.git"
+  
   metadata_block = {
     name      = "terraform-example"
     namespace = "default"
@@ -12,8 +13,8 @@ module "kubernetes_daemon_set_<project>" {
       test = "MyExampleApp"
     }
   }
+  
   spec_block = {
-    replicas = 2
 
     selector_block = {
       match_labels = {

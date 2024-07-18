@@ -5,6 +5,7 @@
 ```bash
 module "kubernetes_deployment_<project>" {
   source   = "git::https://example.com/kubernetes_deployment_v1_<my_repo>.git"
+  
   metadata_block = {
     name      = "terraform-example"
     namespace = "default"
@@ -12,6 +13,7 @@ module "kubernetes_deployment_<project>" {
       test = "MyExampleApp"
     }
   }
+  
   spec_block = {
     replicas = 1
 
