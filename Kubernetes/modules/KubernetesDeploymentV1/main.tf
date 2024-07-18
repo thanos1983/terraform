@@ -443,7 +443,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   }
 
                   dynamic "port" {
-                    for_each = container.value.port
+                    for_each = container.value.port_blocks
                     content {
                       container_port = port.value.container_port
                       host_ip        = port.value.host_ip
@@ -883,7 +883,7 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                   }
 
                   dynamic "port" {
-                    for_each = init_container.value.port
+                    for_each = init_container.value.port_blocks
                     content {
                       container_port = port.value.container_port
                       host_ip        = port.value.host_ip
