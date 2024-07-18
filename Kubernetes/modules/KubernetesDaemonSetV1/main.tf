@@ -1634,9 +1634,6 @@ resource "kubernetes_daemon_set_v1" "daemon_set_v1" {
       }
 
       min_ready_seconds         = spec.value.min_ready_seconds
-      paused                    = spec.value.paused
-      progress_deadline_seconds = spec.value.progress_deadline_seconds
-      replicas                  = spec.value.replicas
       revision_history_limit    = spec.value.revision_history_limit
 
       dynamic "selector" {
@@ -1661,7 +1658,6 @@ resource "kubernetes_daemon_set_v1" "daemon_set_v1" {
           dynamic "rolling_update" {
             for_each = strategy.value.rolling_update_block[*]
             content {
-              max_surge       = rolling_update.value.max_surge
               max_unavailable = rolling_update.value.max_unavailable
             }
           }

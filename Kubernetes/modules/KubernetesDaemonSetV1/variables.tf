@@ -867,9 +867,6 @@ variable "spec_block" {
       })
     })
     min_ready_seconds = optional(number)
-    paused = optional(bool)
-    progress_deadline_seconds = optional(number)
-    replicas = optional(string)
     revision_history_limit = optional(number)
     selector_block = optional(object({
       match_expressions_blocks = optional(list(object({
@@ -881,7 +878,6 @@ variable "spec_block" {
     }), null)
     strategy_block = optional(object({
       rolling_update_block = optional(object({
-        max_surge = optional(string)
         max_unavailable = optional(string)
       }), null)
       type = optional(string)
