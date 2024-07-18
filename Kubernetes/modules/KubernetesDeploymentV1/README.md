@@ -6,50 +6,65 @@
 module "kubernetes_deployment_<project>" {
   source   = "git::https://example.com/kubernetes_deployment_v1_<my_repo>.git"
   metadata_block = {
-    name      = "grafana-ingress"
-    namespace = "grafana"
+    name      = "terraform-example"
+    namespace = "default"
     labels = {
-      "app.kubernetes.io/version"   = var.kubernetes_version
-      "app.kubernetes.io/component" = "grafana"
-      "app.kubernetes.io/instance"  = "grafana-terraform"
-      "app.kubernetes.io/name"      = "grafanaUserInterface"
-    }
-    annotations = {
-      "nginx.ingress.kubernetes.io/ssl-passthrough"  = "false"
-      "nginx.ingress.kubernetes.io/backend-protocol" = "HTTP"
-      "cert-manager.io/cluster-issuer"               = "letsencrypt"
+      test = "MyExampleApp"
     }
   }
   spec_block = {
-    ingress_class_name = var.ingressClass
-    tls_blocks = [
-      {
-        secret_name = var.secret_key_ref
-        hosts = ["grafana.example.com"]
+    replicas = 1
+
+    selector_block = {
+      match_labels = {
+        test = "MyExampleApp"
       }
-    ]
-    rule_blocks = [
-      {
-        host = "grafana.example.com"
-        http_blocks = [
+    }
+
+    template_block = {
+      metadata_block = {
+        labels = {
+          test = "MyExampleApp"
+        }
+      }
+
+      spec_block = {
+        container_blocks = [
           {
-            path_blocks = [
+            image = "nginx:1.21.6"
+            name  = "example"
+
+            resources_block = {
+              limits = {
+                cpu    = "0.5"
+                memory = "512Mi"
+              }
+              requests = {
+                cpu    = "250m"
+                memory = "50Mi"
+              }
+            }
+
+            liveness_probe_blocks = [
               {
-                path = "/"
-                backend_block = {
-                  service_block = {
-                    name = "loki-grafana-loki-gateway"
-                    port_block = {
-                      number = 80
-                    }
+                http_get_block = {
+                  path = "/"
+                  port = 80
+
+                  http_header_block = {
+                    name  = "X-Custom-Header"
+                    value = "Awesome"
                   }
+
+                  initial_delay_seconds = 3
+                  period_seconds        = 3
                 }
               }
             ]
           }
         ]
       }
-    ]
+    }
   }
 }
 ```
