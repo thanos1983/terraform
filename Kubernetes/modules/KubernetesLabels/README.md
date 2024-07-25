@@ -5,12 +5,14 @@
 ```bash
 module "kubernetes_labels_<project>" {
   source   = "git::https://example.com/kubernetes_labels_<my_repo>.git"
-  api_version = ""
-  kind = ""
-  labels = ""
+  api_version    = "v1"
+  kind           = "namespace"
+  labels         = {
+    kubernetes.io/metadata.name = demo
+  }
   metadata_block = {
-    name      = "grafana-ingress"
-    namespace = "grafana"
+    name      = "demo"
+    namespace = "demo"
   }
 }
 ```
