@@ -76,7 +76,7 @@ variable "admin_password" {
 }
 
 variable "admin_ssh_key_block" {
-  description = ""
+  description = "One or more admin_ssh_key blocks as defined below."
   type        = list(object({
     public_key = string
     username   = string
