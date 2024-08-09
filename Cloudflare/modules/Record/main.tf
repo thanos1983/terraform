@@ -4,6 +4,7 @@ resource "cloudflare_record" "record" {
   zone_id         = var.zone_id
   allow_overwrite = var.allow_overwrite
   comment         = var.comment
+  content         = var.content
 
   dynamic "data" {
     for_each = var.data_block[*]
@@ -54,7 +55,6 @@ resource "cloudflare_record" "record" {
   proxied  = var.proxied
   tags     = var.tags
   ttl      = var.ttl
-  value    = var.value
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
