@@ -8,7 +8,7 @@ resource "azurerm_storage_account" "storage_account" {
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
   access_tier                      = var.access_tier
   edge_zone                        = var.edge_zone
-  enable_https_traffic_only        = var.enable_https_traffic_only
+  https_traffic_only_enabled       = var.https_traffic_only_enabled
   min_tls_version                  = var.min_tls_version
   allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
   shared_access_key_enabled        = var.shared_access_key_enabled
@@ -253,7 +253,8 @@ module "st_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_storage_account.storage_account.id
-  principal_id         = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id :
+    var.principal_id
 }
 
 # Create RBAC permissions for ACR based on id(s)
@@ -263,7 +264,8 @@ module "st_role_assignment_ids" {
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_storage_account.storage_account.id
-  principal_id       = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id : var.principal_id
+  principal_id       = var.principal_id == null ? azurerm_storage_account.storage_account.identity.0.principal_id :
+    var.principal_id
 }
 
 module "st_primary_access_key" {
@@ -273,7 +275,7 @@ module "st_primary_access_key" {
   key_vault_id = var.key_vault_id
   name         = "${azurerm_storage_account.storage_account.name}-primary-access-key"
   value        = "DefaultEndpointsProtocol=https;AccountName=${azurerm_storage_account.storage_account.name};AccountKey=${azurerm_storage_account.storage_account.primary_access_key};EndpointSuffix=core.windows.net"
-  depends_on   = [
+  depends_on = [
     module.st_role_assignment_ids, module.st_role_assignment_names, module.kv_access_policy
   ]
 }

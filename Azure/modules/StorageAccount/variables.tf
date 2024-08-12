@@ -71,11 +71,11 @@ variable "edge_zone" {
   default     = null
 }
 
-variable "enable_https_traffic_only" {
+variable "https_traffic_only_enabled" {
   description = "Boolean flag which forces HTTPS if enabled."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.enable_https_traffic_only)))
+    condition     = contains(["true", "false"], lower(tostring(var.https_traffic_only_enabled)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
   default = true
