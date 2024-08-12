@@ -147,7 +147,7 @@ variable "disable_password_authentication" {
     condition     = contains(["true", "false"], lower(tostring(var.disable_password_authentication)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
-  default = false
+  default = true
 }
 
 variable "disk_controller_type" {
