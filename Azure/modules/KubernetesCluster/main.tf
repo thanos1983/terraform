@@ -465,3 +465,23 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 }
+
+# Create RBAC permissions for KV based on name(s)
+module "aks_role_assignment_names" {
+  source               = "../RoleAssignment"
+  count                = var.role_definition_names == null ? 0 : length(var.role_definition_names)
+  name                 = var.role_assignment_name
+  role_definition_name = var.role_definition_names[count.index]
+  scope                = azurerm_kubernetes_cluster.kubernetes_cluster.id
+  principal_id         = var.principal_id == null ? azurerm_kubernetes_cluster.kubernetes_cluster.identity.0.principal_id : var.principal_id
+}
+
+# Create RBAC permissions for KV based on id(s)
+module "aks_role_assignment_ids" {
+  source             = "../RoleAssignment"
+  count              = var.role_definition_ids == null ? 0 : length(var.role_definition_ids)
+  name               = var.role_assignment_name
+  role_definition_id = var.role_definition_ids[count.index]
+  scope              = azurerm_kubernetes_cluster.kubernetes_cluster.id
+  principal_id         = var.principal_id == null ? azurerm_kubernetes_cluster.kubernetes_cluster.identity.0.principal_id : var.principal_id
+}
