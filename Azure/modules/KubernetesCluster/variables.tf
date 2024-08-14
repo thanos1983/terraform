@@ -182,7 +182,7 @@ variable "auto_scaler_profile_block" {
 variable "azure_active_directory_role_based_access_control_block" {
   description = "An azure_active_directory_role_based_access_control block supports the following"
   type = object({
-#     managed = optional(bool, false)
+    managed = optional(bool)
     tenant_id = optional(string)
     admin_group_object_ids = optional(list(string))
     azure_rbac_enabled = optional(bool)
