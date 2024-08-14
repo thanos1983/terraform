@@ -106,6 +106,7 @@ variable "default_node_pool_blocks" {
       node_soak_duration_in_minutes = optional(number, 0)
       max_surge = string
     }), null)
+    vnet_subnet_id = optional(string)
     workload_runtime = optional(string)
     zones = optional(list(string))
     max_count = optional(number)

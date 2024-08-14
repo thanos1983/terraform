@@ -114,6 +114,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
           max_surge                     = upgrade_settings.value.max_surge
         }
       }
+      vnet_subnet_id   = default_node_pool.value.vnet_subnet_id
       workload_runtime = default_node_pool.value.workload_runtime
       zones            = default_node_pool.value.zones
       max_count        = default_node_pool.value.max_count
