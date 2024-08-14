@@ -5,12 +5,15 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = var.address_prefixes
 
   dynamic "delegation" {
-    for_each = var.delegation_block
+    for_each = var.delegation_blocks
     content {
       name = delegation.value.name
-      service_delegation {
-        name    = delegation.value.service_delegation.name
-        actions = delegation.value.service_delegation.actions
+      dynamic "service_delegation" {
+        for_each = delegation.value.service_delegation_block
+        content {
+          name    = service_delegation.value.name
+          actions = service_delegation.value.actions
+        }
       }
     }
   }
