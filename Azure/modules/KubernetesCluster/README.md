@@ -3,8 +3,8 @@
 ## Sample of use:
 
 ```bash
-module "azure_kkubernetes_cluster_<project>" {
-  source  = "git::https://example.com/azure_<my_repo>.git"
+module "kubernetes_cluster_<project>" {
+  source  = "git::https://example.com/kubernetes_cluster_<my_repo>.git"
   name = "my_kubernetes_cluster"
   .
   .

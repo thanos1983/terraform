@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Specifies the name of the Key Vault."
+  description = "The name of the Managed Kubernetes Cluster to create."
   type        = string
 }
 
