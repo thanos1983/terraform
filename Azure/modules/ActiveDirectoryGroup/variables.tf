@@ -26,7 +26,7 @@ variable "auto_subscribe_new_members" {
 
 variable "behaviors" {
   description = "Indicates whether new members added to the group will be auto-subscribed to receive email notifications."
-  type        = set(string)
+  type = set(string)
   default     = null
 }
 
@@ -128,11 +128,7 @@ variable "security_enabled" {
 variable "theme" {
   description = "The colour theme for a Microsoft 365 group."
   type        = string
-  validation {
-    condition = contains(["Blue", "Green", "Orange", "Pink", "Purple", "Red"], title(var.theme))
-    error_message = "Possible values can be \"Blue\", \"Green\", \"Orange\", \"Pink\", \"Purple\", \"Red\" or \"Teal\"."
-  }
-  default = "Blue"
+  default     = null
 }
 
 variable "types" {
