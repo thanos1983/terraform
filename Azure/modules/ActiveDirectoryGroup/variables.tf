@@ -26,7 +26,7 @@ variable "auto_subscribe_new_members" {
 
 variable "behaviors" {
   description = "Indicates whether new members added to the group will be auto-subscribed to receive email notifications."
-  type        = string
+  type        = set(string)
   default     = null
 }
 
