@@ -5,7 +5,7 @@
 ```bash
 module "api_connection<project>" {
   source   = "git::https://example.com/api_connection_<my_repo>.git"
-  name = "my_api_connection"
+  name     = "my_api_connection"
   .
   .
   .
