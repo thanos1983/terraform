@@ -138,11 +138,7 @@ variable "aci_connector_linux_block" {
 variable "automatic_channel_upgrade" {
   description = "The upgrade channel for this Kubernetes Cluster."
   type        = string
-  validation {
-    condition = contains(["none", "patch", "rapid", "node-image", "stable"], lower(var.automatic_channel_upgrade))
-    error_message = "Parameter must be either \"none\", \"patch\", \"rapid\", \"node-image\" or \"stable\" string variable."
-  }
-  default = "none"
+  default     = null
 }
 
 variable "api_server_access_profile_block" {
