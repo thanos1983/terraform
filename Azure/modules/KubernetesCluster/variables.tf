@@ -139,10 +139,10 @@ variable "automatic_channel_upgrade" {
   description = "The upgrade channel for this Kubernetes Cluster."
   type        = string
   validation {
-    condition = contains(["patch", "rapid", "node-image", "stable"], lower(var.automatic_channel_upgrade))
-    error_message = "Parameter must be either \"patch\", \"rapid\", \"node-image\" or \"stable\" string variable."
+    condition = contains(["none", "patch", "rapid", "node-image", "stable"], lower(var.automatic_channel_upgrade))
+    error_message = "Parameter must be either \"none\", \"patch\", \"rapid\", \"node-image\" or \"stable\" string variable."
   }
-  default = "stable"
+  default = "none"
 }
 
 variable "api_server_access_profile_block" {
