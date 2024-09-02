@@ -9,10 +9,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       name                          = default_node_pool.value.name
       vm_size                       = default_node_pool.value.vm_size
       capacity_reservation_group_id = default_node_pool.value.capacity_reservation_group_id
-      custom_ca_trust_enabled       = default_node_pool.value.custom_ca_trust_enabled
-      enable_auto_scaling           = default_node_pool.value.enable_auto_scaling
-      enable_host_encryption        = default_node_pool.value.enable_host_encryption
-      enable_node_public_ip         = default_node_pool.value.enable_node_public_ip
+      auto_scaling_enabled          = default_node_pool.value.auto_scaling_enabled
+      host_encryption_enabled       = default_node_pool.value.host_encryption_enabled
+      node_public_ip_enabled        = default_node_pool.value.node_public_ip_enabled
       gpu_instance                  = default_node_pool.value.gpu_instance
       host_group_id                 = default_node_pool.value.host_group_id
       dynamic "kubelet_config" {
@@ -72,10 +71,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
           transparent_huge_page_enabled = linux_os_config.value.transparent_huge_page_enabled
         }
       }
-      fips_enabled       = default_node_pool.value.fips_enabled
-      kubelet_disk_type  = default_node_pool.value.kubelet_disk_type
-      max_pods           = default_node_pool.value.max_pods
-      message_of_the_day = default_node_pool.value.message_of_the_day
+      fips_enabled      = default_node_pool.value.fips_enabled
+      kubelet_disk_type = default_node_pool.value.kubelet_disk_type
+      max_pods          = default_node_pool.value.max_pods
       dynamic "node_network_profile" {
         for_each = default_node_pool.value.node_network_profile_block[*]
         content {
@@ -133,14 +131,12 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 
-  automatic_channel_upgrade = var.automatic_channel_upgrade
+  automatic_upgrade_channel = var.automatic_upgrade_channel
 
   dynamic "api_server_access_profile" {
     for_each = var.api_server_access_profile_block[*]
     content {
-      authorized_ip_ranges     = api_server_access_profile.value.authorized_ip_ranges
-      subnet_id                = api_server_access_profile.value.subnet_id
-      vnet_integration_enabled = api_server_access_profile.value.vnet_integration_enabled
+      authorized_ip_ranges = api_server_access_profile.value.authorized_ip_ranges
     }
   }
 
@@ -170,7 +166,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   dynamic "azure_active_directory_role_based_access_control" {
     for_each = var.azure_active_directory_role_based_access_control_block[*]
     content {
-      managed                = azure_active_directory_role_based_access_control.value.managed
       tenant_id              = azure_active_directory_role_based_access_control.value.tenant_id
       admin_group_object_ids = azure_active_directory_role_based_access_control.value.admin_group_object_ids
       azure_rbac_enabled     = azure_active_directory_role_based_access_control.value.azure_rbac_enabled
@@ -186,10 +181,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 
-  custom_ca_trust_certificates_base64 = var.custom_ca_trust_certificates_base64
-  disk_encryption_set_id              = var.disk_encryption_set_id
-  edge_zone                           = var.edge_zone
-  http_application_routing_enabled    = var.http_application_routing_enabled
+  disk_encryption_set_id           = var.disk_encryption_set_id
+  edge_zone                        = var.edge_zone
+  http_application_routing_enabled = var.http_application_routing_enabled
 
   dynamic "http_proxy_config" {
     for_each = var.http_proxy_config_block[*]
@@ -349,8 +343,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       network_plugin      = network_profile.value.network_plugin
       network_mode        = network_profile.value.network_mode
       network_policy      = network_profile.value.network_policy
-      dns_service_ip      = network_profile.value.dns_service_ip
-      ebpf_data_plane     = network_profile.value.ebpf_data_plane
+      dns_service_ip = network_profile.value.dns_service_ip
       network_plugin_mode = network_profile.value.network_plugin_mode
       outbound_type       = network_profile.value.outbound_type
       pod_cidr            = network_profile.value.pod_cidr
@@ -380,7 +373,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 
-  node_os_channel_upgrade = var.node_os_channel_upgrade
+  node_os_upgrade_channel = var.node_os_upgrade_channel
   node_resource_group     = var.node_resource_group
   oidc_issuer_enabled     = var.oidc_issuer_enabled
 
@@ -401,8 +394,19 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     for_each = var.service_mesh_profile_block[*]
     content {
       mode                             = service_mesh_profile.value.mode
+      revisions                        = service_mesh_profile.value.revisions
       internal_ingress_gateway_enabled = service_mesh_profile.value.internal_ingress_gateway_enabled
       external_ingress_gateway_enabled = service_mesh_profile.value.external_ingress_gateway_enabled
+      dynamic "certificate_authority" {
+        for_each = service_mesh_profile.value.certificate_authority[*]
+        content {
+          key_vault_id           = certificate_authority.value.key_vault_id
+          root_cert_object_name  = certificate_authority.value.root_cert_object_name
+          cert_chain_object_name = certificate_authority.value.cert_chain_object_name
+          cert_object_name       = certificate_authority.value.cert_object_name
+          key_object_name        = certificate_authority.value.key_object_name
+        }
+      }
     }
   }
 
@@ -433,7 +437,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     content {
       blob_driver_enabled         = storage_profile.value.blob_driver_enabled
       disk_driver_enabled         = storage_profile.value.disk_driver_enabled
-      disk_driver_version         = storage_profile.value.disk_driver_version
       file_driver_enabled         = storage_profile.value.file_driver_enabled
       snapshot_controller_enabled = storage_profile.value.snapshot_controller_enabled
     }
@@ -445,7 +448,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   dynamic "web_app_routing" {
     for_each = var.web_app_routing_block[*]
     content {
-      dns_zone_id = web_app_routing.value.dns_zone_id
+      dns_zone_ids = web_app_routing.value.dns_zone_ids
     }
   }
 
@@ -473,7 +476,8 @@ module "aks_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_kubernetes_cluster.kubernetes_cluster.id
-  principal_id         = var.principal_id == null ? azurerm_kubernetes_cluster.kubernetes_cluster.identity.0.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ?
+    azurerm_kubernetes_cluster.kubernetes_cluster.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -483,5 +487,6 @@ module "aks_role_assignment_ids" {
   name               = var.role_assignment_name
   role_definition_id = var.role_definition_ids[count.index]
   scope              = azurerm_kubernetes_cluster.kubernetes_cluster.id
-  principal_id         = var.principal_id == null ? azurerm_kubernetes_cluster.kubernetes_cluster.identity.0.principal_id : var.principal_id
+  principal_id       = var.principal_id == null ? azurerm_kubernetes_cluster.kubernetes_cluster.identity.0.principal_id
+    : var.principal_id
 }

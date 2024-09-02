@@ -19,10 +19,9 @@ variable "default_node_pool_blocks" {
     name    = string
     vm_size = string
     capacity_reservation_group_id = optional(string)
-    custom_ca_trust_enabled = optional(string)
-    enable_auto_scaling = optional(bool)
-    enable_host_encryption = optional(bool)
-    enable_node_public_ip = optional(bool)
+    auto_scaling_enabled = optional(bool)
+    host_encryption_enabled = optional(bool)
+    node_public_ip_enabled = optional(bool)
     gpu_instance = optional(string)
     host_group_id = optional(string)
     kubelet_config_block = optional(object({
@@ -76,7 +75,6 @@ variable "default_node_pool_blocks" {
     fips_enabled = optional(bool)
     kubelet_disk_type = optional(string)
     max_pods = optional(number)
-    message_of_the_day = optional(string)
     node_network_profile_block = optional(object({
       allowed_host_ports_blocks = optional(list(object({
         port_start = optional(number)
@@ -135,7 +133,7 @@ variable "aci_connector_linux_block" {
   default = null
 }
 
-variable "automatic_channel_upgrade" {
+variable "automatic_upgrade_channel" {
   description = "The upgrade channel for this Kubernetes Cluster."
   type        = string
   default     = null
@@ -145,8 +143,6 @@ variable "api_server_access_profile_block" {
   description = "An api_server_access_profile block supports the following."
   type = object({
     authorized_ip_ranges = optional(set(string))
-    subnet_id = optional(string)
-    vnet_integration_enabled = optional(bool)
   })
   default = null
 }
@@ -178,7 +174,6 @@ variable "auto_scaler_profile_block" {
 variable "azure_active_directory_role_based_access_control_block" {
   description = "An azure_active_directory_role_based_access_control block supports the following"
   type = object({
-    managed = optional(bool)
     tenant_id = optional(string)
     admin_group_object_ids = optional(list(string))
     azure_rbac_enabled = optional(bool)
@@ -198,12 +193,6 @@ variable "confidential_computing_block" {
     sgx_quote_helper_enabled = bool
   })
   default = null
-}
-
-variable "custom_ca_trust_certificates_base64" {
-  description = "A list of up to 10 base64 encoded CAs that will be added to the trust store on nodes with the custom_ca_trust_enabled feature enabled."
-  type = list(string)
-  default = []
 }
 
 variable "disk_encryption_set_id" {
@@ -403,7 +392,6 @@ variable "network_profile_block" {
     network_mode = optional(string)
     network_policy = optional(string)
     dns_service_ip = optional(string)
-    ebpf_data_plane = optional(string)
     network_plugin_mode = optional(string)
     outbound_type = optional(string)
     pod_cidr = optional(string)
@@ -428,11 +416,11 @@ variable "network_profile_block" {
   default = null
 }
 
-variable "node_os_channel_upgrade" {
+variable "node_os_upgrade_channel" {
   description = "The upgrade channel for this Kubernetes Cluster Nodes' OS Image."
   type        = string
   validation {
-    condition = contains(["Unmanaged", "SecurityPatch", "NodeImage", "None"], title(var.node_os_channel_upgrade))
+    condition = contains(["Unmanaged", "SecurityPatch", "NodeImage", "None"], title(var.node_os_upgrade_channel))
     error_message = "Parameter must be either \"Unmanaged\", \"SecurityPatch\", \"NodeImage\" or \"None\" string variable."
   }
   default = "NodeImage"
@@ -494,9 +482,17 @@ variable "private_cluster_public_fqdn_enabled" {
 variable "service_mesh_profile_block" {
   description = "A service_mesh_profile block as defined below."
   type = object({
-    mode = string
+    mode      = string
+    revisions = string
     internal_ingress_gateway_enabled = optional(bool)
     external_ingress_gateway_enabled = optional(bool)
+    certificate_authority = optional(object({
+      key_vault_id           = string
+      root_cert_object_name  = string
+      cert_chain_object_name = string
+      cert_object_name       = string
+      key_object_name        = string
+    }), null)
   })
   default = null
 }
@@ -564,7 +560,6 @@ variable "storage_profile_block" {
   type = object({
     blob_driver_enabled = optional(bool)
     disk_driver_enabled = optional(bool)
-    disk_driver_version = optional(string)
     file_driver_enabled = optional(bool)
     snapshot_controller_enabled = optional(bool)
   })
@@ -590,7 +585,7 @@ variable "tags" {
 variable "web_app_routing_block" {
   description = "A web_app_routing block as defined below."
   type = object({
-    dns_zone_id = string
+    dns_zone_ids = list(string)
   })
   default = null
 }
