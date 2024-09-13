@@ -37,7 +37,7 @@ variable "description" {
 
 variable "feature_tags_block" {
   description = "A feature_tags block as described below."
-  type        = object({
+  type = object({
     custom_single_sign_on = optional(bool)
     enterprise            = optional(bool)
     gallery               = optional(bool)
@@ -82,7 +82,7 @@ variable "preferred_single_sign_on_mode" {
 
 variable "saml_single_sign_on_block" {
   description = "A saml_single_sign_on block as documented below."
-  type        = object({
+  type = object({
     relay_state = optional(string)
   })
   default = null
@@ -100,7 +100,7 @@ variable "use_existing" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type        = set(string)
+  type        = map(string)
   default     = null
 }
 
@@ -112,7 +112,7 @@ variable "kv_secret_tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

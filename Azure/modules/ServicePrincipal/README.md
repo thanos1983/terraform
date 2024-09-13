@@ -1,11 +1,11 @@
-# Manages a service principal associated with an application within Azure Active Directory
+# Manages a Shared Image within a Shared Image Gallery
 
 ## Sample of use:
 
 ```bash
 module "service_principal_<project>" {
-  source  = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_service_principal"
+  source  = "git::https://example.com/shared_image_<my_repo>.git"
+  name = "my_shared_image"
   .
   .
   .
@@ -15,44 +15,41 @@ module "service_principal_<project>" {
 ### Variables:
 
 ```bash
+- name - (Required)
+- gallery_name - (Required)
+- resource_group_name - (Required)
+- location - (Required)
+- identifier - (Required)
+- os_type - (Required)
+- purchase_plan - (Optional)
 - account_enabled - (Optional)
-- alternative_names (Optional)
-- app_role_assignment_required (Optional)
-- client_id (Required)
-- description (Optional)
-- feature_tags_block (Optional)
-- login_url (Optional)
-- notes (Optional)
-- notification_email_addresses (Optional)
-- owners (Optional)
-- preferred_single_sign_on_mode (Optional)
-- saml_single_sign_on_block (Optional)
-- use_existing (Optional)
-- tags (Optional)
-- display_name (Optional)
-- end_date (Optional)
-- end_date_relative (Optional)
-- rotate_when_changed (Optional)
-- start_date (Optional)
+- description - (Optional)
+- disk_types_not_allowed - (Optional)
+- end_of_life_date - (Optional)
+- eula - (Optional)
+- specialized - (Optional)
+- architecture - (Optional)
+- hyper_v_generation - (Optional)
+- max_recommended_vcpu_count - (Optional)
+- min_recommended_vcpu_count - (Optional)
+- max_recommended_memory_in_gb - (Optional)
+- min_recommended_memory_in_gb - (Optional)
+- privacy_statement_uri - (Optional)
+- release_note_uri - (Optional)
+- trusted_launch_supported - (Optional)
+- trusted_launch_enabled - (Optional)
+- confidential_vm_supported - (Optional)
+- confidential_vm_enabled - (Optional)
+- accelerated_network_support_enabled - (Optional)
+- hibernation_enabled - (Optional)
+- tags - (Optional) 
 ```
 
 ### Output:
 
 ```bash
-- app_role_ids
-- app_roles
-- application_tenant_id
-- display_name
-- homepage_url
-- logout_url
-- oauth2_permission_scope_ids
-- oauth2_permission_scopes
-- object_id
-- redirect_uris
-- saml_metadata_url
-- service_principal_names
-- sign_in_audience
-- type
+- id
+- name
 ```
 
-###### More information can be found on the official document [service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal)
+###### More information can be found on the official document [azurerm_shared_image](https://registry.terraform.io/providers/hashicorp/Azurerm/latest/docs/resources/shared_image)
