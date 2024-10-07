@@ -310,7 +310,7 @@ variable "local_account_disabled" {
     condition = contains(["true", "false"], lower(tostring(var.local_account_disabled)))
     error_message = "Parameter must be \"true\" or \"false\" boolean."
   }
-  default = true
+  default = false
 }
 
 variable "maintenance_window_block" {
