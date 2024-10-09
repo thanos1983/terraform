@@ -11,7 +11,7 @@ resource "kubernetes_role_binding_v1" "role_binding_v1" {
   }
 
   dynamic "role_ref" {
-    for_each = var.role_ref_block
+    for_each = var.role_ref_block[*]
     content {
       name      = role_ref.value.name
       kind      = role_ref.value.kind
