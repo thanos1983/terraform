@@ -26,7 +26,7 @@ output "portal_fqdn" {
 output "kube_admin_config" {
   description = "A kube_admin_config block as defined below."
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.kube_admin_config
-  sensitive   = false
+  sensitive   = true
 }
 
 output "kube_admin_config_raw" {

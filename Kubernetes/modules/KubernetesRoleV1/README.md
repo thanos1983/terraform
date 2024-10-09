@@ -6,7 +6,8 @@
 module "kubernetes_role_<project>" {
   source   = "git::https://example.com/kubernetes_role_v1_<my_repo>.git"
   metadata_block = {
-    name = "example-role"
+    name      = "example-role"
+    namespace = "example"
   }
   rule_blocks = [
     {
