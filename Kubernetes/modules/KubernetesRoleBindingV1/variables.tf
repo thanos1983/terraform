@@ -22,8 +22,8 @@ variable "subject_blocks" {
   description = "The ClusterRole to bind Subjects to."
   type        = list(object({
     name      = string
-    namespace = optional(string)
     kind      = string
-    api_group = string
+    namespace = optional(string)
+    api_group = optional(string)
   }))
 }
