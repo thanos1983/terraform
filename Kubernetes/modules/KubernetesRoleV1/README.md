@@ -11,7 +11,7 @@ module "kubernetes_role_<project>" {
   }
   rule_blocks = [
     {
-      api_groups = [""]
+      api_groups = ["", "extensions", "apps"]
       resources  = ["services", "endpoints", "pods"]
       verbs      = ["get", "watch", "list"]
     },

@@ -6,13 +6,31 @@
 module "kubernetes_role_binding_<project>" {
   source   = "git::https://example.com/kubernetes_role_binding_<my_repo>.git"
   metadata_block = {
-    .
-    .
-    .
+    name      = "example-role-binding"
+    namespace = "example"
   }
-  .
-  .
-  .
+  role_ref_block = {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = "admin"
+  }
+  subject_blocks = [
+    {
+      kind      = "User"
+      name      = "admin"
+      api_group = "rbac.authorization.k8s.io"
+    },
+    {
+      kind      = "ServiceAccount"
+      name      = "default"
+      namespace = "kube-system"
+    },
+    {
+      kind      = "Group"
+      name      = "system:masters"
+      api_group = "rbac.authorization.k8s.io"
+    }
+  ]
 }
 ```
 
