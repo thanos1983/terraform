@@ -573,18 +573,6 @@ variable "administrator_username" {
   default     = "adminuser"
 }
 
-variable "administrator_password" {
-  description = "The administrator login name for the new Windows VM."
-  type        = string
-  default     = null
-}
-
-variable "add_access_policy" {
-  description = "If the technical user already exists in the vault we should not add the access policy."
-  type        = bool
-  default     = null
-}
-
 variable "aaDLoginForWindows" {
   description = "Enable AADLoginForWindows Active Directory Login"
   type        = bool

@@ -1,6 +1,6 @@
 module "password" {
   source      = "../RandomPassword"
-  count       = var.administrator_password == null ? 1 : 0
+  count       = var.admin_password == null ? 1 : 0
   length      = var.length
   lower       = var.lower
   min_lower   = var.min_lower
@@ -242,7 +242,7 @@ module "kv_secret_admin_password" {
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-password"
-  value        = coalesce(var.administrator_password, module.password[0].result)
+  value        = coalesce(var.admin_password, module.password[0].result)
   depends_on   = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
