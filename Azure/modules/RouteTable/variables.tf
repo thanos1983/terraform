@@ -22,7 +22,7 @@ variable "route_blocks" {
     next_hop_type  = string
     next_hop_in_ip_address = optional(string)
   }))
-  default = []
+  default = null
 }
 
 variable "disable_bgp_route_propagation" {
