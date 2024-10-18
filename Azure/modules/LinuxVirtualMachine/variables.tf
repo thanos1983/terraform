@@ -22,24 +22,24 @@ variable "name" {
 
 variable "network_interface_ids" {
   description = "A list of Network Interface IDs which should be attached to this Virtual Machine."
-  type        = list(string)
+  type = list(string)
 }
 
 variable "os_disk_block" {
   description = "A os_disk block supports the following."
-  type        = object({
-    caching                  = string
-    storage_account_type     = string
+  type = object({
+    caching              = string
+    storage_account_type = string
     diff_disk_settings_block = optional(object({
-      option    = string
+      option = string
       placement = optional(string, "CacheDisk")
     }), null)
-    disk_encryption_set_id           = optional(string)
-    disk_size_gb                     = optional(number)
-    name                             = optional(string)
+    disk_encryption_set_id = optional(string)
+    disk_size_gb = optional(number)
+    name = optional(string)
     secure_vm_disk_encryption_set_id = optional(string)
-    security_encryption_type         = optional(string)
-    write_accelerator_enabled        = optional(string)
+    security_encryption_type = optional(string)
+    write_accelerator_enabled = optional(string)
   })
 }
 
@@ -51,19 +51,11 @@ variable "resource_group_name" {
 variable "size" {
   description = "The SKU which should be used for this Virtual Machine, such as Standard_F2."
   type        = string
-  validation {
-    condition = contains([
-      "Standard_F1", "Standard_F2", "Standard_F4", "Standard_F8", "Standard_F16", "Standard_DS1_v2", "Standard_DS2_v2",
-      "Standard_DS3_v2", "Standard_DS4_v2", "Standard_DS5_v2", "Standard_D2s_v3"
-    ], title(var.size))
-    error_message = "SKU size values can only be \"Standard_F1\", \"Standard_F2\", \"Standard_F4\", \"Standard_F8\", \"Standard_F16\", \"Standard_DS1_v2\", \"Standard_DS2_v2\", \"Standard_DS3_v2\", \"Standard_DS4_v2\", \"Standard_D2s_v3\" or \"Standard_DS5_v2\"."
-  }
-  default = "Standard_DS1_v2"
 }
 
 variable "additional_capabilities_block" {
   description = "A additional_capabilities block."
-  type        = object({
+  type = object({
     ultra_ssd_enabled = optional(bool)
   })
   default = null
@@ -77,7 +69,7 @@ variable "admin_password" {
 
 variable "admin_ssh_key_block" {
   description = "One or more admin_ssh_key blocks as defined below."
-  type        = list(object({
+  type = list(object({
     public_key = string
     username   = string
   }))
@@ -104,7 +96,7 @@ variable "availability_set_id" {
 
 variable "boot_diagnostics_block" {
   description = "A boot_diagnostics block as defined below."
-  type        = object({
+  type = object({
     storage_account_uri = optional(string)
   })
   default = null
@@ -144,7 +136,7 @@ variable "disable_password_authentication" {
   description = "Should Password Authentication be disabled on this Virtual Machine?"
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.disable_password_authentication)))
+    condition = contains(["true", "false"], lower(tostring(var.disable_password_authentication)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -166,7 +158,7 @@ variable "encryption_at_host_enabled" {
   description = "Should all of the disks (including the temp disk) attached to this Virtual Machine be encrypted by enabling Encryption at Host?"
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.encryption_at_host_enabled)))
+    condition = contains(["true", "false"], lower(tostring(var.encryption_at_host_enabled)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = false
@@ -186,19 +178,19 @@ variable "extensions_time_budget" {
 
 variable "gallery_application_blocks" {
   description = "One or more gallery_application blocks."
-  type        = list(object({
-    version_id             = string
+  type = list(object({
+    version_id = string
     configuration_blob_uri = optional(string)
-    order                  = optional(number)
-    tag                    = optional(string)
+    order = optional(number)
+    tag = optional(string)
   }))
   default = []
 }
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
-    type         = string
+  type = object({
+    type = string
     identity_ids = optional(list(string))
   })
   default = {
@@ -238,7 +230,7 @@ variable "max_bid_price" {
 
 variable "plan_block" {
   description = "A plan block."
-  type        = object({
+  type = object({
     name      = string
     product   = string
     publisher = string
@@ -284,7 +276,7 @@ variable "proximity_placement_group_id" {
 
 variable "secret_block" {
   description = "A secret block."
-  type        = object({
+  type = object({
     certificate_blocks = object({
       url = string
     })
@@ -313,7 +305,7 @@ variable "source_image_id" {
 
 variable "source_image_reference_block" {
   description = "A source_image_reference block as defined below."
-  type        = object({
+  type = object({
     publisher = string
     offer     = string
     sku       = string
@@ -324,13 +316,13 @@ variable "source_image_reference_block" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type        = map(any)
+  type = map(any)
   default     = null
 }
 
 variable "termination_notification_block" {
   description = "A termination_notification block."
-  type        = object({
+  type = object({
     enabled = string
     timeout = optional(number)
   })
@@ -347,7 +339,7 @@ variable "vm_agent_platform_updates_enabled" {
   description = "Specifies whether VMAgent Platform Updates is enabled."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.vm_agent_platform_updates_enabled)))
+    condition = contains(["true", "false"], lower(tostring(var.vm_agent_platform_updates_enabled)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = false
@@ -357,7 +349,7 @@ variable "vtpm_enabled" {
   description = "Specifies if vTPM (virtual Trusted Platform Module) and Trusted Launch is enabled for the Virtual Machine."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.vtpm_enabled)))
+    condition = contains(["true", "false"], lower(tostring(var.vtpm_enabled)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = false
@@ -391,7 +383,7 @@ variable "lower" {
   description = "Include lowercase alphabet characters in the result."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.lower)))
+    condition = contains(["true", "false"], lower(tostring(var.lower)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -425,7 +417,7 @@ variable "numeric" {
   description = "Include numeric characters in the result."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.numeric)))
+    condition = contains(["true", "false"], lower(tostring(var.numeric)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -435,7 +427,7 @@ variable "special" {
   description = "Include special characters in the result."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.special)))
+    condition = contains(["true", "false"], lower(tostring(var.special)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -445,7 +437,7 @@ variable "upper" {
   description = "Include uppercase alphabet characters in the result."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.upper)))
+    condition = contains(["true", "false"], lower(tostring(var.upper)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -477,8 +469,8 @@ variable "storage_account_type" {
 
 variable "diff_disk_settings_block" {
   description = "A diff_disk_settings block as defined above. "
-  type        = object({
-    option    = string
+  type = object({
+    option = string
     placement = optional(string)
   })
   default = null
@@ -510,9 +502,9 @@ variable "image_reference_version" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
-    read   = optional(number, 5)
+    read = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })
@@ -545,8 +537,8 @@ variable "application_id" {
 
 variable "secret_permissions" {
   description = "List of secret permissions."
-  type        = list(string)
-  default     = []
+  type = list(string)
+  default = []
 }
 
 variable "administrator_username" {
@@ -611,8 +603,8 @@ variable "type_handler_version" {
 
 variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
-  type        = list(string)
-  default     = []
+  type = list(string)
+  default = []
 }
 
 variable "role_assignment_name" {
@@ -623,8 +615,8 @@ variable "role_assignment_name" {
 
 variable "role_definition_ids" {
   description = "The Scoped-ID(s) of the Role Definition."
-  type        = list(string)
-  default     = []
+  type = list(string)
+  default = []
 }
 
 variable "principal_id" {
