@@ -1,6 +1,6 @@
 module "password" {
   source      = "../RandomPassword"
-  count       = var.admin_password == null ? 1 : 0
+  count       = (var.admin_password == null && var.disable_password_authentication == false) ? 1 : 0
   length      = var.length
   lower       = var.lower
   min_lower   = var.min_lower
@@ -50,7 +50,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  admin_password = var.admin_password == null ? module.password[0].result : var.admin_password
+  admin_password = (var.admin_password == null && var.disable_password_authentication == false) ? module.password[0].result : var.admin_password
 
   dynamic "admin_ssh_key" {
     for_each = var.admin_ssh_key_block[*]
@@ -180,7 +180,7 @@ module "aaDSSHLoginForLinux" {
   auto_upgrade_minor_version = var.auto_upgrade_minor_version
   type_handler_version       = var.type_handler_version
   virtual_machine_id         = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  depends_on                 = [
+  depends_on = [
     azurerm_linux_virtual_machine.linux_virtual_machine
   ]
 }
@@ -202,7 +202,8 @@ module "kv_role_assignment_names" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ?
+    azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -212,7 +213,8 @@ module "kv_role_assignment_ids" {
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_ids[count.index]
   scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ?
+    azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
 }
 
 module "kv_secret_admin_username" {
@@ -222,7 +224,7 @@ module "kv_secret_admin_username" {
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-username"
   value        = var.administrator_username
-  depends_on   = [
+  depends_on = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
 }
@@ -233,8 +235,8 @@ module "kv_secret_admin_password" {
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"
-  value        = coalesce(var.admin_password, module.password[0].result)
-  depends_on   = [
+  value = coalesce(var.admin_password, module.password[0].result)
+  depends_on = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
 }
