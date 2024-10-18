@@ -4,7 +4,7 @@ resource "azurerm_route_table" "route_table" {
   resource_group_name = var.resource_group_name
 
   dynamic "route" {
-    for_each = var.route_block[*]
+    for_each = var.route_blocks
     content {
       address_prefix         = route.value.address_prefix
       name                   = route.value.name
