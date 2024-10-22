@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Specifies the name of the Load Balancer"
+  description = "Specifies the name of the Load Balancer."
   type        = string
 }
 
