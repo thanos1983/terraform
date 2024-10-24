@@ -1,82 +1,89 @@
 variable "location" {
-  description = ""
+  description = "The Azure Region where the Virtual Machine Run Command should exist."
   type        = string
 }
 
 variable "name" {
-  description = "The name of the virtual machine extension peering."
+  description = "Specifies the name of this Virtual Machine Run Command."
   type        = string
 }
 
 variable "virtual_machine_id" {
-  description = "The ID of the Virtual Machine."
+  description = "Specifies the Virtual Machine ID within which this Virtual Machine Run Command should exist."
   type        = string
 }
 
-variable "publisher" {
-  description = "The publisher of the extension, available publishers can be found by using the Azure CLI."
-  type        = string
-}
-
-variable "type" {
-  description = "The type of extension, available types for a publisher can be found using the Azure CLI."
-  type        = string
-}
-
-variable "type_handler_version" {
-  description = "Specifies the version of the extension to use, available versions can be found using the Azure CLI."
-  type        = string
-}
-
-variable "auto_upgrade_minor_version" {
-  description = "Specifies if the platform deploys the latest minor version update to the type_handler_version specified."
-  type        = string
-  validation {
-    condition = contains(["true", "false"], lower(tostring(var.auto_upgrade_minor_version)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "automatic_upgrade_enabled" {
-  description = "Should the Extension be automatically updated whenever the Publisher releases a new version of this VM Extension?"
-  type        = string
-  validation {
-    condition = contains(["true", "false"], lower(tostring(var.automatic_upgrade_enabled)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = false
-}
-
-variable "settings" {
-  description = "The settings passed to the extension, these are specified as a JSON object in a string."
-  type        = string
-  default     = null
-}
-
-variable "failure_suppression_enabled" {
-  description = "Should failures from the extension be suppressed?"
-  type        = bool
-  validation {
-    condition = contains(["true", "false"], lower(tostring(var.failure_suppression_enabled)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = false
-}
-
-variable "protected_settings" {
-  description = "The protected_settings passed to the extension, like settings, these are specified as a JSON object in a string."
-  type        = string
-  default     = null
-}
-
-variable "protected_settings_from_key_vault_block" {
-  description = "A protected_settings_from_key_vault block."
+variable "source_block" {
+  description = "A source block as defined below."
   type = object({
-    secret_url      = string
-    source_vault_id = string
+    command_id = optional(string)
+    script = optional(string)
+    script_uri = optional(string)
+    script_uri_managed_identity = optional(object({
+      client_id = optional(string)
+      object_id = optional(string)
+    }))
+  })
+}
+
+variable "error_blob_managed_identity_block" {
+  description = "An error_blob_managed_identity block as defined below."
+  type = object({
+    client_id = optional(string)
+    object_id = optional(string)
   })
   default = null
+}
+
+variable "error_blob_uri" {
+  description = "Specifies the Azure storage blob where script error stream will be uploaded."
+  type        = string
+  default     = null
+}
+
+variable "output_blob_managed_identity_block" {
+  description = "An output_blob_managed_identity block as defined below."
+  type = object({
+    client_id = optional(string)
+    object_id = optional(string)
+  })
+  default = null
+}
+
+variable "output_blob_uri" {
+  description = "Specifies the Azure storage blob where script output stream will be uploaded."
+  type        = string
+  default     = null
+}
+
+variable "parameter_blocks" {
+  description = "A list of parameter blocks as defined below."
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = []
+}
+
+variable "protected_parameter_blocks" {
+  description = "A list of protected_parameter blocks as defined below."
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = []
+}
+
+variable "run_as_password" {
+  description = "Specifies the user account password on the VM when executing the Virtual Machine Run Command."
+  type        = bool
+  default     = null
+}
+
+variable "run_as_user" {
+  description = "Specifies the user account on the VM when executing the Virtual Machine Run Command."
+  type        = string
+  default     = null
 }
 
 variable "tags" {

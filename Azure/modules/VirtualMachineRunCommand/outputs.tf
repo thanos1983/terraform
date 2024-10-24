@@ -1,9 +1,9 @@
 output "id" {
-  description = "The ID of the Virtual Machine Extension."
-  value       = azurerm_virtual_machine_extension.virtual_machine_extension.id
+  description = "The ID of the Virtual Machine Run Command."
+  value       = azurerm_virtual_machine_run_command.virtual_machine_run_command.id
 }
 
 output "name" {
-  description = "The Name of the Virtual Machine Extension."
-  value       = azurerm_virtual_machine_extension.virtual_machine_extension.name
+  description = "The name of the Virtual Machine Run Command."
+  value       = azurerm_virtual_machine_run_command.virtual_machine_run_command.name
 }
