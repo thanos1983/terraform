@@ -1,10 +1,10 @@
-# Azure Random Password
+# Random String
 
 ## Sample of use:
 
 ```bash
-module "password_<project>" {
-  source  = "git::https://example.com/password_<my_repo>.git"
+module "string_<project>" {
+  source  = "git::https://example.com/string_<my_repo>.git"
   length = 16
   .
   .
@@ -36,4 +36,4 @@ module "password_<project>" {
 - result
 ```
 
-###### More information can be found on the official document [random_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password)
+###### More information can be found on the official document [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string)

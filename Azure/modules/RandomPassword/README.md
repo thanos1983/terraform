@@ -1,4 +1,4 @@
-# Azure Random Password
+# Random Password
 
 ## Sample of use:
 
