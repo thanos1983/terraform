@@ -1,4 +1,4 @@
-# The resource random_uuid generates a random uuid string that is intended to be used as a unique identifier for other resources.
+# Random UUID Resource
 
 ## Sample of use:
 
