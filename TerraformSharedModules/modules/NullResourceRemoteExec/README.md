@@ -1,10 +1,10 @@
-# Azure Null Resource Create
+# Null Resource
 
 ## Sample of use:
 
 ```bash
 module "sample_null_resource_<project>" {
-  source   = "git::https://example.com/azure_<my_repo>.git"
+  source   = "git::https://example.com/null_resource_<my_repo>.git"
   .
   .
   .
@@ -35,8 +35,6 @@ module "sample_null_resource_<project>" {
 - file_source (Optional)
 - file_destination (Optional)
 - inline (Optional)
-- script (Optional)
-- scripts (Optional)
 ```
 
 ### Output:
@@ -64,4 +62,4 @@ invokes a script on a remote resource after it is created. This can be used to r
 bootstrap into a cluster, etc. To invoke a local process, see the local-exec provisioner instead. The remote-exec
 provisioner requires a connection and supports both ssh and winrm.
 
-###### More information can be found on the official document [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) and [terraform/local-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec).
+###### More information can be found on the official document [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource).

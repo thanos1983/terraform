@@ -28,7 +28,5 @@ resource "null_resource" "resource" {
 
   provisioner "remote-exec" {
     inline  = var.inline
-    script  = var.script
-    scripts = var.scripts
   }
 }
