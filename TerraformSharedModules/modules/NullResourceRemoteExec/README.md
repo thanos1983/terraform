@@ -32,8 +32,6 @@ module "sample_null_resource_<project>" {
 - use_ntlm (Optional)
 - cacert (Optional)
 - port (Optional)
-- file_source (Optional)
-- file_destination (Optional)
 - inline (Optional)
 ```
 

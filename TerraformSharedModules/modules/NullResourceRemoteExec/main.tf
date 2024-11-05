@@ -21,11 +21,6 @@ resource "null_resource" "resource" {
     cacert          = var.cacert
   }
 
-  provisioner "file" {
-    source      = var.file_source
-    destination = var.file_destination
-  }
-
   provisioner "remote-exec" {
     inline  = var.inline
   }
