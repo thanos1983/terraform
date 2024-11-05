@@ -35,12 +35,6 @@ module "sample_null_resource_<project>" {
 - file_source (Optional)
 - file_content (Optional)
 - file_destination (Optional)
-- command (Optional)
-- working_dir (Optional)
-- interpreter (Optional)
-- environment (Optional)
-- when (Optional)
-- quiet (Optional)
 - inline (Optional)
 - script (Optional)
 - scripts (Optional)
@@ -63,12 +57,6 @@ about how to connect.
 The [file Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/file) copies files or
 directories from the machine running Terraform to the newly created resource. The file provisioner supports both ssh and
 winrm type connections.
-
-### local-exec Provisioner
-
-The [local-exec provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
-invokes a local executable after a resource is created. This invokes a process on the machine running Terraform, not on
-the resource.
 
 ### remote-exec Provisioner
 
