@@ -33,7 +33,6 @@ module "sample_null_resource_<project>" {
 - cacert (Optional)
 - port (Optional)
 - file_source (Optional)
-- file_content (Optional)
 - file_destination (Optional)
 - inline (Optional)
 - script (Optional)

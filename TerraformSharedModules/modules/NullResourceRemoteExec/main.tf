@@ -23,7 +23,6 @@ resource "null_resource" "resource" {
 
   provisioner "file" {
     source      = var.file_source
-    content     = var.file_content
     destination = var.file_destination
   }
 

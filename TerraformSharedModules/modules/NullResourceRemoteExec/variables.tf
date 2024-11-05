@@ -112,12 +112,6 @@ variable "file_source" {
   default     = null
 }
 
-variable "file_content" {
-  description = "The direct content to copy on the destination. If destination is a file, the content will be written on that file."
-  type        = string
-  default     = null
-}
-
 variable "file_destination" {
   description = "The destination path to write to on the remote system."
   type        = string
