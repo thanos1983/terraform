@@ -17,18 +17,26 @@ variable "ansible_playbook_binary" {
 variable "check_mode" {
   description = "If 'true', playbook execution won't make any changes but only change predictions will be made."
   type        = bool
-  default     = false
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.check_mode)))
+    error_message = "Possible values can be \"true\" or \"false\" boolean."
+  }
+  default = true
 }
 
 variable "diff_mode" {
   description = "If 'true', when changing (small) files and templates, differences in those files will be shown."
   type        = bool
-  default     = false
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.diff_mode)))
+    error_message = "Possible values can be \"true\" or \"false\" boolean."
+  }
+  default = true
 }
 
 variable "extra_vars" {
   description = "A map of additional variables as: { key-1 = value-1, key-2 = value-2, … }."
-  type        = map(any)
+  type = map(any)
   default     = null
 }
 
@@ -40,7 +48,7 @@ variable "force_handlers" {
 
 variable "groups" {
   description = "List of desired groups of hosts on which the playbook will be executed."
-  type        = list(string)
+  type = list(string)
   default     = null
 }
 
@@ -52,7 +60,7 @@ variable "ignore_playbook_failure" {
 
 variable "limit" {
   description = "List of hosts to include in playbook execution."
-  type        = list(string)
+  type = list(string)
   default     = null
 }
 
@@ -64,27 +72,19 @@ variable "replayable" {
 
 variable "tags" {
   description = "List of tags of plays and tasks to run."
-  type        = list(string)
+  type = list(string)
   default     = null
-}
-
-variable "timeouts_block" {
-  description = "Timeouts block."
-  type        = object({
-    create = string
-  })
-  default = null
 }
 
 variable "var_files" {
   description = "List of variable files."
-  type        = list(string)
+  type = list(string)
   default     = null
 }
 
 variable "vault_files" {
   description = "List of vault files."
-  type        = list(string)
+  type = list(string)
   default     = null
 }
 
@@ -104,4 +104,12 @@ variable "verbosity" {
   description = "A verbosity level between 0 and 6."
   type        = number
   default     = 0
+}
+
+variable "timeouts_block" {
+  description = "Timeouts block."
+  type = object({
+    create = string
+  })
+  default = null
 }

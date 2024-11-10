@@ -11,17 +11,16 @@ resource "ansible_playbook" "playbook" {
   limit                   = var.limit
   replayable              = var.replayable
   tags                    = var.tags
+  var_files               = var.var_files
+  vault_files             = var.vault_files
+  vault_id                = var.vault_id
+  vault_password_file     = var.vault_password_file
+  verbosity               = var.verbosity
 
-  dynamic "timeout" {
-    for_each = var.timeouts_block
+  dynamic "timeouts" {
+    for_each = var.timeouts_block[*]
     content {
-      create = timeout.value.create
+      create = timeouts.value.create
     }
   }
-
-  var_files           = var.var_files
-  vault_files         = var.vault_files
-  vault_id            = var.vault_id
-  vault_password_file = var.vault_password_file
-  verbosity           = var.verbosity
 }
