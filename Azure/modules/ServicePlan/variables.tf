@@ -62,10 +62,10 @@ variable "tags" {
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type        = object({
-    create = optional(number, 1)
-    read   = optional(number, 5)
-    update = optional(number, 1)
-    delete = optional(number, 1)
+    create = optional(number)
+    read   = optional(number)
+    update = optional(number)
+    delete = optional(number)
   })
   default = null
 }
