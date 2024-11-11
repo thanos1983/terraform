@@ -1,4 +1,4 @@
-resource "azurerm_windows_function_app" "" {
+resource "azurerm_windows_function_app" "windows_function_app" {
   location            = var.location
   name                = var.name
   resource_group_name = var.resource_group_name
@@ -369,21 +369,19 @@ resource "azurerm_windows_function_app" "" {
   dynamic "sticky_settings" {
     for_each = var.sticky_settings_block[*]
     content {
-      app_setting_names = []
-      connection_string_names = []
+      app_setting_names       = sticky_settings.value.app_setting_names
+      connection_string_names = sticky_settings.value.connection_string_names
     }
   }
 
-  sticky_settings {}
-
-  storage_account_access_key                     = ""
-  storage_account_name                           = ""
-  storage_uses_managed_identity                  = ""
-  storage_key_vault_secret_id                    = ""
-  tags = {}
-  virtual_network_subnet_id                      = ""
-  webdeploy_publish_basic_authentication_enabled = ""
-  zip_deploy_file                                = ""
+  storage_account_access_key                     = var.storage_account_access_key
+  storage_account_name                           = var.storage_account_name
+  storage_uses_managed_identity                  = var.storage_uses_managed_identity
+  storage_key_vault_secret_id                    = var.storage_key_vault_secret_id
+  tags                                           = var.tags
+  virtual_network_subnet_id                      = var.virtual_network_subnet_id
+  webdeploy_publish_basic_authentication_enabled = var.webdeploy_publish_basic_authentication_enabled
+  zip_deploy_file                                = var.zip_deploy_file
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

@@ -1,65 +1,59 @@
-output "administrator_username" {
-  sensitive   = true
-  description = "The Administrator Username Windows Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.admin_username
-}
-
-output "administrator_password" {
-  sensitive   = true
-  description = "The Administrator Password Windows Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.admin_password
-}
-
 output "id" {
-  description = "The ID of the Windows Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.id
+  description = "The ID of the Windows Function App."
+  value       = azurerm_windows_function_app.windows_function_app.id
 }
 
 output "name" {
-  description = "The Name assigned to this Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.name
+  description = "The Name of the Windows Function App."
+  value       = azurerm_windows_function_app.windows_function_app.name
+}
+
+output "custom_domain_verification_id" {
+  description = "The identifier used by App Service to perform domain ownership verification via DNS TXT record."
+  value       = azurerm_windows_function_app.windows_function_app.custom_domain_verification_id
+}
+
+output "default_hostname" {
+  description = "The default hostname of the Windows Function App."
+  value       = azurerm_windows_function_app.windows_function_app.default_hostname
+}
+
+output "hosting_environment_id" {
+  description = "The ID of the App Service Environment used by Function App."
+  value       = azurerm_windows_function_app.windows_function_app.hosting_environment_id
 }
 
 output "identity" {
-  description = "An identity block as defined below, which contains the Managed Service Identity information for this azure resource."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.identity
+  description = "An identity block as defined below."
+  value       = azurerm_windows_function_app.windows_function_app.identity
 }
 
-output "principal_id" {
-  description = "The Principal ID associated with this Managed Service Identity."
-  value       = flatten([
-    for identity in azurerm_windows_virtual_machine.windows_virtual_machine[*].identity : identity[*].principal_id
-  ])
+output "kind" {
+  description = "The Kind value for this Windows Function App."
+  value       = azurerm_windows_function_app.windows_function_app.kind
 }
 
-output "tenant_id" {
-  description = "The Tenant ID associated with this Managed Service Identity."
-  value       = flatten([
-    for identity in azurerm_windows_virtual_machine.windows_virtual_machine[*].identity : identity[*].tenant_id
-  ])
+output "outbound_ip_address_list" {
+  description = "A list of outbound IP addresses."
+  value       = azurerm_windows_function_app.windows_function_app.outbound_ip_address_list
 }
 
-output "private_ip_address" {
-  description = "The Primary Private IP Address assigned to this Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.private_ip_address
+output "outbound_ip_addresses" {
+  description = "A comma separated list of outbound IP addresses as a string."
+  value       = azurerm_windows_function_app.windows_function_app.outbound_ip_addresses
 }
 
-output "private_ip_addresses" {
-  description = "A list of Private IP Addresses assigned to this Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.private_ip_addresses
+output "possible_outbound_ip_address_list" {
+  description = "A list of possible outbound IP addresses, not all of which are necessarily in use."
+  value       = azurerm_windows_function_app.windows_function_app.possible_outbound_ip_address_list
 }
 
-output "public_ip_address" {
-  description = "The Primary Public IP Address assigned to this Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.public_ip_address
+output "possible_outbound_ip_addresses" {
+  description = "A comma separated list of possible outbound IP addresses as a string."
+  value       = azurerm_windows_function_app.windows_function_app.possible_outbound_ip_addresses
 }
 
-output "public_ip_addresses" {
-  description = "A list of the Public IP Addresses assigned to this Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.public_ip_addresses
-}
-
-output "virtual_machine_id" {
-  description = "A 128-bit identifier which uniquely identifies this Virtual Machine."
-  value       = azurerm_windows_virtual_machine.windows_virtual_machine.virtual_machine_id
+output "site_credential" {
+  description = "A site_credential block as defined below."
+  value       = azurerm_windows_function_app.windows_function_app.site_credential
 }

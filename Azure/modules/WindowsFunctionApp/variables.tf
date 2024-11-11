@@ -403,7 +403,7 @@ variable "storage_account_blocks" {
 }
 
 variable "sticky_settings_block" {
-  description = ""
+  description = "A sticky_settings block as defined below."
   type = object({
     app_setting_names = optional(list(string))
     connection_string_names = optional(list(string))
@@ -411,9 +411,55 @@ variable "sticky_settings_block" {
   default = null
 }
 
+variable "storage_account_access_key" {
+  description = "The access key which will be used to access the backend storage account for the Function App."
+  type        = string
+  default     = null
+}
+
+variable "storage_account_name" {
+  description = "The backend storage account name which will be used by this Function App."
+  type        = string
+  default     = null
+}
+
+variable "storage_uses_managed_identity" {
+  description = "Should the Function App use Managed Identity to access the storage account."
+  type        = bool
+  default     = null
+}
+
+variable "storage_key_vault_secret_id" {
+  description = "The Key Vault Secret ID, optionally including version, that contains the Connection String to connect to the storage account for this Function App."
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type = map(any)
+  default     = null
+}
+
+variable "virtual_network_subnet_id" {
+  description = "The subnet id which will be used by this Function App for regional virtual network integration."
+  type        = string
+  default     = null
+}
+
+variable "webdeploy_publish_basic_authentication_enabled" {
+  description = "Should the default WebDeploy Basic Authentication publishing credentials enabled. Defaults to true."
+  type        = bool
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.webdeploy_publish_basic_authentication_enabled)))
+    error_message = "Possible values can only be \"true\" or \"false\"."
+  }
+  default = true
+}
+
+variable "zip_deploy_file" {
+  description = "The local path and filename of the Zip packaged application to deploy to this Windows Function App."
+  type        = string
   default     = null
 }
 
