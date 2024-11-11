@@ -11,10 +11,6 @@ variable "default_action" {
 variable "bypass" {
   description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices."
   type = list(string)
-  validation {
-    condition = contains(["AzureServices", "Logging", "Metrics", "None"], title(var.bypass))
-    error_message = "Invalid input, options: \"AzureServices\", \"Logging\", \"Metrics\" and \"None\"."
-  }
   default = ["AzureServices"]
 }
 
