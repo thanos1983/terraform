@@ -27,3 +27,8 @@ output "guid" {
   description = "The GUID of the virtual network."
   value       = azurerm_virtual_network.virtual_network.guid
 }
+
+output "subnet" {
+  description = "One or more subnet blocks as defined below."
+  value       = azurerm_virtual_network.virtual_network.subnet
+}
