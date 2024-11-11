@@ -29,7 +29,7 @@ variable "site_config_block" {
     application_insights_connection_string = optional(string)
     application_insights_key = optional(string)
     application_stack_block = optional(object({
-      dotnet_version = optional(string)
+      dotnet_version = optional(string, "v8.0")
       use_dotnet_isolated_runtime = optional(bool)
       java_version = optional(string)
       node_version = optional(string)
