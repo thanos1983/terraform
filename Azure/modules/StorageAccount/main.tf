@@ -182,6 +182,7 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   large_file_share_enabled = var.large_file_share_enabled
+  local_user_enabled       = var.local_user_enabled
 
   dynamic "azure_files_authentication" {
     for_each = var.azure_files_authentication_block[*]
@@ -233,6 +234,7 @@ resource "azurerm_storage_account" "storage_account" {
 
   allowed_copy_scope = var.allowed_copy_scope
   sftp_enabled       = var.sftp_enabled
+  dns_endpoint_type  = var.dns_endpoint_type
   tags               = var.tags
 }
 

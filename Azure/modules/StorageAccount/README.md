@@ -4,8 +4,8 @@
 
 ```bash
 module "storage_account_<project>" {
-  source  = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_storage_account"
+  source = "git::https://example.com/azure_<my_repo>.git"
+  name   = "my_storage_account"
   .
   .
   .
@@ -15,42 +15,44 @@ module "storage_account_<project>" {
 ### Variables:
 
 ```bash
-- name - (Required)
-- resource_group_name - (Required)
-- location - (Required)
-- account_kind - (Optional  Valid options are "BlobStorage", "BlockBlobStorage", "FileStorage", "Storage" and "StorageV2")
-- account_tier - (Required Valid options are "Standard" and "Premium")
-- account_replication_type - (Required  Valid options are "LRS", "GRS", "RAGRS", "ZRS", "GZRS" and "RAGZRS")
-- cross_tenant_replication_enabled - (Optional boolean default: true)
-- access_tier - (Optional Valid options are "Hot" and "Cool")
-- edge_zone - (Optional)
-- enable_https_traffic_only - (Optional boolean default: true)
-- min_tls_version - (Optional Possible values are "TLS1_0", "TLS1_1", and "TLS1_2")
-- allow_nested_items_to_be_public - (Optional boolean default: true)
-- shared_access_key_enabled - (Optional boolean default: true)
-- public_network_access_enabled - (Optional boolean default: true)
-- default_to_oauth_authentication - (Optional boolean default: false)
-- is_hns_enabled - (Optional boolean default: false)
-- nfsv3_enabled - (Optional boolean default: false)
-- custom_domains - (Optional block)
-- customer_managed_keys - (Optional block)
-- identities - (Optional block)
-- blobs_properties - (Optional block)
-- queues_properties - (Optional block)
-- static_websites - (Optional block)
-- sharing_properties - (Optional block)
-- networks_rules - (Optional block)
-- large_file_share_enabled - (Optional boolean default: false)
-- azure_files_authentications - (Optional block)
-- routings - (Optional block)
-- queue_encryption_key_type - (Optional Possible values are "Service" and "Account")
-- table_encryption_key_type - (Optional Possible values are "Service" and "Account")
-- infrastructure_encryption_enabled - (Optional boolean default: false)
-- immutability_policies - (Optional block)
-- sas_policies - (Optional block)
-- allowed_copy_scope - (Optional Possible values are "AAD" and "PrivateLink")
-- sftp_enabled - (Optional boolean default: false)
-- tags - (Optional)
+- name (Required)
+- resource_group_name (Required)
+- location (Required)
+- account_kind (Optional)
+- account_tier (Required)
+- account_replication_type (Required)
+- cross_tenant_replication_enabled (Optional)
+- access_tier (Optional)
+- edge_zone (Optional)
+- enable_https_traffic_only (Optional)
+- min_tls_version (Optional)
+- allow_nested_items_to_be_public (Optional)
+- shared_access_key_enabled (Optional)
+- public_network_access_enabled (Optional)
+- network_rules_block (Optional)
+- share_properties_block (Optional)
+- default_to_oauth_authentication (Optional)
+- is_hns_enabled (Optional)
+- nfsv3_enabled (Optional)
+- custom_domain_block (Optional)
+- customer_managed_key_block (Optional)
+- identity_block (Optional)
+- blob_properties_block (Optional)
+- queue_properties_block (Optional)
+- static_website_block (Optional)
+- sharing_properties (Optional)
+- networks_rules (Optional)
+- large_file_share_enabled (Optional)
+- azure_files_authentication_block (Optional)
+- routing_block (Optional)
+- queue_encryption_key_type (Optional)
+- table_encryption_key_type (Optional)
+- infrastructure_encryption_enabled (Optional)
+- immutability_policies (Optional)
+- sas_policies (Optional)
+- allowed_copy_scope (Optional)
+- sftp_enabled (Optional)
+- tags (Optional)
 ```
 
 ### Output:
