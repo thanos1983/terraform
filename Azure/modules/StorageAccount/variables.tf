@@ -224,7 +224,7 @@ variable "queue_properties_block" {
       version = string
       write   = bool
       retention_policy_days = optional(number)
-    }), nul)
+    }), null)
     minute_metrics_block = optional(object({
       enabled      = bool
       version      = string
