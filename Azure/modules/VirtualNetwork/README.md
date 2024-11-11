@@ -17,7 +17,7 @@ module "virtual_network_<project>" {
 ```bash
 - name - (Required)
 - location (Required)
-- resources_group_name (Required)
+- resource_group_name (Required)
 - security_rule_block (Optional)
 - timeouts_block (Optional)
 - tags (Optional)
