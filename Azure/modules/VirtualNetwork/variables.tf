@@ -66,8 +66,8 @@ variable "flow_timeout_in_minutes" {
 variable "subnet_blocks" {
   description = "Can be specified multiple times to define multiple subnets."
   type = list(object({
-    name           = string
-    address_prefix = string
+    name             = string
+    address_prefixes = string
     security_group = optional(string)
     default_outbound_access_enabled = optional(bool, true)
     delegation_blocks = optional(list(object({

@@ -28,7 +28,7 @@ resource "azurerm_virtual_network" "virtual_network" {
     for_each = var.subnet_blocks
     content {
       name                            = subnet.value.name
-      address_prefix                  = subnet.value.address_prefix
+      address_prefixes                = subnet.value.address_prefixes
       security_group                  = subnet.value.security_group
       default_outbound_access_enabled = subnet.value.default_outbound_access_enabled
       dynamic "delegation" {
