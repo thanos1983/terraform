@@ -21,7 +21,7 @@ variable "service_plan_id" {
 variable "site_config_block" {
   description = "A site_config block as defined below."
   type = object({
-    always_on = optional(bool, false)
+    always_on = optional(bool)
     api_definition_url = optional(string)
     api_management_api_id = optional(string)
     app_command_line = optional(string)
@@ -36,7 +36,7 @@ variable "site_config_block" {
         registry_username = optional(string)
         registry_password = optional(string)
       })), [])
-      dotnet_version = optional(string, "v8.0")
+      dotnet_version = optional(string)
       python_version = optional(string)
       use_dotnet_isolated_runtime = optional(bool)
       java_version = optional(string)
