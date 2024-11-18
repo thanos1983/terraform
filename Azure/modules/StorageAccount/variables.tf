@@ -108,7 +108,7 @@ variable "shared_access_key_enabled" {
     condition = contains(["true", "false"], lower(tostring(var.shared_access_key_enabled)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
-  default = false
+  default = true
 }
 
 variable "public_network_access_enabled" {
