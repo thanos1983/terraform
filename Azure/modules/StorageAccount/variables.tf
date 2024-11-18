@@ -98,7 +98,7 @@ variable "allow_nested_items_to_be_public" {
     condition = contains(["true", "false"], lower(tostring(var.allow_nested_items_to_be_public)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
-  default = false
+  default = true
 }
 
 variable "shared_access_key_enabled" {
