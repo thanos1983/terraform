@@ -66,10 +66,10 @@ variable "client_certificate_enabled" {
 variable "delegation_block" {
   description = "A delegation block as defined below."
   type = object({
-    subscriptions_enabled     = optional(bool)
+    subscriptions_enabled = optional(bool)
     user_registration_enabled = optional(bool)
-    url                       = optional(string)
-    validation_key            = optional(string)
+    url = optional(string)
+    validation_key = optional(string)
   })
   default = null
 }
@@ -111,7 +111,45 @@ variable "hostname_configuration_block" {
   description = "A hostname_configuration block as defined below."
   type = object({
     management_blocks = optional(list(object({
-      
+      host_name = string
+      key_vault_id = optional(string)
+      certificate = optional(string)
+      certificate_password = optional(string)
+      negotiate_client_certificate = optional(bool)
+      ssl_keyvault_identity_client_id = optional(string)
+    })), [])
+    portal_blocks = optional(list(object({
+      host_name = string
+      key_vault_id = optional(string)
+      certificate = optional(string)
+      certificate_password = optional(string)
+      negotiate_client_certificate = optional(bool)
+      ssl_keyvault_identity_client_id = optional(string)
+    })), [])
+    developer_portal_blocks = optional(list(object({
+      host_name = string
+      key_vault_id = optional(string)
+      certificate = optional(string)
+      certificate_password = optional(string)
+      negotiate_client_certificate = optional(bool)
+      ssl_keyvault_identity_client_id = optional(string)
+    })), [])
+    proxy_blocks = optional(list(object({
+      default_ssl_binding = optional(bool)
+      host_name = string
+      key_vault_id = optional(string)
+      certificate = optional(string)
+      certificate_password = optional(string)
+      negotiate_client_certificate = optional(bool)
+      ssl_keyvault_identity_client_id = optional(string)
+    })), [])
+    scm_blocks = optional(list(object({
+      host_name = string
+      key_vault_id = optional(string)
+      certificate = optional(string)
+      certificate_password = optional(string)
+      negotiate_client_certificate = optional(bool)
+      ssl_keyvault_identity_client_id = optional(string)
     })), [])
   })
   default = null
@@ -126,7 +164,7 @@ variable "notification_sender_email" {
 variable "protocols_block" {
   description = "A protocols block as defined below."
   type = object({
-
+    enable_http2 = optional(bool)
   })
   default = null
 }
@@ -134,7 +172,23 @@ variable "protocols_block" {
 variable "security_block" {
   description = "A security block as defined below."
   type = object({
-
+    enable_backend_ssl30 = optional(bool)
+    enable_backend_tls10 = optional(bool)
+    enable_backend_tls11 = optional(bool)
+    enable_frontend_ssl30 = optional(bool)
+    enable_frontend_tls10 = optional(bool)
+    enable_frontend_tls11 = optional(bool)
+    tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool)
+    tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool)
+    tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool)
+    tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool)
+    tls_rsa_with_aes128_cbc_sha256_ciphers_enabled = optional(bool)
+    tls_rsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool)
+    tls_rsa_with_aes128_gcm_sha256_ciphers_enabled = optional(bool)
+    tls_rsa_with_aes256_gcm_sha384_ciphers_enabled = optional(bool)
+    tls_rsa_with_aes256_cbc_sha256_ciphers_enabled = optional(bool)
+    tls_rsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool)
+    triple_des_ciphers_enabled = optional(bool)
   })
   default = null
 }
@@ -142,7 +196,7 @@ variable "security_block" {
 variable "sign_in_block" {
   description = "A sign_in block as defined below."
   type = object({
-
+    enabled = bool
   })
   default = null
 }
@@ -150,7 +204,12 @@ variable "sign_in_block" {
 variable "sign_up_block" {
   description = "A sign_up block as defined below."
   type = object({
-
+    enabled = bool
+    terms_of_service_block = optional(object({
+      consent_required = bool
+      enabled          = bool
+      text = optional(string)
+    }), null)
   })
   default = null
 }
@@ -158,7 +217,7 @@ variable "sign_up_block" {
 variable "tenant_access_block" {
   description = "A tenant_access block as defined below."
   type = object({
-
+    enabled = bool
   })
   default = null
 }
@@ -170,7 +229,7 @@ variable "public_ip_address_id" {
 }
 
 variable "public_network_access_enabled" {
-  description = ""
+  description = "Is public access to the service allowed?"
   type        = bool
   validation {
     condition = contains(["true", "false"], lower(tostring(var.public_network_access_enabled)))
@@ -192,7 +251,7 @@ variable "virtual_network_type" {
 variable "virtual_network_configuration_block" {
   description = "A virtual_network_configuration block as defined below."
   type = object({
-
+    subnet_id = string
   })
   default = null
 }
@@ -206,10 +265,10 @@ variable "tags" {
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
-    create = optional(number, 30)
-    read = optional(number, 5)
-    update = optional(number, 30)
-    delete = optional(number, 30)
+    create = optional(number)
+    read = optional(number)
+    update = optional(number)
+    delete = optional(number)
   })
   default = null
 }
