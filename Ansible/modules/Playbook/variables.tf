@@ -21,7 +21,7 @@ variable "check_mode" {
     condition = contains(["true", "false"], lower(tostring(var.check_mode)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
-  default = true
+  default = false
 }
 
 variable "diff_mode" {
@@ -31,7 +31,7 @@ variable "diff_mode" {
     condition = contains(["true", "false"], lower(tostring(var.diff_mode)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
-  default = true
+  default = false
 }
 
 variable "extra_vars" {
@@ -55,7 +55,11 @@ variable "groups" {
 variable "ignore_playbook_failure" {
   description = "This parameter is good for testing."
   type        = bool
-  default     = false
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.ignore_playbook_failure)))
+    error_message = "Possible values can be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "limit" {
@@ -67,7 +71,11 @@ variable "limit" {
 variable "replayable" {
   description = "If 'true', the playbook will be executed on every 'terraform apply' and with that, the resource will be recreated."
   type        = bool
-  default     = false
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.replayable)))
+    error_message = "Possible values can be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "tags" {
