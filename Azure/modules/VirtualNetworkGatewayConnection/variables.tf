@@ -124,13 +124,13 @@ variable "express_route_gateway_bypass" {
 variable "egress_nat_rule_ids" {
   description = "A list of the egress NAT Rule Ids."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "ingress_nat_rule_ids" {
   description = "A list of the ingress NAT Rule Ids."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "use_policy_based_traffic_selectors" {

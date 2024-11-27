@@ -6,7 +6,7 @@ variable "yaml_body" {
 variable "sensitive_fields" {
   description = "List of fields (dot-syntax) which are sensitive and should be obfuscated in output."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "force_new" {
@@ -58,7 +58,7 @@ variable "apply_only" {
 variable "ignore_fields" {
   description = "List of map fields to ignore when applying the manifest."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "override_namespace" {

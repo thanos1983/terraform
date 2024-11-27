@@ -51,7 +51,7 @@ variable "customer_managed_key_block" {
 variable "fqdns" {
   description = "List of FQDNs allowed for the Cognitive Account."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "identity_block" {

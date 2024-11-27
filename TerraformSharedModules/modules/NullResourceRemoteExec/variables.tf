@@ -119,5 +119,5 @@ variable "quiet" {
 variable "inline" {
   description = "This is a list of command strings. The provisioner uses a default shell unless you specify a shell as the first command (eg., #!/bin/bash)."
   type        = list(string)
-  default     = null
+  default     = []
 }

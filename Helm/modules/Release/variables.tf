@@ -213,7 +213,7 @@ variable "wait_for_jobs" {
 variable "values" {
   description = "List of values in raw yaml to pass to helm."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "set_blocks" {

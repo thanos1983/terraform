@@ -40,7 +40,7 @@ variable "source_port_range" {
 variable "source_port_ranges" {
   description = "List of source ports or port ranges."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "destination_port_range" {
@@ -52,7 +52,7 @@ variable "destination_port_range" {
 variable "destination_port_ranges" {
   description = "List of destination ports or port ranges."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "source_address_prefix" {
@@ -64,13 +64,13 @@ variable "source_address_prefix" {
 variable "source_address_prefixes" {
   description = "List of source address prefixes."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "source_application_security_group_ids" {
   description = "A List of source Application Security Group IDs."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "destination_address_prefix" {
@@ -82,13 +82,13 @@ variable "destination_address_prefix" {
 variable "destination_address_prefixes" {
   description = "List of destination address prefixes."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "destination_application_security_group_ids" {
   description = "A List of destination Application Security Group IDs."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "access" {

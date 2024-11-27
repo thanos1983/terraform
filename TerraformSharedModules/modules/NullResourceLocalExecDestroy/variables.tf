@@ -31,7 +31,7 @@ variable "working_dir" {
 variable "interpreter" {
   description = "If provided, this is a list of interpreter arguments used to execute the command."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "environment" {

@@ -16,7 +16,7 @@ variable "location" {
 variable "address_space" {
   description = "The list of string CIDRs representing the address spaces the gateway exposes."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "bgp_settings_block" {

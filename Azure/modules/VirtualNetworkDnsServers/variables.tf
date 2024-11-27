@@ -6,5 +6,5 @@ variable "virtual_network_id" {
 variable "dns_servers" {
   description = "List of IP addresses of DNS servers"
   type        = list(string)
-  default     = null
+  default     = []
 }

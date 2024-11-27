@@ -33,7 +33,7 @@ variable "load_balancer_frontend_ip_configuration_ids" {
 variable "auto_approval_subscription_ids" {
   description = "A list of Subscription UUID/GUID's that will be automatically be able to use this Private Link Service."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "enable_proxy_protocol" {
@@ -49,13 +49,13 @@ variable "enable_proxy_protocol" {
 variable "fqdns" {
   description = "List of FQDNs allowed for the Private Link Service."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "visibility_subscription_ids" {
   description = "A list of Subscription UUID/GUID's that will be able to see this Private Link Service."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "tags" {

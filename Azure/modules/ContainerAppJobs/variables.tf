@@ -165,7 +165,7 @@ variable "ignore_casing" {
 variable "ignore_body_changes" {
   description = "A list of properties that should be ignored when comparing the body with its current state."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "ignore_missing_property" {
