@@ -26,7 +26,7 @@ variable "allocation_method" {
 variable "zones" {
   description = "A collection containing the availability zone to allocate the Public IP in."
   type        = list(string)
-  default     = []
+  default     = null
 }
 
 variable "ddos_protection_mode" {
