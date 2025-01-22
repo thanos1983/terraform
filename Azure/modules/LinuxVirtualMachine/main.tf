@@ -53,7 +53,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   admin_password = (var.admin_password == null && var.disable_password_authentication == false) ? module.password[0].result : var.admin_password
 
   dynamic "admin_ssh_key" {
-    for_each = var.admin_ssh_key_block[*]
+    for_each = var.admin_ssh_key_blocks
     content {
       public_key = admin_ssh_key.value.public_key
       username   = admin_ssh_key.value.username
@@ -119,7 +119,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   proximity_placement_group_id = var.proximity_placement_group_id
 
   dynamic "secret" {
-    for_each = var.secret_block[*]
+    for_each = var.secret_blocks
     content {
       dynamic "certificate" {
         for_each = secret.value.certificate_blocks

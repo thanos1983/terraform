@@ -1,7 +1,6 @@
-variable "admin_username" {
-  description = "The username of the local administrator used for the Virtual Machine."
+variable "name" {
+  description = "The name of the Windows Virtual Machine."
   type        = string
-  default     = "adminuser"
 }
 
 variable "location" {
@@ -9,20 +8,58 @@ variable "location" {
   type        = string
 }
 
-variable "license_type" {
-  description = "Specifies the BYOL Type for this Virtual Machine."
-  type        = string
-  default     = null
-}
-
-variable "name" {
-  description = "The name of the Windows Virtual Machine."
+variable "resource_group_name" {
+  description = "The name of the Resource Group in which the Windows Virtual Machine should be exist."
   type        = string
 }
 
-variable "network_interface_ids" {
-  description = "A list of Network Interface IDs which should be attached to this Virtual Machine."
-  type = list(string)
+variable "admin_username" {
+  description = "The username of the local administrator used for the Virtual Machine."
+  type        = string
+  default     = "adminuser"
+}
+
+variable "instances" {
+  description = "The number of Virtual Machines in the Scale Set."
+  type        = number
+  default     = 0
+}
+
+variable "sku" {
+  description = "The Virtual Machine SKU for the Scale Set, such as Standard_F2."
+  type        = string
+}
+
+variable "network_interface_blocks" {
+  description = "One or more network_interface blocks as defined below."
+  type = list(object({
+    name = string
+    ip_configuration_blocks = list(object({
+      name = string
+      application_gateway_backend_address_pool_ids = optional(list(string), [])
+      application_security_group_ids = optional(list(string), [])
+      load_balancer_backend_address_pool_ids = optional(list(string), [])
+      load_balancer_inbound_nat_rules_ids = optional(list(string), [])
+      primary = optional(bool, false)
+      public_ip_address_block = optional(object({
+        name = string
+        domain_name_label = optional(string, null)
+        idle_timeout_in_minutes = optional(number, 4)
+        ip_tag_block = optional(object({
+          tag  = string
+          type = string
+        }), null)
+        public_ip_prefix_id = optional(string, null)
+        version = optional(string, "IPv4")
+      }), null)
+      subnet_id = optional(string, null)
+      version = optional(string, "IPv4")
+    }))
+    dns_servers = optional(list(string), [])
+    enable_accelerated_networking = optional(bool, false)
+    enable_ip_forwarding = optional(bool, false)
+    primary = optional(bool, false)
+  }))
 }
 
 variable "os_disk_block" {
@@ -36,27 +73,16 @@ variable "os_disk_block" {
     }), null)
     disk_encryption_set_id = optional(string)
     disk_size_gb = optional(number)
-    name = optional(string)
     secure_vm_disk_encryption_set_id = optional(string)
     security_encryption_type = optional(string)
     write_accelerator_enabled = optional(string)
   })
 }
 
-variable "resource_group_name" {
-  description = "The name of the Resource Group in which the Windows Virtual Machine should be exist."
-  type        = string
-}
-
-variable "size" {
-  description = "The SKU which should be used for this Virtual Machine, such as Standard_F2."
-  type        = string
-}
-
 variable "additional_capabilities_block" {
   description = "A additional_capabilities block."
   type = object({
-    ultra_ssd_enabled = optional(bool)
+    ultra_ssd_enabled = optional(bool, false)
   })
   default = null
 }
@@ -76,22 +102,23 @@ variable "admin_ssh_key_blocks" {
   default = []
 }
 
-variable "allow_extension_operations" {
-  description = "Should Extension Operations be allowed on this Virtual Machine?"
-  type        = bool
-  validation {
-    condition = contains([
-      "True", "False"
-    ], tostring(title(var.allow_extension_operations)))
-    error_message = "Possible values can only be \"True\" or \"False\"."
-  }
-  default = true
+variable "automatic_os_upgrade_policy_block" {
+  description = "An automatic_os_upgrade_policy block as defined below."
+  type = object({
+    disable_automatic_rollback  = bool
+    enable_automatic_os_upgrade = bool
+  })
+  default = null
 }
 
-variable "availability_set_id" {
-  description = "Specifies the ID of the Availability Set in which the Virtual Machine should exist."
-  type        = string
-  default     = null
+variable "automatic_instance_repair_block" {
+  description = "An automatic_os_upgrade_policy block as defined below."
+  type = object({
+    enabled = bool
+    grace_period = optional(string, "PT10M")
+    action = optional(string)
+  })
+  default = null
 }
 
 variable "boot_diagnostics_block" {
@@ -108,8 +135,8 @@ variable "capacity_reservation_group_id" {
   default     = null
 }
 
-variable "computer_name" {
-  description = "Specifies the Hostname which should be used for this Virtual Machine."
+variable "computer_name_prefix" {
+  description = "The prefix which should be used for the name of the Virtual Machines in this Scale Set."
   type        = string
   default     = null
 }
@@ -120,16 +147,21 @@ variable "custom_data" {
   default     = null
 }
 
-variable "dedicated_host_id" {
-  description = "The ID of a Dedicated Host where this machine should be run on."
-  type        = string
-  default     = null
-}
-
-variable "dedicated_host_group_id" {
-  description = "The ID of a Dedicated Host Group that this Windows Virtual Machine should be run within."
-  type        = string
-  default     = null
+variable "data_disk_blocks" {
+  description = "One or more data_disk blocks as defined below."
+  type = list(object({
+    name = optional(string, null)
+    caching              = string
+    create_option = optional(string, "Empty")
+    disk_size_gb         = number
+    lun                  = number
+    storage_account_type = string
+    disk_encryption_set_id = optional(string, null)
+    ultra_ssd_disk_iops_read_write = optional(string, null)
+    ultra_ssd_disk_mbps_read_write = optional(string, null)
+    write_accelerator_enabled = optional(bool, false)
+  }))
+  default = []
 }
 
 variable "disable_password_authentication" {
@@ -142,10 +174,14 @@ variable "disable_password_authentication" {
   default = true
 }
 
-variable "disk_controller_type" {
-  description = "Specifies the Disk Controller Type used for this Virtual Machine."
-  type        = string
-  default     = null
+variable "do_not_run_extensions_on_overprovisioned_machines" {
+  description = "Should Virtual Machine Extensions be run on Overprovisioned Virtual Machines in the Scale Set?"
+  type        = bool
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.do_not_run_extensions_on_overprovisioned_machines)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "edge_zone" {
@@ -164,16 +200,47 @@ variable "encryption_at_host_enabled" {
   default = false
 }
 
-variable "eviction_policy" {
-  description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance."
-  type        = string
-  default     = null
+variable "extension_blocks" {
+  description = "One or more extension blocks as defined below."
+  type = list(object({
+    name                 = string
+    publisher            = string
+    type                 = string
+    type_handler_version = string
+    auto_upgrade_minor_version = optional(bool, true)
+    automatic_upgrade_enabled = optional(bool, false)
+    force_update_tag = optional(string, null)
+    protected_settings = optional(string, null)
+    protected_settings_from_key_vault_block = optional(object({
+      secret_url      = string
+      source_vault_id = string
+    }), null)
+    provision_after_extensions = optional(list(string), [])
+    settings = optional(string, null)
+  }))
+  default = []
+}
+
+variable "extension_operations_enabled" {
+  description = "Should extension operations be allowed on the Virtual Machine Scale Set?"
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.extension_operations_enabled)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  type    = bool
+  default = true
 }
 
 variable "extensions_time_budget" {
   description = "Specifies the duration allocated for all extensions to start. The time duration should be between 15 minutes and 120 minutes (inclusive) and should be specified in ISO 8601 format. Defaults to 90 minutes (PT1H30M)."
   type        = string
   default     = "PT1H30M"
+}
+
+variable "eviction_policy" {
+  description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance."
+  type        = string
+  default     = null
 }
 
 variable "gallery_application_blocks" {
@@ -187,6 +254,18 @@ variable "gallery_application_blocks" {
   default = []
 }
 
+variable "health_probe_id" {
+  description = "The ID of a Load Balancer Probe which should be used to determine the health of an instance."
+  type        = string
+  default     = null
+}
+
+variable "host_group_id" {
+  description = "Specifies the ID of the dedicated host group that the virtual machine scale set resides in."
+  type        = string
+  default     = null
+}
+
 variable "identity_block" {
   description = "An identity block as defined below."
   type = object({
@@ -198,34 +277,20 @@ variable "identity_block" {
   }
 }
 
-variable "patch_assessment_mode" {
-  description = "Specifies the mode of VM Guest Patching for the Virtual Machine."
-  type        = string
-  validation {
-    condition = contains([
-      "AutomaticByPlatform", "ImageDefault"
-    ], title(var.patch_assessment_mode))
-    error_message = "Possible values can only be \"AutomaticByPlatform\" or \"ImageDefault\"."
-  }
-  default = "ImageDefault"
-}
-
-variable "patch_mode" {
-  description = "Specifies the mode of in-guest patching to this Linux Virtual Machine."
-  type        = string
-  validation {
-    condition = contains([
-      "AutomaticByPlatform", "ImageDefault"
-    ], title(var.patch_mode))
-    error_message = "Possible values can only be \"AutomaticByPlatform\" or \"ImageDefault\"."
-  }
-  default = "ImageDefault"
-}
-
 variable "max_bid_price" {
   description = "The maximum price you're willing to pay for this Virtual Machine, in US Dollars; which must be greater than the current spot price."
   type        = string
   default     = "-1"
+}
+
+variable "overprovision" {
+  description = "Should Azure over-provision Virtual Machines in this Scale Set?"
+  type        = bool
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.overprovision)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = true
 }
 
 variable "plan_block" {
@@ -238,9 +303,9 @@ variable "plan_block" {
   default = null
 }
 
-variable "platform_fault_domain" {
+variable "platform_fault_domain_count" {
   description = "Specifies the Platform Fault Domain in which this Windows Virtual Machine should be created."
-  type        = string
+  type        = number
   default     = null
 }
 
@@ -248,9 +313,7 @@ variable "priority" {
   description = "Specifies the priority of this Virtual Machine."
   type        = string
   validation {
-    condition = contains([
-      "Regular", "Spot"
-    ], title(var.priority))
+    condition = contains(["Regular", "Spot"], title(var.priority))
     error_message = "Possible values can only be \"Regular\" or \"Spot\"."
   }
   default = "Regular"
@@ -260,9 +323,7 @@ variable "provision_vm_agent" {
   description = "Should the Azure VM Agent be provisioned on this Virtual Machine?"
   type        = bool
   validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.provision_vm_agent)))
+    condition = contains(["true", "false"], lower(tostring(var.provision_vm_agent)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
   default = true
@@ -272,6 +333,29 @@ variable "proximity_placement_group_id" {
   description = "The ID of the Proximity Placement Group which the Virtual Machine should be assigned to."
   type        = string
   default     = null
+}
+
+variable "rolling_upgrade_policy_block" {
+  description = "A rolling_upgrade_policy block as defined below."
+  type = object({
+    cross_zone_upgrades_enabled = optional(bool, false)
+    max_batch_instance_percent              = number
+    max_unhealthy_instance_percent          = number
+    max_unhealthy_upgraded_instance_percent = number
+    pause_time_between_batches              = string
+    prioritize_unhealthy_instances_enabled = optional(bool, true)
+    maximum_surge_instances_enabled = optional(bool, true)
+  })
+  default = null
+}
+
+variable "scale_in_block" {
+  description = "A scale_in block as defined below."
+  type = object({
+    rule = optional(string, "Default")
+    force_deletion_enabled = optional(bool, false)
+  })
+  default = null
 }
 
 variable "secret_blocks" {
@@ -289,12 +373,20 @@ variable "secure_boot_enabled" {
   description = "Specifies if Secure Boot and Trusted Launch is enabled for the Virtual Machine."
   type        = bool
   validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.secure_boot_enabled)))
+    condition = contains(["true", "false"], lower(tostring(var.secure_boot_enabled)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
   default = false
+}
+
+variable "single_placement_group" {
+  description = "Should this Virtual Machine Scale Set be limited to a Single Placement Group, which means the number of instances will be capped at 100 Virtual Machines."
+  type        = bool
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.single_placement_group)))
+    error_message = "Possible values can only be \"true\" or \"false\"."
+  }
+  default = true
 }
 
 variable "source_image_id" {
@@ -314,6 +406,15 @@ variable "source_image_reference_block" {
   default = null
 }
 
+variable "spot_restore_block" {
+  description = "A spot_restore block as defined below."
+  type = object({
+    enabled = optional(bool, false)
+    timeout = optional(string, "PT1H")
+  })
+  default = null
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type = map(any)
@@ -329,20 +430,20 @@ variable "termination_notification_block" {
   default = null
 }
 
+variable "upgrade_mode" {
+  description = "Specifies how Upgrades (e.g. changing the Image/SKU) should be performed to Virtual Machine Instances."
+  type        = string
+  validation {
+    condition = contains(["Automatic", "Manual", "Rolling"], lower(title(var.upgrade_mode)))
+    error_message = "Possible values can only be \"Automatic\", \"Manual\" or \"Rolling\"."
+  }
+  default = "Manual"
+}
+
 variable "user_data" {
   description = "The Base64-Encoded User Data which should be used for this Virtual Machine."
   type        = string
   default     = null
-}
-
-variable "vm_agent_platform_updates_enabled" {
-  description = "Specifies whether VMAgent Platform Updates is enabled."
-  type        = bool
-  validation {
-    condition = contains(["true", "false"], lower(tostring(var.vm_agent_platform_updates_enabled)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = false
 }
 
 variable "vtpm_enabled" {
@@ -355,16 +456,20 @@ variable "vtpm_enabled" {
   default = false
 }
 
-variable "virtual_machine_scale_set_id" {
-  description = "Specifies the Orchestrated Virtual Machine Scale Set that this Virtual Machine should be created within."
-  type        = string
-  default     = null
+variable "zone_balance" {
+  description = "Should the Virtual Machines in this Scale Set be strictly evenly distributed across Availability Zones?"
+  type        = bool
+  validation {
+    condition = contains(["true", "false"], lower(tostring(var.zone_balance)))
+    error_message = "The variable must be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
-variable "zone" {
-  description = "Specifies the Availability Zone in which this Windows Virtual Machine should be located."
-  type        = string
-  default     = null
+variable "zones" {
+  description = "Specifies a list of Availability Zones in which this Linux Virtual Machine Scale Set should be located."
+  type = list(string)
+  default = []
 }
 
 variable "length" {
@@ -480,12 +585,6 @@ variable "offer" {
   description = "Specifies the offer of the image used to create the virtual machines. "
   type        = string
   default     = "WindowsServer"
-}
-
-variable "sku" {
-  description = "Specifies the SKU of the image used to create the virtual machines. "
-  type        = string
-  default     = "2022-datacenter-azure-edition"
 }
 
 variable "image_reference_version" {
