@@ -434,7 +434,7 @@ variable "upgrade_mode" {
   description = "Specifies how Upgrades (e.g. changing the Image/SKU) should be performed to Virtual Machine Instances."
   type        = string
   validation {
-    condition = contains(["Automatic", "Manual", "Rolling"], lower(title(var.upgrade_mode)))
+    condition = contains(["Automatic", "Manual", "Rolling"], title(var.upgrade_mode))
     error_message = "Possible values can only be \"Automatic\", \"Manual\" or \"Rolling\"."
   }
   default = "Manual"
@@ -546,9 +546,7 @@ variable "caching" {
   description = "The Type of Caching which should be used for the Internal OS Disk."
   type        = string
   validation {
-    condition = contains([
-      "None", "ReadOnly", "ReadWrite"
-    ], title(var.caching))
+    condition = contains(["None", "ReadOnly", "ReadWrite"], title(var.caching))
     error_message = "Kind of account must be \"None\", \"ReadOnly\" or \"ReadWrite\"."
   }
   default = "ReadWrite"
@@ -558,9 +556,7 @@ variable "storage_account_type" {
   description = "The Type of Storage Account which should back this the Internal OS Disk."
   type        = string
   validation {
-    condition = contains([
-      "Standard_LRS", "StandardSSD_LRS", "Premium_LRS"
-    ], title(var.storage_account_type))
+    condition = contains(["Standard_LRS", "StandardSSD_LRS", "Premium_LRS"], title(var.storage_account_type))
     error_message = "Storage account type can only be \"Standard_LRS\", \"StandardSSD_LRS\", \"Premium_LRS\", \"StandardSSD_ZRS\" or \"Premium_ZRS\"."
   }
   default = "Premium_LRS"
