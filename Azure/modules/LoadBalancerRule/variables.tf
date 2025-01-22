@@ -36,7 +36,7 @@ variable "backend_port" {
 variable "backend_address_pool_ids" {
   description = "A list of reference to a Backend Address Pool over which this Load Balancing Rule operates."
   type = list(string)
-  default = []
+  default     = null
 }
 
 variable "probe_id" {
