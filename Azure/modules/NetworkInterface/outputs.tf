@@ -37,3 +37,8 @@ output "virtual_machine_id" {
   description = "The ID of the Virtual Machine which this Network Interface is connected to."
   value       = azurerm_network_interface.network_interface.virtual_machine_id
 }
+
+output "ip_configuration" {
+  description = "The One or more ip_configuration blocks as defined below."
+  value       = azurerm_network_interface.network_interface.ip_configuration
+}
