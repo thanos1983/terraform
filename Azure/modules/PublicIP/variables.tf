@@ -73,7 +73,7 @@ variable "idle_timeout_in_minutes" {
 variable "ip_tags" {
   description = "A mapping of IP tags to assign to the public IP."
   type        = map(any)
-  default     = null
+  default     = {}
 }
 
 variable "ip_version" {
