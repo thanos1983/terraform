@@ -1,65 +1,31 @@
-output "administrator_username" {
+output "admin_username" {
   sensitive   = true
-  description = "The Administrator Username Windows Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.admin_username
+  description = "The admin username of the Linux Virtual Machine Scale Set."
+  value       = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.admin_username
 }
 
-output "administrator_password" {
+output "admin_password" {
   sensitive   = true
-  description = "The Administrator Password Windows Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.admin_password
+  description = "The admin password of the Linux Virtual Machine Scale Set."
+  value       = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.admin_password
 }
 
 output "id" {
-  description = "The ID of the Windows Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.id
+  description = "The ID of the Linux Virtual Machine Scale Set."
+  value       = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.id
 }
 
 output "name" {
-  description = "The Name assigned to this Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.name
+  description = "The name of the Linux Virtual Machine Scale Set."
+  value       = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.name
 }
 
 output "identity" {
   description = "An identity block as defined below, which contains the Managed Service Identity information for this azure resource."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.identity
+  value       = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.identity
 }
 
-output "principal_id" {
-  description = "The Principal ID associated with this Managed Service Identity."
-  value       = flatten([
-    for identity in azurerm_linux_virtual_machine.linux_virtual_machine[*].identity : identity[*].principal_id
-  ])
-}
-
-output "tenant_id" {
-  description = "The Tenant ID associated with this Managed Service Identity."
-  value       = flatten([
-    for identity in azurerm_linux_virtual_machine.linux_virtual_machine[*].identity : identity[*].tenant_id
-  ])
-}
-
-output "private_ip_address" {
-  description = "The Primary Private IP Address assigned to this Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.private_ip_address
-}
-
-output "private_ip_addresses" {
-  description = "A list of Private IP Addresses assigned to this Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.private_ip_addresses
-}
-
-output "public_ip_address" {
-  description = "The Primary Public IP Address assigned to this Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.public_ip_address
-}
-
-output "public_ip_addresses" {
-  description = "A list of the Public IP Addresses assigned to this Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.public_ip_addresses
-}
-
-output "virtual_machine_id" {
-  description = "A 128-bit identifier which uniquely identifies this Virtual Machine."
-  value       = azurerm_linux_virtual_machine.linux_virtual_machine.virtual_machine_id
+output "unique_id" {
+  description = "The Unique ID for this Linux Virtual Machine Scale Set."
+  value       = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.unique_id
 }

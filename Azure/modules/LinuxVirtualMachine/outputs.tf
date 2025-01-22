@@ -1,10 +1,10 @@
-output "administrator_username" {
+output "admin_username" {
   sensitive   = true
   description = "The Administrator Username Windows Virtual Machine."
   value       = azurerm_linux_virtual_machine.linux_virtual_machine.admin_username
 }
 
-output "administrator_password" {
+output "admin_password" {
   sensitive   = true
   description = "The Administrator Password Windows Virtual Machine."
   value       = azurerm_linux_virtual_machine.linux_virtual_machine.admin_password

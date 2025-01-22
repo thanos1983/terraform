@@ -295,7 +295,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_
   }
 }
 
-module "aaDSSHLoginForLinux" {
+module "addSSHLoginForLinux" {
   source                     = "../VirtualMachineExtension"
   count                      = var.aaDSSHLoginForLinux == false ? 0 : 1
   name                       = var.aaDSSHLoginForLinux_name
@@ -303,9 +303,9 @@ module "aaDSSHLoginForLinux" {
   type                       = var.aaDSSHLoginForLinux_type
   auto_upgrade_minor_version = var.auto_upgrade_minor_version
   type_handler_version       = var.type_handler_version
-  virtual_machine_id         = azurerm_linux_virtual_machine.linux_virtual_machine.id
+  virtual_machine_id         = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.id
   depends_on = [
-    azurerm_linux_virtual_machine.linux_virtual_machine
+    azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set
   ]
 }
 
@@ -325,8 +325,8 @@ module "kv_role_assignment_names" {
   count                = var.role_definition_names == [] ? 0 : length(var.role_definition_names)
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_names[count.index]
-  scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
+  scope                = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.id
+  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.identity.0.principal_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -335,8 +335,8 @@ module "kv_role_assignment_ids" {
   count                = var.role_definition_ids == [] ? 0 : length(var.role_definition_ids)
   name                 = var.role_assignment_name
   role_definition_name = var.role_definition_ids[count.index]
-  scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
+  scope                = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.id
+  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.identity.0.principal_id : var.principal_id
 }
 
 module "kv_secret_admin_username" {

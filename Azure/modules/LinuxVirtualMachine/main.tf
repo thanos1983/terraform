@@ -171,7 +171,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   }
 }
 
-module "aaDSSHLoginForLinux" {
+module "addSSHLoginForLinux" {
   source                     = "../VirtualMachineExtension"
   count                      = var.aaDSSHLoginForLinux == false ? 0 : 1
   name                       = var.aaDSSHLoginForLinux_name
