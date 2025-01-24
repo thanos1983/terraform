@@ -1,11 +1,11 @@
-# Assigns a given Principal (User or Group) to a given Role
+# Manages a custom Role Definition
 
 ## Sample of use:
 
 ```bash
-module "azurerm_role_assignment_<project>" {
+module "role_definition_<project>" {
   source  = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_azurerm_role_assignment"
+  name = "my_role_definition"
   .
   .
   .

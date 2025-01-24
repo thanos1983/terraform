@@ -20,6 +20,7 @@ resource "azurerm_role_definition" "role_definition" {
     for_each = var.timeouts_block[*]
     content {
       create = timeouts.value.create
+      update = timeouts.value.update
       read   = timeouts.value.read
       delete = timeouts.value.delete
     }
