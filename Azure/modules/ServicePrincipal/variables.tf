@@ -100,7 +100,7 @@ variable "use_existing" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type        = map(string)
+  type        = set(string)
   default     = null
 }
 
