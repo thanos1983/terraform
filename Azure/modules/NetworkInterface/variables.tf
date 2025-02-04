@@ -69,7 +69,7 @@ variable "accelerated_networking_enabled" {
     condition = contains(["true", "false"], lower(tostring(var.accelerated_networking_enabled)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
-  default = true
+  default = false
 }
 
 variable "internal_dns_name_label" {
