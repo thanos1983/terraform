@@ -20,7 +20,6 @@ module "azapi_connections_<project>" {
 - location (Optional)
 - parent_id (Required)
 - tags (Optional)
-- name (Optional)
 - api (Required)
 - customParameterValues (Optional)
 - displayName (Optional)
