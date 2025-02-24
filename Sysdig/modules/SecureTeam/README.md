@@ -1,12 +1,11 @@
-# Sysdig Secure Notification Channel Email
+# Sysdig Secure Team
 
 ## Sample of use:
 
 ```bash
 module "secure_notification_channel_email_<project>" {
   source     = "git::https://example.com/sysdig_<my_repo>.git"
-  name       = "Example Channel - Email"
-  recipients = ["foo@localhost.com", "bar@localhost.com"]
+  name       = "DevOps team"
   .
   .
   .
@@ -17,12 +16,15 @@ module "secure_notification_channel_email_<project>" {
 
 ```bash
 - name (Required)
-- recipients (Required)
-- enabled (Optional)
-- notify_when_ok (Optional)
-- notify_when_resolved (Optional)
-- send_test_notification (Optional)
-- share_with_current_team (Optional)
+- description (Optional)
+- theme (Optional)
+- scope_by (Optional)
+- filter (Optional)
+- use_sysdig_capture (Optional)
+- default_team (Optional)
+- user_roles_blocks (Optional)
+- zone_ids (Optional)
+- all_zones (Optional)
 ```
 
 ### Output:
@@ -30,6 +32,7 @@ module "secure_notification_channel_email_<project>" {
 ```bash
 - id
 - version
+- name
 ```
 
 ### Provider sysdiglabs/sysdig
@@ -58,4 +61,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_secure_notification_channel_email](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_notification_channel_email)
+###### More information can be found on the official document [sysdig_secure_team](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_team)
