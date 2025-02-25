@@ -6,6 +6,7 @@ variable "name" {
 variable "description" {
   description = "A description of the team."
   type        = string
+  default     = null
 }
 
 variable "theme" {
