@@ -3,20 +3,21 @@ variable "name" {
   type        = string
 }
 
-variable "description" {
-  description = "The description for the managed policy."
+variable "type" {
+  description = "Specifies the type of the runtime policy."
   type        = string
-  default     = null
-}
-
-variable "severity" {
-  description = "The severity of Secure policy."
-  type        = number
-  default     = 7
+  validation {
+    condition = contains([
+      "falco", "list_matching", "k8s_audit", "aws_cloudtrail", "gcp_auditlog", "azure_platformlogs", "awscloudtrail",
+      "okta", "github", "guardduty"
+    ], lower(var.type))
+    error_message = "Possible values can be \"falco\", \"list_matching\", \"k8s_audit\", \"aws_cloudtrail\", \"gcp_auditlog\", \"azure_platformlogs\", \"awscloudtrail\", \"okta\", \"github\" or \"guardduty\"."
+  }
+  default = "falco"
 }
 
 variable "enabled" {
-  description = "Whether the policy is enabled or not."
+  description = "Will secure process with this policy?"
   type        = bool
   default     = false
 }
@@ -33,16 +34,9 @@ variable "scope" {
   default     = null
 }
 
-variable "notification_channels" {
-  description = "IDs of the notification channels to send alerts to when the policy is fired."
-  type = list(string)
-  default = []
-}
-
 variable "actions_blocks" {
   description = "The actions block is optional and supports the following parameters."
   type = list(object({
-    prevent_malware = optional(bool)
     container = optional(string)
     capture_block = optional(object({
       seconds_before_event = number
@@ -56,16 +50,14 @@ variable "actions_blocks" {
   default = []
 }
 
-variable "rule_block" {
-  description = "The rule block is required and supports the following parameters.."
-  type = object({
-    description        = string
-    use_managed_hashes = bool
-    additional_hashes_block = optional(object({
-      hash = string
-    }), null)
-    ignore_hashes_block = optional(object({
-      hash = string
-    }), null)
-  })
+variable "disabled_rules" {
+  description = "Array with the name of the rules in the managed policy to disable."
+  type = list(string)
+  default = []
+}
+
+variable "notification_channels" {
+  description = "IDs of the notification channels to send alerts to when the policy is fired."
+  type = list(string)
+  default = []
 }

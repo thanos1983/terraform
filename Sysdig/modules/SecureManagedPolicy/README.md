@@ -1,11 +1,11 @@
-# Sysdig Secure Malware Policy
+# Sysdig Secure Managed Policy
 
 ## Sample of use:
 
 ```bash
-module "secure_malware_policy_<project>" {
+module "secure_managed_policy_<project>" {
   source     = "git::https://example.com/sysdig_<my_repo>.git"
-  name       = "Write apt database"
+  name       = "Sysdig Runtime Threat Detection"
   .
   .
   .
@@ -16,26 +16,20 @@ module "secure_malware_policy_<project>" {
 
 ```bash
 - name (Required)
-- description (Optional)
-- severity (Optional)
+- type (Optional)
 - enabled (Optional)
 - runbook (Optional)
 - scope (Optional)
-- notification_channels (Optional)
-- rule_block (Optional)
 - actions_blocks (Optional)
+- disabled_rules (Optional)
+- notification_channels (Optional)
 ```
 
 ### Output:
 
 ```bash
 - id
-- description
-- severity
-- enabled
-- runbook
-- scope
-- notification_channels
+- name
 ```
 
 ### Provider sysdiglabs/sysdig
@@ -64,4 +58,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_secure_malware_policy](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_malware_policy)
+###### More information can be found on the official document [sysdig_secure_managed_policy](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_managed_policy)
