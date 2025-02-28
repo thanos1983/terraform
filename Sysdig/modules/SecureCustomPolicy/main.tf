@@ -8,7 +8,7 @@ resource "sysdig_secure_custom_policy" "secure_custom_policy" {
   scope       = var.scope
 
   dynamic "actions" {
-    for_each = var.actions_blocks
+    for_each = var.actions_block[*]
     content {
       container = actions.value.container
       dynamic "capture" {
