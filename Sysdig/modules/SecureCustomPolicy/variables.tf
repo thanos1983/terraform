@@ -61,7 +61,7 @@ variable "actions_block" {
   default = null
 }
 
-variable "rule_blocks" {
+variable "rules_blocks" {
   description = "The rules block can be repeated for each rule in the policy and supports."
   type = list(object({
     name = string

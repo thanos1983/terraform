@@ -26,7 +26,7 @@ resource "sysdig_secure_custom_policy" "secure_custom_policy" {
   }
 
   dynamic "rules" {
-    for_each = var.rule_blocks
+    for_each = var.rules_blocks
     content {
       name    = rules.value.name
       enabled = rules.value.enabled
