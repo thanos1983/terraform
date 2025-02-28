@@ -1,11 +1,11 @@
-# Sysdig Secure Posture Policy
+# Sysdig Secure Container Rule
 
 ## Sample of use:
 
 ```bash
-module "secure_posture_policy_<project>" {
+module "secure_rule_container_<project>" {
   source     = "git::https://example.com/sysdig_<my_repo>.git"
-  name       = "Demo policy"
+  name       = "Demo container spawned"
   .
   .
   .
@@ -16,14 +16,10 @@ module "secure_posture_policy_<project>" {
 
 ```bash
 - name (Required)
-- description (Required)
-- link (Optional)
-- type (Optional)
-- platform (Optional)
-- min_kube_version (Optional)
-- max_kube_version (Optional)
-- target_block (Optional)
-- group_blocks (Optional)
+- description (Optional)
+- tags (Optional)
+- matching (Optional)
+- containers (Required)
 ```
 
 ### Output:
@@ -31,11 +27,13 @@ module "secure_posture_policy_<project>" {
 ```bash
 - id
 - name
+- version
 ```
 
 ### Provider sysdiglabs/sysdig
 
-Since this module is provided by ``sysdiglabs/sysdig`` we need to add the following on ``versions.tf`` and ``provider.tf``.
+Since this module is provided by ``sysdiglabs/sysdig`` we need to add the following on ``versions.tf`` and
+``provider.tf``.
 Sample of ``versions.tf`` file:
 
 ````bash
@@ -59,4 +57,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_secure_posture_policy](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_posture_policy)
+###### More information can be found on the official document [sysdig_secure_rule_container](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_rule_container)
