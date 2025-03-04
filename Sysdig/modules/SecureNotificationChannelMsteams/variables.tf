@@ -5,7 +5,7 @@ variable "name" {
 
 variable "url" {
   description = "URL of the MS Teams webhook."
-  type = string
+  type        = string
 }
 
 variable "enabled" {
@@ -32,8 +32,8 @@ variable "send_test_notification" {
   default     = false
 }
 
-variable "template_version" {
-  description = "The notification template version to use to create notifications."
-  type        = string
-  default     = "v1"
+variable "share_with_current_team" {
+  description = "If set to true it will share notification channel only with current team (in which user is logged in)."
+  type        = bool
+  default     = false
 }

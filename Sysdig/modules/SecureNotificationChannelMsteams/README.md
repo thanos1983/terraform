@@ -22,7 +22,7 @@ module "secure_notification_channel_email_<project>" {
 - notify_when_ok (Optional)
 - notify_when_resolved (Optional)
 - send_test_notification (Optional)
-- template_version (Optional)
+- share_with_current_team (Optional)
 ```
 
 ### Output:
