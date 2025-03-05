@@ -1,9 +1,9 @@
 output "id" {
-  description = "The id for the secure custom policy."
-  value       = sysdig_secure_custom_policy.secure_custom_policy.id
+  description = "The ID of the Silence Rule."
+  value       = sysdig_monitor_silence_rule.monitor_silence_rule.id
 }
 
-output "name" {
-  description = "The name for the secure custom policy."
-  value       = sysdig_secure_custom_policy.secure_custom_policy.name
+output "version" {
+  description = "The current version of the Silence Rule."
+  value       = sysdig_monitor_silence_rule.monitor_silence_rule.version
 }

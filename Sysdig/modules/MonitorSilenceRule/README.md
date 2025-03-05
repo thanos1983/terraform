@@ -1,11 +1,11 @@
-# Sysdig Secure Custom Policy
+# Sysdig Monitor Silence Rule
 
 ## Sample of use:
 
 ```bash
-module "secure_custom_policy_<project>" {
+module "monitor_silence_rule_<project>" {
   source     = "git::https://example.com/sysdig_<my_repo>.git"
-  name       = "Write apt database"
+  name       = "Example Silence Rule"
   .
   .
   .
@@ -16,22 +16,19 @@ module "secure_custom_policy_<project>" {
 
 ```bash
 - name (Required)
-- description (Required)
-- severity (Optional)
 - enabled (Optional)
-- type (Optional)
-- runbook (Optional)
+- start_ts (Required)
+- duration_seconds (Required)
 - scope (Optional)
-- actions_blocks (Optional)
-- rule_blocks (Optional)
-- notification_channels (Optional)
+- alert_ids (Optional)
+- notification_channel_ids (Optional)
 ```
 
 ### Output:
 
 ```bash
 - id
-- name
+- version
 ```
 
 ### Provider sysdiglabs/sysdig
@@ -60,4 +57,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_secure_custom_policy](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_custom_policy)
+###### More information can be found on the official document [sysdig_monitor_silence_rule](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/monitor_silence_rule)
