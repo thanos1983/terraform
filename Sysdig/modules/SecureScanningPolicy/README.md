@@ -17,7 +17,7 @@ module "secure_scanning_policy_<project>" {
 ```bash
 - name (Required)
 - comment (Required)
-- rules_blocks (Optional)
+- rules_blocks (Required)
 ```
 
 ### Output:
