@@ -19,5 +19,4 @@ variable "rules_blocks" {
     }))
     action = string
   }))
-  default = []
 }
