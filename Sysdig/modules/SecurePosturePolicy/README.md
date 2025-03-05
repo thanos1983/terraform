@@ -44,7 +44,7 @@ terraform {
   required_providers {
     sysdig = {
       source = "sysdiglabs/sysdig"
-      version = "1.46.0"
+      version = "1.47.0"
     }
   }
   backend "azurerm" {}

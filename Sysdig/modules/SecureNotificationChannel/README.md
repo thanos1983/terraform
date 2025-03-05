@@ -1,11 +1,11 @@
-# Sysdig User
+# Sysdig Secure Managed Ruleset
 
 ## Sample of use:
 
 ```bash
-module "user_<project>" {
+module "secure_managed_ruleset_<project>" {
   source     = "git::https://example.com/sysdig_<my_repo>.git"
-  email      = "foo.bar@example.com"
+  name       = "Sysdig Runtime Threat Detection - Managed Ruleset"
   .
   .
   .
@@ -15,18 +15,24 @@ module "user_<project>" {
 ### Variables:
 
 ```bash
-- email (Required)
-- system_role (Optional)
-- first_name (Optional)
-- last_name (Optional)
+- name (Required)
+- description (Required)
+- severity (Optional)
+- enabled (Optional)
+- type (Optional)
+- runbook (Optional)
+- inherited_from_block (Required)
+- scope (Optional)
+- actions_blocks (Optional)
+- disabled_rules (Optional)
+- notification_channels (Optional)
 ```
 
 ### Output:
 
 ```bash
-- email
-- first_name
-- last_name
+- id
+- name
 ```
 
 ### Provider sysdiglabs/sysdig
@@ -55,4 +61,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_user](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/user)
+###### More information can be found on the official document [sysdig_secure_managed_ruleset](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/secure_managed_ruleset)
