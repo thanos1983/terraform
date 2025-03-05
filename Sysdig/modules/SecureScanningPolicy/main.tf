@@ -11,7 +11,7 @@ resource "sysdig_secure_scanning_policy" "secure_scanning_policy" {
         for_each = rules.value.params_blocks
         content {
           name  = params.value.name
-          value = params.value.name
+          value = params.value.value
         }
       }
       action = rules.value.action
