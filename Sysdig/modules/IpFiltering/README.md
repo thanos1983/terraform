@@ -1,11 +1,11 @@
-# Sysdig User
+# Sysdig IP Filtering
 
 ## Sample of use:
 
 ```bash
-module "user_<project>" {
-  source = "git::https://example.com/sysdig_<my_repo>.git"
-  email  = "foo.bar@example.com"
+module "ip_filter_<project>" {
+  source   = "git::https://example.com/sysdig_<my_repo>.git"
+  ip_range = "192.168.100.0/24"
   .
   .
   .
@@ -15,18 +15,16 @@ module "user_<project>" {
 ### Variables:
 
 ```bash
-- email (Required)
-- system_role (Optional)
-- first_name (Optional)
-- last_name (Optional)
+- ip_range (Required)
+- enabled (Required)
+- note (Optional)
 ```
 
 ### Output:
 
 ```bash
-- email
-- first_name
-- last_name
+- id
+- group_name
 ```
 
 ### Provider sysdiglabs/sysdig
@@ -55,4 +53,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_user](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/user)
+###### More information can be found on the official document [sysdig_ip_filter](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/ip_filter)
