@@ -109,7 +109,6 @@ variable "metric" {
 variable "threshold" {
   description = "Below of this percentage of downtime the alert will be triggered."
   type        = number
-  default     = 100
 }
 
 variable "unreported_alert_notifications_retention_seconds" {
