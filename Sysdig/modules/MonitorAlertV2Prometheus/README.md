@@ -1,11 +1,11 @@
-# Sysdig Monitor Alert V2 Downtime
+# Sysdig Monitor Alert V2 Prometheus
 
 ## Sample of use:
 
 ```bash
-module "monitor_alert_v2_downtime_<project>" {
+module "monitor_alert_v2_prometheus_<project>" {
   source = "git::https://example.com/sysdig_<my_repo>.git"
-  name   = "Process Down"
+  name   = "Elasticsearch JVM heap usage"
   .
   .
   .
@@ -17,7 +17,7 @@ module "monitor_alert_v2_downtime_<project>" {
 ```bash
 - name (Required)
 - description (Optional)
-- range_seconds (Optional)
+- duration_seconds (Optional)
 - group (Optional)
 - severity (Optional)
 - enabled (Optional)
@@ -25,12 +25,8 @@ module "monitor_alert_v2_downtime_<project>" {
 - custom_notification_block (Optional)
 - link_blocks (Optional)
 - labels (Optional)
-- capture_block (Optional)
-- scope_blocks (Optional)
-- group_by (Optional)
-- metric (Required)
-- threshold (Required)
-- unreported_alert_notifications_retention_seconds (Optional)
+- query (Required)
+- keep_firing_for_minutes (Optional)
 ```
 
 ### Output:
@@ -67,4 +63,4 @@ $ cat provider.tf
 provider "sysdig" {}
 ````
 
-###### More information can be found on the official document [sysdig_monitor_alert_v2_downtime](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/monitor_alert_v2_downtime)
+###### More information can be found on the official document [sysdig_monitor_alert_v2_prometheus](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest/docs/resources/monitor_alert_v2_prometheus)
