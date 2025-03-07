@@ -22,7 +22,7 @@ module "secure_custom_policy_<project>" {
 - type (Optional)
 - runbook (Optional)
 - scope (Optional)
-- actions_blocks (Optional)
+- actions_block (Optional)
 - rule_blocks (Optional)
 - notification_channels (Optional)
 ```

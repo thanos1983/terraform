@@ -57,9 +57,9 @@ variable "scope" {
   default     = null
 }
 
-variable "actions_blocks" {
+variable "actions_block" {
   description = "The actions block is optional and supports the following parameters."
-  type = list(object({
+  type = object({
     container = optional(string)
     capture_block = optional(object({
       seconds_before_event = number
@@ -69,8 +69,8 @@ variable "actions_blocks" {
       bucket_name = optional(string)
       folder = optional(string)
     }), null)
-  }))
-  default = []
+  })
+  default = null
 }
 
 variable "disabled_rules" {

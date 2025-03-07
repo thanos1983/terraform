@@ -17,7 +17,7 @@ resource "sysdig_secure_managed_ruleset" "secure_managed_ruleset" {
   scope = var.scope
 
   dynamic "actions" {
-    for_each = var.actions_blocks
+    for_each = var.actions_block[*]
     content {
       container = actions.value.container
       dynamic "capture" {

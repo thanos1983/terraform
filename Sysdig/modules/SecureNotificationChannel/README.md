@@ -23,7 +23,7 @@ module "secure_managed_ruleset_<project>" {
 - runbook (Optional)
 - inherited_from_block (Required)
 - scope (Optional)
-- actions_blocks (Optional)
+- actions_block (Optional)
 - disabled_rules (Optional)
 - notification_channels (Optional)
 ```

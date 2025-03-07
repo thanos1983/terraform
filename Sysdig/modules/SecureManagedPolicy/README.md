@@ -20,7 +20,7 @@ module "secure_managed_policy_<project>" {
 - enabled (Optional)
 - runbook (Optional)
 - scope (Optional)
-- actions_blocks (Optional)
+- actions_block (Optional)
 - disabled_rules (Optional)
 - notification_channels (Optional)
 ```
