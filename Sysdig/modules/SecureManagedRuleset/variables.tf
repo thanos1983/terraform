@@ -24,19 +24,6 @@ variable "enabled" {
   default     = true
 }
 
-variable "type" {
-  description = "Specifies the type of the runtime policy."
-  type        = string
-  validation {
-    condition = contains([
-      "falco", "list_matching", "k8s_audit", "aws_cloudtrail", "gcp_auditlog", "azure_platformlogs", "awscloudtrail",
-      "okta", "github", "guardduty"
-    ], lower(var.type))
-    error_message = "Possible values can be \"falco\", \"list_matching\", \"k8s_audit\", \"aws_cloudtrail\", \"gcp_auditlog\", \"azure_platformlogs\", \"awscloudtrail\", \"okta\", \"github\" or \"guardduty\"."
-  }
-  default = "falco"
-}
-
 variable "runbook" {
   description = "Customer provided url that provides a runbook for a given policy."
   type        = string

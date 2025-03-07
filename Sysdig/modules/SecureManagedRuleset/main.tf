@@ -3,7 +3,6 @@ resource "sysdig_secure_managed_ruleset" "secure_managed_ruleset" {
   description = var.description
   severity    = var.severity
   enabled     = var.enabled
-  type        = var.type
   runbook     = var.runbook
 
   dynamic "inherited_from" {
