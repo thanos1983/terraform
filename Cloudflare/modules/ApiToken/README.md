@@ -6,7 +6,7 @@
 module "cloudflare_api_token_<project>" {
   source        = "git::https://example.com/cloudflare_api_token_<my_repo>.git"
   name          = "readonly token"
-  policies_blocks = [
+  policies = [
     {
       effect = "allow" 
       permission_groups_blocks = [
@@ -16,7 +16,7 @@ module "cloudflare_api_token_<project>" {
         "com.cloudflare.api.account.zone.*" = "*"
       }
     }
-  ]
+  ]s
 }
 ```
 
@@ -24,8 +24,8 @@ module "cloudflare_api_token_<project>" {
 
 ```bash
 - name (Required)
-- policies_blocks (Required)
-- condition_block (Optional)
+- policies (Required)
+- condition (Optional)
 - expires_on (Optional)
 - not_before (Optional)
 - status (Optional)

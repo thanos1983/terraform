@@ -3,14 +3,14 @@ variable "name" {
   type        = string
 }
 
-variable "policies_blocks" {
-  description = " List of access policies assigned to the token."
+variable "policies" {
+  description = "List of access policies assigned to the token."
   type = list(object({
     effect = string
-    permission_groups_blocks = list(object({
+    permission_groups = list(object({
       id = string
-      meta_block = optional(object({
-        key = optional(string)
+      meta = optional(object({
+        key   = optional(string)
         value = optional(string)
       }))
     }))
@@ -18,12 +18,12 @@ variable "policies_blocks" {
   }))
 }
 
-variable "condition_block" {
-  description = "Conditions under which the token should be considered valid."
+variable "condition" {
+  description = "Client IP restrictions."
   type = object({
-    request_ip_block = optional(object({
-      in = optional(set(string))
-      not_in = optional(set(string))
+    request_ip = optional(object({
+      in = optional(list(string))
+      not_in = optional(list(string))
     }), null)
   })
   default = null
