@@ -1,12 +1,24 @@
 resource "cloudflare_api_token" "api_token" {
   name = var.name
 
-  dynamic "policy" {
-    for_each = var.policy_blocks
+  dynamic "policies" {
+    for_each = var.policies_blocks
     content {
-      permission_groups = policy.value.permission_groups
-      resources         = policy.value.resources
-      effect            = policy.value.effect
+      effect = policies.value.effect
+      dynamic "permission_groups" {
+        for_each = policies.value.permission_groups_blocks
+        content {
+          id = permission_groups.value.id
+          dynamic "meta" {
+            for_each = permission_groups.value.meta_block[*]
+            content {
+              key   = meta.value.key
+              value = meta.value.value
+            }
+          }
+        }
+      }
+      resources = policies.value.resources
     }
   }
 
@@ -25,4 +37,5 @@ resource "cloudflare_api_token" "api_token" {
 
   expires_on = var.expires_on
   not_before = var.not_before
+  status     = var.status
 }

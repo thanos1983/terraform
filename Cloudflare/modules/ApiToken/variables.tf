@@ -3,20 +3,26 @@ variable "name" {
   type        = string
 }
 
-variable "policy_blocks" {
-  description = "Permissions policy."
-  type        = list(object({
-    permission_groups = set(string)
-    resources         = map(string)
-    effect            = optional(bool)
+variable "policies_blocks" {
+  description = " List of access policies assigned to the token."
+  type = list(object({
+    effect = string
+    permission_groups_blocks = list(object({
+      id = string
+      meta_block = optional(object({
+        key = optional(string)
+        value = optional(string)
+      }))
+    }))
+    resources = map(any)
   }))
 }
 
 variable "condition_block" {
   description = "Conditions under which the token should be considered valid."
-  type        = object({
+  type = object({
     request_ip_block = optional(object({
-      in     = optional(set(string))
+      in = optional(set(string))
       not_in = optional(set(string))
     }))
   })
@@ -31,6 +37,12 @@ variable "expires_on" {
 
 variable "not_before" {
   description = "The time before which the token MUST NOT be accepted for processing."
+  type        = string
+  default     = null
+}
+
+variable "status" {
+  description = "Status of the token."
   type        = string
   default     = null
 }

@@ -4,13 +4,13 @@
 
 ```bash
 module "cloudflare_api_token_<project>" {
-  source = "git::https://example.com/cloudflare_api_token_<my_repo>.git"
-  name          = "api_token_cloudflare_external_dns"
-  policy_blocks = [
+  source        = "git::https://example.com/cloudflare_api_token_<my_repo>.git"
+  name          = "readonly token"
+  policies_blocks = [
     {
-      permission_groups = [
-        data.cloudflare_api_token_permission_groups.all.zone["DNS Write"],
-        data.cloudflare_api_token_permission_groups.all.zone["Zone Read"]
+      effect = "allow" 
+      permission_groups_blocks = [
+        id = "c8fed203ed3043cba015a93ad1616f1f"
       ]
       resources = {
         "com.cloudflare.api.account.zone.*" = "*"
@@ -24,10 +24,11 @@ module "cloudflare_api_token_<project>" {
 
 ```bash
 - name (Required)
-- policy_blocks (Required)
+- policies_blocks (Required)
 - condition_block (Optional)
-- not_before (Optional)
 - expires_on (Optional)
+- not_before (Optional)
+- status (Optional)
 ```
 
 ### Output:
@@ -35,11 +36,11 @@ module "cloudflare_api_token_<project>" {
 ```bash
 - id
 - issued_on
+- last_used_on
 - modified_on
-- status
 - value
 ```
 
-#### API token permissions [Products > Cloudflare > Fundamentals > ... > Reference > API token permissions](https://developers.cloudflare.com/fundamentals/api/reference/permissions/)
+#### API token permissions [Products > Cloudflare Fundamentals > Cloudflare's API > Reference > API token permissions](https://developers.cloudflare.com/fundamentals/api/reference/permissions/)
 
 ###### More information can be found on the official document [cloudflare_api_token](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/api_token)

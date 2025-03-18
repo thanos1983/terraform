@@ -8,14 +8,14 @@ output "issued_on" {
   value       = cloudflare_api_token.api_token.issued_on
 }
 
+output "last_used_on" {
+  description = "Last time the token was used."
+  value       = cloudflare_api_token.api_token.last_used_on
+}
+
 output "modified_on" {
   description = "Timestamp of when the token was last modified."
   value       = cloudflare_api_token.api_token.modified_on
-}
-
-output "status" {
-  description = "Status of the api token."
-  value       = cloudflare_api_token.api_token.status
 }
 
 output "value" {

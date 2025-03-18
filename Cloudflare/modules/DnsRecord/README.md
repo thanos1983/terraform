@@ -1,4 +1,4 @@
-# Provides a Cloudflare record resource
+# Provides a Cloudflare DNS Record Resource
 
 ## Sample of use:
 
@@ -16,28 +16,28 @@ module "cloudflare_record_<project>" {
 
 ```bash
 - name (Required)
+- ttl (Required)
 - type (Required)
 - zone_id (Required)
-- allow_overwrite (Optional)
 - comment (Optional)
+- content (Optional)
 - data_block (Optional)
 - priority (Optional)
 - proxied (Optional)
+- settings_block (Optional)
 - tags (Optional)
-- timeouts (Optional)
-- ttl (Optional)
-- value (Optional)
 ```
 
 ### Output:
 
 ```bash
+- comment_modified_on
 - created_on
-- hostname
 - id
-- metadata
+- meta
 - modified_on
 - proxiable
+- tags_modified_on
 ```
 
 ###### More information can be found on the official document [cloudflare_record](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/record)

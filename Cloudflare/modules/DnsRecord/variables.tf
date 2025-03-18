@@ -3,6 +3,11 @@ variable "name" {
   type        = string
 }
 
+variable "ttl" {
+  description = "The TTL of the record."
+  type        = number
+}
+
 variable "type" {
   description = "The type of the record."
   type        = string
@@ -11,16 +16,6 @@ variable "type" {
 variable "zone_id" {
   description = "The zone identifier to target for the resource."
   type        = string
-}
-
-variable "allow_overwrite" {
-  description = "Allow creation of this record in Terraform to overwrite an existing record, if any."
-  type        = bool
-  validation {
-    condition = contains(["true", "false"], lower(tostring(var.allow_overwrite)))
-    error_message = "Parameter must be 'true' or 'false'."
-  }
-  default = false
 }
 
 variable "comment" {
@@ -41,7 +36,6 @@ variable "data_block" {
     algorithm = optional(number)
     altitude = optional(number)
     certificate = optional(string)
-    content = optional(string)
     digest = optional(string)
     digest_type = optional(number)
     fingerprint = optional(string)
@@ -56,14 +50,12 @@ variable "data_block" {
     long_minutes = optional(number)
     long_seconds = optional(number)
     matching_type = optional(number)
-    name = optional(string)
     order = optional(number)
     port = optional(number)
     precision_horz = optional(number)
     precision_vert = optional(number)
     preference = optional(number)
     priority = optional(number)
-    proto = optional(string)
     protocol = optional(number)
     public_key = optional(string)
     regex = optional(string)
@@ -97,38 +89,18 @@ variable "proxied" {
   default = false
 }
 
+variable "settings_block" {
+  description = "Settings for the DNS record."
+  type = object({
+    flatten_cname = optional(bool)
+    ipv4_only     = optional(bool)
+    ipv6_only     = optional(bool)
+  })
+  default = null
+}
+
 variable "tags" {
   description = "Custom tags for the DNS record."
   type = set(string)
-  default     = null
-}
-
-variable "timeouts_block" {
-  description = "The timeouts block allows you to specify timeouts for certain actions"
-  type = object({
-    create = optional(string)
-    update = optional(string)
-  })
-  default = null
-}
-
-variable "ttl" {
-  description = "The TTL of the record."
-  type        = number
-  default     = null
-}
-
-variable "provisioner_block" {
-  description = "If when = destroy is specified, the provisioner will run when the resource it is defined within is destroyed."
-  type = object({
-    when    = string
-    command = string
-  })
-  default = null
-}
-
-variable "bearer_token" {
-  description = "The token that has enough permissions to alter the DNS record(s)."
-  type        = string
   default     = null
 }

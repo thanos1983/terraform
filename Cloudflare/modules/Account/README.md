@@ -16,14 +16,16 @@ module "cloudflare_account_<project>" {
 
 ```bash
 - name (Required)
-- enforce_twofactor (Optional)
-- type (Optional)
+- type (Required)
+- unit_block (Optional)
+- settings_block (Optional)
 ```
 
 ### Output:
 
 ```bash
 - id
+- created_on
 ```
 
 ###### More information can be found on the official document [cloudflare_account](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/account)

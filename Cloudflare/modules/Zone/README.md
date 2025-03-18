@@ -15,22 +15,28 @@ module "cloudflare_zone_<project>" {
 ### Variables:
 
 ```bash
-- account_id (Required)
-- zone (Required)
-- jump_start (Optional)
-- paused (Optional)
-- plan (Optional)
+- account_block (Required)
+- name (Required)
 - type (Optional)
+- vanity_name_servers (Optional)
 ```
 
 ### Output:
 
 ```bash
+- activated_on
+- created_on
+- development_mode
 - id
 - meta
+- modified_on
 - name_servers
+- original_dnshost
+- original_name_servers
+- original_registrar
+- owner
+- paused
 - status
-- vanity_name_servers
 - verification_key
 ```
 

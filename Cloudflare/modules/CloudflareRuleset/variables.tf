@@ -35,21 +35,21 @@ variable "rules_block" {
       additional_cacheable_ports = optional(list(number))
       algorithms_blocks          = optional(list(object({
         name = string
-      })))
+      })), null)
       automatic_https_rewrites = optional(bool)
 
       autominify_block = optional(object({
         css  = optional(string)
         html = optional(string)
         js   = optional(string)
-      }))
+      }), null)
 
       bic = optional(string)
 
       browser_ttl_block = optional(list(object({
         mode    = string
         default = optional(number)
-      })))
+      })), null)
 
       cache = optional(bool)
 
@@ -61,32 +61,32 @@ variable "rules_block" {
           cookie_block = optional(object({
             check_presence = optional(set(string))
             include        = optional(set(string))
-          }))
+          }), null)
 
           header_block = optional(object({
             check_presence = optional(set(string))
             exclude_origin = optional(bool)
             include        = optional(set(string))
-          }))
+          }), null)
 
           host_block = optional(object({
             resolved = optional(bool)
-          }))
+          }), null)
 
           query_string_block = optional(object({
             exclude = optional(set(string))
             include = optional(set(string))
-          }))
+          }), null)
 
           user_block = optional(object({
             device_type = optional(bool)
             geo         = optional(bool)
             lang        = optional(bool)
-          }))
-        }))
+          }), null)
+        }), null)
 
         ignore_query_strings_order = optional(bool)
-      })))
+      })), null)
     }))
 
     content         = optional(string)
@@ -103,14 +103,14 @@ variable "rules_block" {
       status_code_ttl_block = optional(object({
         status_code = optional(number)
 
-        status_code_range_block = optional(list(object({
+        status_code_range_block = optional(object({
           from = optional(number)
           to   = optional(number)
-        })))
+        }), null)
 
         value = optional(number)
-      }))
-    })))
+      }), null)
+    })), [])
 
     email_obfuscation = optional(bool)
     fonts             = optional(bool)
@@ -118,7 +118,7 @@ variable "rules_block" {
     from_list_block = optional(object({
       key  = optional(string)
       name = optional(string)
-    }))
+    }), null)
 
     from_value_block = optional(object({
       preserve_query_string = optional(bool)
@@ -127,15 +127,14 @@ variable "rules_block" {
       target_url_block = optional(object({
         expression = optional(string)
         value      = optional(string)
-      }))
-    }))
+      }), null)
+    }), null)
 
-    headers_blocks = optional(object({
+    headers_block = optional(object({
+      operation  = string
       expression = optional(string)
-      name       = optional(string)
-      operation  = optional(string)
       value      = optional(string)
-    }))
+    }), null)
 
     host_header        = optional(string)
     hotlink_protection = optional(bool)
@@ -144,7 +143,7 @@ variable "rules_block" {
 
     matched_data_block = optional(object({
       public_key = optional(string)
-    }))
+    }), null)
 
     mirage                   = optional(bool)
     opportunistic_encryption = optional(bool)
@@ -152,7 +151,7 @@ variable "rules_block" {
     origin_block = optional(object({
       host = optional(string)
       port = optional(string)
-    }))
+    }), null)
 
     origin_cache_control       = optional(bool)
     origin_error_page_passthru = optional(bool)
@@ -164,7 +163,7 @@ variable "rules_block" {
         action   = optional(string)
         category = optional(string)
         enabled  = optional(bool)
-      }))
+      }), null)
 
       enabled = optional(bool)
 
@@ -174,10 +173,10 @@ variable "rules_block" {
         id                = optional(string)
         score_threshold   = optional(number)
         sensitivity_level = optional(string)
-      }))
+      }), null)
 
       sensitivity_level = optional(string)
-    }))
+    }), null)
 
     phases               = optional(set(string))
     polish               = optional(string)
@@ -190,7 +189,7 @@ variable "rules_block" {
       content      = optional(string)
       content_type = optional(string)
       status_code  = optional(number)
-    }))
+    }), null)
 
     response_fields = optional(set(string))
     rocket_loader   = optional(bool)
@@ -200,13 +199,13 @@ variable "rules_block" {
 
     serve_stale_block = optional(object({
       disable_stale_while_updating = optional(bool)
-    }))
+    }), null)
 
     server_side_excludes = optional(bool)
 
     sni_block = optional(object({
       value = optional(string)
-    }))
+    }), null)
 
     ssl         = optional(string)
     status_code = optional(number)
@@ -218,13 +217,13 @@ variable "rules_block" {
       path_block = optional(object({
         expression = optional(string)
         value      = optional(string)
-      }))
+      }), null)
 
       query_block = optional(object({
         expression = optional(string)
         value      = optional(string)
-      }))
-    }))
+      }), null)
+    }), null)
 
     version = optional(string)
 
@@ -234,11 +233,11 @@ variable "rules_block" {
     exposed_credential_check_block = optional(object({
       password_expression = optional(string)
       username_expression = optional(string)
-    }))
+    }), null)
 
     logging_block = optional(object({
       enabled = optional(bool)
-    }))
+    }), null)
 
     ratelimit_block = optional(object({
       characteristics            = optional(set(string))
@@ -249,7 +248,7 @@ variable "rules_block" {
       requests_to_origin         = optional(bool)
       requests_per_period        = optional(number)
       score_response_header_name = optional(string)
-    }))
+    }), null)
 
     ref = optional(string)
   })
