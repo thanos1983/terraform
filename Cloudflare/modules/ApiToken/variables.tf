@@ -24,7 +24,7 @@ variable "condition_block" {
     request_ip_block = optional(object({
       in = optional(set(string))
       not_in = optional(set(string))
-    }))
+    }), null)
   })
   default = null
 }

@@ -26,7 +26,7 @@ resource "cloudflare_api_token" "api_token" {
     for_each = var.condition_block[*]
     content {
       dynamic "request_ip" {
-        for_each = condition.value.request_ip_block
+        for_each = condition.value.request_ip_block[*]
         content {
           in     = request_ip.value.in
           not_in = request_ip.value.not_in
