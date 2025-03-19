@@ -18,6 +18,8 @@ variable "rules" {
   type = list(object({
     action = optional(string)
     action_parameters = optional(object({
+      additional_cacheable_ports = optional(list(number))
+
       algorithms = optional(list(object({
         name = string
       })), [])
@@ -28,10 +30,14 @@ variable "rules" {
         js = optional(bool)
       }), null)
 
+      bic = optional(bool)
+
       browser_ttl = optional(object({
         mode = string
         default = optional(number)
       }), null)
+
+      cache = optional(bool)
 
       cache_key = optional(object({
         cache_by_device_type = optional(bool)
@@ -59,6 +65,7 @@ variable "rules" {
               all = optional(bool)
               list = optional(list(string))
             })), [])
+
             include = optional(list(object({
               all = optional(bool)
               list = optional(list(string))
@@ -129,8 +136,6 @@ variable "rules" {
         value = optional(string)
       }), null)
 
-      host_header = optional(string)
-      hotlink_protection = optional(bool)
       host_header = optional(string)
       hotlink_protection = optional(bool)
       id = optional(string)
