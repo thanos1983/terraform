@@ -22,7 +22,7 @@ variable "rules" {
 
       algorithms = optional(list(object({
         name = string
-      })), [])
+      })), null)
 
       autominify = optional(object({
         css = optional(bool)
@@ -92,7 +92,7 @@ variable "rules" {
 
       cookie_fields = optional(list(object({
         name = string
-      })), [])
+      })), null)
 
       disabled_apps = optional(bool)
       disable_rum = optional(bool)
@@ -109,7 +109,7 @@ variable "rules" {
             from = optional(number)
             to = optional(number)
           }), null)
-        })), [])
+        })), null)
       }), null)
 
       email_obfuscation = optional(bool)
@@ -134,7 +134,7 @@ variable "rules" {
         operation = string
         expression = optional(string)
         value = optional(string)
-      })), {})
+      })))
 
       host_header = optional(string)
       hotlink_protection = optional(bool)
@@ -164,7 +164,7 @@ variable "rules" {
           action = optional(string)
           enabled = optional(bool)
           sensitivity_level = optional(string)
-        })), [])
+        })), null)
 
         enabled = optional(bool)
 
@@ -174,7 +174,7 @@ variable "rules" {
           enabled = optional(bool)
           score_threshold = optional(number)
           sensitivity_level = optional(string)
-        })), [])
+        })), null)
 
         sensitivity_level = optional(string)
       }), null)
@@ -186,7 +186,7 @@ variable "rules" {
 
       request_fields = optional(list(object({
         name = string
-      })), [])
+      })), null)
 
       respect_strong_etags = optional(bool)
 
@@ -198,10 +198,10 @@ variable "rules" {
 
       response_fields = optional(list(object({
         name = string
-      })), [])
+      })), null)
 
       rocket_loader = optional(bool)
-      rules = optional(map(list(string)), {})
+      rules = optional(map(list(string)))
       ruleset = optional(string)
       rulesets = optional(list(string))
       security_level = optional(string)
