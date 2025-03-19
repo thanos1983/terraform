@@ -1,11 +1,11 @@
-# Provides a Cloudflare Zone resource
+# Provides a Cloudflare Zone Resource
 
 ## Sample of use:
 
 ```bash
 module "cloudflare_zone_<project>" {
   source = "git::https://example.com/cloudflare_zone_<my_repo>.git"
-  zone   = "my-cloudflare.com"
+  name   = "example.com"
   .
   .
   .
@@ -15,7 +15,7 @@ module "cloudflare_zone_<project>" {
 ### Variables:
 
 ```bash
-- account_block (Required)
+- account (Required)
 - name (Required)
 - type (Optional)
 - vanity_name_servers (Optional)

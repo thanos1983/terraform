@@ -1,7 +1,7 @@
-variable "account_block" {
+variable "account" {
   description = "Account ID to manage the zone resource in."
   type = object({
-    id = string
+    id = optional(string)
   })
 }
 

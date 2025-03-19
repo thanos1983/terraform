@@ -1,4 +1,4 @@
-# Provides a Cloudflare Account resource
+# Provides a Cloudflare Account Resource
 
 ## Sample of use:
 
@@ -17,8 +17,8 @@ module "cloudflare_account_<project>" {
 ```bash
 - name (Required)
 - type (Required)
-- unit_block (Optional)
-- settings_block (Optional)
+- settings (Optional)
+- unit (Optional)
 ```
 
 ### Output:

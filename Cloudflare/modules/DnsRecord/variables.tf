@@ -1,15 +1,15 @@
 variable "name" {
-  description = "The name of the record."
+  description = "DNS record name (or @ for the zone apex) in Punycode."
   type        = string
 }
 
 variable "ttl" {
-  description = "The TTL of the record."
+  description = "Time To Live (TTL) of the DNS record in seconds."
   type        = number
 }
 
 variable "type" {
-  description = "The type of the record."
+  description = "Record type."
   type        = string
 }
 
@@ -25,13 +25,13 @@ variable "comment" {
 }
 
 variable "content" {
-  description = "The content of the record."
+  description = "A valid IPv4 address."
   type        = string
   default     = null
 }
 
-variable "data_block" {
-  description = "Map of attributes that constitute the record value."
+variable "data" {
+  description = "Components of a CAA record."
   type = object({
     algorithm = optional(number)
     altitude = optional(number)
@@ -39,7 +39,7 @@ variable "data_block" {
     digest = optional(string)
     digest_type = optional(number)
     fingerprint = optional(string)
-    flags = optional(string)
+    flags = optional(number)
     key_tag = optional(number)
     lat_degrees = optional(number)
     lat_direction = optional(string)
@@ -74,13 +74,13 @@ variable "data_block" {
 }
 
 variable "priority" {
-  description = "The priority of the record."
+  description = "Required for MX, SRV and URI records; unused by other record types."
   type        = string
   default     = null
 }
 
 variable "proxied" {
-  description = "Whether the record gets Cloudflare's origin protection."
+  description = "Whether the record is receiving the performance and security benefits of Cloudflare."
   type        = bool
   validation {
     condition = contains(["true", "false"], lower(tostring(var.proxied)))
@@ -89,18 +89,18 @@ variable "proxied" {
   default = false
 }
 
-variable "settings_block" {
+variable "settings" {
   description = "Settings for the DNS record."
   type = object({
     flatten_cname = optional(bool)
-    ipv4_only     = optional(bool)
-    ipv6_only     = optional(bool)
+    ipv4_only = optional(bool)
+    ipv6_only = optional(bool)
   })
   default = null
 }
 
 variable "tags" {
   description = "Custom tags for the DNS record."
-  type = set(string)
-  default     = null
+  type = list(string)
+  default = []
 }

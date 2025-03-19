@@ -3,9 +3,9 @@
 ## Sample of use:
 
 ```bash
-module "cloudflare_record_<project>" {
-  source = "git::https://example.com/cloudflare_record_<my_repo>.git"
-  name   = "my-cloudflare_record"
+module "cloudflare_dns_record_<project>" {
+  source = "git::https://example.com/cloudflare_dns_record_<my_repo>.git"
+  name   = "example.com"
   .
   .
   .
@@ -21,10 +21,10 @@ module "cloudflare_record_<project>" {
 - zone_id (Required)
 - comment (Optional)
 - content (Optional)
-- data_block (Optional)
+- data (Optional)
 - priority (Optional)
 - proxied (Optional)
-- settings_block (Optional)
+- settings (Optional)
 - tags (Optional)
 ```
 
@@ -40,4 +40,4 @@ module "cloudflare_record_<project>" {
 - tags_modified_on
 ```
 
-###### More information can be found on the official document [cloudflare_record](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/record)
+###### More information can be found on the official document [cloudflare_dns_record](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/dns_record)
