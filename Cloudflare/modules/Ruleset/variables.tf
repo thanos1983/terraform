@@ -61,15 +61,15 @@ variable "rules" {
           }), null)
 
           query_string = optional(object({
-            exclude = optional(list(object({
+            exclude = optional(object({
               all = optional(bool)
               list = optional(list(string))
-            })), [])
+            }), null)
 
-            include = optional(list(object({
+            include = optional(object({
               all = optional(bool)
               list = optional(list(string))
-            })), [])
+            }), null)
           }), null)
 
           user = optional(object({
@@ -90,9 +90,9 @@ variable "rules" {
       content = optional(string)
       content_type = optional(string)
 
-      cookie_fields = optional(object({
+      cookie_fields = optional(list(object({
         name = string
-      }), null)
+      })), [])
 
       disabled_apps = optional(bool)
       disable_rum = optional(bool)
@@ -130,11 +130,11 @@ variable "rules" {
         }), null)
       }), null)
 
-      headers = optional(object({
+      headers = optional(map(object({
         operation = string
         expression = optional(string)
         value = optional(string)
-      }), null)
+      })), {})
 
       host_header = optional(string)
       hotlink_protection = optional(bool)
