@@ -4,11 +4,28 @@
 
 ```bash
 module "cloudflare_record_<project>" {
-  source = "git::https://example.com/cloudflare_record_<my_repo>.git"
-  name   = "My ruleset"
-  .
-  .
-  .
+  source  = "git::https://example.com/cloudflare_record_<my_repo>.git"
+  name    = "Redirect rules ruleset"
+  kind    = "zone"
+  phase   = "http_request_dynamic_redirect"
+  zone_id = var.CLOUDFLARE_ZONE_ID
+  rules = [
+    {
+      action = "redirect"
+      action_parameters = {
+        from_value = {
+          status_code = 301
+          target_url = {
+            value = "https://www.${var.zone}"
+          }
+          preserve_query_string = true
+        }
+      }
+      enabled     = true
+      expression  = "http.host eq \"${var.zone}\""
+      description = "Redirect all requests from ${var.zone} to www.${var.zone}"
+    }
+  ]
 }
 ```
 
