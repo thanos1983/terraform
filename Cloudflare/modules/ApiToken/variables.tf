@@ -44,5 +44,9 @@ variable "not_before" {
 variable "status" {
   description = "Status of the token."
   type        = string
-  default     = null
+  validation {
+    condition = contains(["active", "disabled", "expired"], lower(var.status))
+    error_message = "Parameter must be 'active', 'disabled' or 'expired'."
+  }
+  default = "active"
 }
