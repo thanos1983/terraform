@@ -16,13 +16,13 @@ variable "image" {
 variable "location" {
   description = "The location name to create the server in."
   type        = string
-  default     = "null"
+  default     = null
 }
 
 variable "datacenter" {
   description = "The datacenter name to create the server in."
   type        = string
-  default     = "null"
+  default     = null
 }
 
 variable "user_data" {
