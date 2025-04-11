@@ -1,36 +1,42 @@
 resource "hcloud_server" "server" {
   name        = var.name
-  server_type = ""
-  image       = ""
-  location    = ""
-  datacenter  = ""
-  user_data   = ""
-  ssh_keys = []
+  server_type = var.server_type
+  image       = var.image
+  location    = var.location
+  datacenter  = var.datacenter
+  user_data   = var.user_data
+  ssh_keys    = var.ssh_keys
 
-  public_net {
-    ipv4_enabled = true
-    ipv4         = ""
-    ipv6_enabled = true
-    ipv6         = ""
+  dynamic "public_net" {
+    for_each = var.public_net_block[*]
+    content {
+      ipv4_enabled = public_net.value.ipv4_enabled
+      ipv4         = public_net.value.ipv4
+      ipv6_enabled = public_net.value.ipv6_enabled
+      ipv6         = public_net.value.ipv6
+    }
   }
 
-  keep_disk                  = ""
-  iso                        = ""
-  rescue                     = ""
+  keep_disk                  = var.keep_disk
+  iso                        = var.iso
+  rescue                     = var.rescue
   labels                     = var.labels
-  backups                    = ""
-  firewall_ids = []
-  ignore_remote_firewall_ids = ""
+  backups                    = var.backups
+  firewall_ids               = var.firewall_ids
+  ignore_remote_firewall_ids = var.ignore_remote_firewall_ids
 
-  network {
-    network_id = 0
-    ip         = ""
-    alias_ips = []
+  dynamic "network" {
+    for_each = var.network_blocks
+    content {
+      network_id = network.value.network_id
+      ip         = network.value.ip
+      alias_ips  = network.value.alias_ips
+    }
   }
 
-  placement_group_id       = ""
+  placement_group_id       = var.placement_group_id
   delete_protection        = var.delete_protection
-  rebuild_protection       = ""
-  allow_deprecated_images  = ""
-  shutdown_before_deletion = ""
+  rebuild_protection       = var.rebuild_protection
+  allow_deprecated_images  = var.allow_deprecated_images
+  shutdown_before_deletion = var.shutdown_before_deletion
 }

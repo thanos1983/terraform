@@ -1,11 +1,11 @@
-# Hetzner Cloud Network
+# Hetzner Cloud Server
 
 ## Sample of use:
 
 ```bash
-module "hcloud_network_<project>" {
-  source = "git::https://example.com/hcloud_network_<my_repo>.git"
-  name   = "my-net"
+module "hcloud_server_<project>" {
+  source = "git::https://example.com/hcloud_server_<my_repo>.git"
+  name   = "my-server"
   .
   .
   .
@@ -16,10 +16,26 @@ module "hcloud_network_<project>" {
 
 ```bash
 - name (Required)
-- ip_range (Required)
+- server_type (Required)
+- image (Required)
+- location (Optional)
+- datacenter (Optional)
+- user_data (Optional)
+- ssh_keys (Optional)
+- public_net_block (Optional)
+- keep_disk (Optional)
+- iso (Optional)
+- rescue (Optional)
 - labels (Optional)
+- backups (Optional)
+- firewall_ids (Optional)
+- ignore_remote_firewall_ids (Optional)
+- network_blocks (Optional)
+- placement_group_id (Optional)
 - delete_protection (Optional)
-- expose_routes_to_vswitch (Optional)
+- rebuild_protection (Optional)
+- allow_deprecated_images (Optional)
+- shutdown_before_deletion (Optional)
 ```
 
 ### Output:
@@ -27,10 +43,26 @@ module "hcloud_network_<project>" {
 ```bash
 - id
 - name
-- ip_range
+- server_type
+- image
+- location
+- datacenter
+- user_data
+- ssh_keys
+- public_net_block
+- keep_disk
+- iso
+- rescue
 - labels
+- backups
+- firewall_ids
+- ignore_remote_firewall_ids
+- network_blocks
+- placement_group_id
 - delete_protection
-- expose_routes_to_vswitch
+- rebuild_protection
+- allow_deprecated_images
+- shutdown_before_deletion
 ```
 
-###### More information can be found on the official document [hcloud_network](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/network)
+###### More information can be found on the official document [hcloud_server](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/server)
