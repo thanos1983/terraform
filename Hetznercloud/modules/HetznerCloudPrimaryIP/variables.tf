@@ -38,7 +38,7 @@ variable "assignee_id" {
 
 variable "assignee_type" {
   description = "The type of the assigned resource."
-  type        = number
+  type        = string
   default     = null
 }
 
