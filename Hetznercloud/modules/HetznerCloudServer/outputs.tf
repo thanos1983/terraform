@@ -28,11 +28,6 @@ output "datacenter" {
   value       = hcloud_server.server.datacenter
 }
 
-output "backup_window" {
-  description = "The backup window of the server, if enabled."
-  value       = hcloud_server.server.backup_window
-}
-
 output "backups" {
   description = "Whether backups are enabled."
   value       = hcloud_server.server.backups
