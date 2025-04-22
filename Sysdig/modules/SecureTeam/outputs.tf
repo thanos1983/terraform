@@ -1,14 +1,14 @@
-output "enable_ibm_platform_metrics" {
-  description = "Enable platform metrics on IBM Cloud Monitoring."
-  value       = sysdig_secure_team.secure_team.enable_ibm_platform_metrics
+output "id" {
+  description = "ID of the created team."
+  value       = sysdig_secure_team.secure_team.id
 }
 
-output "ibm_platform_metrics" {
-  description = "Define platform metrics on IBM Cloud Monitoring."
-  value       = sysdig_secure_team.secure_team.ibm_platform_metrics
+output "version" {
+  description = "Current version of the resource."
+  value       = sysdig_secure_team.secure_team.version
 }
 
 output "name" {
-  description = "Sysdig Secure Team Name."
+  description = "The name of the Secure Team."
   value       = sysdig_secure_team.secure_team.name
 }
