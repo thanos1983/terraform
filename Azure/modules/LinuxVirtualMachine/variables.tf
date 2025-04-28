@@ -335,16 +335,6 @@ variable "user_data" {
   default     = null
 }
 
-variable "vm_agent_platform_updates_enabled" {
-  description = "Specifies whether VMAgent Platform Updates is enabled."
-  type        = bool
-  validation {
-    condition = contains(["true", "false"], lower(tostring(var.vm_agent_platform_updates_enabled)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = false
-}
-
 variable "vtpm_enabled" {
   description = "Specifies if vTPM (virtual Trusted Platform Module) and Trusted Launch is enabled for the Virtual Machine."
   type        = bool
