@@ -15,6 +15,7 @@ module "azuread_group_member_<project>" {
 ```bash
 - group_object_id (Required)
 - member_object_id (Required)
+- timeouts_block (Optional)
 ```
 
 ### Output:
