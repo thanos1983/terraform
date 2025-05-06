@@ -21,7 +21,7 @@ variable "public_network_access_enabled" {
 
 variable "tags" {
   description = " A mapping of tags which should be assigned to the Azure Arc Private Link Scope."
-  type        = string
+  type = map(any)
   default     = null
 }
 
