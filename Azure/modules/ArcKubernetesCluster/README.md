@@ -46,4 +46,4 @@ module "arc_kubernetes_cluster_<project>" {
 - total_node_count
 ```
 
-###### More information can be found on the official document [azuread_group](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group)
+###### More information can be found on the official document [azurerm_arc_kubernetes_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/arc_kubernetes_cluster)

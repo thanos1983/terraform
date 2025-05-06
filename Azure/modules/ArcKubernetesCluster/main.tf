@@ -4,7 +4,7 @@ resource "azurerm_arc_kubernetes_cluster" "arc_kubernetes_cluster" {
   agent_public_key_certificate = var.agent_public_key_certificate
 
   dynamic "identity" {
-    for_each = var.identity_block
+    for_each = var.identity_block[*]
     content {
       type = identity.value.type
     }
