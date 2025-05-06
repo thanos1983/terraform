@@ -29,7 +29,7 @@ variable "identity_block" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the Arc Machine."
-  type        = string
+  type        = map(any)
   default     = null
 }
 
