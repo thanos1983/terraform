@@ -3,8 +3,8 @@ variable "name" {
   type        = string
 }
 
-variable "storage_account_name" {
-  description = "The name of the Storage Account where the Container should be created."
+variable "storage_account_id" {
+  description = "The id of the Storage Account where the Container should be created."
   type        = string
 }
 
