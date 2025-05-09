@@ -107,7 +107,7 @@ variable "gallery_image_reference_id" {
 variable "logical_sector_size" {
   description = "Logical Sector Size."
   type        = number
-  default     = 4096
+  default     = null
 }
 
 variable "optimized_frequent_attach_enabled" {
