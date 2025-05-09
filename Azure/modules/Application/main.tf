@@ -87,7 +87,17 @@ resource "azuread_application" "application" {
     }
   }
 
-  owners                  = var.owners
+  owners = var.owners
+
+  dynamic "password" {
+    for_each = var.password_block[*]
+    content {
+      display_name = password.value.display_name
+      end_date     = password.value.end_date
+      start_date   = password.value.start_date
+    }
+  }
+
   prevent_duplicate_names = var.prevent_duplicate_names
   privacy_statement_url   = var.privacy_statement_url
 
