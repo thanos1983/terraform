@@ -125,7 +125,7 @@ variable "performance_plus_enabled" {
 variable "os_type" {
   description = "Specify a value when the source of an Import, ImportSecure or Copy operation targets a source that contains an operating system."
   type        = string
-  default     = "Linux"
+  default     = null
 }
 
 variable "source_resource_id" {
@@ -161,7 +161,7 @@ variable "max_shares" {
 variable "trusted_launch_enabled" {
   description = "Specifies if Trusted Launch is enabled for the Managed Disk."
   type        = bool
-  default     = false
+  default     = null
 }
 
 variable "security_type" {
@@ -179,7 +179,7 @@ variable "secure_vm_disk_encryption_set_id" {
 variable "on_demand_bursting_enabled" {
   description = "Specifies if On-Demand Bursting is enabled for the Managed Disk."
   type        = bool
-  default     = false
+  default     = null
 }
 
 variable "tags" {
