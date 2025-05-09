@@ -33,6 +33,11 @@ output "object_id" {
   value       = azuread_application.application.object_id
 }
 
+output "password" {
+  description = "A password block as documented below."
+  value       = azuread_application.application.password
+}
+
 output "publisher_domain" {
   description = "The verified publisher domain for the application."
   value       = azuread_application.application.publisher_domain
