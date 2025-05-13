@@ -3,7 +3,7 @@ output "id" {
   value       = ansible_vault.vault.id
 }
 
-output "metadata" {
+output "args" {
   description = "List of strings."
   value       = ansible_vault.vault.args
 }
