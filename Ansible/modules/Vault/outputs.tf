@@ -11,5 +11,4 @@ output "args" {
 output "yaml" {
   description = "String sensitive."
   value       = ansible_vault.vault.yaml
-  sensitive   = true
 }
