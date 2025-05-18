@@ -3,13 +3,13 @@ variable "filename" {
   type        = string
 }
 
-variable "file_content" {
+variable "content" {
   description = "Content to store in the file, expected to be a UTF-8 encoded string."
   type        = string
   default     = null
 }
 
-variable "file_content_base64" {
+variable "content_base64" {
   description = "Content to store in the file, expected to be binary encoded as base64 string."
   type        = string
   default     = null
