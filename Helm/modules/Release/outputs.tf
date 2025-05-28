@@ -1,5 +1,10 @@
+output "id" {
+  description = "The ID of this resource."
+  value       = helm_release.release.id
+}
+
 output "manifest" {
-  description = "The rendered manifest of the release as JSON. Enable the manifest experiment to use this feature."
+  description = "The rendered manifest of the release as JSON."
   value       = helm_release.release.manifest
 }
 
