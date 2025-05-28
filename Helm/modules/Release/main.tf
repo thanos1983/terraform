@@ -46,17 +46,6 @@ resource "helm_release" "release" {
     }
   }
 
-  dynamic "set_wo" {
-    for_each = var.set_wo_blocks
-    content {
-      name  = set_wo.value.name
-      value = set_wo.value.value
-      type  = set_wo.value.type
-    }
-  }
-
-  set_wo_revision = var.set_wo_revision
-
   dynamic "set_list" {
     for_each = var.set_list_blocks
     content {
