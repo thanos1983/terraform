@@ -16,7 +16,7 @@ module "storage_container_<project>" {
 
 ```bash
 - name - (Required)
-- storage_account_name (Required)
+- storage_account_id (Required)
 - container_access_type (Optional)
 - metadata (Optional)
 ```
