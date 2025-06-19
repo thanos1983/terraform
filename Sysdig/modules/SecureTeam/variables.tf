@@ -33,6 +33,18 @@ variable "use_sysdig_capture" {
   default     = true
 }
 
+variable "can_use_agent_cli" {
+  description = "Enable this option to give this team access to Using the Agent Console."
+  type        = bool
+  default     = true
+}
+
+variable "can_use_rapid_response" {
+  description = "Enable this option to give this Secure team access to Rapid Response."
+  type        = bool
+  default     = false
+}
+
 variable "default_team" {
   description = "Defines if the team is the default one."
   type        = bool
