@@ -138,7 +138,7 @@ variable "pass_credentials" {
   default = false
 }
 
-variable "postrender_block" {
+variable "postrender" {
   description = "Configure a command to run after helm renders the manifest which can alter the manifest contents."
   type = object({
     binary_path = string
@@ -233,7 +233,7 @@ variable "reuse_values" {
   default = false
 }
 
-variable "set_blocks" {
+variable "set" {
   description = "Value block with custom values to be merged with the values yaml."
   type = list(object({
     name  = string
@@ -259,7 +259,7 @@ variable "set_wo_revision" {
   default     = null
 }
 
-variable "set_list_blocks" {
+variable "set_list" {
   description = "Value block with list of custom values to be merged with the values yaml."
   type = list(object({
     name = string
@@ -268,11 +268,11 @@ variable "set_list_blocks" {
   default = []
 }
 
-variable "set_sensitive_blocks" {
+variable "set_sensitive" {
   description = "Value block with custom sensitive values to be merged with the values yaml that won't be exposed in the plan's diff."
   type = list(object({
-    name = string
-    value = list(string)
+    name  = string
+    value = string
     type = optional(string)
   }))
   default = []

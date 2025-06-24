@@ -16,59 +16,27 @@ resource "helm_release" "release" {
   max_history                = var.max_history
   namespace                  = var.namespace
   pass_credentials           = var.pass_credentials
-
-  dynamic "postrender" {
-    for_each = var.postrender_block[*]
-    content {
-      binary_path = postrender.value.binary_path
-      args        = postrender.value.args
-    }
-  }
-
-  recreate_pods         = var.recreate_pods
-  render_subchart_notes = var.render_subchart_notes
-  replace               = var.replace
-  repository            = var.repository
-  repository_ca_file    = var.repository_ca_file
-  repository_cert_file  = var.repository_cert_file
-  repository_key_file   = var.repository_key_file
-  repository_password   = var.repository_password
-  repository_username   = var.repository_username
-  reset_values          = var.reset_values
-  reuse_values          = var.reuse_values
-
-  dynamic "set" {
-    for_each = var.set_blocks
-    content {
-      name  = set.value.name
-      value = set.value.value
-      type  = set.value.type
-    }
-  }
-
-  dynamic "set_list" {
-    for_each = var.set_list_blocks
-    content {
-      name  = set_list.value.name
-      value = set_list.value.value
-    }
-  }
-
-  dynamic "set_sensitive" {
-    for_each = var.set_sensitive_blocks
-    content {
-      name  = set_sensitive.value.name
-      value = set_sensitive.value.value
-      type  = set_sensitive.value.type
-    }
-  }
-
-  skip_crds       = var.skip_crds
-  timeout         = var.timeout
-  upgrade_install = var.upgrade_install
-  values          = var.values
-  verify          = var.verify
-  version         = var.helm_version
-  wait            = var.wait
-  wait_for_jobs   = var.wait_for_jobs
+  postrender                 = var.postrender
+  recreate_pods              = var.recreate_pods
+  render_subchart_notes      = var.render_subchart_notes
+  replace                    = var.replace
+  repository                 = var.repository
+  repository_ca_file         = var.repository_ca_file
+  repository_cert_file       = var.repository_cert_file
+  repository_key_file        = var.repository_key_file
+  repository_password        = var.repository_password
+  repository_username        = var.repository_username
+  reset_values               = var.reset_values
+  reuse_values               = var.reuse_values
+  set                        = var.set
+  set_list                   = var.set_list
+  set_sensitive              = var.set_sensitive
+  skip_crds                  = var.skip_crds
+  timeout = var.timeout
+  # upgrade_install       = var.upgrade_install # disabling for the moment since there is a bug for this.
+  values                     = var.values
+  verify                     = var.verify
+  version                    = var.helm_version
+  wait                       = var.wait
+  wait_for_jobs              = var.wait_for_jobs
 }
