@@ -39,5 +39,5 @@ variable "object_locking" {
 variable "quota" {
   description = "Quota of the bucket."
   type        = number
-  default     = 1073741824 # 1 GB in bytes (1024 * 1024 * 1024 bytes)
+  default     = null # 1073741824 # 1 GB in bytes (1024 * 1024 * 1024 bytes)
 }
