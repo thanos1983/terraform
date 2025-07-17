@@ -39,4 +39,10 @@ resource "hcloud_server" "server" {
   rebuild_protection       = var.rebuild_protection
   allow_deprecated_images  = var.allow_deprecated_images
   shutdown_before_deletion = var.shutdown_before_deletion
+
+  lifecycle {
+    ignore_changes = [
+      ssh_keys
+    ]
+  }
 }

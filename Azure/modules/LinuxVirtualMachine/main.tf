@@ -159,6 +159,12 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   vtpm_enabled                      = var.vtpm_enabled
   zone                              = var.zone
 
+  lifecycle {
+    ignore_changes = [
+      admin_ssh_key
+    ]
+  }
+
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
     content {
