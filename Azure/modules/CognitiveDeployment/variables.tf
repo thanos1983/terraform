@@ -10,7 +10,7 @@ variable "cognitive_account_id" {
 
 variable "model_block" {
   description = "A model block as defined below."
-  type        = object({
+  type = object({
     format  = string
     name    = string
     version = optional(string)
@@ -20,7 +20,7 @@ variable "model_block" {
 
 variable "scale_block" {
   description = "A scale block as defined below."
-  type        = object({
+  type = object({
     type     = string
     tier     = optional(string)
     size     = optional(string)
@@ -48,7 +48,7 @@ variable "version_upgrade_option" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

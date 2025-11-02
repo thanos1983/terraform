@@ -25,39 +25,39 @@ variable "revision_mode" {
 
 variable "template_block" {
   description = "A template block as detailed below."
-  type        = object({
+  type = object({
     init_container_block = optional(object({
-      args       = optional(list(string), [])
-      command    = optional(list(string), [])
-      cpu        = optional(string)
+      args    = optional(list(string), [])
+      command = optional(list(string), [])
+      cpu     = optional(string)
       env_blocks = optional(list(object({
         name        = string
         secret_name = optional(string)
         value       = optional(string)
       })), [])
-      ephemeral_storage   = optional(string)
-      image               = string
-      memory              = string
-      name                = string
+      ephemeral_storage = optional(string)
+      image             = string
+      memory            = string
+      name              = string
       volume_mounts_block = optional(object({
         name = string
         path = string
       }), null)
     }), null)
     container_blocks = list(object({
-      args       = optional(list(string), [])
-      command    = optional(list(string), [])
-      cpu        = string
+      args    = optional(list(string), [])
+      command = optional(list(string), [])
+      cpu     = string
       env_blocks = optional(list(object({
         name        = string
         secret_name = optional(string)
         value       = optional(string)
       })), [])
-      ephemeral_storage    = optional(string)
-      image                = string
+      ephemeral_storage = optional(string)
+      image             = string
       liveness_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
-        header_block            = optional(object({
+        header_block = optional(object({
           name  = string
           value = string
         }), null)
@@ -70,11 +70,11 @@ variable "template_block" {
         timeout                          = optional(number)
         transport                        = string
       }), null)
-      memory                = string
-      name                  = string
+      memory = string
+      name   = string
       readiness_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
-        header_block            = optional(object({
+        header_block = optional(object({
           name  = string
           value = string
         }), null)
@@ -88,7 +88,7 @@ variable "template_block" {
       }), null)
       startup_probe_block = optional(object({
         failure_count_threshold = optional(number, 3)
-        header_block            = optional(object({
+        header_block = optional(object({
           name  = string
           value = string
         }), null)
@@ -105,44 +105,44 @@ variable "template_block" {
         path = string
       }), null)
     }))
-    max_replicas                  = optional(number)
-    min_replicas                  = optional(number)
+    max_replicas = optional(number)
+    min_replicas = optional(number)
     azure_queue_scale_rule_blocks = optional(list(object({
-      name                  = string
-      queue_name            = string
-      queue_length          = string
+      name         = string
+      queue_name   = string
+      queue_length = string
       authentication_blocks = list(object({
         secret_name       = string
         trigger_parameter = string
       }))
     })), [])
     custom_scale_rule_blocks = optional(list(object({
-      name                  = string
-      custom_rule_type      = string
-      metadata              = map(any)
+      name             = string
+      custom_rule_type = string
+      metadata         = map(any)
       authentication_blocks = optional(list(object({
         secret_name       = string
         trigger_parameter = string
       })), [])
     })), [])
     http_scale_rule_blocks = optional(list(object({
-      name                  = string
-      concurrent_requests   = number
+      name                = string
+      concurrent_requests = number
       authentication_blocks = optional(list(object({
         secret_name       = string
         trigger_parameter = string
       })), [])
     })), [])
     tcp_scale_rule_blocks = optional(list(object({
-      name                  = string
-      concurrent_requests   = number
+      name                = string
+      concurrent_requests = number
       authentication_blocks = optional(list(object({
         secret_name       = string
         trigger_parameter = string
       })), [])
     })), [])
     revision_suffix = optional(string)
-    volume_blocks   = optional(list(object({
+    volume_blocks = optional(list(object({
       name         = string
       storage_name = optional(string)
       storage_type = optional(string)
@@ -152,7 +152,7 @@ variable "template_block" {
 
 variable "dapr_block" {
   description = "A dapr block as detailed below."
-  type        = object({
+  type = object({
     app_id       = string
     app_port     = optional(number)
     app_protocol = optional(string)
@@ -162,7 +162,7 @@ variable "dapr_block" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -173,23 +173,23 @@ variable "identity_block" {
 
 variable "ingress_block" {
   description = "An ingress block as detailed below."
-  type        = object({
+  type = object({
     allow_insecure_connections = optional(bool)
-    custom_domain_blocks       = optional(list(object({
+    custom_domain_blocks = optional(list(object({
       certificate_binding_type = optional(string)
       certificate_id           = string
       name                     = string
     })), [])
-    fqdn                           = optional(string)
-    external_enabled               = optional(bool, false)
+    fqdn             = optional(string)
+    external_enabled = optional(bool, false)
     ip_security_restriction_blocks = optional(list(object({
       action           = string
       description      = optional(string)
       ip_address_range = string
       name             = string
     })), [])
-    target_port           = number
-    exposed_port          = optional(number)
+    target_port  = number
+    exposed_port = optional(number)
     traffic_weight_blocks = list(object({
       label           = optional(string)
       latest_revision = optional(bool)
@@ -203,7 +203,7 @@ variable "ingress_block" {
 
 variable "registry_block" {
   description = "A list registry block as detailed below."
-  type        = list(object({
+  type = list(object({
     server               = string
     identity             = optional(string)
     password_secret_name = optional(string)
@@ -214,7 +214,7 @@ variable "registry_block" {
 
 variable "secret_blocks" {
   description = "One or more secret block as detailed below."
-  type        = list(object({
+  type = list(object({
     name  = string
     value = string
   }))
@@ -235,7 +235,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

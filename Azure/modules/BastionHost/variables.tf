@@ -73,8 +73,8 @@ variable "scale_units" {
   type        = number
   validation {
     condition = (
-    var.scale_units >= 2 &&
-    var.scale_units <= 50
+      var.scale_units >= 2 &&
+      var.scale_units <= 50
     )
     error_message = "Value must be between 2 and 50 scale units."
   }
@@ -108,7 +108,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

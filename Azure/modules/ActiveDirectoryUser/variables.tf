@@ -12,7 +12,7 @@ variable "age_group" {
 
 variable "business_phones" {
   description = "A list of telephone numbers for the user."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -56,7 +56,7 @@ variable "disable_password_expiration" {
   description = "Whether the user's password is exempt from expiring."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.disable_password_expiration)))
+    condition     = contains(["true", "false"], lower(tostring(var.disable_password_expiration)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -66,7 +66,7 @@ variable "disable_strong_password" {
   description = "Whether the user is allowed weaker passwords than the default policy to be specified."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.disable_strong_password)))
+    condition     = contains(["true", "false"], lower(tostring(var.disable_strong_password)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -105,7 +105,7 @@ variable "force_password_change" {
   description = "The fax number of the user."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.force_password_change)))
+    condition     = contains(["true", "false"], lower(tostring(var.force_password_change)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -162,7 +162,7 @@ variable "onpremises_immutable_id" {
 
 variable "other_mails" {
   description = "A list of additional email addresses for the user."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -188,7 +188,7 @@ variable "show_in_address_list" {
   description = "Whether or not the Outlook global address list should include this user."
   type        = string
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.show_in_address_list)))
+    condition     = contains(["true", "false"], lower(tostring(var.show_in_address_list)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = true
@@ -227,7 +227,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 5)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 5)
     delete = optional(number, 5)
   })

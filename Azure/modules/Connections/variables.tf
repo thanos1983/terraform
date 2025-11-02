@@ -32,15 +32,9 @@ variable "schema_validation_enabled" {
   default     = true
 }
 
-variable "etag" {
-  description = "Resource ETag."
-  type        = string
-  default     = null
-}
-
 variable "api" {
   description = "Api configurations."
-  type        = object({
+  type = object({
     brandColor  = optional(string)
     description = optional(string)
     displayName = optional(string)
@@ -84,10 +78,10 @@ variable "parameterValues" {
 
 variable "statuses" {
   description = "Status of the connection."
-  type        = list(object({
+  type = list(object({
     error = optional(object({
-      etag       = string
-      location   = string
+      etag     = string
+      location = string
       properties = optional(object({
         code    = string
         message = string
@@ -102,7 +96,7 @@ variable "statuses" {
 
 variable "testLinks" {
   description = "Links to test the API connection."
-  type        = list(object({
+  type = list(object({
     method     = string
     requestUri = string
   }))

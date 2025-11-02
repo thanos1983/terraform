@@ -12,7 +12,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 5)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     delete = optional(number, 5)
   })
   default = null

@@ -38,7 +38,7 @@ variable "public_key_base64" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the Arc Machine."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -46,7 +46,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 60)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

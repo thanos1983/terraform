@@ -36,15 +36,15 @@ variable "azure_active_directory_block" {
   description = "An azure_active_directory block as defined below."
   type = object({
     admin_group_object_ids = optional(list(string))
-    azure_rbac_enabled = optional(bool, false)
-    tenant_id = optional(string)
+    azure_rbac_enabled     = optional(bool, false)
+    tenant_id              = optional(string)
   })
   default = null
 }
 
 variable "tags" {
   description = "A mapping of tags which should be assigned to the Arc Kubernetes Provisioned Cluster."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -52,7 +52,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

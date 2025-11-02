@@ -41,7 +41,7 @@ variable "dynamic_throttling_enabled" {
 
 variable "customer_managed_key_block" {
   description = "A customer_managed_key block as documented below."
-  type        = object({
+  type = object({
     key_vault_key_id   = string
     identity_client_id = optional(string)
   })
@@ -56,7 +56,7 @@ variable "fqdns" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -106,9 +106,9 @@ variable "tags" {
 
 variable "network_acls_block" {
   description = "A network_acls block as defined below."
-  type        = object({
-    default_action               = string
-    ip_rules                     = optional(list(string))
+  type = object({
+    default_action = string
+    ip_rules       = optional(list(string))
     virtual_network_rules_blocks = optional(list(object({
       subnet_id                            = string
       ignore_missing_vnet_service_endpoint = optional(bool, false)
@@ -157,7 +157,7 @@ variable "custom_question_answering_search_service_key" {
 
 variable "storage_blocks" {
   description = "A storage block as defined below."
-  type        = list(object({
+  type = list(object({
     storage_account_id = string
     identity_client_id = optional(string)
   }))
@@ -166,7 +166,7 @@ variable "storage_blocks" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

@@ -11,14 +11,14 @@ variable "cluster_id" {
 variable "kustomizations_block" {
   description = "A kustomizations block as defined below."
   type = object({
-    name = string
-    path = optional(string)
-    timeout_in_seconds = optional(number, 600)
-    sync_interval_in_seconds = optional(number, 600)
-    retry_interval_in_seconds = optional(number, 600)
-    recreating_enabled = optional(bool, false)
+    name                       = string
+    path                       = optional(string)
+    timeout_in_seconds         = optional(number, 600)
+    sync_interval_in_seconds   = optional(number, 600)
+    retry_interval_in_seconds  = optional(number, 600)
+    recreating_enabled         = optional(bool, false)
     garbage_collection_enabled = optional(bool, false)
-    depends_on = optional(list(string), [])
+    depends_on                 = optional(list(string), [])
   })
 }
 
@@ -30,20 +30,20 @@ variable "namespace" {
 variable "blob_storage_block" {
   description = "An blob_storage block as defined below."
   type = object({
-    container_id = string
-    account_key = optional(string)
+    container_id         = string
+    account_key          = optional(string)
     local_auth_reference = optional(string)
-    sas_token = optional(string)
+    sas_token            = optional(string)
     service_principal_block = optional(object({
-      client_id = string
-      tenant_id = string
-      client_certificate_base64 = optional(string)
-      client_certificate_password = optional(string)
+      client_id                     = string
+      tenant_id                     = string
+      client_certificate_base64     = optional(string)
+      client_certificate_password   = optional(string)
       client_certificate_send_chain = optional(bool)
-      client_secret = optional(string)
+      client_secret                 = optional(string)
     }), null)
     sync_interval_in_seconds = optional(number)
-    timeout_in_seconds = optional(number)
+    timeout_in_seconds       = optional(number)
   })
   default = null
 }
@@ -97,7 +97,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

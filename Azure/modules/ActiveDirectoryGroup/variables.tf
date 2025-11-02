@@ -1,6 +1,6 @@
 variable "administrative_unit_ids" {
   description = "The object IDs of administrative units in which the group is a member."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -8,7 +8,7 @@ variable "assignable_to_role" {
   description = "Indicates whether this group can be assigned to an Azure Active Directory role."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.assignable_to_role)))
+    condition     = contains(["true", "false"], lower(tostring(var.assignable_to_role)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -18,7 +18,7 @@ variable "auto_subscribe_new_members" {
   description = "Indicates whether new members added to the group will be auto-subscribed to receive email notifications."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.auto_subscribe_new_members)))
+    condition     = contains(["true", "false"], lower(tostring(var.auto_subscribe_new_members)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -26,7 +26,7 @@ variable "auto_subscribe_new_members" {
 
 variable "behaviors" {
   description = "Indicates whether new members added to the group will be auto-subscribed to receive email notifications."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -55,7 +55,7 @@ variable "external_senders_allowed" {
   description = "Indicates whether people external to the organization can send messages to the group."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.external_senders_allowed)))
+    condition     = contains(["true", "false"], lower(tostring(var.external_senders_allowed)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -87,7 +87,7 @@ variable "mail_nickname" {
 
 variable "members" {
   description = "A set of members who should be present in this group."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -99,7 +99,7 @@ variable "onpremises_group_type" {
 
 variable "owners" {
   description = "A set of object IDs of principals that will be granted ownership of the group."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -107,7 +107,7 @@ variable "prevent_duplicate_names" {
   description = "If true, will return an error if an existing group is found with the same name."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.prevent_duplicate_names)))
+    condition     = contains(["true", "false"], lower(tostring(var.prevent_duplicate_names)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -115,7 +115,7 @@ variable "prevent_duplicate_names" {
 
 variable "provisioning_options" {
   description = "A set of provisioning options for a Microsoft 365 group."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -133,7 +133,7 @@ variable "theme" {
 
 variable "types" {
   description = "A set of group types to configure for the group."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -141,7 +141,7 @@ variable "visibility" {
   description = "The group join policy and group content visibility."
   type        = string
   validation {
-    condition = contains(["Private", "Public", "Hiddenmembership"], title(var.visibility))
+    condition     = contains(["Private", "Public", "Hiddenmembership"], title(var.visibility))
     error_message = "Possible values can be \"Private\", \"Public\" or \"Hiddenmembership\"."
   }
   default = "Private"
@@ -157,7 +157,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 20)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 20)
     delete = optional(number, 5)
   })

@@ -21,7 +21,7 @@ variable "public_network_access_enabled" {
 
 variable "tags" {
   description = " A mapping of tags which should be assigned to the Azure Arc Private Link Scope."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -29,7 +29,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 20)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 20)
     delete = optional(number, 5)
   })

@@ -15,7 +15,7 @@ module "keyvault_secret" {
   name         = var.display_name
   key_vault_id = var.key_vault_id
   value        = azuread_application_password.application_password.value
-  depends_on   = [
+  depends_on = [
     azuread_application_password.application_password
   ]
 }

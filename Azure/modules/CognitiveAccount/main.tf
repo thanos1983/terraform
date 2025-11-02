@@ -111,7 +111,7 @@ module "cognitive_account_primary_access_key" {
   key_vault_id = var.key_vault_id
   name         = "cognitive-account-primary-access-key"
   value        = azurerm_cognitive_account.cognitive_account.primary_access_key
-  depends_on   = [
+  depends_on = [
     module.cognitive_account_role_assignment_ids, module.cognitive_account_role_assignment_names,
     module.kv_access_policy
   ]
