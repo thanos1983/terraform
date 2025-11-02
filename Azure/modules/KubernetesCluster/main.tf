@@ -343,7 +343,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       network_plugin      = network_profile.value.network_plugin
       network_mode        = network_profile.value.network_mode
       network_policy      = network_profile.value.network_policy
-      dns_service_ip = network_profile.value.dns_service_ip
+      dns_service_ip      = network_profile.value.dns_service_ip
       network_plugin_mode = network_profile.value.network_plugin_mode
       outbound_type       = network_profile.value.outbound_type
       pod_cidr            = network_profile.value.pod_cidr

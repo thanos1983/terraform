@@ -63,7 +63,7 @@ output "node_resource_group" {
 }
 
 output "node_resource_group_id" {
-  description = "The ID of sthe Resource Group containing the resources for this Managed Kubernetes Cluster."
+  description = "The ID of the Resource Group containing the resources for this Managed Kubernetes Cluster."
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.node_resource_group_id
 }
 

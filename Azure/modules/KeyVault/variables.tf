@@ -76,7 +76,7 @@ variable "enable_rbac_authorization" {
 
 variable "network_acls_block" {
   description = "Network ACL block."
-  type        = object({
+  type = object({
     bypass                     = string
     default_action             = string
     ip_rules                   = optional(list(string))
@@ -113,16 +113,6 @@ variable "soft_delete_retention_days" {
     error_message = "Parameter must be between \"7\" and \"90\" days as number."
   }
   default = 90
-}
-
-variable "contact_block" {
-  description = "Contact block."
-  type        = object({
-    email = string
-    name  = optional(string)
-    phone = optional(string)
-  })
-  default = null
 }
 
 variable "tags" {

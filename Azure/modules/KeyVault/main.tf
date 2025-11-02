@@ -1,10 +1,9 @@
 resource "azurerm_key_vault" "key_vault" {
-  name                = var.name
-  location            = var.location
-  resource_group_name = var.resource_group
-  sku_name            = var.sku_name
-  tenant_id           = var.tenant_id
-
+  name                            = var.name
+  location                        = var.location
+  resource_group_name             = var.resource_group
+  sku_name                        = var.sku_name
+  tenant_id                       = var.tenant_id
   enabled_for_deployment          = var.enabled_for_deployment
   enabled_for_disk_encryption     = var.enabled_for_disk_encryption
   enabled_for_template_deployment = var.enabled_for_template_deployment
@@ -23,25 +22,15 @@ resource "azurerm_key_vault" "key_vault" {
   purge_protection_enabled      = var.purge_protection_enabled
   public_network_access_enabled = var.public_network_access_enabled
   soft_delete_retention_days    = var.soft_delete_retention_days
-
-  dynamic "contact" {
-    for_each = var.contact_block[*]
-    content {
-      email = contact.value.email
-      name  = contact.value.name
-      phone = contact.value.phone
-    }
-  }
-
-  tags = var.tags
+  tags                          = var.tags
 }
 
 # Assign Access Policies if enabled
 module "kv_access_policy" {
   source                  = "../KeyVaultAccessPolicy"
   count                   = var.kv_access_policy == false ? 0 : 1
-  object_id               = var.object_id
   tenant_id               = var.tenant_id
+  object_id               = var.object_id
   application_id          = var.application_id
   key_permissions         = var.key_permissions
   secret_permissions      = var.secret_permissions
