@@ -29,4 +29,4 @@ module "sample_logic_app_trigger_http_request_<project>" {
 - callback_url
 ```
 
-###### More information can be found on the official document [logic_app_trigger_http_request](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_trigger_http_request).
+###### More information can be found on the official document [logic_app_trigger_http_request](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_trigger_http_request)

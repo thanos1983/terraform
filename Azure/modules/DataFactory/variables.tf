@@ -15,7 +15,7 @@ variable "location" {
 
 variable "github_configuration_block" {
   description = "A github_configuration block."
-  type        = object({
+  type = object({
     account_name    = string
     branch_name     = string
     git_url         = string
@@ -27,7 +27,7 @@ variable "github_configuration_block" {
 
 variable "global_parameter_block" {
   description = "A set of objects global_parameter blocks."
-  type        = set(object({
+  type = set(object({
     name  = string
     type  = string
     value = string
@@ -37,7 +37,7 @@ variable "global_parameter_block" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -54,7 +54,7 @@ variable "identity_ids" {
 
 variable "vsts_configuration_block" {
   description = "A vsts_configuration block."
-  type        = object({
+  type = object({
     account_name    = string
     branch_name     = string
     project_name    = string

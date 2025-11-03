@@ -22,7 +22,7 @@ variable "name" {
 
 variable "network_interface_ids" {
   description = "A list of Network Interface IDs which should be attached to this Virtual Machine."
-  type = list(string)
+  type        = list(string)
 }
 
 variable "os_disk_block" {
@@ -31,15 +31,15 @@ variable "os_disk_block" {
     caching              = string
     storage_account_type = string
     diff_disk_settings_block = optional(object({
-      option = string
+      option    = string
       placement = optional(string, "CacheDisk")
     }), null)
-    disk_encryption_set_id = optional(string)
-    disk_size_gb = optional(number)
-    name = optional(string)
+    disk_encryption_set_id           = optional(string)
+    disk_size_gb                     = optional(number)
+    name                             = optional(string)
     secure_vm_disk_encryption_set_id = optional(string)
-    security_encryption_type = optional(string)
-    write_accelerator_enabled = optional(string)
+    security_encryption_type         = optional(string)
+    write_accelerator_enabled        = optional(string)
   })
 }
 
@@ -136,7 +136,7 @@ variable "disable_password_authentication" {
   description = "Should Password Authentication be disabled on this Virtual Machine?"
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.disable_password_authentication)))
+    condition     = contains(["true", "false"], lower(tostring(var.disable_password_authentication)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -158,7 +158,7 @@ variable "encryption_at_host_enabled" {
   description = "Should all of the disks (including the temp disk) attached to this Virtual Machine be encrypted by enabling Encryption at Host?"
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.encryption_at_host_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.encryption_at_host_enabled)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = false
@@ -179,10 +179,10 @@ variable "extensions_time_budget" {
 variable "gallery_application_blocks" {
   description = "One or more gallery_application blocks."
   type = list(object({
-    version_id = string
+    version_id             = string
     configuration_blob_uri = optional(string)
-    order = optional(number)
-    tag = optional(string)
+    order                  = optional(number)
+    tag                    = optional(string)
   }))
   default = []
 }
@@ -190,7 +190,7 @@ variable "gallery_application_blocks" {
 variable "identity_block" {
   description = "An identity block as defined below."
   type = object({
-    type = string
+    type         = string
     identity_ids = optional(list(string))
   })
   default = {
@@ -316,7 +316,7 @@ variable "source_image_reference_block" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -339,7 +339,7 @@ variable "vtpm_enabled" {
   description = "Specifies if vTPM (virtual Trusted Platform Module) and Trusted Launch is enabled for the Virtual Machine."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.vtpm_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.vtpm_enabled)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = false
@@ -367,7 +367,7 @@ variable "lower" {
   description = "Include lowercase alphabet characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.lower)))
+    condition     = contains(["true", "false"], lower(tostring(var.lower)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -401,7 +401,7 @@ variable "numeric" {
   description = "Include numeric characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.numeric)))
+    condition     = contains(["true", "false"], lower(tostring(var.numeric)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -411,7 +411,7 @@ variable "special" {
   description = "Include special characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.special)))
+    condition     = contains(["true", "false"], lower(tostring(var.special)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -421,7 +421,7 @@ variable "upper" {
   description = "Include uppercase alphabet characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.upper)))
+    condition     = contains(["true", "false"], lower(tostring(var.upper)))
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
@@ -454,7 +454,7 @@ variable "storage_account_type" {
 variable "diff_disk_settings_block" {
   description = "A diff_disk_settings block as defined above. "
   type = object({
-    option = string
+    option    = string
     placement = optional(string)
   })
   default = null
@@ -488,7 +488,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })
@@ -521,8 +521,8 @@ variable "application_id" {
 
 variable "secret_permissions" {
   description = "List of secret permissions."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "administrator_username" {
@@ -587,8 +587,8 @@ variable "type_handler_version" {
 
 variable "role_definition_names" {
   description = "Specifies the role the user will get with the secret(s) in the vault."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "role_assignment_name" {
@@ -599,8 +599,8 @@ variable "role_assignment_name" {
 
 variable "role_definition_ids" {
   description = "The Scoped-ID(s) of the Role Definition."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "principal_id" {

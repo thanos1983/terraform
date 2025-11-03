@@ -16,7 +16,7 @@ variable "description" {
 
 variable "trigger_dependency_block" {
   description = "One or more trigger_dependency block as defined below."
-  type        = set(object({
+  type = set(object({
     offset       = optional(string)
     size         = optional(string)
     trigger_name = optional(string)
@@ -26,12 +26,6 @@ variable "trigger_dependency_block" {
 
 variable "start_time" {
   description = "The time the Schedule Trigger will start."
-  type        = string
-  default     = null
-}
-
-variable "time_zone" {
-  description = "The timezone of the start/end time."
   type        = string
   default     = null
 }
@@ -54,7 +48,7 @@ variable "max_concurrency" {
 
 variable "retry_block" {
   description = "A retry block."
-  type        = object({
+  type = object({
     count    = string
     interval = optional(number, 30)
   })
@@ -97,23 +91,11 @@ variable "additional_properties" {
 
 variable "pipeline_block" {
   description = "The pipeline block."
-  type        = object({
+  type = object({
     name       = string
     parameters = optional(map(string))
   })
   default = null
-}
-
-variable "pipeline_name" {
-  description = "The Data Factory Pipeline name that the trigger will act on."
-  type        = string
-  default     = null
-}
-
-variable "pipeline_parameters" {
-  description = "The pipeline parameters that the trigger will act upon."
-  type        = map(any)
-  default     = null
 }
 
 variable "annotations" {
@@ -130,7 +112,7 @@ variable "delay" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

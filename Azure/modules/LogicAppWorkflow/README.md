@@ -42,4 +42,4 @@ module "sample_logic_app_workflow_<project>" {
 - workflow_outbound_ip_addresses
 ```
 
-###### More information can be found on the official document [logic_app_workflow](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_workflow).
+###### More information can be found on the official document [logic_app_workflow](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_workflow)

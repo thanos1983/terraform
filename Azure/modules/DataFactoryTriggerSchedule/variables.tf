@@ -16,12 +16,12 @@ variable "description" {
 
 variable "schedule_block" {
   description = "A schedule block as defined below, which further specifies the recurrence schedule for the trigger."
-  type        = map(object({
+  type = map(object({
     days_of_month = optional(string)
     days_of_week  = optional(string)
     hours         = optional(string)
     minutes       = optional(string)
-    monthlies     = optional(set(object({
+    monthlies = optional(set(object({
       weekday = string
       week    = optional(string)
     })))
@@ -77,7 +77,7 @@ variable "activated" {
 
 variable "pipeline_block" {
   description = "The pipeline block."
-  type        = object({
+  type = object({
     name       = string
     parameters = optional(map(string))
   })
@@ -104,7 +104,7 @@ variable "annotations" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

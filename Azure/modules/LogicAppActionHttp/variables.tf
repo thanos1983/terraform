@@ -39,7 +39,7 @@ variable "queries" {
 
 variable "run_after_block" {
   description = "Specifies the place of the HTTP Action in the Logic App Workflow."
-  type        = object({
+  type = object({
     action_name   = string
     action_result = string
   })
@@ -48,7 +48,7 @@ variable "run_after_block" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     update = optional(number, 30)
     read   = optional(number, 5)

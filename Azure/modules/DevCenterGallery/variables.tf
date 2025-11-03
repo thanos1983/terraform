@@ -18,7 +18,7 @@ variable "timeouts_block" {
   type = object({
     create = optional(number, 30)
     delete = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
   })
   default = null

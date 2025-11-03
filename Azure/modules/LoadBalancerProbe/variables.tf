@@ -12,7 +12,7 @@ variable "protocol" {
   description = "Specifies the supported Azure location where the Load Balancer resource should be created."
   type        = string
   validation {
-    condition = contains(["Http", "Https", "Tcp"], title(var.protocol))
+    condition     = contains(["Http", "Https", "Tcp"], title(var.protocol))
     error_message = "Sku name must be \"Http\", \"Https\" or \"Tcp\"."
   }
   default = "Tcp"
@@ -51,7 +51,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

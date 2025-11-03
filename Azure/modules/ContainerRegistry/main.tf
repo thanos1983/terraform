@@ -119,7 +119,7 @@ module "acr_administrator_username" {
   key_vault_id = var.key_vault_id
   name         = "acr-admin-username"
   value        = azurerm_container_registry.container_registry.admin_username
-  depends_on   = [
+  depends_on = [
     module.acr_role_assignment_ids, module.acr_role_assignment_names, module.kv_access_policy
   ]
 }
@@ -131,7 +131,7 @@ module "acr_administrator_password" {
   key_vault_id = var.key_vault_id
   name         = "acr-admin-password"
   value        = azurerm_container_registry.container_registry.admin_password
-  depends_on   = [
+  depends_on = [
     module.acr_role_assignment_ids, module.acr_role_assignment_names, module.kv_access_policy
   ]
 }

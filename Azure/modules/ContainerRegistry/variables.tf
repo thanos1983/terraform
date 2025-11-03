@@ -35,7 +35,7 @@ variable "admin_enabled" {
 
 variable "georeplications_blocks" {
   description = "Georeplications block supports the following."
-  type        = list(object({
+  type = list(object({
     location                  = string
     regional_endpoint_enabled = optional(string)
     zone_redundancy_enabled   = optional(bool, false)
@@ -46,7 +46,7 @@ variable "georeplications_blocks" {
 
 variable "network_rule_set_block" {
   description = "Network rule set block supports the following."
-  type        = object({
+  type = object({
     default_action = optional(string)
     ip_rule_blocks = optional(list(object({
       action   = string
@@ -78,7 +78,7 @@ variable "quarantine_policy_enabled" {
 
 variable "retention_policy_block" {
   description = "Retention policy block supports the following."
-  type        = object({
+  type = object({
     days    = optional(string, 7)
     enabled = optional(bool, true)
   })
@@ -87,7 +87,7 @@ variable "retention_policy_block" {
 
 variable "trust_policy_block" {
   description = "Trust policy block supports the following."
-  type        = object({
+  type = object({
     enabled = optional(bool, true)
   })
   default = null
@@ -115,7 +115,7 @@ variable "export_policy_enabled" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -126,7 +126,7 @@ variable "identity_block" {
 
 variable "encryption_block" {
   description = "Encryption block supports the following."
-  type        = object({
+  type = object({
     enabled            = optional(bool)
     key_vault_key_id   = string
     identity_client_id = string
@@ -171,7 +171,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

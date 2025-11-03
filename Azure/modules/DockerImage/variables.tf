@@ -5,8 +5,8 @@ variable "name" {
 
 variable "build_block" {
   description = "Configuration to build an image."
-  type        = object({
-    context     = string
+  type = object({
+    context = string
     auth_config = optional(list(object({
       host_name      = string
       auth           = optional(string)
@@ -48,7 +48,7 @@ variable "build_block" {
     suppress_output = optional(bool)
     tag             = optional(list(string))
     target          = optional(string)
-    ulimit          = optional(list(object({
+    ulimit = optional(list(object({
       hard = number
       name = string
       soft = number

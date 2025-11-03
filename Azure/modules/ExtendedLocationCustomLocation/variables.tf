@@ -20,7 +20,7 @@ variable "namespace" {
 
 variable "cluster_extension_ids" {
   description = "Specifies the list of Cluster Extension IDs."
-  type = list(string)
+  type        = list(string)
 }
 
 variable "host_resource_id" {
@@ -31,7 +31,7 @@ variable "host_resource_id" {
 variable "authentication_block" {
   description = "An authentication block as defined below."
   type = object({
-    type = optional(string)
+    type  = optional(string)
     value = string
   })
   default = null
@@ -53,7 +53,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

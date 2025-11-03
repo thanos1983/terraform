@@ -32,7 +32,7 @@ variable "time_zone" {
 
 variable "schedule_block" {
   description = "Specifies the Relative Path used for this Request."
-  type        = object({
+  type = object({
     at_these_minutes = optional(list(number), [])
     at_these_hours   = optional(list(number), [])
     on_these_days    = optional(list(string), [])
@@ -42,7 +42,7 @@ variable "schedule_block" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     update = optional(number, 30)
     read   = optional(number, 5)

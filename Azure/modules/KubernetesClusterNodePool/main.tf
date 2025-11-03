@@ -3,10 +3,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
   kubernetes_cluster_id         = var.kubernetes_cluster_id
   vm_size                       = var.vm_size
   capacity_reservation_group_id = var.capacity_reservation_group_id
-  custom_ca_trust_enabled       = var.custom_ca_trust_enabled
-  enable_auto_scaling           = var.enable_auto_scaling
-  enable_host_encryption        = var.enable_host_encryption
-  enable_node_public_ip         = var.enable_node_public_ip
+  auto_scaling_enabled          = var.auto_scaling_enabled
+  host_encryption_enabled       = var.host_encryption_enabled
+  node_public_ip_enabled        = var.node_public_ip_enabled
   eviction_policy               = var.eviction_policy
   host_group_id                 = var.host_group_id
 
@@ -72,7 +71,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
   gpu_instance       = var.gpu_instance
   kubelet_disk_type  = var.kubelet_disk_type
   max_pods           = var.max_pods
-  message_of_the_day = var.message_of_the_day
   mode               = var.mode
 
   dynamic "node_network_profile" {

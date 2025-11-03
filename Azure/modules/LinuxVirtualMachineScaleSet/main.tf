@@ -1,5 +1,5 @@
 module "password" {
-  source      = "../RandomPassword"
+  source      = "../../../TerraformSharedModules/modules/RandomPassword"
   count       = (var.admin_password == null && var.disable_password_authentication == false) ? 1 : 0
   length      = var.length
   lower       = var.lower
@@ -357,7 +357,7 @@ module "kv_secret_admin_password" {
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"
-  value = coalesce(var.admin_password, module.password[0].result)
+  value        = coalesce(var.admin_password, module.password[0].result)
   depends_on = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]

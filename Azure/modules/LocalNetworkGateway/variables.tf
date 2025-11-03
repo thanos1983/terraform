@@ -21,7 +21,7 @@ variable "address_space" {
 
 variable "bgp_settings_block" {
   description = "A bgp_settings block."
-  type        = object({
+  type = object({
     asn                 = string
     bgp_peering_address = string
     peer_weight         = optional(string)
@@ -48,7 +48,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

@@ -36,7 +36,7 @@ variable "init_timeout" {
 
 variable "metadata_blocks" {
   description = "One or more metadata blocks as detailed below."
-  type        = list(object({
+  type = list(object({
     name        = string
     secret_name = optional(string)
     value       = optional(string)
@@ -52,21 +52,16 @@ variable "scopes" {
 
 variable "secret_block" {
   description = "A secret block as detailed below."
-  type        = object({
+  type = object({
     name  = string
     value = string
   })
   default = null
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the resource."
-  type        = map(any)
-}
-
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

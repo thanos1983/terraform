@@ -70,7 +70,7 @@ variable "additional_properties" {
 
 variable "key_vault_connection_string_block" {
   description = "A key_vault_connection_string block as defined below. Use this argument to store Azure SQL Database connection string in an existing Key Vault."
-  type        = object({
+  type = object({
     linked_service_name = string
     secret_name         = string
   })
@@ -79,7 +79,7 @@ variable "key_vault_connection_string_block" {
 
 variable "key_vault_password_block" {
   description = "A key_vault_password block as defined below. Use this argument to store SQL Server password in an existing Key Vault."
-  type        = object({
+  type = object({
     linked_service_name = string
     secret_name         = string
   })
@@ -88,7 +88,7 @@ variable "key_vault_password_block" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

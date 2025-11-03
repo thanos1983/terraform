@@ -58,10 +58,10 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
           dynamic "headers" {
             for_each = ip_restriction.value.headers_block[*]
             content {
-              x_azure_fdid        = headers.value.x_azure_fdid
-              x_fd_health_probe   = headers.value.x_fd_health_probe
-              x_forwarded_for     = headers.value.x_forwarded_for
-              x_forwarded_host    = headers.value.x_forwarded_host
+              x_azure_fdid      = headers.value.x_azure_fdid
+              x_fd_health_probe = headers.value.x_fd_health_probe
+              x_forwarded_for   = headers.value.x_forwarded_for
+              x_forwarded_host  = headers.value.x_forwarded_host
             }
           }
         }
@@ -78,10 +78,10 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
           dynamic "headers" {
             for_each = scm_ip_restriction.value.headers_block[*]
             content {
-              x_azure_fdid        = headers.value.x_azure_fdid
-              x_fd_health_probe   = headers.value.x_fd_health_probe
-              x_forwarded_for     = headers.value.x_forwarded_for
-              x_forwarded_host    = headers.value.x_forwarded_host
+              x_azure_fdid      = headers.value.x_azure_fdid
+              x_fd_health_probe = headers.value.x_fd_health_probe
+              x_forwarded_for   = headers.value.x_forwarded_for
+              x_forwarded_host  = headers.value.x_forwarded_host
             }
           }
         }
@@ -92,7 +92,6 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
       linux_fx_version                 = site_config.value.linux_fx_version
       min_tls_version                  = site_config.value.min_tls_version
       pre_warmed_instance_count        = site_config.value.pre_warmed_instance_count
-      public_network_access_enabled    = site_config.value.public_network_access_enabled
       runtime_scale_monitoring_enabled = site_config.value.runtime_scale_monitoring_enabled
       use_32_bit_worker_process        = site_config.value.use_32_bit_worker_process
       vnet_route_all_enabled           = site_config.value.vnet_route_all_enabled

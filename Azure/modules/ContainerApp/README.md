@@ -42,3 +42,4 @@ module "container_app_<project>" {
 ```
 
 ###### More information can be found on the official document [azurerm_container_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app)
+

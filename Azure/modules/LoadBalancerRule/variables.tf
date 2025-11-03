@@ -17,7 +17,7 @@ variable "protocol" {
   description = "Specifies the supported Azure location where the Load Balancer resource should be created."
   type        = string
   validation {
-    condition = contains(["Http", "Https", "Tcp"], title(var.protocol))
+    condition     = contains(["Http", "Https", "Tcp"], title(var.protocol))
     error_message = "Sku name must be \"Http\", \"Https\" or \"Tcp\"."
   }
   default = "Tcp"
@@ -35,7 +35,7 @@ variable "backend_port" {
 
 variable "backend_address_pool_ids" {
   description = "A list of reference to a Backend Address Pool over which this Load Balancing Rule operates."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -49,7 +49,7 @@ variable "enable_floating_ip" {
   description = "Are the Floating IPs enabled for this Load Balancer Rule?"
   type        = bool
   validation {
-    condition = contains(["false", "true"], lower(tostring(var.enable_floating_ip)))
+    condition     = contains(["false", "true"], lower(tostring(var.enable_floating_ip)))
     error_message = "The boolean value can only be \"true\" or \"false\"."
   }
   default = false
@@ -71,7 +71,7 @@ variable "disable_outbound_snat" {
   description = "Is snat enabled for this Load Balancer Rule?"
   type        = bool
   validation {
-    condition = contains(["false", "true"], lower(tostring(var.disable_outbound_snat)))
+    condition     = contains(["false", "true"], lower(tostring(var.disable_outbound_snat)))
     error_message = "The boolean value can only be \"true\" or \"false\"."
   }
   default = false
@@ -87,7 +87,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

@@ -26,4 +26,4 @@ module "sample_logic_app_trigger_custom_<project>" {
 - name
 ```
 
-###### More information can be found on the official document [logic_app_trigger_custom](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_trigger_custom).
+###### More information can be found on the official document [logic_app_trigger_custom](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_trigger_custom)

@@ -20,7 +20,7 @@ variable "folder" {
 
 variable "schema_column_block" {
   description = "A schema_column block."
-  type        = list(object({
+  type = list(object({
     name        = string
     type        = optional(string)
     description = optional(string)
@@ -54,7 +54,7 @@ variable "additional_properties" {
 
 variable "azure_blob_fs_location_block" {
   description = "Azure fs blob location."
-  type        = object({
+  type = object({
     file_system = string
     path        = optional(string)
     filename    = optional(string)
@@ -64,7 +64,7 @@ variable "azure_blob_fs_location_block" {
 
 variable "azure_blob_storage_location_block" {
   description = "Azure blob location."
-  type        = object({
+  type = object({
     container                 = string
     path                      = optional(string)
     filename                  = optional(string)
@@ -77,7 +77,7 @@ variable "azure_blob_storage_location_block" {
 
 variable "http_server_location_block" {
   description = "Http_server_location block."
-  type        = object({
+  type = object({
     relative_url             = string
     path                     = string
     filename                 = string
@@ -163,7 +163,7 @@ variable "compression_level" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

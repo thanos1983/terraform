@@ -15,7 +15,7 @@ variable "parent_id" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -60,7 +60,7 @@ variable "replicaTimeout" {
 
 variable "secrets" {
   description = "Collection of secrets used by a Container Apps Job."
-  type        = list(object({
+  type = list(object({
     identity    = optional(string)
     keyVaultUrl = optional(string)
     name        = optional(string)
@@ -71,7 +71,7 @@ variable "secrets" {
 
 variable "registries" {
   description = "Collection of private container registry credentials used by a Container apps job."
-  type        = list(object({
+  type = list(object({
     identity          = optional(string)
     passwordSecretRef = optional(string)
     server            = optional(string)
@@ -82,7 +82,7 @@ variable "registries" {
 
 variable "scheduleTriggerConfig" {
   description = "Cron formatted repeating trigger schedule (\"* * * * *\") for cronjobs."
-  type        = object({
+  type = object({
     cronExpression         = string
     parallelism            = number
     replicaCompletionCount = number
@@ -92,14 +92,14 @@ variable "scheduleTriggerConfig" {
 
 variable "eventTriggerConfig" {
   description = "Trigger configuration of an event driven job."
-  type        = object({
+  type = object({
     parallelism            = number
     replicaCompletionCount = number
-    scale                  = object({
+    scale = object({
       maxExecutions   = number
       minExecutions   = number
       pollingInterval = number
-      rules           = list(object({
+      rules = list(object({
         auth = list(object({
           secretRef        = string
           triggerParameter = string
@@ -121,7 +121,7 @@ variable "eventTriggerConfig" {
 
 variable "manualTriggerConfig" {
   description = "Manual trigger configuration for a single execution job."
-  type        = object({
+  type = object({
     parallelism            = number
     replicaCompletionCount = number
   })
@@ -130,7 +130,7 @@ variable "manualTriggerConfig" {
 
 variable "rules" {
   description = "Scaling rules."
-  type        = list(object({
+  type = list(object({
     auth = list(object({
       secretRef        = string
       triggerParameter = string
@@ -162,12 +162,6 @@ variable "ignore_casing" {
   default = false
 }
 
-variable "ignore_body_changes" {
-  description = "A list of properties that should be ignored when comparing the body with its current state."
-  type        = list(string)
-  default     = []
-}
-
 variable "ignore_missing_property" {
   description = "Whether ignore not returned properties like credentials in body to suppress plan-diff."
   type        = bool
@@ -190,20 +184,20 @@ variable "schema_validation_enabled" {
 
 variable "containers" {
   description = "List of container definitions for the Container App."
-  type        = list(object({
+  type = list(object({
     args    = optional(list(string))
     command = optional(list(string))
-    env     = optional(list(object({
+    env = optional(list(object({
       name      = string
       secretRef = optional(string)
       value     = optional(string)
     })))
-    image  = string
-    name   = string
+    image = string
+    name  = string
     probes = optional(list(object({
       failureThreshold = number
-      httpGet          = optional(object({
-        host        = string
+      httpGet = optional(object({
+        host = string
         httpHeaders = optional(list(object({
           name  = string
           value = string
@@ -215,7 +209,7 @@ variable "containers" {
       initialDelaySeconds = number
       periodSeconds       = number
       successThreshold    = number
-      tcpSocket           = optional(object({
+      tcpSocket = optional(object({
         host = string
         port = number
       }))
@@ -233,16 +227,16 @@ variable "containers" {
 
 variable "initContainers" {
   description = "List of specialized containers that run before app containers."
-  type        = list(object({
+  type = list(object({
     args    = list(string)
     command = list(string)
-    env     = list(object({
+    env = list(object({
       name      = string
       secretRef = string
       value     = string
     }))
-    image     = string
-    name      = string
+    image = string
+    name  = string
     resources = object({
       cpu    = number
       memory = string
@@ -257,8 +251,8 @@ variable "initContainers" {
 
 variable "volumes" {
   description = "List of volume definitions for the Container App."
-  type        = list(object({
-    name    = string
+  type = list(object({
+    name = string
     secrets = optional(list(object({
       path      = string
       secretRef = string
@@ -276,7 +270,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     delete = optional(number, 30)

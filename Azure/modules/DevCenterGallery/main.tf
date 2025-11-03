@@ -1,6 +1,6 @@
 resource "azurerm_dev_center_gallery" "dev_center_gallery" {
-  dev_center_id     = ""
-  shared_gallery_id = ""
+  dev_center_id     = var.dev_center_id
+  shared_gallery_id = var.shared_gallery_id
   name              = var.name
 
   dynamic "timeouts" {

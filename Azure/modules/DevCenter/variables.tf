@@ -16,7 +16,7 @@ variable "resource_group_name" {
 variable "identity_block" {
   description = "An identity block as defined below."
   type = object({
-    type = string
+    type         = string
     identity_ids = optional(list(string))
   })
   default = {
@@ -26,7 +26,7 @@ variable "identity_block" {
 
 variable "tags" {
   description = "A mapping of tags which should be assigned to the Dev Center."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -35,7 +35,7 @@ variable "timeouts_block" {
   type = object({
     create = optional(number, 30)
     delete = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
   })
   default = null

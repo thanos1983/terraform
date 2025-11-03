@@ -49,7 +49,7 @@ variable "organization_unit" {
 
 variable "tags" {
   description = "A mapping of tags which should be assigned to the Dev Center Network Connection."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -58,7 +58,7 @@ variable "timeouts_block" {
   type = object({
     create = optional(number, 30)
     delete = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
   })
   default = null

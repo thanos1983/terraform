@@ -16,12 +16,7 @@ module "dev_center_project_environment_type_<project>" {
 
 ```bash
 - name - (Required)
-- location - (Required)
-- dev_center_project_id - (Required)
-- deployment_target_id - (Required)
-- identity - (Optional)
-- creator_role_assignment_roles - (Optional)
-- user_role_assignment - (Optional)
+- dev_center_id - (Required)
 - tags - (Optional)
 ```
 

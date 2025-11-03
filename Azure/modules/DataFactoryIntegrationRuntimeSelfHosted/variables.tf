@@ -16,7 +16,7 @@ variable "description" {
 
 variable "rbac_authorization_block" {
   description = "RBAC Authorization Block."
-  type        = object({
+  type = object({
     resource_id = string
   })
   default = null
@@ -24,7 +24,7 @@ variable "rbac_authorization_block" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions."
-  type        = object({
+  type = object({
     create = optional(number, 60)
     read   = optional(number, 5)
     update = optional(number, 60)

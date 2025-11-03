@@ -154,10 +154,10 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  user_data                         = var.user_data
-  virtual_machine_scale_set_id      = var.virtual_machine_scale_set_id
-  vtpm_enabled                      = var.vtpm_enabled
-  zone                              = var.zone
+  user_data                    = var.user_data
+  virtual_machine_scale_set_id = var.virtual_machine_scale_set_id
+  vtpm_enabled                 = var.vtpm_enabled
+  zone                         = var.zone
 
   lifecycle {
     ignore_changes = [
@@ -238,7 +238,7 @@ module "kv_secret_admin_password" {
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "linux-${var.name}-vm-adm-password"
-  value = coalesce(var.admin_password, module.password[0].result)
+  value        = coalesce(var.admin_password, module.password[0].result)
   depends_on = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]

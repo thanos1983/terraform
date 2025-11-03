@@ -10,7 +10,7 @@ variable "parent_id" {
 
 variable "globalValidation" {
   description = "The configuration settings that determines the validation flow of users using Service Authentication/Authorization."
-  type        = object({
+  type = object({
     excludedPaths               = list(string)
     redirectToProvider          = string
     unauthenticatedClientAction = string
@@ -24,14 +24,14 @@ variable "globalValidation" {
 
 variable "httpSettings" {
   description = "The configuration settings of the HTTP requests for authentication and authorization requests made against ContainerApp Service Authentication/Authorization."
-  type        = object({
+  type = object({
     forwardProxy = object({
       convention            = string
       customHostHeaderName  = string
       customProtoHeaderName = string
     })
     requireHttps = bool
-    routes       = object({
+    routes = object({
       apiPrefix = string
     })
   })
@@ -42,7 +42,7 @@ variable "httpSettings" {
       customProtoHeaderName = null
     }
     requireHttps = true
-    routes       = {
+    routes = {
       apiPrefix = null
     }
   }
@@ -50,9 +50,9 @@ variable "httpSettings" {
 
 variable "apple" {
   description = "The configuration settings of the Apple provider."
-  type        = object({
+  type = object({
     enabled = bool
-    login   = object({
+    login = object({
       scopes = list(string)
     })
     registration = object({
@@ -65,10 +65,10 @@ variable "apple" {
 
 variable "azureActiveDirectory" {
   description = "The configuration settings of the Azure Active directory provider."
-  type        = object({
+  type = object({
     enabled           = bool
     isAutoProvisioned = bool
-    login             = optional(object({
+    login = optional(object({
       disableWWWAuthenticate = bool
       loginParameters        = optional(list(string))
     }))
@@ -81,10 +81,10 @@ variable "azureActiveDirectory" {
       openIdIssuer                                  = string
     })
     validation = object({
-      allowedAudiences           = list(string)
+      allowedAudiences = list(string)
       defaultAuthorizationPolicy = optional(object({
         allowedApplications = optional(list(string))
-        allowedPrincipals   = optional(object({
+        allowedPrincipals = optional(object({
           groups     = optional(list(string))
           identities = optional(list(string))
         }), null)
@@ -100,8 +100,8 @@ variable "azureActiveDirectory" {
 
 variable "azureStaticWebApps" {
   description = "The configuration settings of the Azure Static Web Apps provider."
-  type        = object({
-    enabled      = bool
+  type = object({
+    enabled = bool
     registration = object({
       clientId = string
     })
@@ -117,10 +117,10 @@ variable "customOpenIdConnectProviders" {
 
 variable "facebook" {
   description = "The configuration settings of the Facebook provider."
-  type        = object({
+  type = object({
     enabled         = bool
     graphApiVersion = string
-    login           = object({
+    login = object({
       scopes = list(string)
     })
     registration = object({
@@ -133,9 +133,9 @@ variable "facebook" {
 
 variable "github" {
   description = "The configuration settings of the GitHub provider."
-  type        = object({
+  type = object({
     enabled = bool
-    login   = object({
+    login = object({
       scopes = list(string)
     })
     registration = object({
@@ -148,9 +148,9 @@ variable "github" {
 
 variable "google" {
   description = "The configuration settings of the Google provider."
-  type        = object({
+  type = object({
     enabled = bool
-    login   = object({
+    login = object({
       scopes = list(string)
     })
     registration = object({
@@ -166,8 +166,8 @@ variable "google" {
 
 variable "twitter" {
   description = "The configuration settings of the Twitter provider."
-  type        = object({
-    enabled      = bool
+  type = object({
+    enabled = bool
     registration = object({
       consumerKey               = string
       consumerSecretSettingName = string
@@ -178,9 +178,9 @@ variable "twitter" {
 
 variable "login" {
   description = "The configuration settings of the login flow of users using ContainerApp Service Authentication/Authorization."
-  type        = object({
+  type = object({
     allowedExternalRedirectUrls = optional(list(string), [])
-    cookieExpiration            = optional(object({
+    cookieExpiration = optional(object({
       convention       = string
       timeToExpiration = string
     }), null)
@@ -189,7 +189,7 @@ variable "login" {
       validateNonce           = bool
     }), null)
     preserveUrlFragmentsForLogins = bool
-    routes                        = optional(object({
+    routes = optional(object({
       logoutEndpoint = string
     }), null)
   })
@@ -198,7 +198,7 @@ variable "login" {
 
 variable "platform" {
   description = "The configuration settings of the platform of ContainerApp Service Authentication/Authorization."
-  type        = object({
+  type = object({
     enabled        = bool
     runtimeVersion = optional(string)
   })

@@ -15,7 +15,7 @@ variable "location" {
 
 variable "access_control_block" {
   description = "A access_control block as defined below."
-  type        = object({
+  type = object({
     action_block = optional(object({
       allowed_caller_ip_address_range = list(string)
     }), null)
@@ -23,9 +23,9 @@ variable "access_control_block" {
       allowed_caller_ip_address_range = list(string)
     }), null)
     trigger_block = optional(object({
-      allowed_caller_ip_address_range  = list(string)
+      allowed_caller_ip_address_range = list(string)
       open_authentication_policy_block = optional(object({
-        name        = string
+        name = string
         claim_block = object({
           name  = string
           value = string
@@ -41,7 +41,7 @@ variable "access_control_block" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -104,7 +104,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     update = optional(number, 30)
     read   = optional(number, 5)

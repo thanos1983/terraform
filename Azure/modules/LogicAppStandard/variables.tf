@@ -109,7 +109,6 @@ variable "site_config_block" {
     linux_fx_version                 = optional(string)
     min_tls_version                  = optional(string)
     pre_warmed_instance_count        = optional(number)
-    public_network_access_enabled    = optional(bool)
     runtime_scale_monitoring_enabled = optional(bool)
     use_32_bit_worker_process        = optional(bool)
     vnet_route_all_enabled           = optional(bool)

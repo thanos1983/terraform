@@ -1,12 +1,12 @@
 resource "azapi_resource" "df_dataset_azure_sql_server" {
-  type      = "Microsoft.DataFactory/factories/datasets@2018-06-01"
+  type      = "Microsoft.DataFactory/factories/datasets@2024-11-01-preview"
   name      = var.name
   parent_id = var.data_factory_id
-  body      = jsonencode({
+  body = jsonencode({
     properties = {
       annotations = var.propertiesAnnotations
       description = var.propertiesAnnotations
-      folder      = {
+      folder = {
         name = var.propertiesFolder
       }
       linkedServiceName = {
@@ -14,9 +14,9 @@ resource "azapi_resource" "df_dataset_azure_sql_server" {
         referenceName = var.linkedServiceReferenceName
         type          = var.linkedServiceType
       }
-      parameters     = var.propertiesParameters
-      type           = var.propertiesType
-      structure      = var.propertiesStructure
+      parameters = var.propertiesParameters
+      type       = var.propertiesType
+      structure  = var.propertiesStructure
       typeProperties = {
         schema    = var.propertiesTypePropertiesSchema
         table     = var.propertiesTypePropertiesTable

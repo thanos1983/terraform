@@ -5,8 +5,8 @@ resource "azapi_resource" "container_app_auth_configs" {
 
   body = jsonencode({
     properties = {
-      globalValidation  = var.globalValidation
-      httpSettings      = var.httpSettings
+      globalValidation = var.globalValidation
+      httpSettings     = var.httpSettings
       identityProviders = {
         apple                        = var.apple
         azureActiveDirectory         = var.azureActiveDirectory
