@@ -13,9 +13,9 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_node_pool_blocks" {
+variable "default_node_pool_block" {
   description = "A default_node_pool block as defined below."
-  type = list(object({
+  type = object({
     name                          = string
     vm_size                       = string
     capacity_reservation_group_id = optional(string)
@@ -110,7 +110,7 @@ variable "default_node_pool_blocks" {
     max_count        = optional(number)
     min_count        = optional(number)
     node_count       = optional(number)
-  }))
+  })
 }
 
 variable "dns_prefix" {

@@ -4,7 +4,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   resource_group_name = var.resource_group_name
 
   dynamic "default_node_pool" {
-    for_each = var.default_node_pool_blocks
+    for_each = var.default_node_pool_block[*]
     content {
       name                          = default_node_pool.value.name
       vm_size                       = default_node_pool.value.vm_size
@@ -14,6 +14,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       node_public_ip_enabled        = default_node_pool.value.node_public_ip_enabled
       gpu_instance                  = default_node_pool.value.gpu_instance
       host_group_id                 = default_node_pool.value.host_group_id
+
       dynamic "kubelet_config" {
         for_each = default_node_pool.value.kubelet_config_block[*]
         content {
@@ -29,10 +30,12 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
           topology_manager_policy   = kubelet_config.value.topology_manager_policy
         }
       }
+
       dynamic "linux_os_config" {
         for_each = default_node_pool.value.linux_os_config_block[*]
         content {
           swap_file_size_mb = linux_os_config.value.swap_file_size_mb
+
           dynamic "sysctl_config" {
             for_each = linux_os_config.value.sysctl_config_block[*]
             content {
@@ -67,13 +70,16 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
               vm_vfs_cache_pressure              = sysctl_config.value.vm_vfs_cache_pressure
             }
           }
+
           transparent_huge_page_defrag  = linux_os_config.value.transparent_huge_page_defrag
           transparent_huge_page_enabled = linux_os_config.value.transparent_huge_page_enabled
         }
       }
+
       fips_enabled      = default_node_pool.value.fips_enabled
       kubelet_disk_type = default_node_pool.value.kubelet_disk_type
       max_pods          = default_node_pool.value.max_pods
+
       dynamic "node_network_profile" {
         for_each = default_node_pool.value.node_network_profile_block[*]
         content {
@@ -89,6 +95,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
           node_public_ip_tags            = node_network_profile.value.node_public_ip_tags
         }
       }
+
       node_public_ip_prefix_id     = default_node_pool.value.node_public_ip_prefix_id
       node_labels                  = default_node_pool.value.node_labels
       only_critical_addons_enabled = default_node_pool.value.only_critical_addons_enabled
@@ -104,6 +111,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       type                         = default_node_pool.value.type
       tags                         = default_node_pool.value.tags
       ultra_ssd_enabled            = default_node_pool.value.ultra_ssd_enabled
+
       dynamic "upgrade_settings" {
         for_each = default_node_pool.value.upgrade_settings_block[*]
         content {
@@ -112,6 +120,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
           max_surge                     = upgrade_settings.value.max_surge
         }
       }
+
       vnet_subnet_id   = default_node_pool.value.vnet_subnet_id
       workload_runtime = default_node_pool.value.workload_runtime
       zones            = default_node_pool.value.zones
