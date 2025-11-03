@@ -1,6 +1,6 @@
 variable "metadata_block" {
   description = "Standard ingress's metadata."
-  type        = object({
+  type = object({
     annotations   = optional(map(string))
     generate_name = optional(string)
     labels        = optional(map(string))
@@ -11,7 +11,7 @@ variable "metadata_block" {
 
 variable "role_ref_block" {
   description = "The ClusterRole to bind Subjects to."
-  type        = object({
+  type = object({
     name      = string
     kind      = string
     api_group = string
@@ -20,7 +20,7 @@ variable "role_ref_block" {
 
 variable "subject_blocks" {
   description = "The ClusterRole to bind Subjects to."
-  type        = list(object({
+  type = list(object({
     name      = string
     kind      = string
     namespace = optional(string)

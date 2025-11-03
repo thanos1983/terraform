@@ -1,10 +1,10 @@
 variable "metadata_block" {
   description = "Standard ingress's metadata."
   type = object({
-    annotations = optional(map(string))
+    annotations   = optional(map(string))
     generate_name = optional(string)
-    labels = optional(map(string))
-    name = optional(string)
+    labels        = optional(map(string))
+    name          = optional(string)
   })
 }
 
@@ -23,7 +23,7 @@ variable "allowed_topologies_block" {
   description = "Restrict the node topologies where volumes can be dynamically provisioned."
   type = object({
     match_label_expressions_block = optional(object({
-      key = optional(string)
+      key    = optional(string)
       values = optional(set(string))
     }), null)
   })
@@ -32,13 +32,13 @@ variable "allowed_topologies_block" {
 
 variable "mount_options" {
   description = "Restrict the node topologies where volumes can be dynamically provisioned."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
 variable "parameters" {
   description = "The parameters for the provisioner that should create volumes of this storage class."
-  type = map(string)
+  type        = map(string)
   default     = null
 }
 

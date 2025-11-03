@@ -1348,8 +1348,8 @@ resource "kubernetes_deployment_v1" "deployment_v1" {
                               }
 
                               storage_class_name = optional(string)
-                              volume_mode = optional(string)
-                              volume_name = optional(string)
+                              volume_mode        = optional(string)
+                              volume_name        = optional(string)
                             }
                           }
 

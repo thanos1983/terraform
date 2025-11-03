@@ -12,7 +12,7 @@ variable "binary_data" {
 
 variable "metadata_block" {
   description = "Standard secret's metadata."
-  type        = object({
+  type = object({
     annotations   = optional(map(string))
     generate_name = optional(string)
     labels        = optional(map(string))
@@ -49,7 +49,7 @@ variable "wait_for_service_account_token" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 1)
   })
   default = null

@@ -5,5 +5,5 @@ output "id" {
 
 output "metadata" {
   description = "The metadata of this resource."
-  value = kubernetes_deployment_v1.deployment_v1.metadata
+  value       = kubernetes_deployment_v1.deployment_v1.metadata
 }

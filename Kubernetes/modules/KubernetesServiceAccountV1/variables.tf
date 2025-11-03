@@ -1,6 +1,6 @@
 variable "metadata_block" {
   description = "Standard ingress's metadata."
-  type        = object({
+  type = object({
     annotations   = optional(map(string))
     generate_name = optional(string)
     labels        = optional(map(string))
@@ -11,7 +11,7 @@ variable "metadata_block" {
 
 variable "image_pull_secret_blocks" {
   description = "A list of references to secrets in the same namespace to use for pulling any images in pods that reference this Service Account."
-  type        = list(object({
+  type = list(object({
     name = optional(string)
   }))
   default = []
@@ -19,7 +19,7 @@ variable "image_pull_secret_blocks" {
 
 variable "secret_blocks" {
   description = "A list of secrets allowed to be used by pods running using this Service Account."
-  type        = list(object({
+  type = list(object({
     name = optional(string)
   }))
   default = []

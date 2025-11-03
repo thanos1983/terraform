@@ -1,11 +1,11 @@
 variable "metadata_block" {
   description = "Standard ingress's metadata."
   type = object({
-    annotations = optional(map(string))
+    annotations   = optional(map(string))
     generate_name = optional(string)
-    labels = optional(map(string))
-    name = optional(string)
-    namespace = optional(string)
+    labels        = optional(map(string))
+    name          = optional(string)
+    namespace     = optional(string)
   })
 }
 
@@ -21,7 +21,7 @@ variable "spec_block" {
       service_block = optional(object({
         name = string
         port_block = optional(object({
-          name = optional(string)
+          name   = optional(string)
           number = optional(number)
         }), null)
       }), null)
@@ -31,7 +31,7 @@ variable "spec_block" {
       host = optional(string)
       http_blocks = optional(list(object({
         path_blocks = list(object({
-          path = string
+          path      = string
           path_type = optional(string)
           backend_block = object({
             resource_block = optional(object({
@@ -42,7 +42,7 @@ variable "spec_block" {
             service_block = optional(object({
               name = string
               port_block = optional(object({
-                name = optional(string)
+                name   = optional(string)
                 number = optional(number)
               }), null)
             }), null)
@@ -51,7 +51,7 @@ variable "spec_block" {
       })), [])
     })), [])
     tls_blocks = optional(list(object({
-      hosts = optional(list(string))
+      hosts       = optional(list(string))
       secret_name = optional(string)
     })), [])
   })
@@ -61,7 +61,7 @@ variable "wait_for_load_balancer" {
   description = "Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.wait_for_load_balancer)))
+    condition     = contains(["true", "false"], lower(tostring(var.wait_for_load_balancer)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

@@ -11,14 +11,14 @@ variable "kind" {
 variable "metadata_block" {
   description = "Standard ingress's metadata."
   type = object({
-    name = string
+    name      = string
     namespace = optional(string)
   })
 }
 
 variable "annotations" {
   description = "A map of annotations to apply to the resource."
-  type = map(string)
+  type        = map(string)
   default     = null
 }
 
@@ -32,7 +32,7 @@ variable "force" {
   description = "Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.force)))
+    condition     = contains(["true", "false"], lower(tostring(var.force)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -40,6 +40,6 @@ variable "force" {
 
 variable "template_annotations" {
   description = "A map of annotations to apply to the resource template."
-  type = map(string)
+  type        = map(string)
   default     = null
 }

@@ -11,7 +11,7 @@ variable "wait" {
 
 variable "timeouts_block" {
   description = "Overwrite create, update or delete timeout defaults."
-  type        = object({
+  type = object({
     create = number
     update = number
     delete = number

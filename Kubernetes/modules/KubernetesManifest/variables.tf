@@ -17,8 +17,8 @@ variable "object" {
 
 variable "wait_block" {
   description = "An object which allows you configure the provider to wait for specific fields to reach a desired value or certain conditions to be met."
-  type        = object({
-    rollout         = optional(bool)
+  type = object({
+    rollout = optional(bool)
     condition_block = optional(object({
       status = optional(string)
       type   = optional(string)
@@ -30,7 +30,7 @@ variable "wait_block" {
 
 variable "field_manager_block" {
   description = "Configure field manager options."
-  type        = object({
+  type = object({
     name            = optional(string)
     force_conflicts = optional(bool)
   })
@@ -39,7 +39,7 @@ variable "field_manager_block" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 10)
     update = optional(number, 10)
     delete = optional(number, 30)

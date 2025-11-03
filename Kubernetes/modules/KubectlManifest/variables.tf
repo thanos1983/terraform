@@ -96,7 +96,7 @@ variable "wait_for_rollout" {
 
 variable "wait_for_block" {
   description = "Set this flag to wait or not for Deployments and APIService to complete rollout."
-  type        = list(object({
+  type = list(object({
     field_blocks = optional(list(object({
       key        = string
       value      = string

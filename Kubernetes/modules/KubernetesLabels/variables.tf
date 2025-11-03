@@ -10,13 +10,13 @@ variable "kind" {
 
 variable "labels" {
   description = "A map of labels to apply to the resource."
-  type = map(string)
+  type        = map(string)
 }
 
 variable "metadata_block" {
   description = "Standard ingress's metadata."
   type = object({
-    name = string
+    name      = string
     namespace = optional(string)
   })
 }
@@ -31,7 +31,7 @@ variable "force" {
   description = "Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.force)))
+    condition     = contains(["true", "false"], lower(tostring(var.force)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

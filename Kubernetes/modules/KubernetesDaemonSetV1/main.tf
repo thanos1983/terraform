@@ -1348,8 +1348,8 @@ resource "kubernetes_daemon_set_v1" "daemon_set_v1" {
                               }
 
                               storage_class_name = optional(string)
-                              volume_mode = optional(string)
-                              volume_name = optional(string)
+                              volume_mode        = optional(string)
+                              volume_name        = optional(string)
                             }
                           }
 
@@ -1633,8 +1633,8 @@ resource "kubernetes_daemon_set_v1" "daemon_set_v1" {
         }
       }
 
-      min_ready_seconds         = spec.value.min_ready_seconds
-      revision_history_limit    = spec.value.revision_history_limit
+      min_ready_seconds      = spec.value.min_ready_seconds
+      revision_history_limit = spec.value.revision_history_limit
 
       dynamic "selector" {
         for_each = spec.value.selector_block[*]

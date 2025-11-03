@@ -10,8 +10,8 @@ resource "kubernetes_annotations" "annotations" {
     }
   }
 
-  annotations = var.annotations
-  field_manager = var.field_manager
-  force         = var.force
+  annotations          = var.annotations
+  field_manager        = var.field_manager
+  force                = var.force
   template_annotations = {}
 }
