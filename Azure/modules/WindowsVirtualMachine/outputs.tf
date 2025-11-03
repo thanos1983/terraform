@@ -27,14 +27,14 @@ output "identity" {
 
 output "principal_id" {
   description = "The Principal ID associated with this Managed Service Identity."
-  value       = flatten([
+  value = flatten([
     for identity in azurerm_windows_virtual_machine.windows_virtual_machine[*].identity : identity[*].principal_id
   ])
 }
 
 output "tenant_id" {
   description = "The Tenant ID associated with this Managed Service Identity."
-  value       = flatten([
+  value = flatten([
     for identity in azurerm_windows_virtual_machine.windows_virtual_machine[*].identity : identity[*].tenant_id
   ])
 }

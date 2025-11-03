@@ -10,7 +10,7 @@ variable "resource_group_name" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 90)
     read   = optional(number, 5)
     update = optional(number, 90)

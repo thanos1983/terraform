@@ -17,19 +17,19 @@ variable "location" {
 variable "route_blocks" {
   description = "List of objects representing routes."
   type = list(object({
-    name           = string
-    address_prefix = string
-    next_hop_type  = string
+    name                   = string
+    address_prefix         = string
+    next_hop_type          = string
     next_hop_in_ip_address = optional(string)
   }))
   default = null
 }
 
-variable "disable_bgp_route_propagation" {
+variable "bgp_route_propagation_enabled" {
   description = "Boolean flag which controls propagation of routes learned by BGP on that route table."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.disable_bgp_route_propagation)))
+    condition     = contains(["true", "false"], lower(tostring(var.bgp_route_propagation_enabled)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
   default = true
@@ -37,7 +37,7 @@ variable "disable_bgp_route_propagation" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -45,7 +45,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

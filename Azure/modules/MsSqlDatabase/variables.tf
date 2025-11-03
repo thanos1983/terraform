@@ -29,7 +29,7 @@ variable "create_mode" {
 
 variable "import_block" {
   description = "A Database Import block."
-  type        = object({
+  type = object({
     storage_uri                  = string
     storage_key                  = string
     storage_key_type             = string
@@ -114,7 +114,7 @@ variable "license_type" {
 
 variable "long_term_retention_policy_block" {
   description = "A long_term_retention_policy block."
-  type        = object({
+  type = object({
     weekly_retention  = optional(string)
     monthly_retention = optional(string)
     yearly_retention  = optional(string)
@@ -173,7 +173,7 @@ variable "sample_name" {
 
 variable "short_term_retention_policy_block" {
   description = " A short_term_retention_policy block."
-  type        = object({
+  type = object({
     retention_days           = number
     backup_interval_in_hours = optional(number)
   })
@@ -207,7 +207,7 @@ variable "storage_account_type" {
 
 variable "threat_detection_policy_block" {
   description = "Threat detection policy configuration."
-  type        = object({
+  type = object({
     state                      = optional(string)
     disabled_alerts            = optional(string)
     email_account_admins       = optional(string)
@@ -241,7 +241,7 @@ variable "zone_redundant" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 60)
     read   = optional(number, 5)
     update = optional(number, 60)

@@ -108,7 +108,7 @@ variable "enable_bgp" {
 
 variable "custom_bgp_addresses_block" {
   description = "A custom_bgp_addresses (Border Gateway Protocol custom IP Addresses) block."
-  type        = object({
+  type = object({
     primary   = string
     secondary = string
   })
@@ -145,7 +145,7 @@ variable "use_policy_based_traffic_selectors" {
 
 variable "ipsec_policy_block" {
   description = "A ipsec_policy block."
-  type        = object({
+  type = object({
     dh_group         = string
     ike_encryption   = string
     ike_integrity    = string
@@ -160,7 +160,7 @@ variable "ipsec_policy_block" {
 
 variable "traffic_selector_policy_block" {
   description = "One or more traffic_selector_policy blocks."
-  type        = map(object({
+  type = map(object({
     local_address_cidrs  = list(string)
     remote_address_cidrs = list(string)
   }))
@@ -174,7 +174,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

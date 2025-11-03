@@ -10,7 +10,7 @@ variable "resource_group_name" {
 
 variable "soa_record_block" {
   description = "An soa_record block."
-  type        = object({
+  type = object({
     email        = string
     expire_time  = optional(number, 2419200)
     minimum_ttl  = optional(number, 10)
@@ -30,7 +30,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)
@@ -41,7 +41,7 @@ variable "timeouts_block" {
 
 variable "private_dns_a_records" {
   description = "The name(s) of the DNS A Record."
-  type        = list(object({
+  type = list(object({
     ttl     = number
     name    = string
     records = list(string)

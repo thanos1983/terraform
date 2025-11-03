@@ -15,15 +15,22 @@ module "azapi_update_resource_<project>" {
 ### Variables:
 
 ```bash
-- name (Optional)
-- parent_id (Optional)
 - type (Required)
 - body (Required)
-- response_export_values (Optional)
-- locks (Optional)
 - ignore_casing (Optional)
-- ignore_body_changes (Optional)
 - ignore_missing_property (Optional)
+- locks (Optional)
+- name (Optional)
+- parent_id (Optional)
+- read_headers (Optional)
+- read_query_parameters (Optional)
+- resource_id (Optional)
+- response_export_values (Optional)
+- retry_block (Optional)
+- sensitive_body (Optional)
+- sensitive_body_version (Optional)
+- update_headers (Optional)
+- update_query_parameters (Optional)
 - timeouts_block (Optional)
 ```
 

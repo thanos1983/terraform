@@ -26,7 +26,7 @@ variable "custom_network_interface_name" {
 
 variable "private_dns_zone_group_block" {
   description = "A private_dns_zone_group block as defined below."
-  type        = object({
+  type = object({
     name                 = string
     private_dns_zone_ids = list(string)
   })
@@ -35,7 +35,7 @@ variable "private_dns_zone_group_block" {
 
 variable "private_service_connection_blocks" {
   description = "A private_service_connection block as defined below."
-  type        = list(object({
+  type = list(object({
     name                              = string
     is_manual_connection              = bool
     private_connection_resource_id    = optional(string)
@@ -47,7 +47,7 @@ variable "private_service_connection_blocks" {
 
 variable "ip_configuration_blocks" {
   description = "One or more ip_configuration blocks as defined below."
-  type        = list(object({
+  type = list(object({
     name               = string
     private_ip_address = string
     subresource_name   = optional(string)
@@ -64,7 +64,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

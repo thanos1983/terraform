@@ -20,8 +20,8 @@ variable "access_tier" {
 
 variable "acl_blocks" {
   description = "One or more acl blocks as defined below."
-  type        = list(object({
-    id            = string
+  type = list(object({
+    id = string
     access_policy = optional(object({
       permissions = string
       start       = optional(string)
@@ -54,7 +54,7 @@ variable "metadata" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

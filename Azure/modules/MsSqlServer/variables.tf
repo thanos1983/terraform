@@ -107,7 +107,7 @@ variable "administrator_login_password" {
 
 variable "azuread_administrator_block" {
   description = "An azuread_administrator block."
-  type        = object({
+  type = object({
     login_username              = string
     object_id                   = string
     tenant_id                   = optional(string)
@@ -177,18 +177,6 @@ variable "primary_user_assigned_identity_id" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)
-  default     = null
-}
-
-variable "kv_name" {
-  description = "Key Vault if the user desires to create access policy for the DB."
-  type        = string
-  default     = null
-}
-
-variable "kv_rg_name" {
-  description = "Key Vault Resource Group (if not defined default RG will be assumed)."
-  type        = string
   default     = null
 }
 

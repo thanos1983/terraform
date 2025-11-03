@@ -60,6 +60,7 @@ variable "firewallRulesMap" {
   default = null
 }
 ```
+
 Sample of how to use it:
 
 ```bash

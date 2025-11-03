@@ -188,7 +188,7 @@ module "AADLoginForWindows" {
   auto_upgrade_minor_version = var.auto_upgrade_minor_version
   type_handler_version       = var.type_handler_version
   virtual_machine_id         = azurerm_windows_virtual_machine.windows_virtual_machine.id
-  depends_on                 = [
+  depends_on = [
     azurerm_windows_virtual_machine.windows_virtual_machine
   ]
 }
@@ -231,7 +231,7 @@ module "kv_secret_admin_username" {
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-username"
   value        = var.administrator_username
-  depends_on   = [
+  depends_on = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
 }
@@ -243,7 +243,7 @@ module "kv_secret_admin_password" {
   key_vault_id = var.key_vault_id
   name         = "win-${var.name}-vm-adm-password"
   value        = coalesce(var.admin_password, module.password[0].result)
-  depends_on   = [
+  depends_on = [
     module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
   ]
 }

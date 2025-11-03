@@ -67,7 +67,7 @@ variable "protected_settings" {
 
 variable "protected_settings_from_key_vault_block" {
   description = "A protected_settings_from_key_vault block."
-  type        = object({
+  type = object({
     secret_url      = string
     source_vault_id = string
   })
@@ -82,7 +82,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

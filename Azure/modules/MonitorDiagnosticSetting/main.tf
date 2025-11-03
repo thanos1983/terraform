@@ -5,34 +5,19 @@ resource "azurerm_monitor_diagnostic_setting" "monitor_diagnostic_setting" {
   eventhub_authorization_rule_id = var.eventhub_authorization_rule_id
 
   dynamic "enabled_log" {
-    for_each = var.enabled_log_block[*]
+    for_each = var.enabled_log_blocks
     content {
       category       = enabled_log.value.category
       category_group = enabled_log.value.category_group
-      dynamic "retention_policy" {
-        for_each = enabled_log.value.retention_policy[*]
-        content {
-          enabled = retention_policy.value.enabled
-          days    = retention_policy.value.days
-        }
-      }
     }
   }
 
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
-  dynamic "metric" {
-    for_each = var.metric_block[*]
+  dynamic "enable_metric" {
+    for_each = var.enabled_metric_blocks
     content {
-      category = metric.value.category
-      enabled  = metric.value.enabled
-      dynamic "retention_policy" {
-        for_each = metric.value.retention_policy[*]
-        content {
-          enabled = retention_policy.value.enabled
-          days    = retention_policy.value.days
-        }
-      }
+      category = enable_metric.value.category
     }
   }
 

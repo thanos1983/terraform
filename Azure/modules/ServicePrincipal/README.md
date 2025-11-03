@@ -52,4 +52,4 @@ module "service_principal_<project>" {
 - name
 ```
 
-###### More information can be found on the official document [azurerm_shared_image](https://registry.terraform.io/providers/hashicorp/Azurerm/latest/docs/resources/shared_image)
+###### More information can be found on the official document [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal)

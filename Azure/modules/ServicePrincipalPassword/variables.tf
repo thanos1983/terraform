@@ -18,7 +18,7 @@ variable "end_date_relative" {
 
 variable "rotate_when_changed" {
   description = "A map of arbitrary key/value pairs that will force recreation of the password when they change, enabling password rotation based on external conditions such as a rotating timestamp."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -37,7 +37,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     delete = optional(number, 30)
   })
   default = null

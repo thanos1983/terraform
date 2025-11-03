@@ -17,7 +17,7 @@ variable "source_block" {
   description = "A source block as defined below."
   type = object({
     command_id = optional(string)
-    script = optional(string)
+    script     = optional(string)
     script_uri = optional(string)
     script_uri_managed_identity = optional(object({
       client_id = optional(string)
@@ -33,12 +33,6 @@ variable "error_blob_managed_identity_block" {
     object_id = optional(string)
   })
   default = null
-}
-
-variable "error_blob_uri" {
-  description = "Specifies the Azure storage blob where script error stream will be uploaded."
-  type        = string
-  default     = null
 }
 
 variable "output_blob_managed_identity_block" {
@@ -88,7 +82,7 @@ variable "run_as_user" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -96,7 +90,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

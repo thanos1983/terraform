@@ -24,9 +24,9 @@ variable "description" {
 variable "permissions_block" {
   description = "A permissions block as defined below."
   type = object({
-    actions = optional(list(string))
-    data_actions = optional(list(string))
-    not_actions = optional(list(string))
+    actions          = optional(list(string))
+    data_actions     = optional(list(string))
+    not_actions      = optional(list(string))
     not_data_actions = optional(list(string))
   })
   default = null
@@ -34,7 +34,7 @@ variable "permissions_block" {
 
 variable "assignable_scopes" {
   description = "One or more assignable scopes for this Role Definition."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -42,7 +42,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

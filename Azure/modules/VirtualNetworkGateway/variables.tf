@@ -1,6 +1,6 @@
 variable "ip_configuration_block" {
   description = "The ip_configuration block (1 to 3)."
-  type        = list(object({
+  type = list(object({
     name                          = optional(string)
     private_ip_address_allocation = optional(string)
     subnet_id                     = string
@@ -73,9 +73,9 @@ variable "enable_bgp" {
 
 variable "bgp_settings_block" {
   description = "A bgp_settings block."
-  type        = object({
-    asn               = optional(string)
-    peer_weight       = optional(string)
+  type = object({
+    asn         = optional(string)
+    peer_weight = optional(string)
     peering_addresses = optional(list(object({
       ip_configuration_name = optional(string)
       apipa_addresses       = optional(list(string))
@@ -86,7 +86,7 @@ variable "bgp_settings_block" {
 
 variable "custom_route_block" {
   description = "A custom_route block."
-  type        = object({
+  type = object({
     address_prefixes = optional(list(string))
   })
   default = null
@@ -110,11 +110,11 @@ variable "private_ip_address_enabled" {
 
 variable "vpn_client_configuration_block" {
   description = "A vpn_client_configuration block."
-  type        = object({
-    address_space    = string
-    aad_tenant       = optional(string)
-    aad_audience     = optional(string)
-    aad_issuer       = optional(string)
+  type = object({
+    address_space = string
+    aad_tenant    = optional(string)
+    aad_audience  = optional(string)
+    aad_issuer    = optional(string)
     root_certificate = optional(map(object({
       name             = string
       public_cert_data = string
@@ -148,7 +148,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

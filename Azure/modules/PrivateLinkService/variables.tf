@@ -15,7 +15,7 @@ variable "location" {
 
 variable "nat_ip_configuration_blocks" {
   description = "One or more (up to 8) nat_ip_configuration block as defined below."
-  type        = list(object({
+  type = list(object({
     name                       = string
     subnet_id                  = string
     primary                    = string
@@ -66,7 +66,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

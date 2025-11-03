@@ -62,8 +62,8 @@ variable "idle_timeout_in_minutes" {
   type        = number
   validation {
     condition = (
-    var.idle_timeout_in_minutes >= 4 &&
-    var.idle_timeout_in_minutes <= 30
+      var.idle_timeout_in_minutes >= 4 &&
+      var.idle_timeout_in_minutes <= 30
     )
     error_message = "Possible values can be between \"4\" to \"30\" minutes."
   }
@@ -126,7 +126,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     update = optional(number, 30)
     read   = optional(number, 5)

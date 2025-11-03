@@ -27,21 +27,21 @@ variable "sku_name" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
 variable "zones" {
   description = "A list of Availability Zones in which this NAT Gateway should be located."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

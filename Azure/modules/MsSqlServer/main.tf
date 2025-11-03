@@ -1,6 +1,6 @@
 module "password" {
-  source      = "../RandomPassword"
-  count       = var.administrator_login_password == null ? 1 : 0
+  source      = "../../../TerraformSharedModules/modules/RandomPassword"
+  count       = (var.admin_password == null && var.disable_password_authentication == false) ? 1 : 0
   length      = var.length
   lower       = var.lower
   min_lower   = var.min_lower
@@ -85,7 +85,7 @@ module "kv_secret_administrator_login_mssql_server" {
   key_vault_id = var.key_vault_id
   value        = var.administrator_login
   name         = "mssql-administrator-login"
-  depends_on   = [
+  depends_on = [
     azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
     module.kv_access_policy
   ]
@@ -98,7 +98,7 @@ module "kv_secret_administrator_login_password_mssql_server" {
   key_vault_id = var.key_vault_id
   name         = "mssql-administrator-login-password"
   value        = coalesce(var.administrator_login_password, module.password[0].result)
-  depends_on   = [
+  depends_on = [
     azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
     module.kv_access_policy
   ]

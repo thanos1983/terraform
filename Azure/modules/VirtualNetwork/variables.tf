@@ -10,7 +10,7 @@ variable "resource_group_name" {
 
 variable "address_space" {
   description = "The address space that is used the virtual network. You can supply more than one address space."
-  type = list(string)
+  type        = list(string)
 }
 
 variable "location" {
@@ -43,7 +43,7 @@ variable "encryption_block" {
 
 variable "dns_server" {
   description = "List of IP addresses of DNS servers."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -66,18 +66,18 @@ variable "flow_timeout_in_minutes" {
 variable "subnet_blocks" {
   description = "Can be specified multiple times to define multiple subnets."
   type = list(object({
-    name             = string
-    address_prefixes = list(string)
-    security_group = optional(string)
+    name                            = string
+    address_prefixes                = list(string)
+    security_group                  = optional(string)
     default_outbound_access_enabled = optional(bool, true)
     delegation_blocks = optional(list(object({
       name = string
       service_delegation_block = object({
-        name = string
+        name    = string
         actions = optional(list(string))
       })
     })), [])
-    private_endpoint_network_policies = optional(string, "Disabled")
+    private_endpoint_network_policies             = optional(string, "Disabled")
     private_link_service_network_policies_enabled = optional(bool, true)
   }))
   default = []
@@ -85,14 +85,14 @@ variable "subnet_blocks" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
 }
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

@@ -30,7 +30,7 @@ variable "hub_routing_preference" {
 
 variable "route_block" {
   description = "One or more route blocks."
-  type        = list(object({
+  type = list(object({
     address_prefixes    = list(string)
     next_hop_ip_address = string
   }))
@@ -61,7 +61,7 @@ variable "tags" {
 
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
-  type        = object({
+  type = object({
     create = optional(number, 30)
     read   = optional(number, 5)
     update = optional(number, 30)

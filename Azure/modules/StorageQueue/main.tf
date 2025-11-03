@@ -1,7 +1,7 @@
 resource "azurerm_storage_queue" "storage_queue" {
-  name                  = var.name
-  storage_account_name  = var.storage_account_name
-  metadata              = var.metadata
+  name                 = var.name
+  storage_account_name = var.storage_account_name
+  metadata             = var.metadata
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

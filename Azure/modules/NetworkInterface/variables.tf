@@ -1,13 +1,13 @@
 variable "ip_configuration_blocks" {
   description = "IP configuration block(s)."
   type = list(object({
-    name                          = string
-    primary = optional(bool)
-    subnet_id = optional(string)
-    private_ip_address = optional(string)
-    public_ip_address_id = optional(string)
-    private_ip_address_version = optional(string)
-    private_ip_address_allocation = string
+    name                                               = string
+    primary                                            = optional(bool)
+    subnet_id                                          = optional(string)
+    private_ip_address                                 = optional(string)
+    public_ip_address_id                               = optional(string)
+    private_ip_address_version                         = optional(string)
+    private_ip_address_allocation                      = string
     gateway_load_balancer_frontend_ip_configuration_id = optional(string)
   }))
   default = null
@@ -42,7 +42,7 @@ variable "auxiliary_sku" {
 
 variable "dns_servers" {
   description = "A list of IP Addresses defining the DNS Servers which should be used for this Network Interface."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -56,7 +56,7 @@ variable "ip_forwarding_enabled" {
   description = "Should IP Forwarding be enabled?"
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.ip_forwarding_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.ip_forwarding_enabled)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -66,7 +66,7 @@ variable "accelerated_networking_enabled" {
   description = "Should Accelerated Networking be enabled?"
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.accelerated_networking_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.accelerated_networking_enabled)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -80,7 +80,7 @@ variable "internal_dns_name_label" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -88,7 +88,7 @@ variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
     create = optional(number, 30)
-    read = optional(number, 5)
+    read   = optional(number, 5)
     update = optional(number, 30)
     delete = optional(number, 30)
   })

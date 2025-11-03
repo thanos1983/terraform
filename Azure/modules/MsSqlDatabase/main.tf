@@ -90,7 +90,7 @@ module "kv_secret_ado_net_sql_authentication" {
   key_vault_id = var.key_vault_id
   name         = "ado-net-sql-authentication"
   value        = "Server=tcp:${azurerm_mssql_database.mssql_database.name}.windows.net,1433;Initial Catalog=${azurerm_mssql_database.mssql_database.name};Persist Security Info=False;User ID=${var.administrator_login};Password=${var.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  depends_on   = [
+  depends_on = [
     azurerm_mssql_database.mssql_database
   ]
 }

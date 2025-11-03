@@ -38,6 +38,7 @@ and also custom configuration from the function
 import [Command: import](https://developer.hashicorp.com/terraform/cli/commands/import). Sample of code:
 
 The following syntax is for cases where the code is not using reusable modules:
+
 ```bash
 terraform import azurerm_resource_group.example /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example
 ```
@@ -63,7 +64,8 @@ The resources that were imported are shown above. These resources are now in
 your Terraform state and will henceforth be managed by Terraform.
 ```
 
-As soon as the import worked as expected the next time the user will try to apply `terraform plan` the expected output should look like the following:
+As soon as the import worked as expected the next time the user will try to apply `terraform plan` the expected output
+should look like the following:
 
 ```bash
 $ terraform plan -out=planOutput

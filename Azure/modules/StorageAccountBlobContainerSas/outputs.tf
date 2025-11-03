@@ -176,14 +176,14 @@ output "secondary_blob_connection_string" {
 
 output "principal_id" {
   description = "The Principal ID associated with this Managed Service Identity."
-  value       = flatten([
+  value = flatten([
     for identity in azurerm_storage_account.storage_account[*].identity : identity[*].principal_id
   ])
 }
 
 output "tenant_id" {
   description = "The Tenant ID associated with this Managed Service Identity."
-  value       = flatten([
+  value = flatten([
     for identity in azurerm_storage_account.storage_account[*].identity : identity[*].tenant_id
   ])
 }
