@@ -31,7 +31,7 @@ variable "encryption_scope_override_enabled" {
     condition     = contains(["true", "false"], lower(tostring(var.encryption_scope_override_enabled)))
     error_message = "The default encryption scope must be \"true\" or \"false\"."
   }
-  default = false
+  default = true
 }
 
 variable "metadata" {
