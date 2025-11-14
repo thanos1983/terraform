@@ -67,11 +67,6 @@ output "node_resource_group_id" {
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.node_resource_group_id
 }
 
-output "network_profile" {
-  description = "A network_profile block as defined below."
-  value       = azurerm_kubernetes_cluster.kubernetes_cluster.network_profile
-}
-
 output "ingress_application_gateway" {
   description = "An ingress_application_gateway block as defined below."
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.ingress_application_gateway
@@ -87,7 +82,27 @@ output "key_vault_secrets_provider" {
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.key_vault_secrets_provider
 }
 
-output "connector_identity" {
+output "aci_connector_linux" {
+  description = "The aci_connector_linux block exports the following (connector_identity)."
+  value = azurerm_kubernetes_cluster.kubernetes_cluster.aci_connector_linux
+}
+
+output "kubelet_identity" {
   description = "The connector_identity block exports the following (client_id, object_id, user_assigned_identity_id)"
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.kubelet_identity
+}
+
+output "network_profile" {
+  description = "A network_profile block exports the following (load_balancer_profile, nat_gateway_profile)"
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.network_profile
+}
+
+output "identity" {
+  description = "The identity block exports the following (principal_id, tenant_id)"
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.identity
+}
+
+output "web_app_routing" {
+  description = "A network_profile block exports the following (web_app_routing_identity)"
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.web_app_routing
 }

@@ -41,10 +41,14 @@ module "kubernetes_cluster_<project>" {
 - oidc_issuer_url
 - node_resource_group
 - node_resource_group_id
-- network_profile
 - ingress_application_gateway
 - oms_agent
 - key_vault_secrets_provider
+- aci_connector_linux
+- kubelet_identity
+- network_profile
+- identity
+- web_app_routing
 ```
 
 ###### More information can be found on the official document [azurerm_kubernetes_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster)
