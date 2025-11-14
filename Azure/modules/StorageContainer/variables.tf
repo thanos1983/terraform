@@ -12,10 +12,10 @@ variable "container_access_type" {
   description = "The Access Level configured for this Container."
   type        = string
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.container_access_type)))
-    error_message = "Tenant replication must be \"true\" or \"false\"."
+    condition     = contains(["blob", "container", "private"], lower(var.container_access_type))
+    error_message = "The Access Level must be \"blob\", \"container\" or \"private\"."
   }
-  default = true
+  default = "private"
 }
 
 variable "default_encryption_scope" {
@@ -27,8 +27,11 @@ variable "default_encryption_scope" {
 variable "encryption_scope_override_enabled" {
   description = "Whether to allow blobs to override the default encryption scope for this container."
   type        = bool
-
-  default = null
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.container_access_type)))
+    error_message = "The default encryption scope must be \"true\" or \"false\"."
+  }
+  default = true
 }
 
 variable "metadata" {
