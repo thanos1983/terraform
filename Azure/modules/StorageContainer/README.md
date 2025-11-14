@@ -1,9 +1,9 @@
-# Azure Storage Account
+# Azure Storage Account Container
 
 ## Sample of use:
 
 ```bash
-module "storage_container_<project>" {
+module "storage_account_container_<project>" {
   source  = "git::https://example.com/azure_<my_repo>.git"
   name = "my_storage_container"
   .
@@ -18,6 +18,8 @@ module "storage_container_<project>" {
 - name - (Required)
 - storage_account_id (Required)
 - container_access_type (Optional)
+- default_encryption_scope (Optional)
+- encryption_scope_override_enabled (Optional)
 - metadata (Optional)
 ```
 
