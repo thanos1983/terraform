@@ -30,7 +30,6 @@ module "storage_account_container_<project>" {
 - name
 - has_immutability_policy
 - has_legal_hold
-- resource_manager_id
 ```
 
 ###### More information can be found on the official document [azurerm_storage_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container)
