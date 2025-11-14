@@ -27,11 +27,7 @@ variable "default_encryption_scope" {
 variable "encryption_scope_override_enabled" {
   description = "Whether to allow blobs to override the default encryption scope for this container."
   type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.encryption_scope_override_enabled)))
-    error_message = "The default encryption scope must be \"true\" or \"false\"."
-  }
-  default = true
+  default     = null
 }
 
 variable "metadata" {
