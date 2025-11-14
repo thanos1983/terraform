@@ -27,6 +27,7 @@ module "storage_account_container_<project>" {
 
 ```bash
 - id
+- name
 - has_immutability_policy
 - has_legal_hold
 - resource_manager_id
