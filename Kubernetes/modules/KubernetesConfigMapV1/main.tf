@@ -1,4 +1,4 @@
-resource "kubernetes_config_map" "config_map" {
+resource "kubernetes_config_map_v1" "config_map" {
   dynamic "metadata" {
     for_each = var.metadata_block[*]
     content {
