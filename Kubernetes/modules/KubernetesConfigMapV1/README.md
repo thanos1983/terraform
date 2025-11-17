@@ -4,7 +4,7 @@
 
 ```bash
 module "test_config_map_v1" {
-  source = "git@github.com:.../modules/KubernetesConfigMap"
+  source = "git@github.com:.../modules/KubernetesConfigMapV1"
   metadata_block = {
     name = "my-config-map"
   }
