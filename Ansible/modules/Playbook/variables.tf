@@ -18,7 +18,7 @@ variable "check_mode" {
   description = "If 'true', playbook execution won't make any changes but only change predictions will be made."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.check_mode)))
+    condition     = contains(["true", "false"], lower(tostring(var.check_mode)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -28,7 +28,7 @@ variable "diff_mode" {
   description = "If 'true', when changing (small) files and templates, differences in those files will be shown."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.diff_mode)))
+    condition     = contains(["true", "false"], lower(tostring(var.diff_mode)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -36,7 +36,7 @@ variable "diff_mode" {
 
 variable "extra_vars" {
   description = "A map of additional variables as: { key-1 = value-1, key-2 = value-2, … }."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -48,7 +48,7 @@ variable "force_handlers" {
 
 variable "groups" {
   description = "List of desired groups of hosts on which the playbook will be executed."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -56,7 +56,7 @@ variable "ignore_playbook_failure" {
   description = "This parameter is good for testing."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.ignore_playbook_failure)))
+    condition     = contains(["true", "false"], lower(tostring(var.ignore_playbook_failure)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -64,7 +64,7 @@ variable "ignore_playbook_failure" {
 
 variable "limit" {
   description = "List of hosts to include in playbook execution."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -72,7 +72,7 @@ variable "replayable" {
   description = "If 'true', the playbook will be executed on every 'terraform apply' and with that, the resource will be recreated."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.replayable)))
+    condition     = contains(["true", "false"], lower(tostring(var.replayable)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -80,19 +80,19 @@ variable "replayable" {
 
 variable "tags" {
   description = "List of tags of plays and tasks to run."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
 variable "var_files" {
   description = "List of variable files."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
 variable "vault_files" {
   description = "List of vault files."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 

@@ -5,12 +5,12 @@ variable "name" {
 
 variable "groups" {
   description = "List of group names."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
 variable "variables" {
   description = "Map of variables."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
