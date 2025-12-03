@@ -12,9 +12,9 @@ module "cloudflare_api_token_<project>" {
       permission_groups_blocks = [
         id = "c8fed203ed3043cba015a93ad1616f1f"
       ]
-      resources = {
+      resources = jsonencode({
         "com.cloudflare.api.account.zone.*" = "*"
-      }
+      })
     }
   ]s
 }
