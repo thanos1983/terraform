@@ -14,7 +14,7 @@ variable "policies" {
         value = optional(string)
       }))
     }))
-    resources = map(any)
+    resources = string
   }))
 }
 
@@ -22,7 +22,7 @@ variable "condition" {
   description = "Client IP restrictions."
   type = object({
     request_ip = optional(object({
-      in = optional(list(string))
+      in     = optional(list(string))
       not_in = optional(list(string))
     }), null)
   })
@@ -45,7 +45,7 @@ variable "status" {
   description = "Status of the token."
   type        = string
   validation {
-    condition = contains(["active", "disabled", "expired"], lower(var.status))
+    condition     = contains(["active", "disabled", "expired"], lower(var.status))
     error_message = "Parameter must be 'active', 'disabled' or 'expired'."
   }
   default = "active"
