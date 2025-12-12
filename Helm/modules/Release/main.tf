@@ -29,11 +29,13 @@ resource "helm_release" "release" {
   reset_values               = var.reset_values
   reuse_values               = var.reuse_values
   set                        = var.set
+  set_wo                     = var.set_wo
+  set_wo_revision            = var.set_wo_revision
   set_list                   = var.set_list
   set_sensitive              = var.set_sensitive
   skip_crds                  = var.skip_crds
   timeout                    = var.timeout
-  # upgrade_install            = var.upgrade_install # disabling for the moment since there is a bug for this.
+  upgrade_install            = var.upgrade_install
   values                     = var.values
   verify                     = var.verify
   version                    = var.helm_version

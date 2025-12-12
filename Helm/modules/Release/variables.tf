@@ -243,7 +243,7 @@ variable "set" {
   default = []
 }
 
-variable "set_wo_blocks" {
+variable "set_wo" {
   description = "Value block with custom values to be merged with the values yaml but write-only."
   type = list(object({
     name  = string

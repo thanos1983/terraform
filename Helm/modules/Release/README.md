@@ -45,7 +45,7 @@ module "helm_release<project>" {
 - reset_values (Optional)
 - reuse_values (Optional)
 - set (Optional)
-- set_wo_blocks (Optional)
+- set_wo (Optional)
 - set_wo_revision (Optional)
 - set_list_blocks (Optional)
 - set_sensitive_blocks (Optional)
