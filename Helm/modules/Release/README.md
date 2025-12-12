@@ -4,8 +4,8 @@
 
 ```bash
 module "helm_release<project>" {
-  source   = "git::https://example.com/helm_release_<my_repo>.git"
-  name = "my_helm_release"
+  source = "git::https://example.com/helm_release_<my_repo>.git"
+  name   = "my_helm_release"
   .
   .
   .
@@ -44,7 +44,7 @@ module "helm_release<project>" {
 - repository_username (Optional)
 - reset_values (Optional)
 - reuse_values (Optional)
-- set_blocks (Optional)
+- set (Optional)
 - set_wo_blocks (Optional)
 - set_wo_revision (Optional)
 - set_list_blocks (Optional)

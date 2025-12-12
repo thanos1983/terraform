@@ -32,8 +32,8 @@ resource "helm_release" "release" {
   set_list                   = var.set_list
   set_sensitive              = var.set_sensitive
   skip_crds                  = var.skip_crds
-  timeout = var.timeout
-  # upgrade_install       = var.upgrade_install # disabling for the moment since there is a bug for this.
+  timeout                    = var.timeout
+  # upgrade_install            = var.upgrade_install # disabling for the moment since there is a bug for this.
   values                     = var.values
   verify                     = var.verify
   version                    = var.helm_version
