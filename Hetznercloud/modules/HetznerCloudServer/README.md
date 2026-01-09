@@ -19,7 +19,6 @@ module "hcloud_server_<project>" {
 - server_type (Required)
 - image (Required)
 - location (Optional)
-- datacenter (Optional)
 - user_data (Optional)
 - ssh_keys (Optional)
 - public_net_block (Optional)
@@ -46,7 +45,6 @@ module "hcloud_server_<project>" {
 - server_type
 - image
 - location
-- datacenter
 - user_data
 - ssh_keys
 - public_net_block

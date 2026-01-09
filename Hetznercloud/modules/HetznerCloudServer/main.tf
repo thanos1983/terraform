@@ -3,7 +3,6 @@ resource "hcloud_server" "server" {
   server_type = var.server_type
   image       = var.image
   location    = var.location
-  datacenter  = var.datacenter
   user_data   = var.user_data
   ssh_keys    = var.ssh_keys
 

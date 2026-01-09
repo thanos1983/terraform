@@ -19,12 +19,6 @@ variable "location" {
   default     = null
 }
 
-variable "datacenter" {
-  description = "The datacenter name to create the server in."
-  type        = string
-  default     = null
-}
-
 variable "user_data" {
   description = "Cloud-Init user data to use during server creation."
   type        = string

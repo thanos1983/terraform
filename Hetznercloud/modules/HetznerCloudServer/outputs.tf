@@ -23,11 +23,6 @@ output "location" {
   value       = hcloud_server.server.location
 }
 
-output "datacenter" {
-  description = "The datacenter name."
-  value       = hcloud_server.server.datacenter
-}
-
 output "backups" {
   description = "Whether backups are enabled."
   value       = hcloud_server.server.backups
