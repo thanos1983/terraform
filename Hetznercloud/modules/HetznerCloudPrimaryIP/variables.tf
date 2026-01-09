@@ -8,8 +8,8 @@ variable "name" {
   type        = string
 }
 
-variable "datacenter" {
-  description = "The datacenter name to create the resource in."
+variable "location" {
+  description = "The location name to create the resource in."
   type        = string
   default     = null
 }

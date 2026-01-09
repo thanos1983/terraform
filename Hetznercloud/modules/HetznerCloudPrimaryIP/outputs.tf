@@ -8,9 +8,9 @@ output "type" {
   value       = hcloud_primary_ip.primary_ip.type
 }
 
-output "datacenter" {
-  description = "The datacenter of the Primary IP."
-  value       = hcloud_primary_ip.primary_ip.datacenter
+output "location" {
+  description = "The location of the Primary IP."
+  value       = hcloud_primary_ip.primary_ip.location
 }
 
 output "name" {

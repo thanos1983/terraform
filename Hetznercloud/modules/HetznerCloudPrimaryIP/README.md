@@ -18,7 +18,7 @@ module "hcloud_primary_ip_<project>" {
 ```bash
 - type (Required)
 - name (Required)
-- datacenter (Optional)
+- location (Optional)
 - auto_delete (Optional)
 - labels (Optional)
 - assignee_id (Optional)
@@ -31,7 +31,7 @@ module "hcloud_primary_ip_<project>" {
 ```bash
 - id
 - type
-- datacenter
+- location
 - name
 - auto_delete
 - labels
