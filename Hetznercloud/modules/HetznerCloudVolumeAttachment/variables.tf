@@ -12,7 +12,7 @@ variable "automount" {
   description = "Automount the volume upon attaching it."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.automount)))
+    condition     = contains(["true", "false"], lower(tostring(var.automount)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

@@ -11,6 +11,6 @@ variable "type" {
 
 variable "labels" {
   description = "User-defined labels (key-value pairs) should be created with."
-  type = map(any)
+  type        = map(any)
   default     = null
 }

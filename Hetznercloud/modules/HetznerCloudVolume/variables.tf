@@ -10,7 +10,7 @@ variable "size" {
 
 variable "labels" {
   description = "User-defined labels (key-value pairs)."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -30,7 +30,7 @@ variable "automount" {
   description = "Automount the volume upon attaching it (server_id must be provided)."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.automount)))
+    condition     = contains(["true", "false"], lower(tostring(var.automount)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -46,7 +46,7 @@ variable "delete_protection" {
   description = "Enable or disable delete protection."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.delete_protection)))
+    condition     = contains(["true", "false"], lower(tostring(var.delete_protection)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

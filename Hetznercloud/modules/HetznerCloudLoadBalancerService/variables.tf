@@ -25,7 +25,7 @@ variable "proxyprotocol" {
   description = "Enable proxyprotocol."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.proxyprotocol)))
+    condition     = contains(["true", "false"], lower(tostring(var.proxyprotocol)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -35,10 +35,10 @@ variable "http_block" {
   description = "HTTP configuration when protocol is http or https."
   type = object({
     sticky_sessions = optional(bool)
-    cookie_name = optional(string)
+    cookie_name     = optional(string)
     cookie_lifetime = optional(number)
-    certificates = optional(list(string))
-    redirect_http = optional(bool)
+    certificates    = optional(list(string))
+    redirect_http   = optional(bool)
   })
   default = null
 }
@@ -50,12 +50,12 @@ variable "health_check_block" {
     port     = number
     interval = number
     timeout  = number
-    retries = optional(number)
+    retries  = optional(number)
     http_block = optional(object({
-      domain = optional(string)
-      path = optional(string)
-      response = optional(string)
-      tls = optional(bool)
+      domain       = optional(string)
+      path         = optional(string)
+      response     = optional(string)
+      tls          = optional(bool)
       status_codes = optional(list(string))
     }))
   })

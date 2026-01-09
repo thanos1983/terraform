@@ -30,7 +30,7 @@ variable "use_private_ip" {
   description = "Use the private IP to connect to Load Balancer targets."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.use_private_ip)))
+    condition     = contains(["true", "false"], lower(tostring(var.use_private_ip)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

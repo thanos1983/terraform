@@ -18,7 +18,7 @@ variable "auto_delete" {
   description = "Whether auto delete is enabled."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.auto_delete)))
+    condition     = contains(["true", "false"], lower(tostring(var.auto_delete)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -26,7 +26,7 @@ variable "auto_delete" {
 
 variable "labels" {
   description = "User-defined labels (key-value pairs) should be created with."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 
@@ -46,7 +46,7 @@ variable "delete_protection" {
   description = "Enable or disable delete protection."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.delete_protection)))
+    condition     = contains(["true", "false"], lower(tostring(var.delete_protection)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false

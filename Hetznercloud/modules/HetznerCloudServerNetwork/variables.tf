@@ -5,8 +5,8 @@ variable "server_id" {
 
 variable "alias_ips" {
   description = "Additional IPs to be assigned to this server."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "network_id" {

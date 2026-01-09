@@ -25,8 +25,8 @@ variable "enable_public_interface" {
   description = " Enable or disable the Load Balancers public interface. "
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.enable_public_interface)))
+    condition     = contains(["true", "false"], lower(tostring(var.enable_public_interface)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
-  default     = true
+  default = true
 }
