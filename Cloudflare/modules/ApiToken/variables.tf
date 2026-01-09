@@ -5,9 +5,9 @@ variable "name" {
 
 variable "policies" {
   description = "List of access policies assigned to the token."
-  type = list(object({
+  type = set(object({
     effect = string
-    permission_groups = list(object({
+    permission_groups = set(object({
       id = string
       meta = optional(object({
         key   = optional(string)
