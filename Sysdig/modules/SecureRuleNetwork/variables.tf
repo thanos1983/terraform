@@ -11,8 +11,8 @@ variable "description" {
 
 variable "tags" {
   description = "A list of tags for this rule."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "block_inbound" {
@@ -31,7 +31,7 @@ variable "tcp_block" {
   description = "Detect TCP Connections"
   type = object({
     matching = optional(bool)
-    ports = list(number)
+    ports    = list(number)
   })
   default = null
 }
@@ -40,7 +40,7 @@ variable "udp_block" {
   description = "Detect UDP Connections"
   type = object({
     matching = optional(bool)
-    ports = list(number)
+    ports    = list(number)
   })
   default = null
 }

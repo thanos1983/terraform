@@ -6,7 +6,7 @@ variable "length" {
 
 variable "keepers" {
   description = "Arbitrary map of values that, when changed, will trigger recreation of resource."
-  type = map(string)
+  type        = map(string)
   default     = null
 }
 
@@ -44,7 +44,7 @@ variable "numeric" {
   description = "Include numeric characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.numeric)))
+    condition     = contains(["true", "false"], lower(tostring(var.numeric)))
     error_message = "Parameter must be \"true\" or \"false\"."
   }
   default = true
@@ -60,7 +60,7 @@ variable "special" {
   description = "Include special characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.special)))
+    condition     = contains(["true", "false"], lower(tostring(var.special)))
     error_message = "Parameter must be \"true\" or \"false\"."
   }
   default = true
@@ -70,7 +70,7 @@ variable "upper" {
   description = "Include uppercase alphabet characters in the result."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.upper)))
+    condition     = contains(["true", "false"], lower(tostring(var.upper)))
     error_message = "Parameter must be \"true\" or \"false\"."
   }
   default = true

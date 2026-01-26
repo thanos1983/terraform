@@ -42,7 +42,7 @@ variable "bundle_version" {
 
 variable "connection_string_block" {
   description = "A connection_string block as defined below."
-  type        = object({
+  type = object({
     name  = string
     type  = string
     value = string
@@ -52,7 +52,7 @@ variable "connection_string_block" {
 
 variable "identity_block" {
   description = "An identity block as defined below."
-  type        = object({
+  type = object({
     type         = string
     identity_ids = optional(list(string))
   })
@@ -63,10 +63,10 @@ variable "identity_block" {
 
 variable "site_config_block" {
   description = "A site_config object as defined below."
-  type        = object({
+  type = object({
     always_on       = optional(bool)
     app_scale_limit = optional(number)
-    cors_block      = optional(object({
+    cors_block = optional(object({
       allowed_origins     = list(string)
       support_credentials = optional(bool)
     }), null)
@@ -75,14 +75,14 @@ variable "site_config_block" {
     ftps_state               = optional(string)
     health_check_path        = optional(string)
     http2_enabled            = optional(bool)
-    ip_restriction_blocks    = optional(list(object({
+    ip_restriction_blocks = optional(list(object({
       ip_address                = optional(string)
       service_tag               = optional(string)
       virtual_network_subnet_id = optional(string)
       name                      = optional(string)
       priority                  = optional(number)
       action                    = optional(string)
-      headers_block             = optional(object({
+      headers_block = optional(object({
         x_azure_fdid      = optional(list(string))
         x_fd_health_probe = optional(list(string))
         x_forwarded_for   = optional(list(string))
@@ -96,7 +96,7 @@ variable "site_config_block" {
       name                      = optional(string)
       priority                  = optional(number)
       action                    = optional(string)
-      headers_block             = optional(object({
+      headers_block = optional(object({
         x_azure_fdid      = optional(list(string))
         x_fd_health_probe = optional(list(string))
         x_forwarded_for   = optional(list(string))

@@ -10,8 +10,8 @@ variable "url" {
 
 variable "custom_data" {
   description = "Key value list of additional data you want to attach to the alert notification."
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
 
 variable "enabled" {

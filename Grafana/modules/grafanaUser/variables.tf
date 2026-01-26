@@ -12,7 +12,7 @@ variable "is_admin" {
   description = "Whether to make user an admin."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.is_admin)))
+    condition     = contains(["true", "false"], lower(tostring(var.is_admin)))
     error_message = "Possible values can be \"true\" or \"false\"."
   }
   default = false

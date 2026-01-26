@@ -13,7 +13,7 @@ variable "ignore_externally_synced_members" {
   description = "Ignores team members that have been added to team by Team Sync."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.ignore_externally_synced_members)))
+    condition     = contains(["true", "false"], lower(tostring(var.ignore_externally_synced_members)))
     error_message = "Possible values can be \"true\" or \"false\"."
   }
   default = true
@@ -21,7 +21,7 @@ variable "ignore_externally_synced_members" {
 
 variable "members" {
   description = "A set of email addresses corresponding to users who should be given membership to the team."
-  type = set(string)
+  type        = set(string)
   default     = null
 }
 
@@ -35,9 +35,9 @@ variable "preferences_block" {
   description = "Preference block as defined below."
   type = object({
     home_dashboard_uid = optional(string)
-    theme = optional(string)
-    timezone = optional(string)
-    week_start = optional(string)
+    theme              = optional(string)
+    timezone           = optional(string)
+    week_start         = optional(string)
   })
   default = null
 }

@@ -6,7 +6,7 @@ variable "name" {
 variable "entrypoint_block" {
   description = "Main entry point for the current team in the product."
   type = object({
-    type = string
+    type      = string
     selection = optional(string)
   })
 }
@@ -57,7 +57,7 @@ variable "user_roles_blocks" {
   description = "Multiple user roles can be specified."
   type = list(object({
     email = string
-    role = optional(string)
+    role  = optional(string)
   }))
   default = []
 }

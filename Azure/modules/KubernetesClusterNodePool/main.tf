@@ -67,11 +67,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
     }
   }
 
-  fips_enabled       = var.fips_enabled
-  gpu_instance       = var.gpu_instance
-  kubelet_disk_type  = var.kubelet_disk_type
-  max_pods           = var.max_pods
-  mode               = var.mode
+  fips_enabled      = var.fips_enabled
+  gpu_instance      = var.gpu_instance
+  kubelet_disk_type = var.kubelet_disk_type
+  max_pods          = var.max_pods
+  mode              = var.mode
 
   dynamic "node_network_profile" {
     for_each = var.node_network_profile_block[*]

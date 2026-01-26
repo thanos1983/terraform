@@ -20,7 +20,7 @@ variable "force_destroy" {
   description = " Force destroy the bucket."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.force_destroy)))
+    condition     = contains(["true", "false"], lower(tostring(var.force_destroy)))
     error_message = "Possible values are 'true' and 'false'."
   }
   default = false
@@ -30,7 +30,7 @@ variable "object_locking" {
   description = "Enable object locking for the bucket."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.object_locking)))
+    condition     = contains(["true", "false"], lower(tostring(var.object_locking)))
     error_message = "Possible values are 'true' and 'false'."
   }
   default = false

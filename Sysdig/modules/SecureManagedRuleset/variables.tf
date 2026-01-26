@@ -53,9 +53,9 @@ variable "actions_block" {
       seconds_before_event = number
       seconds_after_event  = number
       name                 = string
-      filter = optional(string)
-      bucket_name = optional(string)
-      folder = optional(string)
+      filter               = optional(string)
+      bucket_name          = optional(string)
+      folder               = optional(string)
     }), null)
   })
   default = null
@@ -63,12 +63,12 @@ variable "actions_block" {
 
 variable "disabled_rules" {
   description = "Array with the name of the rules in the managed policy to disable."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "notification_channels" {
   description = "IDs of the notification channels to send alerts to when the policy is fired."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }

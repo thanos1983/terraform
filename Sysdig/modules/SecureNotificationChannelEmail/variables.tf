@@ -5,7 +5,7 @@ variable "name" {
 
 variable "recipients" {
   description = "List of recipients that will receive the message."
-  type = list(string)
+  type        = list(string)
 }
 
 variable "enabled" {

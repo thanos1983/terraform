@@ -41,7 +41,7 @@ variable "maxKubeVersion" {
 variable "target_block" {
   description = "Specifies target platforms and version ranges."
   type = object({
-    platform = optional(string)
+    platform   = optional(string)
     minVersion = optional(string)
     maxVersion = optional(string)
   })

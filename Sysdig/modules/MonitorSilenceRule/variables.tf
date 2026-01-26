@@ -27,12 +27,12 @@ variable "scope" {
 
 variable "alert_ids" {
   description = "List of alerts the Silence Rule will be applied to."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "notification_channel_ids" {
   description = "List of notification channels that will be used to notify when the Silence Rule starts and end."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }

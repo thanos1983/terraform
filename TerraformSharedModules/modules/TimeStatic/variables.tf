@@ -6,6 +6,6 @@ variable "rfc3339" {
 
 variable "triggers" {
   description = "Arbitrary map of values that, when changed, will trigger a new base timestamp value to be saved."
-  type = map(string)
+  type        = map(string)
   default     = null
 }

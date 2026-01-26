@@ -11,8 +11,8 @@ variable "description" {
 
 variable "tags" {
   description = "A list of tags for this rule."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "matching" {
@@ -23,5 +23,5 @@ variable "matching" {
 
 variable "syscalls" {
   description = "List of syscalls to match."
-  type = list(string)
+  type        = list(string)
 }

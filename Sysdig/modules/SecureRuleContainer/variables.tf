@@ -11,8 +11,8 @@ variable "description" {
 
 variable "tags" {
   description = "A list of tags for this rule."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "matching" {
@@ -23,5 +23,5 @@ variable "matching" {
 
 variable "containers" {
   description = "List of containers to match."
-  type = list(string)
+  type        = list(string)
 }

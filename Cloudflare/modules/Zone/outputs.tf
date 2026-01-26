@@ -1,16 +1,16 @@
 output "activated_on" {
   description = "The last time proof of ownership was detected and the zone was made active."
-  value = cloudflare_zone.zone.activated_on
+  value       = cloudflare_zone.zone.activated_on
 }
 
 output "created_on" {
   description = "When the zone was created."
-  value = cloudflare_zone.zone.created_on
+  value       = cloudflare_zone.zone.created_on
 }
 
 output "development_mode" {
   description = "The interval (in seconds) from when development mode expires (positive integer) or last expired (negative integer) for the domain."
-  value = cloudflare_zone.zone.development_mode
+  value       = cloudflare_zone.zone.development_mode
 }
 
 output "id" {

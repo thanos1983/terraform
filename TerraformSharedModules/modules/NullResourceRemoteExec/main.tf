@@ -22,6 +22,6 @@ resource "null_resource" "resource" {
   }
 
   provisioner "remote-exec" {
-    inline  = var.inline
+    inline = var.inline
   }
 }

@@ -25,7 +25,7 @@ variable "severity" {
   description = "Severity of the Monitor alert."
   type        = string
   validation {
-    condition = contains(["high", "medium", "low", "info"], lower(var.severity))
+    condition     = contains(["high", "medium", "low", "info"], lower(var.severity))
     error_message = "Possible values can be \"high\", \"medium\", \"low\" or \"info\"."
   }
   default = "low"
@@ -40,9 +40,9 @@ variable "enabled" {
 variable "notification_channels_blocks" {
   description = "List of notification channel configurations."
   type = list(object({
-    id = number
+    id                     = number
     renotify_every_minutes = optional(number, 0)
-    notify_on_resolve = optional(bool, true)
+    notify_on_resolve      = optional(bool, true)
   }))
   default = []
 }
@@ -52,7 +52,7 @@ variable "custom_notification_block" {
   type = object({
     subject = optional(string, null)
     prepend = optional(string, null)
-    append = optional(string, null)
+    append  = optional(string, null)
   })
   default = null
 }
@@ -62,15 +62,15 @@ variable "link_blocks" {
   type = list(object({
     type = string
     href = optional(string)
-    id = optional(string)
+    id   = optional(string)
   }))
   default = []
 }
 
 variable "labels" {
   description = "Map of labels to be attached to this alert."
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
 
 variable "query" {

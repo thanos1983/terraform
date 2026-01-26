@@ -10,8 +10,8 @@ variable "url" {
 
 variable "additional_headers" {
   description = "Key value list of custom headers."
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
 
 variable "allow_insecure_connections" {

@@ -55,14 +55,14 @@ variable "user_roles_blocks" {
   description = "Multiple user roles can be specified."
   type = list(object({
     email = string
-    role = optional(string)
+    role  = optional(string)
   }))
   default = []
 }
 
 variable "zone_ids" {
   description = "List of zone IDs attached to the team."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 

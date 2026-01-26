@@ -1,7 +1,7 @@
 variable "metadata" {
   description = "The metadata of agent access key."
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
 
 variable "team_id" {

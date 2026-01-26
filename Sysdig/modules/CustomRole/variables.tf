@@ -13,6 +13,6 @@ variable "permissions_block" {
   description = "Block to define monitor and secure permissions."
   type = object({
     monitor_permissions = optional(set(string))
-    secure_permissions = optional(set(string))
+    secure_permissions  = optional(set(string))
   })
 }

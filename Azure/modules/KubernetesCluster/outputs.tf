@@ -84,7 +84,7 @@ output "key_vault_secrets_provider" {
 
 output "aci_connector_linux" {
   description = "The aci_connector_linux block exports the following (connector_identity)."
-  value = azurerm_kubernetes_cluster.kubernetes_cluster.aci_connector_linux
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.aci_connector_linux
 }
 
 output "kubelet_identity" {

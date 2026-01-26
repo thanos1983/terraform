@@ -11,8 +11,8 @@ variable "description" {
 
 variable "tags" {
   description = "A list of tags for this rule."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "condition" {
@@ -49,7 +49,7 @@ variable "exceptions_blocks" {
   type = list(object({
     name   = string
     fields = optional(list(string))
-    comps = optional(list(string))
+    comps  = optional(list(string))
     values = string
   }))
   default = []

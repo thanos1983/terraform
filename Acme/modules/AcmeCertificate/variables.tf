@@ -11,7 +11,7 @@ variable "common_name" {
 
 variable "subject_alternative_names" {
   description = "The certificate's subject alternative names, domains that this certificate will also be recognized for."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -19,7 +19,7 @@ variable "key_type" {
   description = "The key type for the certificate's private key."
   type        = string
   validation {
-    condition = contains(["2048", "4096", "8192"], tostring(var.key_type))
+    condition     = contains(["2048", "4096", "8192"], tostring(var.key_type))
     error_message = "Possible values can be \"2048\", \"4096\" or \"8192\"."
   }
   default = "2048"
@@ -29,14 +29,14 @@ variable "dns_challenge_blocks" {
   description = "The DNS challenges to use in fulfilling the request."
   type = list(object({
     provider = string
-    config = optional(map(string))
+    config   = optional(map(string))
   }))
   default = []
 }
 
 variable "recursive_nameservers" {
   description = "The recursive nameservers that will be used to check for propagation of DNS challenge records, in addition to some in-provider checks such as zone detection."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -44,7 +44,7 @@ variable "disable_complete_propagation" {
   description = "Disable the requirement for full propagation of the TXT challenge records before proceeding with validation."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.disable_complete_propagation)))
+    condition     = contains(["true", "false"], lower(tostring(var.disable_complete_propagation)))
     error_message = "Possible values can be \"true\" or \"false\"."
   }
   default = false
@@ -59,7 +59,7 @@ variable "pre_check_delay" {
 variable "http_challenge_block" {
   description = "Defines an HTTP challenge to use in fulfilling the request."
   type = object({
-    port = optional(string)
+    port         = optional(string)
     proxy_header = optional(string)
   })
   default = null
@@ -101,7 +101,7 @@ variable "must_staple" {
   description = "Enables the OCSP Stapling Required TLS Security Policy extension."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.must_staple)))
+    condition     = contains(["true", "false"], lower(tostring(var.must_staple)))
     error_message = "Possible values can be \"true\" or \"false\"."
   }
   default = false
@@ -129,7 +129,7 @@ variable "revoke_certificate_on_destroy" {
   description = "Enables revocation of a certificate upon destroy, which includes when a resource is re-created."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.revoke_certificate_on_destroy)))
+    condition     = contains(["true", "false"], lower(tostring(var.revoke_certificate_on_destroy)))
     error_message = "Possible values can be \"true\" or \"false\"."
   }
   default = true

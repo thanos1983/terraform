@@ -57,9 +57,9 @@ variable "actions_block" {
       seconds_before_event = number
       seconds_after_event  = number
       name                 = string
-      filter = optional(string)
-      bucket_name = optional(string)
-      folder = optional(string)
+      filter               = optional(string)
+      bucket_name          = optional(string)
+      folder               = optional(string)
     }), null)
   })
   default = null
@@ -68,7 +68,7 @@ variable "actions_block" {
 variable "rules_blocks" {
   description = "The rules block can be repeated for each rule in the policy and supports."
   type = list(object({
-    name = string
+    name    = string
     enabled = optional(bool)
   }))
   default = []
@@ -76,6 +76,6 @@ variable "rules_blocks" {
 
 variable "notification_channels" {
   description = "IDs of the notification channels to send alerts to when the policy is fired."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }

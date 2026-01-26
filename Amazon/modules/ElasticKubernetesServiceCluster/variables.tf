@@ -12,17 +12,17 @@ variable "vpc_config_block" {
   description = "Configuration block for the VPC associated with your cluster. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes."
   type = object({
     endpoint_private_access = optional(bool)
-    endpoint_public_access = optional(bool)
-    public_access_cidrs = optional(list(string))
-    security_group_ids = optional(list(string))
-    subnet_ids = list(string)
+    endpoint_public_access  = optional(bool)
+    public_access_cidrs     = optional(list(string))
+    security_group_ids      = optional(list(string))
+    subnet_ids              = list(string)
   })
 }
 
 variable "access_config_block" {
   description = "Configuration block for the access config associated with your cluster, see Amazon EKS Access Entries."
   type = object({
-    authentication_mode = optional(string)
+    authentication_mode                         = optional(string)
     bootstrap_cluster_creator_admin_permissions = optional(bool)
   })
   default = null
@@ -32,7 +32,7 @@ variable "bootstrap_self_managed_addons" {
   description = "Install default unmanaged add-ons, such as aws-cni, kube-proxy, and CoreDNS during cluster creation."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.bootstrap_self_managed_addons)))
+    condition     = contains(["true", "false"], lower(tostring(var.bootstrap_self_managed_addons)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = true
@@ -41,8 +41,8 @@ variable "bootstrap_self_managed_addons" {
 variable "compute_config_block" {
   description = "Configuration block with compute configuration for EKS Auto Mode."
   type = object({
-    enabled = optional(bool)
-    node_pools = optional(list(string))
+    enabled       = optional(bool)
+    node_pools    = optional(list(string))
     node_role_arn = optional(string)
   })
   default = null
@@ -50,8 +50,8 @@ variable "compute_config_block" {
 
 variable "enabled_cluster_log_types" {
   description = "List of the desired control plane logging to enable."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "encryption_config_block" {
@@ -69,7 +69,7 @@ variable "force_update_version" {
   description = "Force version update by overriding upgrade-blocking readiness checks when updating a cluster."
   type        = bool
   validation {
-    condition = contains(["true", "false"], lower(tostring(var.force_update_version)))
+    condition     = contains(["true", "false"], lower(tostring(var.force_update_version)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
   }
   default = false
@@ -82,7 +82,7 @@ variable "kubernetes_network_config_block" {
       enabled = optional(bool)
     }), null)
     service_ipv4_cidr = optional(string)
-    ip_family = optional(string)
+    ip_family         = optional(string)
   })
   default = null
 }
@@ -124,7 +124,7 @@ variable "storage_config_block" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type = map(any)
+  type        = map(any)
   default     = null
 }
 

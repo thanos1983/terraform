@@ -19,7 +19,7 @@ variable "severity" {
   description = "Severity of the Monitor alert."
   type        = string
   validation {
-    condition = contains(["high", "medium", "low", "info"], lower(var.severity))
+    condition     = contains(["high", "medium", "low", "info"], lower(var.severity))
     error_message = "Possible values can be \"high\", \"medium\", \"low\" or \"info\"."
   }
   default = "low"
@@ -34,11 +34,11 @@ variable "enabled" {
 variable "notification_channels_blocks" {
   description = "List of notification channel configurations."
   type = list(object({
-    id = number
+    id                     = number
     renotify_every_minutes = optional(number, 0)
-    notify_on_resolve = optional(bool, true)
-    main_threshold = optional(bool, true)
-    warning_threshold = optional(bool, false)
+    notify_on_resolve      = optional(bool, true)
+    main_threshold         = optional(bool, true)
+    warning_threshold      = optional(bool, false)
   }))
   default = []
 }
@@ -48,7 +48,7 @@ variable "custom_notification_block" {
   type = object({
     subject = optional(string, null)
     prepend = optional(string, null)
-    append = optional(string, null)
+    append  = optional(string, null)
   })
   default = null
 }
@@ -58,15 +58,15 @@ variable "link_blocks" {
   type = list(object({
     type = string
     href = optional(string)
-    id = optional(string)
+    id   = optional(string)
   }))
   default = []
 }
 
 variable "labels" {
   description = "Map of labels to be attached to this alert."
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
 
 variable "scope_blocks" {
@@ -74,15 +74,15 @@ variable "scope_blocks" {
   type = list(object({
     label    = string
     operator = string
-    values = list(string)
+    values   = list(string)
   }))
   default = []
 }
 
 variable "group_by" {
   description = "List of segments to trigger a separate alert on."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "metric" {

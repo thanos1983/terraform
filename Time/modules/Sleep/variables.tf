@@ -12,6 +12,6 @@ variable "destroy_duration" {
 
 variable "triggers" {
   description = "Arbitrary map of values that, when changed, will run any creation or destroy delays again."
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
