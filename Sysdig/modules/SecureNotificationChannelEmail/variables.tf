@@ -14,7 +14,7 @@ variable "enabled" {
   default     = true
 }
 
-variable "notify_when_ok" {
+variable "notify_on_resolve" {
   description = "Send a new notification when the alert condition is no longer triggered."
   type        = bool
   default     = false
