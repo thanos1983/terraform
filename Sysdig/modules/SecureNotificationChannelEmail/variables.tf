@@ -20,7 +20,7 @@ variable "notify_on_resolve" {
   default     = false
 }
 
-variable "notify_when_resolved" {
+variable "notify_on_acknowledge" {
   description = "Send a new notification when the alert is manually acknowledged by a user."
   type        = bool
   default     = false

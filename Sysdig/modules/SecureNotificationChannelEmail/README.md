@@ -20,7 +20,7 @@ module "secure_notification_channel_email_<project>" {
 - recipients (Required)
 - enabled (Optional)
 - notify_on_resolve (Optional)
-- notify_when_resolved (Optional)
+- notify_on_acknowledge (Optional)
 - send_test_notification (Optional)
 - share_with_current_team (Optional)
 ```
