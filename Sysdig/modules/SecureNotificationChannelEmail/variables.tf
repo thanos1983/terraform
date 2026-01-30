@@ -14,18 +14,6 @@ variable "enabled" {
   default     = true
 }
 
-variable "notify_on_resolve" {
-  description = "Send a new notification when the alert condition is no longer triggered."
-  type        = bool
-  default     = false
-}
-
-variable "notify_on_acknowledge" {
-  description = "Send a new notification when the alert is manually acknowledged by a user."
-  type        = bool
-  default     = false
-}
-
 variable "send_test_notification" {
   description = "Send an initial test notification to check if the notification channel is working."
   type        = bool
