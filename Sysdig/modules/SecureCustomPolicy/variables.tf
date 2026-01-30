@@ -52,7 +52,8 @@ variable "scope" {
 variable "actions_block" {
   description = "The actions block is optional and supports the following parameters."
   type = object({
-    container = optional(string)
+    container    = optional(string)
+    kill_process = optional(bool)
     capture_block = optional(object({
       seconds_before_event = number
       seconds_after_event  = number

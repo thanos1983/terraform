@@ -10,7 +10,8 @@ resource "sysdig_secure_custom_policy" "secure_custom_policy" {
   dynamic "actions" {
     for_each = var.actions_block[*]
     content {
-      container = actions.value.container
+      container    = actions.value.container
+      kill_process = actions.value.kill_process
       dynamic "capture" {
         for_each = actions.value.capture_block[*]
         content {
