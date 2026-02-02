@@ -39,7 +39,6 @@ variable "description" {
 variable "display_name" {
   description = "A display name for this API Connection."
   type        = string
-  default     = null
 }
 
 variable "dynamic_membership_block" {
