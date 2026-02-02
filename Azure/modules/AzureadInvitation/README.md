@@ -8,7 +8,6 @@ module "azuread_invitation_<project>" {
   message_block       = {
     additional_recipients = ["aaliceberg@hashicorp.com"]
     body                  = "Hello there! You are invited to join my Azure tenant!"
-    language              = "en-US"
   }
   user_email_address = "jdoe@hashicorp.com"
   redirect_url       = "https://portal.azure.com"
