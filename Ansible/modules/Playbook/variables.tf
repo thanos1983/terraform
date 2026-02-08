@@ -114,6 +114,12 @@ variable "verbosity" {
   default     = 0
 }
 
+variable "ignore_changes" {
+  description = "Specifies resource attributes that Terraform should ignore when planning updates to the associated remote object."
+  type        = list(string)
+  default     = null
+}
+
 variable "timeouts_block" {
   description = "Timeouts block."
   type = object({
