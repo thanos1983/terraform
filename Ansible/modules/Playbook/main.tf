@@ -17,10 +17,6 @@ resource "ansible_playbook" "playbook" {
   vault_password_file     = var.vault_password_file
   verbosity               = var.verbosity
 
-  lifecycle {
-    ignore_changes = var.ignore_changes
-  }
-
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
     content {
