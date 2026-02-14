@@ -62,7 +62,7 @@ variable "elastic_pool_id" {
 variable "enclave_type" {
   description = "Specifies the type of enclave to be used by the elastic pool."
   type        = string
-  default     = null
+  default     = "Default"
 }
 
 variable "geo_backup_enabled" {
