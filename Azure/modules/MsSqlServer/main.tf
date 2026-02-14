@@ -55,7 +55,7 @@ module "kv_access_policy" {
   secret_permissions = var.secret_permissions
   object_id          = data.azurerm_client_config.mssql_server.object_id
   application_id     = data.azurerm_client_config.mssql_server.client_id
-  tenant_id          = azurerm_mssql_server.mssql_server.identity.tenant_id
+  tenant_id          = azurerm_mssql_server.mssql_server.identity[0].tenant_id
 }
 
 # Create RBAC permissions for KV based on name(s)
@@ -65,7 +65,7 @@ module "kv_role_assignment_names" {
   name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
   role_definition_name = var.role_definition_names[count.index]
-  principal_id         = var.principal_id == null ? azurerm_mssql_server.mssql_server.identity.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ? azurerm_mssql_server.mssql_server.identity[0].principal_id : var.principal_id
 }
 
 # Create RBAC permissions for KV based on id(s)
@@ -75,7 +75,7 @@ module "kv_role_assignment_ids" {
   name                 = var.role_assignment_name
   scope                = azurerm_mssql_server.mssql_server.id
   role_definition_name = var.role_definition_ids[count.index]
-  principal_id         = var.principal_id == null ? azurerm_mssql_server.mssql_server.identity.principal_id : var.principal_id
+  principal_id         = var.principal_id == null ? azurerm_mssql_server.mssql_server.identity[0].principal_id : var.principal_id
 }
 
 module "kv_secret_administrator_login_mssql_server" {
