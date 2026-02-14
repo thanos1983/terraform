@@ -305,21 +305,3 @@ variable "tags" {
   type        = map(any)
   default     = null
 }
-
-variable "key_vault_id" {
-  description = "The key vault ID for the vault."
-  type        = string
-  default     = null
-}
-
-variable "administrator_login" {
-  description = "The administrator login name for the SQL server."
-  type        = string
-  default     = null
-}
-
-variable "administrator_login_password" {
-  description = "The administrator login password for the SQL server."
-  type        = string
-  default     = null
-}
