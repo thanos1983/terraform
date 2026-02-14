@@ -18,7 +18,7 @@ resource "azurerm_mssql_server" "mssql_server" {
   location                     = var.location
   version                      = var.mssql_server_version
   administrator_login          = var.administrator_login
-  administrator_login_password = coalesce(var.administrator_login_password, module.password.result)
+  administrator_login_password = coalesce(var.administrator_login_password, module.password[0].result)
 
   dynamic "azuread_administrator" {
     for_each = var.azuread_administrator_block[*]
