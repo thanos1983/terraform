@@ -1,24 +1,10 @@
-module "password" {
-  source      = "../../../TerraformSharedModules/modules/RandomPassword"
-  count       = (var.administrator_login_password == null && var.disable_password_authentication == false) ? 1 : 0
-  length      = var.length
-  lower       = var.lower
-  min_lower   = var.min_lower
-  min_numeric = var.min_numeric
-  min_special = var.min_special
-  min_upper   = var.min_upper
-  numeric     = var.numeric
-  special     = var.special
-  upper       = var.upper
-}
-
 resource "azurerm_mssql_server" "mssql_server" {
   name                         = var.name
   resource_group_name          = var.resource_group_name
   location                     = var.location
   version                      = var.mssql_server_version
   administrator_login          = var.administrator_login
-  administrator_login_password = coalesce(var.administrator_login_password, module.password[0].result)
+  administrator_login_password = var.administrator_login_password
 
   dynamic "azuread_administrator" {
     for_each = var.azuread_administrator_block[*]
