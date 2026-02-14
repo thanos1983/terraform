@@ -82,8 +82,8 @@ module "kv_secret_administrator_login_password_mssql_server" {
   count        = length(concat(var.secret_permissions, var.role_definition_names, var.role_definition_ids)) == 0 ? 0 : 1
   tags         = var.tags
   key_vault_id = var.key_vault_id
-  name         = "mssql-administrator-login-password"
   value        = var.administrator_login_password
+  name         = "mssql-administrator-login-password"
   depends_on = [
     azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
     module.kv_access_policy
