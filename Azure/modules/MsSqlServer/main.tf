@@ -21,8 +21,12 @@ resource "azurerm_mssql_server" "mssql_server" {
   connection_policy                        = var.connection_policy
   express_vulnerability_assessment_enabled = var.express_vulnerability_assessment_enabled
 
-  identity {
-    type = var.identity_type
+  dynamic "identity" {
+    for_each = var.identity_block[*]
+    content {
+      type         = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
   }
 
   transparent_data_encryption_key_vault_key_id = var.transparent_data_encryption_key_vault_key_id

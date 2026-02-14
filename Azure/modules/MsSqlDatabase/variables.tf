@@ -59,6 +59,12 @@ variable "elastic_pool_id" {
   default     = null
 }
 
+variable "enclave_type" {
+  description = "Specifies the type of enclave to be used by the elastic pool."
+  type        = string
+  default     = null
+}
+
 variable "geo_backup_enabled" {
   description = "A boolean that specifies if the Geo Backup Policy is enabled."
   type        = bool
@@ -115,10 +121,11 @@ variable "license_type" {
 variable "long_term_retention_policy_block" {
   description = "A long_term_retention_policy block."
   type = object({
-    weekly_retention  = optional(string)
-    monthly_retention = optional(string)
-    yearly_retention  = optional(string)
-    week_of_year      = optional(string)
+    weekly_retention          = optional(string)
+    monthly_retention         = optional(string)
+    yearly_retention          = optional(string)
+    week_of_year              = optional(string)
+    immutable_backups_enabled = optional(bool, false)
   })
   default = null
 }
@@ -147,8 +154,20 @@ variable "recover_database_id" {
   default     = null
 }
 
+variable "recovery_point_id" {
+  description = "The ID of the Recovery Services Recovery Point Id to be restored."
+  type        = string
+  default     = null
+}
+
 variable "restore_dropped_database_id" {
   description = "The ID of the database to be restored."
+  type        = string
+  default     = null
+}
+
+variable "restore_long_term_retention_backup_id" {
+  description = "The ID of the long term retention backup to be restored."
   type        = string
   default     = null
 }
@@ -219,6 +238,17 @@ variable "threat_detection_policy_block" {
   default = null
 }
 
+variable "identity_block" {
+  description = "An identity block as defined below."
+  type = object({
+    type         = string
+    identity_ids = optional(list(string))
+  })
+  default = {
+    type = "SystemAssigned"
+  }
+}
+
 variable "transparent_data_encryption_enabled" {
   description = "If set to true, Transparent Data Encryption will be enabled on the database."
   type        = bool
@@ -227,6 +257,18 @@ variable "transparent_data_encryption_enabled" {
     error_message = "Parameter must be \"true\" or \"false\" boolean."
   }
   default = true
+}
+
+variable "transparent_data_encryption_key_vault_key_id" {
+  description = "The fully versioned Key Vault Key URL (e.g. 'https://<YourVaultName>.vault.azure.net/keys/<YourKeyName>/<YourKeyVersion>) to be used as the Customer Managed Key(CMK/BYOK) for the Transparent Data Encryption(TDE) layer."
+  type        = string
+  default     = null
+}
+
+variable "transparent_data_encryption_key_automatic_rotation_enabled" {
+  description = "Boolean flag to specify whether TDE automatically rotates the encryption Key to latest version or not."
+  type        = bool
+  default     = false
 }
 
 variable "zone_redundant" {
@@ -239,6 +281,16 @@ variable "zone_redundant" {
   default = false
 }
 
+variable "secondary_type" {
+  description = "How do you want your replica to be made? Valid values include Geo, Named and Standby."
+  type        = string
+  validation {
+    condition     = contains(["Copy", "Default", "Geo"], title(var.secondary_type))
+    error_message = "How do you want your replica to be made? Valid values include \"Named\", \"Standby\", or \"Geo\"."
+  }
+  default = "Geo"
+}
+
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({
@@ -248,12 +300,6 @@ variable "timeouts_block" {
     delete = optional(number, 60)
   })
   default = null
-}
-
-variable "access_policy_kv" {
-  description = "Create access policy for MSSQL DB if the user desires."
-  type        = bool
-  default     = true
 }
 
 variable "tags" {
