@@ -191,7 +191,7 @@ variable "firewallRulesMap" {
     start_ip_address = string
     end_ip_address   = string
   }))
-  default = null
+  default = {}
 }
 
 variable "key_vault_id" {
