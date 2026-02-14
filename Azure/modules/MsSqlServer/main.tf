@@ -14,7 +14,7 @@ module "password" {
 
 resource "azurerm_mssql_server" "mssql_server" {
   name                         = var.name
-  resource_group_name          = var.resource_group
+  resource_group_name          = var.resource_group_name
   location                     = var.location
   version                      = var.mssql_server_version
   administrator_login          = var.administrator_login
