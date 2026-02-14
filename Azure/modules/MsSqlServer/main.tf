@@ -83,7 +83,7 @@ module "kv_secret_administrator_login_password_mssql_server" {
   tags         = var.tags
   key_vault_id = var.key_vault_id
   name         = "mssql-administrator-login-password"
-  value        = coalesce(var.administrator_login_password, module.password[0].result)
+  value        = var.administrator_login_password
   depends_on = [
     azurerm_mssql_server.mssql_server, module.kv_role_assignment_ids, module.kv_role_assignment_names,
     module.kv_access_policy
