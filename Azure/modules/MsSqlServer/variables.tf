@@ -3,76 +3,6 @@ variable "name" {
   type        = string
 }
 
-variable "length" {
-  description = "The length of the string desired. The minimum value for length is 1."
-  type        = number
-  default     = 25
-}
-
-variable "lower" {
-  description = "Include lowercase alphabet characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.lower)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "min_lower" {
-  description = "Minimum number of lowercase alphabet characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_numeric" {
-  description = "Minimum number of numeric characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_special" {
-  description = "Minimum number of special characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_upper" {
-  description = "Minimum number of uppercase alphabet characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "numeric" {
-  description = "Include numeric characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.numeric)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "special" {
-  description = "Include special characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.special)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
-variable "upper" {
-  description = "Include uppercase alphabet characters in the result."
-  type        = bool
-  validation {
-    condition     = contains(["true", "false"], lower(tostring(var.upper)))
-    error_message = "The variable must be \"true\" or \"false\" boolean."
-  }
-  default = true
-}
-
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the Key Vault."
   type        = string
@@ -105,6 +35,18 @@ variable "administrator_login_password" {
   default     = null
 }
 
+variable "administrator_login_password_wo" {
+  description = "The Password associated with the administrator_login user."
+  type        = string
+  default     = null
+}
+
+variable "administrator_login_password_wo_version" {
+  description = "An integer value used to trigger an update for administrator_login_password_wo."
+  type        = number
+  default     = null
+}
+
 variable "azuread_administrator_block" {
   description = "An azuread_administrator block."
   type = object({
@@ -126,6 +68,12 @@ variable "connection_policy" {
   default = "Default"
 }
 
+variable "express_vulnerability_assessment_enabled" {
+  description = "Whether to enable the Express Vulnerability Assessment Configuration."
+  type        = bool
+  default     = false
+}
+
 variable "identity_type" {
   description = "Identity type."
   type        = string
@@ -136,6 +84,12 @@ variable "identity_type" {
     error_message = "Identity type variable must be \"SystemAssigned\", \"UserAssigned\" or \"SystemAssigned, UserAssigned\" case sensitive."
   }
   default = "SystemAssigned"
+}
+
+variable "transparent_data_encryption_key_vault_key_id" {
+  description = "The fully versioned Key Vault Key URL (e.g. 'https://<YourVaultName>.vault.azure.net/keys/<YourKeyName>/<YourKeyVersion>) to be used as the Customer Managed Key(CMK/BYOK) for the Transparent Data Encryption(TDE) layer."
+  type        = string
+  default     = null
 }
 
 variable "minimum_tls_version" {
