@@ -244,9 +244,7 @@ variable "identity_block" {
     type         = string
     identity_ids = optional(list(string))
   })
-  default = {
-    type = "SystemAssigned"
-  }
+  default = null
 }
 
 variable "transparent_data_encryption_enabled" {
