@@ -283,10 +283,10 @@ variable "secondary_type" {
   description = "How do you want your replica to be made? Valid values include Geo, Named and Standby."
   type        = string
   validation {
-    condition     = contains(["Copy", "Default", "Geo"], title(var.secondary_type))
+    condition     = contains(["Geo", "Named", "Standby"], title(var.secondary_type))
     error_message = "How do you want your replica to be made? Valid values include \"Named\", \"Standby\", or \"Geo\"."
   }
-  default = "Default"
+  default = "Standby"
 }
 
 variable "timeouts_block" {
