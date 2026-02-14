@@ -1,4 +1,4 @@
-# Azure Key Vault
+# Manages a Microsoft SQL Azure Database Server
 
 ## Sample of use:
 

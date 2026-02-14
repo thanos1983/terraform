@@ -223,3 +223,9 @@ variable "principal_id" {
   type        = string
   default     = null
 }
+
+variable "disable_password_authentication" {
+  description = "Disable password authentication."
+  type        = bool
+  default     = false
+}
