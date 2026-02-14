@@ -286,7 +286,7 @@ variable "secondary_type" {
     condition     = contains(["Copy", "Default", "Geo"], title(var.secondary_type))
     error_message = "How do you want your replica to be made? Valid values include \"Named\", \"Standby\", or \"Geo\"."
   }
-  default = "Geo"
+  default = "Default"
 }
 
 variable "timeouts_block" {
