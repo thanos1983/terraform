@@ -68,7 +68,7 @@ variable "enclave_type" {
 variable "geo_backup_enabled" {
   description = "A boolean that specifies if the Geo Backup Policy is enabled."
   type        = bool
-  default     = false
+  default     = null
 }
 
 variable "maintenance_configuration_name" {
