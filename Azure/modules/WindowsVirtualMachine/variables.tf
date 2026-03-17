@@ -95,6 +95,24 @@ variable "network_interface_ids" {
   type        = list(string)
 }
 
+variable "os_disk_block" {
+  description = "A os_disk block supports the following."
+  type = object({
+    caching              = string
+    storage_account_type = string
+    diff_disk_settings_block = optional(object({
+      option    = string
+      placement = optional(string, "CacheDisk")
+    }), null)
+    disk_encryption_set_id           = optional(string)
+    disk_size_gb                     = optional(number)
+    name                             = optional(string)
+    secure_vm_disk_encryption_set_id = optional(string)
+    security_encryption_type         = optional(string)
+    write_accelerator_enabled        = optional(string)
+  })
+}
+
 variable "caching" {
   description = "The Type of Caching which should be used for the Internal OS Disk."
   type        = string

@@ -1,5 +1,5 @@
 module "password" {
-  source      = "../../../TerraformSharedModules/modules/RandomPassword"
+  source      = "../RandomPassword"
   count       = var.admin_password == null ? 1 : 0
   length      = var.length
   lower       = var.lower
@@ -19,23 +19,25 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   name                  = var.name
   network_interface_ids = var.network_interface_ids
 
-  os_disk {
-    caching              = var.caching
-    storage_account_type = var.storage_account_type
-    dynamic "diff_disk_settings" {
-      for_each = var.diff_disk_settings_block[*]
-      content {
-        option    = diff_disk_settings.value.option
-        placement = diff_disk_settings.value.placement
+  dynamic "os_disk" {
+    for_each = var.os_disk_block[*]
+    content {
+      caching              = var.caching
+      storage_account_type = var.storage_account_type
+      dynamic "diff_disk_settings" {
+        for_each = var.diff_disk_settings_block[*]
+        content {
+          option    = diff_disk_settings.value.option
+          placement = diff_disk_settings.value.placement
+        }
       }
+      disk_encryption_set_id           = var.disk_encryption_set_id
+      disk_size_gb                     = var.disk_size_gb
+      name                             = var.disk_name
+      secure_vm_disk_encryption_set_id = var.secure_vm_disk_encryption_set_id
+      security_encryption_type         = var.security_encryption_type
+      write_accelerator_enabled        = var.write_accelerator_enabled
     }
-
-    disk_encryption_set_id           = var.disk_encryption_set_id
-    disk_size_gb                     = var.disk_size_gb
-    name                             = var.disk_name
-    secure_vm_disk_encryption_set_id = var.secure_vm_disk_encryption_set_id
-    security_encryption_type         = var.security_encryption_type
-    write_accelerator_enabled        = var.write_accelerator_enabled
   }
 
   resource_group_name = var.resource_group_name
