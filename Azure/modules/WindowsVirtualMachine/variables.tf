@@ -365,7 +365,7 @@ variable "patch_assessment_mode" {
     ], title(var.patch_assessment_mode))
     error_message = "Possible values can only be \"AutomaticByPlatform\" or \"ImageDefault\"."
   }
-  default = "ImageDefault"
+  default = "AutomaticByPlatform"
 }
 
 variable "patch_mode" {
