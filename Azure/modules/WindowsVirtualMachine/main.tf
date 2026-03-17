@@ -74,7 +74,6 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   dedicated_host_id             = var.dedicated_host_id
   dedicated_host_group_id       = var.dedicated_host_group_id
   edge_zone                     = var.edge_zone
-  enable_automatic_updates      = var.enable_automatic_updates
   encryption_at_host_enabled    = var.encryption_at_host_enabled
   eviction_policy               = var.eviction_policy
   extensions_time_budget        = var.extensions_time_budget

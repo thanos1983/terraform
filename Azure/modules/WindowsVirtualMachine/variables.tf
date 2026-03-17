@@ -286,18 +286,6 @@ variable "edge_zone" {
   default     = null
 }
 
-variable "enable_automatic_updates" {
-  description = "Specifies if Automatic Updates are Enabled for the Windows Virtual Machine."
-  type        = bool
-  validation {
-    condition = contains([
-      "true", "false"
-    ], lower(tostring(var.enable_automatic_updates)))
-    error_message = "Possible values can only be \"true\" or \"false\"."
-  }
-  default = true
-}
-
 variable "encryption_at_host_enabled" {
   description = "Should all of the disks (including the temp disk) attached to this Virtual Machine be encrypted by enabling Encryption at Host?"
   type        = string
