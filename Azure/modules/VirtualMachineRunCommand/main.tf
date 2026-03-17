@@ -10,7 +10,7 @@ resource "azurerm_virtual_machine_run_command" "virtual_machine_run_command" {
       script     = source.value.script
       script_uri = source.value.script_uri
       dynamic "script_uri_managed_identity" {
-        for_each = source.value.script_uri_managed_identity
+        for_each = source.value.script_uri_managed_identity_block[*]
         content {
           client_id = script_uri_managed_identity.value.client_id
           object_id = script_uri_managed_identity.value.object_id

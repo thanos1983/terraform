@@ -19,10 +19,10 @@ variable "source_block" {
     command_id = optional(string)
     script     = optional(string)
     script_uri = optional(string)
-    script_uri_managed_identity = optional(object({
+    script_uri_managed_identity_block = optional(object({
       client_id = optional(string)
       object_id = optional(string)
-    }))
+    }), null)
   })
 }
 
