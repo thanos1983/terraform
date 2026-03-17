@@ -589,7 +589,7 @@ variable "aaDLoginForWindows" {
     ], lower(tostring(var.aaDLoginForWindows)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
-  default = true
+  default = false
 }
 
 variable "aaDLoginForWindows_name" {
