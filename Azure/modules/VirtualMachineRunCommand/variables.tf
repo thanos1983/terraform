@@ -35,6 +35,12 @@ variable "error_blob_managed_identity_block" {
   default = null
 }
 
+variable "error_blob_uri" {
+  description = "Specifies the Azure storage blob where script error stream will be uploaded."
+  type        = string
+  default     = null
+}
+
 variable "output_blob_managed_identity_block" {
   description = "An output_blob_managed_identity block as defined below."
   type = object({

@@ -27,6 +27,8 @@ resource "azurerm_virtual_machine_run_command" "virtual_machine_run_command" {
     }
   }
 
+  error_blob_uri = var.error_blob_uri
+
   dynamic "output_blob_managed_identity" {
     for_each = var.output_blob_managed_identity_block[*]
     content {
