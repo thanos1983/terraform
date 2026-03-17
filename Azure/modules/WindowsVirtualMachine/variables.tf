@@ -259,6 +259,7 @@ variable "capacity_reservation_group_id" {
 variable "computer_name" {
   description = "Specifies the Hostname which should be used for this Virtual Machine."
   type        = string
+  default     = null
 }
 
 variable "custom_data" {
