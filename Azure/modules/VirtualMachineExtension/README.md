@@ -4,8 +4,8 @@
 
 ```bash
 module "virtual_machine_extension_<project>" {
-  source  = "git::https://example.com/azure_<my_repo>.git"
-  name = "my_virtual_machine_extension"
+  source = "git::https://example.com/azure_<my_repo>.git"
+  name   = "my_virtual_machine_extension"
   .
   .
   .
