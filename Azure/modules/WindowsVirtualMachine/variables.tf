@@ -447,7 +447,7 @@ variable "secure_boot_enabled" {
     ], lower(tostring(var.secure_boot_enabled)))
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
-  default = true
+  default = false
 }
 
 variable "source_image_id" {
