@@ -1,17 +1,3 @@
-module "password" {
-  source      = "../../../TerraformSharedModules/modules/RandomPassword"
-  count       = (var.admin_password == null && var.disable_password_authentication == false) ? 1 : 0
-  length      = var.length
-  lower       = var.lower
-  min_lower   = var.min_lower
-  min_numeric = var.min_numeric
-  min_special = var.min_special
-  min_upper   = var.min_upper
-  numeric     = var.numeric
-  special     = var.special
-  upper       = var.upper
-}
-
 resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   admin_username        = var.admin_username
   location              = var.location
@@ -50,7 +36,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  admin_password = (var.admin_password == null && var.disable_password_authentication == false) ? module.password[0].result : var.admin_password
+  admin_password = var.admin_password
 
   dynamic "admin_ssh_key" {
     for_each = var.admin_ssh_key_blocks
@@ -174,72 +160,4 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
       delete = timeouts.value.delete
     }
   }
-}
-
-module "addSSHLoginForLinux" {
-  source                     = "../VirtualMachineExtension"
-  count                      = var.aaDSSHLoginForLinux == false ? 0 : 1
-  name                       = var.aaDSSHLoginForLinux_name
-  publisher                  = var.aaDSSHLoginForLinux_publisher
-  type                       = var.aaDSSHLoginForLinux_type
-  auto_upgrade_minor_version = var.auto_upgrade_minor_version
-  type_handler_version       = var.type_handler_version
-  virtual_machine_id         = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  depends_on = [
-    azurerm_linux_virtual_machine.linux_virtual_machine
-  ]
-}
-
-module "kv_access_policy" {
-  source             = "../KeyVaultAccessPolicy"
-  count              = var.secret_permissions == [] ? 0 : length(var.secret_permissions)
-  key_vault_id       = var.key_vault_id
-  secret_permissions = var.secret_permissions
-  object_id          = data.azurerm_client_config.cognitive_account.object_id
-  tenant_id          = data.azurerm_client_config.cognitive_account.tenant_id
-  application_id     = data.azurerm_client_config.cognitive_account.object_id
-}
-
-# Create RBAC permissions for KV based on name(s)
-module "kv_role_assignment_names" {
-  source               = "../RoleAssignment"
-  count                = var.role_definition_names == [] ? 0 : length(var.role_definition_names)
-  name                 = var.role_assignment_name
-  role_definition_name = var.role_definition_names[count.index]
-  scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
-}
-
-# Create RBAC permissions for KV based on id(s)
-module "kv_role_assignment_ids" {
-  source               = "../RoleAssignment"
-  count                = var.role_definition_ids == [] ? 0 : length(var.role_definition_ids)
-  name                 = var.role_assignment_name
-  role_definition_name = var.role_definition_ids[count.index]
-  scope                = azurerm_linux_virtual_machine.linux_virtual_machine.id
-  principal_id         = var.principal_id == null ? azurerm_linux_virtual_machine.linux_virtual_machine.identity.0.principal_id : var.principal_id
-}
-
-module "kv_secret_admin_username" {
-  source       = "../KeyVaultSecret"
-  count        = length(concat(var.secret_permissions, var.role_definition_names, var.role_definition_ids)) == 0 ? 0 : 1
-  tags         = var.tags
-  key_vault_id = var.key_vault_id
-  name         = "linux-${var.name}-vm-adm-username"
-  value        = var.administrator_username
-  depends_on = [
-    module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
-  ]
-}
-
-module "kv_secret_admin_password" {
-  source       = "../KeyVaultSecret"
-  count        = length(concat(var.secret_permissions, var.role_definition_names, var.role_definition_ids)) == 0 ? 0 : 1
-  tags         = var.tags
-  key_vault_id = var.key_vault_id
-  name         = "linux-${var.name}-vm-adm-password"
-  value        = coalesce(var.admin_password, module.password[0].result)
-  depends_on = [
-    module.kv_access_policy, module.kv_role_assignment_ids, module.kv_role_assignment_names
-  ]
 }
