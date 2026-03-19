@@ -10,12 +10,6 @@ variable "admin_username" {
   default     = "adminuser"
 }
 
-variable "length" {
-  description = "The length of the string desired. The minimum value for length is 1."
-  type        = number
-  default     = 25
-}
-
 variable "lower" {
   description = "Include lowercase alphabet characters in the result."
   type        = bool
@@ -24,30 +18,6 @@ variable "lower" {
     error_message = "The variable must be \"true\" or \"false\" boolean."
   }
   default = true
-}
-
-variable "min_lower" {
-  description = "Minimum number of lowercase alphabet characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_numeric" {
-  description = "Minimum number of numeric characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_special" {
-  description = "Minimum number of special characters in the result."
-  type        = number
-  default     = 2
-}
-
-variable "min_upper" {
-  description = "Minimum number of uppercase alphabet characters in the result."
-  type        = number
-  default     = 2
 }
 
 variable "numeric" {
@@ -620,30 +590,6 @@ variable "auto_upgrade_minor_version" {
     error_message = "Possible values can only be \"true\" or \"false\"."
   }
   default = true
-}
-
-variable "type_handler_version" {
-  description = "Specifies the version of the extension to use, available versions can be found using the Azure CLI."
-  type        = string
-  default     = "1.0"
-}
-
-variable "role_assignment_name" {
-  description = "A unique UUID/GUID for this Role Assignment - one will be generated if not specified."
-  type        = string
-  default     = null
-}
-
-variable "role_definition_ids" {
-  description = "The Scoped-ID(s) of the Role Definition."
-  type        = list(string)
-  default     = []
-}
-
-variable "role_definition_names" {
-  description = "Specifies the role the user will get with the secret(s) in the vault."
-  type        = list(string)
-  default     = []
 }
 
 variable "principal_id" {
