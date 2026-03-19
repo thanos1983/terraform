@@ -76,21 +76,20 @@ variable "quarantine_policy_enabled" {
   default = false
 }
 
-variable "retention_policy_block" {
-  description = "Retention policy block supports the following."
-  type = object({
-    days    = optional(string, 7)
-    enabled = optional(bool, true)
-  })
-  default = null
+variable "retention_policy_in_days" {
+  description = "The number of days to retain and untagged manifest after which it gets purged."
+  type        = number
+  default     = null
 }
 
-variable "trust_policy_block" {
+variable "trust_policy_enabled" {
   description = "Trust policy block supports the following."
-  type = object({
-    enabled = optional(bool, true)
-  })
-  default = null
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.trust_policy_enabled)))
+    error_message = "Possible values are 'true' and 'false'."
+  }
+  default = false
 }
 
 variable "zone_redundancy_enabled" {
@@ -127,7 +126,6 @@ variable "identity_block" {
 variable "encryption_block" {
   description = "Encryption block supports the following."
   type = object({
-    enabled            = optional(bool)
     key_vault_key_id   = string
     identity_client_id = string
   })

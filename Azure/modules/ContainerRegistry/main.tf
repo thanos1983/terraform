@@ -30,24 +30,11 @@ resource "azurerm_container_registry" "container_registry" {
   }
 
   public_network_access_enabled = var.public_network_access_enabled
-
-  dynamic "retention_policy" {
-    for_each = var.retention_policy_block[*]
-    content {
-      days    = retention_policy.value.days
-      enabled = retention_policy.value.enabled
-    }
-  }
-
-  dynamic "trust_policy" {
-    for_each = var.trust_policy_block[*]
-    content {
-      enabled = trust_policy.value.enabled
-    }
-  }
-
-  zone_redundancy_enabled = var.zone_redundancy_enabled
-  export_policy_enabled   = var.export_policy_enabled
+  quarantine_policy_enabled     = var.quarantine_policy_enabled
+  retention_policy_in_days      = var.retention_policy_in_days
+  trust_policy_enabled          = var.trust_policy_enabled
+  zone_redundancy_enabled       = var.zone_redundancy_enabled
+  export_policy_enabled         = var.export_policy_enabled
 
   dynamic "identity" {
     for_each = var.identity_block[*]
@@ -60,7 +47,6 @@ resource "azurerm_container_registry" "container_registry" {
   dynamic "encryption" {
     for_each = var.encryption_block[*]
     content {
-      enabled            = encryption.value.enabled
       key_vault_key_id   = encryption.value.key_vault_key_id
       identity_client_id = encryption.value.identity_client_id
     }
