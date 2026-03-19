@@ -167,6 +167,7 @@ variable "network_rule_bypass_option" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)
+  default     = null
 }
 
 variable "timeouts_block" {
