@@ -1,19 +1,5 @@
-module "password" {
-  source      = "../RandomPassword"
-  count       = var.admin_password == null ? 1 : 0
-  length      = var.length
-  lower       = var.lower
-  min_lower   = var.min_lower
-  min_numeric = var.min_numeric
-  min_special = var.min_special
-  min_upper   = var.min_upper
-  numeric     = var.numeric
-  special     = var.special
-  upper       = var.upper
-}
-
 resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
-  admin_password        = var.admin_password == null ? module.password[0].result : var.admin_password
+  admin_password        = var.admin_password
   admin_username        = var.admin_username
   location              = var.location
   name                  = var.name
