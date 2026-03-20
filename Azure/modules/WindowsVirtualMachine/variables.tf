@@ -171,7 +171,8 @@ variable "size" {
 variable "additional_capabilities_block" {
   description = "A additional_capabilities block."
   type = object({
-    ultra_ssd_enabled = optional(bool)
+    ultra_ssd_enabled   = optional(bool)
+    hibernation_enabled = optional(bool)
   })
   default = null
 }

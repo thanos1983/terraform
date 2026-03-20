@@ -32,7 +32,8 @@ resource "azurerm_windows_virtual_machine" "windows_virtual_machine" {
   dynamic "additional_capabilities" {
     for_each = var.additional_capabilities_block[*]
     content {
-      ultra_ssd_enabled = additional_capabilities.value.ultra_ssd_enabled
+      ultra_ssd_enabled   = additional_capabilities.value.ultra_ssd_enabled
+      hibernation_enabled = additional_capabilities.value.hibernation_enabled
     }
   }
 
