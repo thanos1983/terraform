@@ -166,15 +166,6 @@ variable "resource_group_name" {
 variable "size" {
   description = "The SKU which should be used for this Virtual Machine, such as Standard_F2."
   type        = string
-  validation {
-    condition = contains([
-      "Standard_F1", "Standard_F2", "Standard_F4", "Standard_F8", "Standard_F16", "Standard_D1_v2", "Standard_D2_v2",
-      "Standard_D3_v2", "Standard_D4_v2", "Standard_D5_v2", "Standard_DS1_v2", "Standard_DS2_v2", "Standard_DS3_v2",
-      "Standard_DS4_v2", "Standard_DS5_v2"
-    ], title(var.size))
-    error_message = "SKU size values can only be \"Standard_F1\", \"Standard_F2\", \"Standard_F4\", \"Standard_F8\", \"Standard_F16\", \"Standard_D1_v2\", \"Standard_D2_v2\", \"Standard_D3_v2\", \"Standard_D4_v2\", \"Standard_D5_v2\", \"Standard_DS1_v2\", \"Standard_DS2_v2\", \"Standard_DS3_v2\", \"Standard_DS4_v2\" or \"Standard_DS5_v2\"."
-  }
-  default = "Standard_D2_v2"
 }
 
 variable "additional_capabilities_block" {
