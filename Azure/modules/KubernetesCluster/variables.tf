@@ -558,10 +558,10 @@ variable "sku_tier" {
 variable "storage_profile_block" {
   description = "A storage_profile block as defined below."
   type = object({
-    blob_driver_enabled         = optional(bool)
-    disk_driver_enabled         = optional(bool)
-    file_driver_enabled         = optional(bool)
-    snapshot_controller_enabled = optional(bool)
+    blob_driver_enabled         = optional(bool, false)
+    disk_driver_enabled         = optional(bool, true)
+    file_driver_enabled         = optional(bool, true)
+    snapshot_controller_enabled = optional(bool, true)
   })
   default = null
 }
