@@ -296,7 +296,7 @@ variable "linux_profile_block" {
   description = "A linux_profile block as defined below."
   type = object({
     admin_username = string
-    ssh_key = object({
+    ssh_key_block = object({
       key_data = string
     })
   })

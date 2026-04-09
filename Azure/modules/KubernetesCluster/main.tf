@@ -257,7 +257,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     content {
       admin_username = linux_profile.value.admin_username
       dynamic "ssh_key" {
-        for_each = linux_profile.value.ssh_key[*]
+        for_each = linux_profile.value.ssh_key_block[*]
         content {
           key_data = ssh_key.value.key_data
         }
