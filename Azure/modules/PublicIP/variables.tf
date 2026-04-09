@@ -102,10 +102,10 @@ variable "sku" {
   description = "The SKU of the Public IP."
   type        = string
   validation {
-    condition     = contains(["Basic", "Standard"], title(var.sku))
-    error_message = "Possible values can be \"Basic\" or \"Standard\"."
+    condition     = contains(["Standard", "StandardV2"], title(var.sku))
+    error_message = "Possible values can be \"Standard\" or \"StandardV2\"."
   }
-  default = "Basic"
+  default = "Standard"
 }
 
 variable "sku_tier" {
