@@ -9,10 +9,6 @@ variable "policies" {
     effect = string
     permission_groups = set(object({
       id = string
-      meta = optional(object({
-        key   = optional(string)
-        value = optional(string)
-      }))
     }))
     resources = string
   }))

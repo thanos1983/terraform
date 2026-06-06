@@ -3,6 +3,11 @@ output "activated_on" {
   value       = cloudflare_zone.zone.activated_on
 }
 
+output "cname_suffix" {
+  description = "Allows the customer to use a custom apex."
+  value       = cloudflare_zone.zone.cname_suffix
+}
+
 output "created_on" {
   description = "When the zone was created."
   value       = cloudflare_zone.zone.created_on
@@ -53,14 +58,19 @@ output "owner" {
   value       = cloudflare_zone.zone.owner
 }
 
-output "paused" {
-  description = "Indicates whether the zone is only using Cloudflare DNS services."
-  value       = cloudflare_zone.zone.paused
-}
-
 output "status" {
   description = "Status of the zone."
   value       = cloudflare_zone.zone.status
+}
+
+output "tenant" {
+  description = "The root organizational unit that this zone belongs to (such as a tenant or organization)."
+  value       = cloudflare_zone.zone.tenant
+}
+
+output "tenant_unit" {
+  description = "The immediate parent organizational unit that this zone belongs to (such as under a tenant or sub-organization)."
+  value       = cloudflare_zone.zone.tenant_unit
 }
 
 output "verification_key" {

@@ -3,23 +3,20 @@ variable "name" {
   type        = string
 }
 
-variable "type" {
-  description = "Account type."
-  type        = string
-}
-
 variable "settings" {
   description = "Account settings."
   type = object({
     abuse_contact_email = optional(string)
-    default_nameservers = optional(string)
-    cloudlfare = optional(object({
-      standard = optional(string)
-    }))
-    custom = optional(object({
-      account = optional(string)
-      tenant  = optional(string)
-    }))
+    enforce_twofactor   = optional(bool)
+  })
+  default = null
+}
+
+variable "managed_by" {
+  description = "Parent container details."
+  type = object({
+    parent_org_id   = string
+    parent_org_name = string
   })
   default = null
 }

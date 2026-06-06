@@ -13,11 +13,6 @@ variable "type" {
   type        = string
 }
 
-variable "zone_id" {
-  description = "The zone identifier to target for the resource."
-  type        = string
-}
-
 variable "comment" {
   description = "Comments or notes about the DNS record."
   type        = string
@@ -79,6 +74,16 @@ variable "priority" {
   default     = null
 }
 
+variable "private_routing" {
+  description = "Enables private network routing to the origin."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.private_routing)))
+    error_message = "Parameter must be 'true' or 'false'."
+  }
+  default = false
+}
+
 variable "proxied" {
   description = "Whether the record is receiving the performance and security benefits of Cloudflare."
   type        = bool
@@ -103,4 +108,9 @@ variable "tags" {
   description = "Custom tags for the DNS record."
   type        = list(string)
   default     = []
+}
+
+variable "zone_id" {
+  description = "The zone identifier to target for the resource."
+  type        = string
 }

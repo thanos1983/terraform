@@ -10,6 +10,16 @@ variable "name" {
   type        = string
 }
 
+variable "paused" {
+  description = ""
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.proxied)))
+    error_message = "Parameter must be 'true' or 'false'."
+  }
+  default = false
+}
+
 variable "type" {
   description = "A full zone implies that DNS is hosted with Cloudflare."
   type        = bool
