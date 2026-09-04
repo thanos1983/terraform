@@ -23,7 +23,7 @@ variable "homepage_url" {
 
 variable "implicit_access_token_issuance_enabled" {
   description = "Whether this web application can request an access token using OAuth implicit flow."
-  type        = string
+  type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.implicit_access_token_issuance_enabled)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
@@ -33,7 +33,7 @@ variable "implicit_access_token_issuance_enabled" {
 
 variable "implicit_id_token_issuance_enabled" {
   description = "Whether this web application can request an ID token using OAuth implicit flow."
-  type        = string
+  type        = bool
   validation {
     condition     = contains(["true", "false"], lower(tostring(var.implicit_id_token_issuance_enabled)))
     error_message = "Possible values can be \"true\" or \"false\" boolean."
