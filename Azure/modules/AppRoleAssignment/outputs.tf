@@ -1,24 +1,14 @@
-output "client_id" {
-  description = "The Client ID for the application."
-  value       = azuread_application_registration.application_registration.client_id
+output "principal_display_name" {
+  description = "The display name of the principal to which the app role is assigned."
+  value       = azuread_app_role_assignment.app_role_assignment.principal_display_name
 }
 
-output "disabled_by_microsoft" {
-  description = "Whether Microsoft has disabled the registered application. If the application is disabled, this will be a string indicating the status/reason, e.g. DisabledDueToViolationOfServicesAgreement"
-  value       = azuread_application_registration.application_registration.disabled_by_microsoft
+output "principal_type" {
+  description = "The object type of the principal to which the app role is assigned."
+  value       = azuread_app_role_assignment.app_role_assignment.principal_type
 }
 
-output "id" {
-  description = "The Terraform resource ID for the application, for use when referencing this resource in your Terraform configuration."
-  value       = azuread_application_registration.application_registration.id
-}
-
-output "object_id" {
-  description = "The application's object ID."
-  value       = azuread_application_registration.application_registration.object_id
-}
-
-output "publisher_domain" {
-  description = "The verified publisher domain for the application."
-  value       = azuread_application_registration.application_registration.publisher_domain
+output "resource_display_name" {
+  description = "The display name of the application representing the resource."
+  value       = azuread_app_role_assignment.app_role_assignment.resource_display_name
 }
