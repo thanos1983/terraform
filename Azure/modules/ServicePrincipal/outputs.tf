@@ -1,5 +1,5 @@
 output "id" {
-  description = "The ID where the associated application is registered.."
+  description = "The ID where the associated application is registered."
   value       = azuread_service_principal.service_principal.id
 }
 

@@ -30,6 +30,16 @@ resource "azuread_service_principal" "service_principal" {
 
   use_existing = var.use_existing
   tags         = var.tags
+
+  dynamic "timeouts" {
+    for_each = var.timeouts_block[*]
+    content {
+      create = timeouts.value.create
+      read   = timeouts.value.read
+      update = timeouts.value.update
+      delete = timeouts.value.delete
+    }
+  }
 }
 
 module "application_password" {

@@ -42,7 +42,7 @@ module "service_principal_<project>" {
 - confidential_vm_enabled - (Optional)
 - accelerated_network_support_enabled - (Optional)
 - hibernation_enabled - (Optional)
-- tags - (Optional) 
+- tags - (Optional)
 ```
 
 ### Output:
@@ -52,4 +52,4 @@ module "service_principal_<project>" {
 - name
 ```
 
-###### More information can be found on the official document [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal)
+###### More information can be found on the official document [azurerm_shared_image](https://registry.terraform.io/providers/hashicorp/Azurerm/latest/docs/resources/shared_image)
