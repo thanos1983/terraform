@@ -7,7 +7,6 @@ resource "azuread_application_owner" "application_owner" {
     content {
       create = timeouts.value.create
       read   = timeouts.value.read
-      update = timeouts.value.update
       delete = timeouts.value.delete
     }
   }

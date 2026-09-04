@@ -59,6 +59,11 @@ variable "secret_block" {
   default = null
 }
 
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  type        = map(any)
+}
+
 variable "timeouts_block" {
   description = "The timeouts block allows you to specify timeouts for certain actions"
   type = object({

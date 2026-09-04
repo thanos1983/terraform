@@ -47,11 +47,11 @@ variable "georeplications_blocks" {
 variable "network_rule_set_block" {
   description = "Network rule set block supports the following."
   type = object({
-    default_action = optional(string)
+    default_action = optional(string, "Allow")
     ip_rule_blocks = optional(list(object({
       action   = string
       ip_range = string
-    })))
+    })), [])
   })
   default = null
 }

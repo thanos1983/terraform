@@ -25,6 +25,8 @@ resource "azurerm_container_app_environment_dapr_component" "container_app_envir
     }
   }
 
+  tags = var.tags
+
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]
     content {

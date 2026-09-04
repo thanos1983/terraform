@@ -115,6 +115,16 @@ variable "soft_delete_retention_days" {
   default = 90
 }
 
+variable "contact_block" {
+  description = "Contact block."
+  type = object({
+    email = string
+    name  = optional(string)
+    phone = optional(string)
+  })
+  default = null
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(any)

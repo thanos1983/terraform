@@ -19,31 +19,41 @@ variable "capacity_reservation_group_id" {
   default     = null
 }
 
-variable "auto_scaling_enabled" {
+variable "custom_ca_trust_enabled" {
+  description = "Specifies whether to trust a Custom CA."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.custom_ca_trust_enabled)))
+    error_message = "Parameter must be \"true\" or \"false\"."
+  }
+  default = false
+}
+
+variable "enable_auto_scaling" {
   description = "Whether to enable auto-scaler."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.auto_scaling_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.enable_auto_scaling)))
     error_message = "Parameter must be \"true\" or \"false\"."
   }
   default = false
 }
 
-variable "host_encryption_enabled" {
+variable "enable_host_encryption" {
   description = "Should the nodes in this Node Pool have host encryption enabled?"
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.host_encryption_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.enable_host_encryption)))
     error_message = "Parameter must be \"true\" or \"false\"."
   }
   default = false
 }
 
-variable "node_public_ip_enabled" {
+variable "enable_node_public_ip" {
   description = "Should each node have a Public IP Address?"
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.node_public_ip_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.enable_node_public_ip)))
     error_message = "Parameter must be \"true\" or \"false\"."
   }
   default = false
@@ -143,6 +153,12 @@ variable "kubelet_disk_type" {
 variable "max_pods" {
   description = "The maximum number of pods that can run on each agent."
   type        = number
+  default     = null
+}
+
+variable "message_of_the_day" {
+  description = "A base64-encoded string which will be written to /etc/motd after decoding."
+  type        = string
   default     = null
 }
 

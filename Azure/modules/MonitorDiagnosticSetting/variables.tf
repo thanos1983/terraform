@@ -20,11 +20,15 @@ variable "eventhub_authorization_rule_id" {
   default     = null
 }
 
-variable "enabled_log_blocks" {
+variable "enabled_log_block" {
   description = "An enabled_log block supports the following."
   type = list(object({
     category       = optional(string)
     category_group = optional(string)
+    retention_policy = optional(object({
+      enabled = bool
+      days    = optional(number)
+    }))
   }))
   default = null
 }
@@ -35,10 +39,15 @@ variable "log_analytics_workspace_id" {
   default     = null
 }
 
-variable "enabled_metric_blocks" {
+variable "metric_block" {
   description = "A metric block supports the following."
   type = list(object({
     category = string
+    enabled  = optional(bool)
+    retention_policy = optional(object({
+      enabled = bool
+      days    = optional(number)
+    }))
   }))
   default = null
 }

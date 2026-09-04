@@ -13,7 +13,7 @@ resource "azurerm_route_table" "route_table" {
     }
   }
 
-  bgp_route_propagation_enabled = var.bgp_route_propagation_enabled
+  disable_bgp_route_propagation = var.disable_bgp_route_propagation
   tags                          = var.tags
 
   dynamic "timeouts" {

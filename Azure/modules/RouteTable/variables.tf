@@ -25,11 +25,11 @@ variable "route_blocks" {
   default = null
 }
 
-variable "bgp_route_propagation_enabled" {
+variable "disable_bgp_route_propagation" {
   description = "Boolean flag which controls propagation of routes learned by BGP on that route table."
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.bgp_route_propagation_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.disable_bgp_route_propagation)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
   default = true

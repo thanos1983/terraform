@@ -32,6 +32,12 @@ variable "schema_validation_enabled" {
   default     = true
 }
 
+variable "etag" {
+  description = "Resource ETag."
+  type        = string
+  default     = null
+}
+
 variable "api" {
   description = "Api configurations."
   type = object({

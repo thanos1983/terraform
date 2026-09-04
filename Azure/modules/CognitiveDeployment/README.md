@@ -31,4 +31,4 @@ module "cognitive_deployment_<project>" {
 - name
 ```
 
-###### More information can be found on the official document [azurerm_cognitive_deployment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_deployment)
+    ###### More information can be found on the official document [azurerm_cognitive_deployment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_deployment)

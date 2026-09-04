@@ -1,5 +1,5 @@
 resource "azapi_resource" "df_dataset_azure_sql_server" {
-  type      = "Microsoft.DataFactory/factories/datasets@2024-11-01-preview"
+  type      = "Microsoft.DataFactory/factories/datasets@2018-06-01"
   name      = var.name
   parent_id = var.data_factory_id
   body = jsonencode({

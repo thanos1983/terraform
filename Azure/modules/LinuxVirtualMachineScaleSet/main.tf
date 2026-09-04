@@ -1,5 +1,5 @@
 module "password" {
-  source      = "../../../TerraformSharedModules/modules/RandomPassword"
+  source      = "../RandomPassword"
   count       = (var.admin_password == null && var.disable_password_authentication == false) ? 1 : 0
   length      = var.length
   lower       = var.lower

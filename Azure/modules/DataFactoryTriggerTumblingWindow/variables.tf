@@ -30,6 +30,12 @@ variable "start_time" {
   default     = null
 }
 
+variable "time_zone" {
+  description = "The timezone of the start/end time."
+  type        = string
+  default     = null
+}
+
 variable "end_time" {
   description = "The time the Schedule Trigger will end."
   type        = string
@@ -96,6 +102,18 @@ variable "pipeline_block" {
     parameters = optional(map(string))
   })
   default = null
+}
+
+variable "pipeline_name" {
+  description = "The Data Factory Pipeline name that the trigger will act on."
+  type        = string
+  default     = null
+}
+
+variable "pipeline_parameters" {
+  description = "The pipeline parameters that the trigger will act upon."
+  type        = map(any)
+  default     = null
 }
 
 variable "annotations" {

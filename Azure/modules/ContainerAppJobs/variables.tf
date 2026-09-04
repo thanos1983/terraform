@@ -162,6 +162,12 @@ variable "ignore_casing" {
   default = false
 }
 
+variable "ignore_body_changes" {
+  description = "A list of properties that should be ignored when comparing the body with its current state."
+  type        = list(string)
+  default     = []
+}
+
 variable "ignore_missing_property" {
   description = "Whether ignore not returned properties like credentials in body to suppress plan-diff."
   type        = bool

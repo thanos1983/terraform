@@ -24,4 +24,3 @@ output "connection_string" {
   value       = azurerm_application_insights.application_insights.connection_string
   sensitive   = true
 }
-

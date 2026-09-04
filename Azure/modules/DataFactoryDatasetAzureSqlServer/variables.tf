@@ -14,6 +14,12 @@ variable "propertiesAnnotations" {
   default     = []
 }
 
+variable "propertiesDescription" {
+  description = "Dataset description."
+  type        = string
+  default     = null
+}
+
 variable "propertiesFolder" {
   description = "The folder that this Dataset is in."
   type        = string
