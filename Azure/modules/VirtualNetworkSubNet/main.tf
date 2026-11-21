@@ -18,11 +18,33 @@ resource "azurerm_subnet" "subnet" {
     }
   }
 
-  default_outbound_access_enabled               = var.default_outbound_access_enabled
+  default_outbound_access_enabled = var.default_outbound_access_enabled
+
+  dynamic "ip_address_pool" {
+    for_each = var.ip_address_pool_block[*]
+    content {
+      id                     = ip_address_pool.value.id
+      number_of_ip_addresses = ip_address_pool.value.number_of_ip_addresses
+    }
+  }
+
   private_endpoint_network_policies             = var.private_endpoint_network_policies
   private_link_service_network_policies_enabled = var.private_link_service_network_policies_enabled
-  service_endpoints                             = var.service_endpoints
-  service_endpoint_policy_ids                   = var.service_endpoint_policy_ids
+  sharing_scope                                 = var.sharing_scope
+
+  dynamic "service_endpoint" {
+    for_each = var.service_endpoint_block
+    content {
+      service            = service_endpoint.value.service
+      network_identifier = service_endpoint.value.network_identifier
+    }
+  }
+
+  service_endpoint_policy_ids          = var.service_endpoint_policy_ids
+  network_security_group_id_wo         = var.network_security_group_id_wo
+  network_security_group_id_wo_version = var.network_security_group_id_wo_version
+  route_table_id_wo                    = var.route_table_id_wo
+  route_table_id_wo_version            = var.route_table_id_wo_version
 
   dynamic "timeouts" {
     for_each = var.timeouts_block[*]

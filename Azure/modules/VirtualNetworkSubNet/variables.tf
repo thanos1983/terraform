@@ -40,6 +40,15 @@ variable "default_outbound_access_enabled" {
   default = true
 }
 
+variable "ip_address_pool_block" {
+  description = "An ip_address_pool block supports the following."
+  type = object({
+    id                     = string
+    number_of_ip_addresses = number
+  })
+  default = null
+}
+
 variable "private_endpoint_network_policies" {
   description = "Enable or Disable network policies for the private endpoint on the subnet."
   type        = string
@@ -62,15 +71,48 @@ variable "private_link_service_network_policies_enabled" {
   default = true
 }
 
-variable "service_endpoints" {
+variable "sharing_scope" {
+  description = "The sharing scope of the subnet."
+  type        = string
+  default     = null
+}
+
+variable "service_endpoint_block" {
   description = "The list of Service endpoints to associate with the subnet."
-  type        = list(string)
-  default     = []
+  type = object({
+    service            = string
+    network_identifier = optional(string)
+  })
+  default = null
 }
 
 variable "service_endpoint_policy_ids" {
   description = "The list of IDs of Service Endpoint Policies to associate with the subnet."
   type        = list(string)
+  default     = null
+}
+
+variable "network_security_group_id_wo" {
+  description = "The ID of the Network Security Group to associate with the subnet."
+  type        = string
+  default     = null
+}
+
+variable "network_security_group_id_wo_version" {
+  description = "An integer that must be incremented whenever network_security_group_id_wo is updated."
+  type        = number
+  default     = null
+}
+
+variable "route_table_id_wo" {
+  description = "The ID of the Route Table to associate with the subnet."
+  type        = string
+  default     = null
+}
+
+variable "route_table_id_wo_version" {
+  description = "An integer that must be incremented whenever route_table_id_wo is updated."
+  type        = number
   default     = null
 }
 
