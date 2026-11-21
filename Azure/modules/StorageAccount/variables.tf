@@ -121,7 +121,7 @@ variable "public_network_access" {
   description = "Whether the public network access is enabled?"
   type        = bool
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.public_network_access_enabled)))
+    condition     = contains(["true", "false"], lower(tostring(var.public_network_access)))
     error_message = "Boolean flag must be \"true\" or \"false\"."
   }
   default = true
