@@ -45,6 +45,12 @@ variable "account_replication_type" {
   default = "LRS"
 }
 
+variable "provisioned_billing_model_version" {
+  description = "Specifies the version of the provisioned billing model (e.g. when account_kind = 'FileStorage' for Storage File)."
+  type        = string
+  default     = "V2"
+}
+
 variable "cross_tenant_replication_enabled" {
   description = "Should cross Tenant replication be enabled?"
   type        = bool
@@ -52,7 +58,7 @@ variable "cross_tenant_replication_enabled" {
     condition     = contains(["true", "false"], lower(tostring(var.cross_tenant_replication_enabled)))
     error_message = "Tenant replication must be \"true\" or \"false\"."
   }
-  default = true
+  default = false
 }
 
 variable "access_tier" {
@@ -111,7 +117,7 @@ variable "shared_access_key_enabled" {
   default = true
 }
 
-variable "public_network_access_enabled" {
+variable "public_network_access" {
   description = "Whether the public network access is enabled?"
   type        = bool
   validation {
@@ -208,48 +214,6 @@ variable "blob_properties_block" {
   default = null
 }
 
-variable "queue_properties_block" {
-  description = "Queue properties."
-  type = object({
-    cors_rule_block = optional(object({
-      allowed_headers    = set(string)
-      allowed_methods    = set(string)
-      allowed_origins    = set(string)
-      exposed_headers    = set(string)
-      max_age_in_seconds = number
-    }), null)
-    logging_block = optional(object({
-      delete                = bool
-      read                  = bool
-      version               = string
-      write                 = bool
-      retention_policy_days = optional(number)
-    }), null)
-    minute_metrics_block = optional(object({
-      enabled               = bool
-      version               = string
-      include_apis          = bool
-      retention_policy_days = optional(number)
-    }), null)
-    hour_metrics_block = optional(object({
-      enabled               = bool
-      version               = string
-      include_apis          = bool
-      retention_policy_days = optional(number)
-    }), null)
-  })
-  default = null
-}
-
-variable "static_website_block" {
-  description = "Static website(s)."
-  type = object({
-    index_document     = optional(string)
-    error_404_document = optional(string)
-  })
-  default = null
-}
-
 variable "share_properties_block" {
   description = "Share Properties."
   type = object({
@@ -287,7 +251,6 @@ variable "network_rules_block" {
     })), [])
   })
   default = null
-
 }
 
 variable "large_file_share_enabled" {
@@ -324,6 +287,16 @@ variable "azure_files_authentication_block" {
     }), null)
   })
   default = null
+}
+
+variable "smb_oauth_enabled" {
+  description = "Whether managed identities can access SMB Azure file shares using OAuth."
+  type        = bool
+  validation {
+    condition     = contains(["true", "false"], lower(tostring(var.smb_oauth_enabled)))
+    error_message = "Variable \"smb_oauth_enabled\" can be \"true\" or \"false\" boolean."
+  }
+  default = false
 }
 
 variable "routing_block" {

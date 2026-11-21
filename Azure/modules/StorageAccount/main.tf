@@ -1,21 +1,22 @@
 resource "azurerm_storage_account" "storage_account" {
-  name                             = var.name
-  resource_group_name              = var.resource_group_name
-  location                         = var.location
-  account_kind                     = var.account_kind
-  account_tier                     = var.account_tier
-  account_replication_type         = var.account_replication_type
-  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
-  access_tier                      = var.access_tier
-  edge_zone                        = var.edge_zone
-  https_traffic_only_enabled       = var.https_traffic_only_enabled
-  min_tls_version                  = var.min_tls_version
-  allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
-  shared_access_key_enabled        = var.shared_access_key_enabled
-  public_network_access_enabled    = var.public_network_access_enabled
-  default_to_oauth_authentication  = var.default_to_oauth_authentication
-  is_hns_enabled                   = var.is_hns_enabled
-  nfsv3_enabled                    = var.nfsv3_enabled
+  name                              = var.name
+  resource_group_name               = var.resource_group_name
+  location                          = var.location
+  account_kind                      = var.account_kind
+  account_tier                      = var.account_tier
+  account_replication_type          = var.account_replication_type
+  provisioned_billing_model_version = var.provisioned_billing_model_version
+  cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
+  access_tier                       = var.access_tier
+  edge_zone                         = var.edge_zone
+  https_traffic_only_enabled        = var.https_traffic_only_enabled
+  min_tls_version                   = var.min_tls_version
+  allow_nested_items_to_be_public   = var.allow_nested_items_to_be_public
+  shared_access_key_enabled         = var.shared_access_key_enabled
+  public_network_access             = var.public_network_access
+  default_to_oauth_authentication   = var.default_to_oauth_authentication
+  is_hns_enabled                    = var.is_hns_enabled
+  nfsv3_enabled                     = var.nfsv3_enabled
 
   dynamic "custom_domain" {
     for_each = var.custom_domain_block[*]
@@ -77,58 +78,6 @@ resource "azurerm_storage_account" "storage_account" {
           days = container_delete_retention_policy.value.days
         }
       }
-    }
-  }
-
-  dynamic "queue_properties" {
-    for_each = var.queue_properties_block[*]
-    content {
-      dynamic "cors_rule" {
-        for_each = queue_properties.value.cors_rule_block[*]
-        content {
-          allowed_headers    = cors_rule.value.allowed_headers
-          allowed_methods    = cors_rule.value.allowed_methods
-          allowed_origins    = cors_rule.value.allowed_origins
-          exposed_headers    = cors_rule.value.exposed_headers
-          max_age_in_seconds = cors_rule.value.max_age_in_seconds
-        }
-      }
-      dynamic "logging" {
-        for_each = queue_properties.value.logging_block[*]
-        content {
-          delete                = logging.value.delete
-          read                  = logging.value.read
-          version               = logging.value.version
-          write                 = logging.value.write
-          retention_policy_days = logging.value.retention_policy_days
-        }
-      }
-      dynamic "minute_metrics" {
-        for_each = queue_properties.value.minute_metrics_block[*]
-        content {
-          enabled               = minute_metrics.value.enabled
-          version               = minute_metrics.value.version
-          include_apis          = minute_metrics.value.include_apis
-          retention_policy_days = minute_metrics.value.retention_policy_days
-        }
-      }
-      dynamic "hour_metrics" {
-        for_each = queue_properties.value.hour_metrics_block[*]
-        content {
-          enabled               = hour_metrics.value.enabled
-          version               = hour_metrics.value.version
-          include_apis          = hour_metrics.value.include_apis
-          retention_policy_days = hour_metrics.value.retention_policy_days
-        }
-      }
-    }
-  }
-
-  dynamic "static_website" {
-    for_each = var.static_website_block[*]
-    content {
-      index_document     = static_website.value.index_document
-      error_404_document = static_website.value.error_404_document
     }
   }
 
@@ -201,6 +150,8 @@ resource "azurerm_storage_account" "storage_account" {
       }
     }
   }
+
+  smb_oauth_enabled = var.smb_oauth_enabled
 
   dynamic "routing" {
     for_each = var.routing_block[*]
