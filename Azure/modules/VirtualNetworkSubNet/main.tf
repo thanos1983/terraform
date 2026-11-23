@@ -33,7 +33,7 @@ resource "azurerm_subnet" "subnet" {
   sharing_scope                                 = var.sharing_scope
 
   dynamic "service_endpoint" {
-    for_each = var.service_endpoint_block
+    for_each = var.service_endpoint_blocks
     content {
       service            = service_endpoint.value.service
       network_identifier = service_endpoint.value.network_identifier

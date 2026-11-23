@@ -77,13 +77,13 @@ variable "sharing_scope" {
   default     = null
 }
 
-variable "service_endpoint_block" {
+variable "service_endpoint_blocks" {
   description = "The list of Service endpoints to associate with the subnet."
-  type = object({
+  type = list(object({
     service            = string
     network_identifier = optional(string)
-  })
-  default = null
+  }))
+  default = []
 }
 
 variable "service_endpoint_policy_ids" {
