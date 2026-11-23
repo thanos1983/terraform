@@ -13,11 +13,11 @@ variable "location" {
   type        = string
 }
 
-# variable "account_kind" {
-#  description = "Defines the Kind of account."
-#  type        = string
-#  default     = null
-# }
+variable "account_kind" {
+ description = "Defines the Kind of account."
+ type        = string
+ default     = null
+}
 
 variable "account_tier" {
   description = "Defines the Tier to use for this storage account."
