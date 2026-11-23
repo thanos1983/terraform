@@ -16,13 +16,7 @@ variable "location" {
 variable "account_kind" {
   description = "Defines the Kind of account."
   type        = string
-  validation {
-    condition = contains([
-      "BlobStorage", "BlockBlobStorage", "FileStorage", "Storage", "StorageV2"
-    ], title(var.account_kind))
-    error_message = "Kind of account must be \"BlobStorage\", \"BlockBlobStorage\", \"FileStorage\", \"Storage\" or \"Standard_DS2_v2\"."
-  }
-  default = "StorageV2"
+  default     = null
 }
 
 variable "account_tier" {
@@ -119,12 +113,12 @@ variable "shared_access_key_enabled" {
 
 variable "public_network_access" {
   description = "Whether the public network access is enabled?"
-  type        = bool
+  type        = string
   validation {
-    condition     = contains(["true", "false"], lower(tostring(var.public_network_access)))
-    error_message = "Boolean flag must be \"true\" or \"false\"."
+    condition     = contains(["Disabled", "Enabled"], title(var.public_network_access))
+    error_message = "Boolean flag must be \"Disabled\", \"Enabled\" or \"SecuredByPerimeter\"."
   }
-  default = true
+  default = "Enabled"
 }
 
 variable "default_to_oauth_authentication" {
