@@ -51,6 +51,12 @@ variable "domain_name_label" {
   default     = null
 }
 
+variable "domain_name_label_scope" {
+  description = "Scope for the domain name label. If a domain name label scope is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system with a hashed value includes in FQDN."
+  type        = string
+  default     = null
+}
+
 variable "edge_zone" {
   description = "Specifies the Edge Zone within the Azure Region where this Public IP should exist."
   type        = string
