@@ -17,7 +17,7 @@ variable "account_kind" {
   description = "Defines the Kind of account."
   type        = string
   validation {
-    condition     = contains(["BlockBlobStorage", "FileStorage", "StorageV2"], title(var.account_kind))
+    condition     = contains(["BlockBlobStorage", "FileStorage", "StorageV2"], var.account_kind)
     error_message = "Tier must be \"BlockBlobStorage\", \"FileStorage\" or \"StorageV2\"."
   }
   default = "StorageV2"
@@ -37,7 +37,7 @@ variable "account_replication_type" {
   description = "Defines the type of replication to use for this storage account."
   type        = string
   validation {
-    condition     = contains(["LRS", "GRS", "RAGRS", "ZRS", "GZRS", "RAGZRS"], title(var.account_replication_type))
+    condition     = contains(["LRS", "GRS", "RAGRS", "ZRS", "GZRS", "RAGZRS"], upper(var.account_replication_type))
     error_message = "Type of replication must be \"LRS\", \"GRS\", \"RAGRS\", \"ZRS\", \"GZRS\" or \"RAGZRS\"."
   }
   default = "LRS"
@@ -46,7 +46,7 @@ variable "account_replication_type" {
 variable "provisioned_billing_model_version" {
   description = "Specifies the version of the provisioned billing model (e.g. when account_kind = 'FileStorage' for Storage File)."
   type        = string
-  default     = "V2"
+  default     = null
 }
 
 variable "cross_tenant_replication_enabled" {
@@ -89,7 +89,7 @@ variable "min_tls_version" {
   description = "The minimum supported TLS version for the storage account."
   type        = string
   validation {
-    condition     = contains(["TLS1_0", "TLS1_1", "TLS1_2"], title(var.min_tls_version))
+    condition     = contains(["TLS1_0", "TLS1_1", "TLS1_2"], upper(var.min_tls_version))
     error_message = "Minimum supported TLS must be \"TLS1_0\", \"TLS1_1\" or \"TLS1_2\"."
   }
   default = "TLS1_2"
@@ -380,7 +380,7 @@ variable "dns_endpoint_type" {
   description = "Specifies which DNS endpoint type to use."
   type        = string
   validation {
-    condition     = contains(["Standard", "AzureDnsZone"], title(var.dns_endpoint_type))
+    condition     = contains(["Standard", "AzureDnsZone"], var.dns_endpoint_type)
     error_message = "Variable \"dns_endpoint_type\" can be \"Standard\" or \"AzureDnsZone\"."
   }
   default = "Standard"
